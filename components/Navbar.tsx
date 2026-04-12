@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 
@@ -9,10 +10,20 @@ export default function Navbar() {
   return (
     <nav className="bg-white shadow-md sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
+        <div className="flex justify-between items-center h-[5.5rem]">
           <div className="flex-shrink-0">
-            <Link href="/" className="text-2xl font-bold text-primary-600 hover:text-primary-700">
-              AI Innovators
+            <Link
+              href="/"
+              className="flex items-center gap-2 rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2"
+            >
+              <Image
+                src="/logo.png"
+                alt="AI Innovators"
+                width={440}
+                height={106}
+                className="h-[5.125rem] w-auto object-contain object-left sm:h-[5.5rem]"
+                priority
+              />
             </Link>
           </div>
           
