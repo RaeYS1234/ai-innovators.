@@ -1,0 +1,1230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>AI Innovators - Lesson 1: Starting a Business 101</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+  html, body {
+    height: 100%;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Nunito", system-ui, sans-serif;
+    background: linear-gradient(135deg, #e0f2fe 0%, #f0f9ff 50%, #ffffff 100%);
+    color: #0f172a;
+    overflow-x: hidden;
+  }
+  button { font-family: inherit; cursor: pointer; border: none; outline: none; }
+
+  /* ---------- App Shell ---------- */
+  .app {
+    max-width: 760px;
+    margin: 0 auto;
+    min-height: 100vh;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ---------- Top Bar ---------- */
+  .topbar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 4px 16px;
+  }
+  .close-btn {
+    background: transparent;
+    color: #94a3b8;
+    font-size: 28px;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 12px;
+    transition: background 0.15s;
+  }
+  .close-btn:hover { background: #e0f2fe; color: #0369a1; }
+  .progress-track {
+    flex: 1;
+    height: 16px;
+    background: #e0f2fe;
+    border-radius: 999px;
+    overflow: hidden;
+    position: relative;
+  }
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #38bdf8, #0ea5e9);
+    border-radius: 999px;
+    width: 0%;
+    transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+  }
+  .progress-fill::after {
+    content: "";
+    position: absolute;
+    top: 3px; left: 8px; right: 8px;
+    height: 4px;
+    background: rgba(255,255,255,0.5);
+    border-radius: 999px;
+  }
+  .hearts {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    color: #ef4444;
+    font-weight: 800;
+    font-size: 18px;
+  }
+  .heart-icon { font-size: 22px; }
+
+  /* ---------- Screens ---------- */
+  .screen {
+    flex: 1;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px 16px;
+    animation: fadeIn 0.3s ease;
+  }
+  .screen.active { display: flex; }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ---------- Mascot ---------- */
+  .mascot {
+    width: 180px;
+    height: 180px;
+    margin: 0 auto 20px;
+    position: relative;
+    animation: float 3s infinite ease-in-out;
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0) rotate(-2deg); }
+    50% { transform: translateY(-14px) rotate(2deg); }
+  }
+  .mascot.shake { animation: shake 0.5s ease; }
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-10px) rotate(-5deg); }
+    75% { transform: translateX(10px) rotate(5deg); }
+  }
+  /* Stars background sparkle */
+  .stars {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+  }
+  .star {
+    position: absolute;
+    color: #fde68a;
+    font-size: 14px;
+    animation: twinkle 2s infinite;
+  }
+  @keyframes twinkle {
+    0%, 100% { opacity: 0.3; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.3); }
+  }
+
+  /* ---------- Welcome Screen ---------- */
+  .welcome-title {
+    font-size: 38px;
+    font-weight: 900;
+    color: #0c4a6e;
+    text-align: center;
+    margin-bottom: 8px;
+    line-height: 1.2;
+  }
+  .welcome-subtitle {
+    font-size: 18px;
+    color: #475569;
+    text-align: center;
+    margin-bottom: 32px;
+    max-width: 420px;
+  }
+  .lesson-tag {
+    display: inline-block;
+    background: #38bdf8;
+    color: white;
+    padding: 6px 14px;
+    border-radius: 999px;
+    font-weight: 800;
+    font-size: 13px;
+    margin-bottom: 16px;
+    letter-spacing: 0.5px;
+    box-shadow: 0 2px 0 #0284c7;
+  }
+
+  /* ---------- Big Button ---------- */
+  .btn {
+    background: #0ea5e9;
+    color: white;
+    padding: 16px 32px;
+    border-radius: 16px;
+    font-size: 18px;
+    font-weight: 800;
+    box-shadow: 0 4px 0 #0284c7;
+    transition: transform 0.1s, box-shadow 0.1s;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    min-width: 200px;
+  }
+  .btn:hover { transform: translateY(-1px); }
+  .btn:active { transform: translateY(2px); box-shadow: 0 2px 0 #0284c7; }
+  .btn:disabled { background: #cbd5e1; box-shadow: 0 4px 0 #94a3b8; color: #64748b; cursor: not-allowed; }
+  .btn.go { background: #22c55e; box-shadow: 0 4px 0 #16a34a; }
+  .btn.go:active { box-shadow: 0 2px 0 #16a34a; }
+  .btn.danger { background: #ef4444; box-shadow: 0 4px 0 #dc2626; }
+  .btn.ghost { background: white; color: #475569; box-shadow: 0 4px 0 #e2e8f0; }
+
+  /* ---------- Question Card ---------- */
+  .question-block { width: 100%; max-width: 600px; }
+  .question-text {
+    font-size: 26px;
+    font-weight: 800;
+    color: #0c4a6e;
+    text-align: center;
+    margin-bottom: 8px;
+    line-height: 1.3;
+  }
+  .question-hint {
+    font-size: 15px;
+    color: #64748b;
+    text-align: center;
+    margin-bottom: 24px;
+  }
+
+  /* ---------- Teaching Card ---------- */
+  .teach-card {
+    background: white;
+    border: 2px solid #bae6fd;
+    border-radius: 20px;
+    padding: 28px 24px;
+    width: 100%;
+    max-width: 600px;
+    box-shadow: 0 4px 0 #bae6fd;
+    margin-bottom: 24px;
+    text-align: center;
+  }
+  .teach-emoji { font-size: 64px; margin-bottom: 8px; }
+  .teach-title {
+    font-size: 26px;
+    font-weight: 900;
+    color: #0c4a6e;
+    margin-bottom: 12px;
+  }
+  .teach-body {
+    font-size: 17px;
+    line-height: 1.5;
+    color: #1e293b;
+  }
+  .teach-body b { color: #0284c7; }
+  .teach-examples {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    margin-top: 16px;
+    flex-wrap: wrap;
+  }
+  .example-chip {
+    background: #e0f2fe;
+    color: #0369a1;
+    padding: 8px 14px;
+    border-radius: 999px;
+    font-weight: 700;
+    font-size: 14px;
+  }
+
+  /* ---------- Vocab Card (special highlighted card) ---------- */
+  .vocab-card {
+    background: linear-gradient(135deg, #ffffff 0%, #f0f9ff 100%);
+    border: 3px solid #0ea5e9;
+    border-radius: 20px;
+    padding: 28px 24px;
+    width: 100%;
+    max-width: 600px;
+    box-shadow: 0 6px 0 #0284c7;
+    margin-bottom: 24px;
+    text-align: center;
+    position: relative;
+  }
+  .vocab-badge {
+    position: absolute;
+    top: -14px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #fbbf24;
+    color: #78350f;
+    padding: 4px 16px;
+    border-radius: 999px;
+    font-weight: 900;
+    font-size: 12px;
+    letter-spacing: 1px;
+    box-shadow: 0 2px 0 #d97706;
+  }
+  .vocab-word {
+    font-size: 32px;
+    font-weight: 900;
+    color: #0c4a6e;
+    margin-top: 8px;
+  }
+  .vocab-pronounce {
+    font-size: 16px;
+    color: #0284c7;
+    font-style: italic;
+    font-weight: 700;
+    margin-bottom: 16px;
+  }
+  .vocab-definition {
+    background: #fef3c7;
+    border-left: 4px solid #fbbf24;
+    border-radius: 8px;
+    padding: 14px 16px;
+    text-align: left;
+    font-size: 17px;
+    line-height: 1.5;
+    color: #78350f;
+    margin-bottom: 16px;
+  }
+  .vocab-definition b { color: #0c4a6e; }
+  .vocab-example {
+    background: #ecfdf5;
+    border-radius: 8px;
+    padding: 12px 14px;
+    text-align: left;
+    font-size: 15px;
+    color: #065f46;
+    line-height: 1.5;
+  }
+  .vocab-example b { color: #047857; }
+
+  /* ---------- Multiple Choice Options ---------- */
+  .options { display: flex; flex-direction: column; gap: 12px; width: 100%; }
+  .option {
+    background: white;
+    border: 2px solid #e0f2fe;
+    border-bottom-width: 4px;
+    border-radius: 14px;
+    padding: 16px 20px;
+    font-size: 17px;
+    font-weight: 700;
+    color: #1e293b;
+    text-align: left;
+    cursor: pointer;
+    transition: all 0.15s;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .option:hover { background: #f0f9ff; border-color: #bae6fd; }
+  .option.selected { border-color: #0ea5e9; background: #e0f2fe; color: #0369a1; }
+  .option.correct { border-color: #22c55e; background: #dcfce7; color: #15803d; }
+  .option.wrong { border-color: #ef4444; background: #fee2e2; color: #b91c1c; }
+  .option.disabled { cursor: not-allowed; }
+  .option-letter {
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+    background: #e0f2fe;
+    color: #0284c7;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 14px;
+    flex-shrink: 0;
+  }
+  .option.selected .option-letter { background: #0ea5e9; color: white; }
+  .option.correct .option-letter { background: #22c55e; color: white; }
+  .option.wrong .option-letter { background: #ef4444; color: white; }
+
+  /* ---------- Image options (emoji-based) ---------- */
+  .options-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    width: 100%;
+  }
+  .option-card {
+    background: white;
+    border: 2px solid #e0f2fe;
+    border-bottom-width: 4px;
+    border-radius: 14px;
+    padding: 20px 12px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .option-card:hover { background: #f0f9ff; }
+  .option-card.selected { border-color: #0ea5e9; background: #e0f2fe; }
+  .option-card.correct { border-color: #22c55e; background: #dcfce7; }
+  .option-card.wrong { border-color: #ef4444; background: #fee2e2; }
+  .option-emoji { font-size: 48px; margin-bottom: 6px; }
+  .option-label { font-weight: 800; color: #1e293b; font-size: 15px; }
+
+  /* ---------- Bottom Action Bar ---------- */
+  .action-bar {
+    margin-top: 24px;
+    width: 100%;
+    max-width: 600px;
+    display: flex;
+    justify-content: center;
+  }
+
+  /* ---------- Feedback Bar ---------- */
+  .feedback {
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    padding: 20px 16px;
+    transform: translateY(100%);
+    transition: transform 0.3s ease;
+    z-index: 50;
+  }
+  .feedback.show { transform: translateY(0); }
+  .feedback.correct { background: #dcfce7; }
+  .feedback.wrong { background: #fee2e2; }
+  .feedback-inner {
+    max-width: 600px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+  }
+  .feedback-text { font-weight: 800; font-size: 18px; }
+  .feedback.correct .feedback-text { color: #15803d; }
+  .feedback.wrong .feedback-text { color: #b91c1c; }
+  .feedback-explain {
+    font-size: 14px;
+    font-weight: 600;
+    margin-top: 4px;
+  }
+
+  /* ---------- XP / Stats ---------- */
+  .stats-row {
+    display: flex;
+    gap: 12px;
+    width: 100%;
+    max-width: 600px;
+    margin-top: 24px;
+  }
+  .stat-box {
+    flex: 1;
+    background: white;
+    border: 2px solid #bae6fd;
+    border-radius: 16px;
+    padding: 14px;
+    text-align: center;
+  }
+  .stat-label {
+    font-size: 11px;
+    font-weight: 800;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .stat-value {
+    font-size: 22px;
+    font-weight: 900;
+    margin-top: 2px;
+  }
+  .stat-value.xp { color: #fbbf24; }
+  .stat-value.score { color: #0ea5e9; }
+
+  /* ---------- Badges ---------- */
+  .badge-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    width: 100%;
+    max-width: 500px;
+    margin-bottom: 24px;
+  }
+  .badge {
+    background: white;
+    border: 2px solid #e2e8f0;
+    border-radius: 16px;
+    padding: 16px 8px;
+    text-align: center;
+    transition: transform 0.2s;
+  }
+  .badge.earned {
+    background: linear-gradient(135deg, #fef3c7, #fde68a);
+    border-color: #fbbf24;
+    animation: pop 0.5s ease;
+  }
+  .badge.locked { opacity: 0.4; filter: grayscale(1); }
+  @keyframes pop {
+    0% { transform: scale(0.5); opacity: 0; }
+    70% { transform: scale(1.1); }
+    100% { transform: scale(1); opacity: 1; }
+  }
+  .badge-emoji { font-size: 38px; margin-bottom: 4px; }
+  .badge-name { font-weight: 800; font-size: 12px; color: #78350f; }
+
+  /* ---------- Confetti ---------- */
+  .confetti {
+    position: fixed;
+    top: -10px;
+    width: 10px;
+    height: 10px;
+    z-index: 100;
+    pointer-events: none;
+  }
+
+  /* ---------- Match game ---------- */
+  .match-area { width: 100%; display: flex; flex-direction: column; gap: 14px; }
+  .match-row { display: flex; gap: 10px; align-items: center; }
+  .match-prompt {
+    flex: 1;
+    background: white;
+    border: 2px solid #bae6fd;
+    border-radius: 12px;
+    padding: 14px;
+    font-weight: 700;
+    color: #0c4a6e;
+    text-align: center;
+  }
+  .match-drop {
+    flex: 1;
+    min-height: 56px;
+    background: #f0f9ff;
+    border: 2px dashed #bae6fd;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #94a3b8;
+    font-weight: 700;
+    font-size: 13px;
+    transition: all 0.15s;
+    cursor: pointer;
+  }
+  .match-drop.has-item { background: #e0f2fe; border-style: solid; border-color: #0ea5e9; color: #0369a1; }
+  .match-drop.correct { background: #dcfce7; border-color: #22c55e; color: #15803d; }
+  .match-drop.wrong { background: #fee2e2; border-color: #ef4444; color: #b91c1c; }
+
+  .match-bank {
+    margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    padding: 16px;
+    background: rgba(255,255,255,0.7);
+    border-radius: 14px;
+  }
+  .match-chip {
+    background: white;
+    border: 2px solid #bae6fd;
+    border-bottom-width: 4px;
+    border-radius: 12px;
+    padding: 10px 16px;
+    font-weight: 800;
+    color: #0c4a6e;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .match-chip:hover { background: #e0f2fe; }
+  .match-chip.used { opacity: 0.3; cursor: not-allowed; }
+
+  /* ---------- Final Screen ---------- */
+  .complete-title {
+    font-size: 40px;
+    font-weight: 900;
+    color: #0c4a6e;
+    text-align: center;
+    margin-bottom: 8px;
+  }
+  .complete-subtitle {
+    font-size: 18px;
+    color: #475569;
+    text-align: center;
+    margin-bottom: 24px;
+  }
+
+  @media (max-width: 480px) {
+    .welcome-title { font-size: 28px; }
+    .question-text { font-size: 22px; }
+    .complete-title { font-size: 32px; }
+    .badge-grid { grid-template-columns: repeat(2, 1fr); }
+    .mascot { width: 150px; height: 150px; }
+    .options-grid { grid-template-columns: 1fr; }
+    .vocab-word { font-size: 26px; }
+  }
+</style>
+</head>
+<body>
+<div class="app">
+
+  <!-- ============ TOP BAR ============ -->
+  <div class="topbar" id="topbar" style="display:none;">
+    <button class="close-btn" onclick="confirmExit()">×</button>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="hearts"><span class="heart-icon">❤️</span><span id="heartsCount">3</span></div>
+  </div>
+
+  <!-- ============ WELCOME SCREEN ============ -->
+  <div class="screen active" id="screen-welcome">
+    <div class="lesson-tag">LESSON 1 • GRADES K-5</div>
+    <div class="mascot" id="welcomeMascot"></div>
+    <h1 class="welcome-title">Starting a Business 101</h1>
+    <p class="welcome-subtitle">Hi! I'm <b style="color:#0ea5e9;">Nova</b> 🚀 Today we'll blast off and learn how businesses work!</p>
+    <button class="btn go" onclick="startLesson()">Let's Go!</button>
+  </div>
+
+  <!-- ============ DYNAMIC LESSON SCREEN ============ -->
+  <div class="screen" id="screen-lesson"></div>
+
+  <!-- ============ COMPLETE SCREEN ============ -->
+  <div class="screen" id="screen-complete">
+    <div class="mascot" id="completeMascot"></div>
+    <h1 class="complete-title">Lesson Complete! 🎉</h1>
+    <p class="complete-subtitle">You're a business astronaut now! Check out what you earned:</p>
+
+    <div class="stats-row">
+      <div class="stat-box"><div class="stat-label">XP Earned</div><div class="stat-value xp" id="finalXP">0</div></div>
+      <div class="stat-box"><div class="stat-label">Score</div><div class="stat-value score" id="finalScore">0%</div></div>
+      <div class="stat-box"><div class="stat-label">Hearts Left</div><div class="stat-value" style="color:#ef4444;" id="finalHearts">3</div></div>
+    </div>
+
+    <h3 style="margin: 28px 0 14px; color: #0c4a6e; font-weight: 900;">Badges You Earned:</h3>
+    <div class="badge-grid" id="badgeGrid"></div>
+
+    <button class="btn go" onclick="restartLesson()">Play Again</button>
+    <button class="btn ghost" style="margin-top:12px;" onclick="goToWelcome()">Back to Start</button>
+  </div>
+
+  <!-- ============ GAME OVER SCREEN ============ -->
+  <div class="screen" id="screen-gameover">
+    <div class="mascot" id="gameoverMascot"></div>
+    <h1 class="complete-title" style="color:#b91c1c;">Oh no! Out of Hearts</h1>
+    <p class="complete-subtitle">Every astronaut needs a second try. Let's go again!</p>
+    <button class="btn danger" onclick="restartLesson()">Try Again</button>
+  </div>
+
+</div>
+
+<!-- Feedback Bar -->
+<div class="feedback" id="feedback">
+  <div class="feedback-inner">
+    <div>
+      <div class="feedback-text" id="feedbackText"></div>
+      <div class="feedback-explain" id="feedbackExplain"></div>
+    </div>
+    <button class="btn go" id="feedbackBtn" onclick="nextStep()">Continue</button>
+  </div>
+</div>
+
+<script>
+// ============ NOVA THE ASTRONAUT (mochi/sanrio style — SUPER cute) ============
+function novaSVG(mood) {
+  // mood: "happy" | "cheer" | "sad"
+  const eyes = mood === "sad"
+    ? `<path d="M 100 130 Q 110 122 120 130" stroke="#1a1a2e" stroke-width="5" fill="none" stroke-linecap="round"/>
+       <path d="M 180 130 Q 190 122 200 130" stroke="#1a1a2e" stroke-width="5" fill="none" stroke-linecap="round"/>`
+    : mood === "cheer"
+    ? `<path d="M 95 125 Q 110 110 125 125" stroke="#1a1a2e" stroke-width="6" fill="none" stroke-linecap="round"/>
+       <path d="M 175 125 Q 190 110 205 125" stroke="#1a1a2e" stroke-width="6" fill="none" stroke-linecap="round"/>`
+    : `<ellipse cx="110" cy="128" rx="16" ry="22" fill="#1a1a2e"/>
+       <ellipse cx="190" cy="128" rx="16" ry="22" fill="#1a1a2e"/>
+       <circle cx="116" cy="120" r="6" fill="white"/>
+       <circle cx="105" cy="135" r="3" fill="white"/>
+       <circle cx="196" cy="120" r="6" fill="white"/>
+       <circle cx="185" cy="135" r="3" fill="white"/>`;
+
+  const mouth = mood === "sad"
+    ? `<path d="M 138 175 Q 150 165 162 175" stroke="#1a1a2e" stroke-width="4" fill="none" stroke-linecap="round"/>
+       <ellipse cx="120" cy="195" rx="3" ry="6" fill="#60a5fa" opacity="0.7"/>`
+    : mood === "cheer"
+    ? `<path d="M 125 165 Q 150 195 175 165 Q 165 185 150 188 Q 135 185 125 165 Z" fill="#1a1a2e"/>
+       <path d="M 130 168 Q 150 188 170 168 Q 162 184 150 186 Q 138 184 130 168 Z" fill="#fda4af"/>
+       <ellipse cx="150" cy="183" rx="8" ry="3" fill="#fb7185"/>`
+    : `<path d="M 138 168 Q 150 178 162 168" stroke="#1a1a2e" stroke-width="4" fill="none" stroke-linecap="round"/>`;
+
+  return `
+  <svg viewBox="0 0 300 320" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;">
+    <defs>
+      <radialGradient id="nGlare" cx="30%" cy="25%">
+        <stop offset="0%" stop-color="white" stop-opacity="0.7"/>
+        <stop offset="100%" stop-color="white" stop-opacity="0"/>
+      </radialGradient>
+    </defs>
+
+    <!-- Floating sparkles -->
+    <text x="15" y="50" font-size="22">✨</text>
+    <text x="265" y="35" font-size="18">⭐</text>
+    <text x="270" y="240" font-size="20">✨</text>
+    <text x="20" y="270" font-size="16">⭐</text>
+
+    <!-- Tiny feet -->
+    <ellipse cx="125" cy="295" rx="22" ry="13" fill="#0ea5e9" stroke="#0284c7" stroke-width="3"/>
+    <ellipse cx="175" cy="295" rx="22" ry="13" fill="#0ea5e9" stroke="#0284c7" stroke-width="3"/>
+
+    <!-- Round mochi body (white blob) -->
+    <ellipse cx="150" cy="245" rx="78" ry="55" fill="white"/>
+    <ellipse cx="150" cy="245" rx="78" ry="55" fill="none" stroke="#bae6fd" stroke-width="4"/>
+
+    <!-- Tiny arm stubs with blue gloves -->
+    <ellipse cx="78" cy="240" rx="18" ry="22" fill="white" stroke="#bae6fd" stroke-width="4"/>
+    <ellipse cx="222" cy="240" rx="18" ry="22" fill="white" stroke="#bae6fd" stroke-width="4"/>
+    <circle cx="72" cy="262" r="20" fill="#0ea5e9" stroke="#0284c7" stroke-width="3"/>
+    <circle cx="65" cy="255" r="6" fill="white" opacity="0.5"/>
+    <circle cx="228" cy="262" r="20" fill="#0ea5e9" stroke="#0284c7" stroke-width="3"/>
+    <circle cx="221" cy="255" r="6" fill="white" opacity="0.5"/>
+
+    <!-- AI badge on chest -->
+    <circle cx="150" cy="248" r="20" fill="#fbbf24" stroke="#d97706" stroke-width="3"/>
+    <text x="150" y="256" font-size="18" fill="white" text-anchor="middle" font-weight="900" font-family="sans-serif">AI</text>
+
+    <!-- Helmet ring/collar (between head and body) -->
+    <ellipse cx="150" cy="195" rx="85" ry="14" fill="#0ea5e9"/>
+    <ellipse cx="150" cy="192" rx="85" ry="10" fill="#38bdf8"/>
+    <circle cx="80" cy="195" r="6" fill="#fbbf24"/>
+    <circle cx="220" cy="195" r="6" fill="#fbbf24"/>
+
+    <!-- HEAD: Round white head/face (this IS Nova - no human face) -->
+    <circle cx="150" cy="125" r="85" fill="white"/>
+    <circle cx="150" cy="125" r="85" fill="none" stroke="#bae6fd" stroke-width="4"/>
+
+    <!-- Pink blush cheeks -->
+    <ellipse cx="92" cy="155" rx="14" ry="9" fill="#fda4af" opacity="0.75"/>
+    <ellipse cx="208" cy="155" rx="14" ry="9" fill="#fda4af" opacity="0.75"/>
+
+    ${eyes}
+    ${mouth}
+
+    <!-- HELMET BUBBLE (clear glass overlay over the head) -->
+    <circle cx="150" cy="125" r="95" fill="#bae6fd" opacity="0.18"/>
+    <circle cx="150" cy="125" r="95" fill="url(#nGlare)"/>
+    <circle cx="150" cy="125" r="95" fill="none" stroke="#0ea5e9" stroke-width="5"/>
+
+    <!-- Helmet shine -->
+    <ellipse cx="105" cy="80" rx="18" ry="28" fill="white" opacity="0.7"/>
+    <circle cx="100" cy="70" r="8" fill="white"/>
+
+    <!-- Antenna with star -->
+    <line x1="150" y1="30" x2="150" y2="12" stroke="#0284c7" stroke-width="5" stroke-linecap="round"/>
+    <polygon points="150,0 157,14 173,14 160,24 166,40 150,30 134,40 140,24 127,14 143,14" fill="#fbbf24" stroke="#d97706" stroke-width="2"/>
+  </svg>`;
+}
+
+function setMascot(id, mood) {
+  const el = document.getElementById(id);
+  if (el) el.innerHTML = novaSVG(mood);
+}
+
+// ============ LESSON DATA ============
+// IMPORTANT: Every vocab word is defined BEFORE any quiz that uses it.
+const STEPS = [
+  // ---- INTRO ----
+  {
+    type: "teach",
+    emoji: "🏪",
+    title: "What is a Business?",
+    body: "A <b>business</b> is when someone makes or sells something that other people want to buy. Businesses are everywhere — your favorite store, the pizza place down the street, even a lemonade stand!",
+    examples: ["🍕 Pizza shop", "👕 Clothing store", "🎮 Video game maker"]
+  },
+
+  // ---- VOCAB: ENTREPRENEUR ----
+  {
+    type: "vocab",
+    word: "Entrepreneur",
+    pronounce: "say it: ON-truh-pruh-NOOR",
+    definition: "An <b>entrepreneur</b> is a person who starts and runs a business. They come up with the idea, sell stuff, and take care of customers.",
+    example: "👧 If you start a lemonade stand, <b>YOU</b> are an entrepreneur! You had the idea, you make the lemonade, and you sell it.",
+    emoji: "👩‍💼"
+  },
+
+  // QUIZ that uses "business"
+  {
+    type: "mc",
+    question: "Which of these is a business?",
+    hint: "Pick the one where someone sells something to other people.",
+    options: [
+      { text: "A lemonade stand 🍋", correct: true },
+      { text: "Playing tag with friends 🏃", correct: false },
+      { text: "Doing your homework 📚", correct: false },
+      { text: "Sleeping in 💤", correct: false }
+    ],
+    correctMsg: "Yes! A lemonade stand sells lemonade to people. That's a business!",
+    wrongMsg: "Not quite. A business sells something to other people. A lemonade stand sells lemonade!"
+  },
+
+  // ---- IDEAS ----
+  {
+    type: "teach",
+    emoji: "💡",
+    title: "Every Business Starts with an Idea",
+    body: "Before a business can sell anything, the entrepreneur needs an <b>idea</b>! The best ideas <b>solve a problem</b> or make people happy.",
+    examples: ["Hungry? 🍔 Restaurant", "Bored? 🎮 Toy shop", "Cold? 🧥 Coat store"]
+  },
+
+  // QUIZ on ideas
+  {
+    type: "mc-emoji",
+    question: "What problem does an ice cream shop solve?",
+    hint: "Think about why people go there.",
+    options: [
+      { emoji: "🥶", label: "People are cold", correct: false },
+      { emoji: "😋", label: "People want a yummy treat", correct: true },
+      { emoji: "📚", label: "People need books", correct: false },
+      { emoji: "💤", label: "People want to sleep", correct: false }
+    ],
+    correctMsg: "Right! Ice cream shops give people a sweet, cold treat they love!",
+    wrongMsg: "Hmm, think about why someone walks into an ice cream shop. They want something tasty!"
+  },
+
+  // ---- VOCAB: REVENUE ----
+  {
+    type: "vocab",
+    word: "Revenue",
+    pronounce: "say it: REV-uh-noo",
+    definition: "<b>Revenue</b> is all the money a business gets in from selling things. Think of it as <b>money IN</b> 💵.",
+    example: "🍪 You sell 5 cookies for $2 each. Your revenue is 5 × $2 = <b>$10</b>.",
+    emoji: "💵"
+  },
+
+  // ---- VOCAB: COST ----
+  {
+    type: "vocab",
+    word: "Cost",
+    pronounce: "say it: KAWST",
+    definition: "<b>Cost</b> is the money a business has to spend to make or sell its stuff. Think of it as <b>money OUT</b> 💸.",
+    example: "🍪 To make those 5 cookies, you spent $4 on flour, sugar, and chocolate chips. Your cost is <b>$4</b>.",
+    emoji: "💸"
+  },
+
+  // ---- VOCAB: PROFIT ----
+  {
+    type: "vocab",
+    word: "Profit",
+    pronounce: "say it: PRAW-fit",
+    definition: "<b>Profit</b> is the money you have LEFT after paying your costs. It's the goal of every business!<br><br>👉 <b>Profit = Revenue − Cost</b>",
+    example: "🍪 Revenue $10 − Cost $4 = <b>$6 profit!</b> That's money you get to keep.",
+    emoji: "🏆"
+  },
+
+  // QUIZ on profit math
+  {
+    type: "mc",
+    question: "You sell a cookie for $2. The cookie cost you $1 to make. What's your profit?",
+    hint: "Profit = Revenue − Cost",
+    options: [
+      { text: "$3", correct: false },
+      { text: "$2", correct: false },
+      { text: "$1", correct: true },
+      { text: "$0", correct: false }
+    ],
+    correctMsg: "Awesome math! Revenue $2 − Cost $1 = $1 profit. You're thinking like an entrepreneur!",
+    wrongMsg: "Almost! Profit = Revenue − Cost. So $2 − $1 = $1 profit."
+  },
+
+  // ---- VOCAB: CUSTOMER ----
+  {
+    type: "vocab",
+    word: "Customer",
+    pronounce: "say it: KUS-tuh-mer",
+    definition: "A <b>customer</b> is a person who buys from your business. A smart entrepreneur knows who their customers are and what they want!",
+    example: "🐶 If you sell dog treats, your customers are <b>people who own dogs</b>!",
+    emoji: "👥"
+  },
+
+  // QUIZ: matching
+  {
+    type: "match",
+    question: "Match the business to its customer!",
+    hint: "Tap a customer in the bank, then tap a business box.",
+    pairs: [
+      { prompt: "🎮 Video Game Store", answer: "Gamers" },
+      { prompt: "🐾 Pet Shop", answer: "Pet owners" },
+      { prompt: "🍰 Bakery", answer: "Cake lovers" }
+    ],
+    correctMsg: "Perfect matches! You know your customers!",
+    wrongMsg: "Some matches were off. Think about who would shop at each store!"
+  },
+
+  // ---- VOCAB: MARKETING ----
+  {
+    type: "vocab",
+    word: "Marketing",
+    pronounce: "say it: MAR-kit-ing",
+    definition: "<b>Marketing</b> is how you tell people about your business. It's like saying \"Hey! Come check out my cool stuff!\" — through signs, social media, ads, or word of mouth.",
+    example: "📱 Posting a video about your lemonade stand on TikTok = marketing!",
+    emoji: "📣"
+  },
+
+  // QUIZ on marketing
+  {
+    type: "mc",
+    question: "You opened a new pizza shop. What's the BEST way to get customers?",
+    hint: "Think about what marketing means.",
+    options: [
+      { text: "Stay quiet and hope people show up", correct: false },
+      { text: "Make a fun sign AND post about it online", correct: true },
+      { text: "Only tell your dog 🐶", correct: false },
+      { text: "Hide the shop", correct: false }
+    ],
+    correctMsg: "Yes! Marketing = telling people. A sign + social media = more customers!",
+    wrongMsg: "Hmm, a business needs people to KNOW about it. You gotta spread the word!"
+  },
+
+  // ---- FINAL CHALLENGE ----
+  {
+    type: "mc-emoji",
+    question: "FINAL CHALLENGE! What does an entrepreneur do?",
+    hint: "Think about EVERYTHING we learned today.",
+    options: [
+      { emoji: "🚀", label: "Has an idea, sells stuff, makes profit", correct: true },
+      { emoji: "😴", label: "Just sleeps all day", correct: false },
+      { emoji: "🎮", label: "Only plays games", correct: false },
+      { emoji: "🙈", label: "Hides from customers", correct: false }
+    ],
+    correctMsg: "🎉 YOU GOT IT! You understand business! Time to celebrate!",
+    wrongMsg: "Entrepreneurs work hard! They have ideas, sell things, and care for their customers."
+  }
+];
+
+// ============ STATE ============
+let currentStep = 0;
+let hearts = 3;
+let xp = 0;
+let correct = 0;
+let total = 0;
+let selectedAnswer = null;
+let answered = false;
+let matchSelected = null;
+let matchAnswers = {};
+
+// ============ NAVIGATION ============
+function startLesson() {
+  document.getElementById("topbar").style.display = "flex";
+  showScreen("lesson");
+  currentStep = 0;
+  hearts = 3;
+  xp = 0;
+  correct = 0;
+  total = 0;
+  updateHearts();
+  renderStep();
+}
+
+function restartLesson() { startLesson(); }
+
+function goToWelcome() {
+  document.getElementById("topbar").style.display = "none";
+  showScreen("welcome");
+}
+
+function confirmExit() {
+  if (confirm("Leave the lesson? Your progress will be lost.")) goToWelcome();
+}
+
+function showScreen(name) {
+  document.querySelectorAll(".screen").forEach(s => s.classList.remove("active"));
+  document.getElementById("screen-" + name).classList.add("active");
+}
+
+function updateHearts() { document.getElementById("heartsCount").textContent = hearts; }
+
+function updateProgress() {
+  const pct = (currentStep / STEPS.length) * 100;
+  document.getElementById("progressFill").style.width = pct + "%";
+}
+
+// ============ RENDER STEP ============
+function renderStep() {
+  if (currentStep >= STEPS.length) { finishLesson(); return; }
+  updateProgress();
+  answered = false;
+  selectedAnswer = null;
+  matchSelected = null;
+  matchAnswers = {};
+
+  const step = STEPS[currentStep];
+  const container = document.getElementById("screen-lesson");
+  container.innerHTML = "";
+
+  if (step.type === "teach") renderTeach(step, container);
+  else if (step.type === "vocab") renderVocab(step, container);
+  else if (step.type === "mc") renderMC(step, container);
+  else if (step.type === "mc-emoji") renderMCEmoji(step, container);
+  else if (step.type === "match") renderMatch(step, container);
+}
+
+function renderTeach(step, container) {
+  container.innerHTML = `
+    <div class="teach-card">
+      <div class="teach-emoji">${step.emoji}</div>
+      <div class="teach-title">${step.title}</div>
+      <div class="teach-body">${step.body}</div>
+      <div class="teach-examples">
+        ${step.examples.map(e => `<div class="example-chip">${e}</div>`).join("")}
+      </div>
+    </div>
+    <div class="action-bar">
+      <button class="btn go" onclick="nextStep()">Got it!</button>
+    </div>
+  `;
+}
+
+function renderVocab(step, container) {
+  container.innerHTML = `
+    <div class="vocab-card">
+      <div class="vocab-badge">NEW WORD!</div>
+      <div class="teach-emoji" style="margin-top:6px;">${step.emoji}</div>
+      <div class="vocab-word">${step.word}</div>
+      <div class="vocab-pronounce">${step.pronounce}</div>
+      <div class="vocab-definition">${step.definition}</div>
+      <div class="vocab-example"><b>Example:</b> ${step.example}</div>
+    </div>
+    <div class="action-bar">
+      <button class="btn go" onclick="nextStep()">I got it!</button>
+    </div>
+  `;
+}
+
+function renderMC(step, container) {
+  total++;
+  container.innerHTML = `
+    <div class="question-block">
+      <div class="question-text">${step.question}</div>
+      <div class="question-hint">${step.hint || ""}</div>
+      <div class="options" id="optionsList">
+        ${step.options.map((o, i) => `
+          <button class="option" onclick="selectMC(${i})" data-idx="${i}">
+            <div class="option-letter">${String.fromCharCode(65 + i)}</div>
+            <div>${o.text}</div>
+          </button>
+        `).join("")}
+      </div>
+    </div>
+    <div class="action-bar">
+      <button class="btn go" id="checkBtn" disabled onclick="checkMC()">Check</button>
+    </div>
+  `;
+}
+
+function renderMCEmoji(step, container) {
+  total++;
+  container.innerHTML = `
+    <div class="question-block">
+      <div class="question-text">${step.question}</div>
+      <div class="question-hint">${step.hint || ""}</div>
+      <div class="options-grid" id="optionsList">
+        ${step.options.map((o, i) => `
+          <button class="option-card" onclick="selectMC(${i})" data-idx="${i}">
+            <div class="option-emoji">${o.emoji}</div>
+            <div class="option-label">${o.label}</div>
+          </button>
+        `).join("")}
+      </div>
+    </div>
+    <div class="action-bar">
+      <button class="btn go" id="checkBtn" disabled onclick="checkMC()">Check</button>
+    </div>
+  `;
+}
+
+function renderMatch(step, container) {
+  total++;
+  container.innerHTML = `
+    <div class="question-block">
+      <div class="question-text">${step.question}</div>
+      <div class="question-hint">${step.hint || ""}</div>
+      <div class="match-area">
+        ${step.pairs.map((p, i) => `
+          <div class="match-row">
+            <div class="match-prompt">${p.prompt}</div>
+            <div class="match-drop" id="drop-${i}" data-idx="${i}" onclick="placeMatch(${i})">Tap a customer →</div>
+          </div>
+        `).join("")}
+      </div>
+      <div class="match-bank" id="matchBank">
+        ${shuffle(step.pairs.map(p => p.answer)).map((a) => `
+          <button class="match-chip" data-answer="${a}" onclick="selectMatch('${a}', this)">${a}</button>
+        `).join("")}
+      </div>
+    </div>
+    <div class="action-bar">
+      <button class="btn go" id="checkBtn" disabled onclick="checkMatch()">Check</button>
+    </div>
+  `;
+}
+
+// ============ INTERACTION ============
+function selectMC(idx) {
+  if (answered) return;
+  selectedAnswer = idx;
+  document.querySelectorAll("[data-idx]").forEach(el => el.classList.remove("selected"));
+  document.querySelector(`[data-idx="${idx}"]`).classList.add("selected");
+  document.getElementById("checkBtn").disabled = false;
+}
+
+function checkMC() {
+  if (answered) return;
+  answered = true;
+  const step = STEPS[currentStep];
+  const isCorrect = step.options[selectedAnswer].correct;
+
+  document.querySelectorAll("[data-idx]").forEach((el, i) => {
+    el.classList.add("disabled");
+    el.onclick = null;
+    if (step.options[i].correct) el.classList.add("correct");
+    else if (i === selectedAnswer) el.classList.add("wrong");
+  });
+
+  showFeedback(isCorrect, isCorrect ? step.correctMsg : step.wrongMsg);
+}
+
+function selectMatch(answer, el) {
+  if (answered) return;
+  if (el.classList.contains("used")) return;
+  document.querySelectorAll(".match-chip").forEach(c => c.style.outline = "");
+  el.style.outline = "3px solid #0ea5e9";
+  matchSelected = answer;
+}
+
+function placeMatch(dropIdx) {
+  if (answered) return;
+  if (!matchSelected) return;
+
+  if (matchAnswers[dropIdx]) {
+    const oldChip = document.querySelector(`.match-chip[data-answer="${matchAnswers[dropIdx]}"]`);
+    if (oldChip) oldChip.classList.remove("used");
+  }
+
+  matchAnswers[dropIdx] = matchSelected;
+  const drop = document.getElementById(`drop-${dropIdx}`);
+  drop.textContent = matchSelected;
+  drop.classList.add("has-item");
+
+  document.querySelectorAll(`.match-chip[data-answer="${matchSelected}"]`).forEach(c => {
+    c.classList.add("used");
+    c.style.outline = "";
+  });
+
+  matchSelected = null;
+
+  if (Object.keys(matchAnswers).length === STEPS[currentStep].pairs.length) {
+    document.getElementById("checkBtn").disabled = false;
+  }
+}
+
+function checkMatch() {
+  if (answered) return;
+  answered = true;
+  const step = STEPS[currentStep];
+  let allCorrect = true;
+
+  step.pairs.forEach((p, i) => {
+    const drop = document.getElementById(`drop-${i}`);
+    if (matchAnswers[i] === p.answer) drop.classList.add("correct");
+    else { drop.classList.add("wrong"); allCorrect = false; }
+  });
+
+  showFeedback(allCorrect, allCorrect ? step.correctMsg : step.wrongMsg);
+}
+
+function showFeedback(isCorrect, msg) {
+  const fb = document.getElementById("feedback");
+  fb.classList.add("show");
+  fb.classList.toggle("correct", isCorrect);
+  fb.classList.toggle("wrong", !isCorrect);
+  document.getElementById("feedbackText").textContent = isCorrect ? "Nice work, astronaut! 🚀" : "Not quite. 💪";
+  document.getElementById("feedbackExplain").textContent = msg;
+
+  if (isCorrect) {
+    correct++;
+    xp += 10;
+    confettiBurst();
+  } else {
+    hearts--;
+    updateHearts();
+    document.querySelector(".mascot")?.classList.add("shake");
+  }
+}
+
+function nextStep() {
+  document.getElementById("feedback").classList.remove("show");
+  if (hearts <= 0) {
+    setMascot("gameoverMascot", "sad");
+    showScreen("gameover");
+    return;
+  }
+  currentStep++;
+  setTimeout(renderStep, 200);
+}
+
+// ============ FINISH ============
+function finishLesson() {
+  document.getElementById("topbar").style.display = "none";
+  setMascot("completeMascot", "cheer");
+  showScreen("complete");
+  const score = total > 0 ? Math.round((correct / total) * 100) : 0;
+  document.getElementById("finalXP").textContent = xp;
+  document.getElementById("finalScore").textContent = score + "%";
+  document.getElementById("finalHearts").textContent = hearts;
+
+  const badges = [
+    { id: "starter", emoji: "🚀", name: "Liftoff", earned: true },
+    { id: "money", emoji: "💰", name: "Money Master", earned: correct >= 2 },
+    { id: "people", emoji: "👥", name: "People Person", earned: correct >= 3 },
+    { id: "perfect", emoji: "🏆", name: "Perfect Score", earned: score === 100 },
+    { id: "noheart", emoji: "❤️", name: "All Hearts", earned: hearts === 3 },
+    { id: "boss", emoji: "👑", name: "Business Boss", earned: score >= 80 && hearts >= 2 }
+  ];
+  document.getElementById("badgeGrid").innerHTML = badges.map(b => `
+    <div class="badge ${b.earned ? "earned" : "locked"}">
+      <div class="badge-emoji">${b.emoji}</div>
+      <div class="badge-name">${b.name}</div>
+    </div>
+  `).join("");
+
+  if (score >= 80) bigConfetti();
+}
+
+// ============ HELPERS ============
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function confettiBurst() {
+  const colors = ["#0ea5e9", "#38bdf8", "#fbbf24", "#22c55e", "#f0abfc"];
+  for (let i = 0; i < 30; i++) {
+    const c = document.createElement("div");
+    c.className = "confetti";
+    c.style.background = colors[Math.floor(Math.random() * colors.length)];
+    c.style.left = (Math.random() * 100) + "%";
+    c.style.borderRadius = Math.random() > 0.5 ? "50%" : "2px";
+    c.style.transform = `rotate(${Math.random() * 360}deg)`;
+    document.body.appendChild(c);
+    const duration = 1500 + Math.random() * 1500;
+    c.animate(
+      [
+        { transform: c.style.transform + " translateY(0)", opacity: 1 },
+        { transform: `rotate(${Math.random() * 720}deg) translateY(${window.innerHeight}px)`, opacity: 0 }
+      ],
+      { duration, easing: "cubic-bezier(0.4, 0, 0.6, 1)" }
+    );
+    setTimeout(() => c.remove(), duration);
+  }
+}
+
+function bigConfetti() {
+  for (let i = 0; i < 4; i++) setTimeout(confettiBurst, i * 300);
+}
+
+// ============ INIT ============
+setMascot("welcomeMascot", "happy");
+</script>
+</body>
+</html>
