@@ -546,6 +546,142 @@
     margin-bottom: 24px;
   }
 
+  /* ---------- Guest Banner ---------- */
+  .guest-banner {
+    background: linear-gradient(90deg, #fef3c7, #fde68a);
+    border: 2px solid #fbbf24;
+    border-radius: 12px;
+    padding: 10px 14px;
+    margin: 0 4px 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    font-size: 13px;
+    font-weight: 700;
+    color: #78350f;
+  }
+  .guest-banner .signup-link {
+    background: #fbbf24;
+    color: #78350f;
+    padding: 6px 12px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 800;
+    font-size: 12px;
+    box-shadow: 0 2px 0 #d97706;
+    white-space: nowrap;
+    cursor: pointer;
+    border: none;
+    font-family: inherit;
+  }
+  .guest-banner .signup-link:active { transform: translateY(1px); box-shadow: 0 1px 0 #d97706; }
+  .guest-banner .dismiss {
+    background: transparent;
+    border: none;
+    color: #92400e;
+    font-size: 18px;
+    cursor: pointer;
+    padding: 0 4px;
+  }
+
+  /* ---------- Signup Modal ---------- */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(12, 30, 62, 0.75);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 200;
+    padding: 20px;
+    animation: fadeIn 0.3s ease;
+  }
+  .modal-overlay.show { display: flex; }
+  .modal {
+    background: white;
+    border-radius: 24px;
+    padding: 32px 24px;
+    max-width: 440px;
+    width: 100%;
+    text-align: center;
+    border: 4px solid #0ea5e9;
+    box-shadow: 0 12px 0 #0284c7;
+    position: relative;
+    animation: pop 0.4s ease;
+  }
+  .modal-mascot {
+    width: 100px;
+    height: 100px;
+    margin: -70px auto 12px;
+    background: white;
+    border-radius: 50%;
+    padding: 4px;
+  }
+  .modal h2 {
+    font-size: 26px;
+    font-weight: 900;
+    color: #0c4a6e;
+    margin-bottom: 8px;
+    line-height: 1.2;
+  }
+  .modal p {
+    font-size: 16px;
+    color: #475569;
+    margin-bottom: 18px;
+    font-weight: 500;
+  }
+  .modal-rewards {
+    background: linear-gradient(135deg, #fef3c7, #fde68a);
+    border: 2px solid #fbbf24;
+    border-radius: 16px;
+    padding: 14px;
+    margin-bottom: 18px;
+  }
+  .modal-rewards-label {
+    font-size: 11px;
+    color: #78350f;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+  }
+  .modal-rewards-stats {
+    display: flex;
+    justify-content: space-around;
+    gap: 10px;
+  }
+  .modal-rewards-stats div {
+    text-align: center;
+  }
+  .modal-rewards-stats .num {
+    font-size: 22px;
+    font-weight: 900;
+    color: #78350f;
+  }
+  .modal-rewards-stats .lbl {
+    font-size: 10px;
+    color: #92400e;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+  .modal .btn {
+    width: 100%;
+    padding: 14px;
+    margin-bottom: 10px;
+  }
+  .modal .skip-btn {
+    background: transparent;
+    color: #94a3b8;
+    font-weight: 700;
+    font-size: 14px;
+    padding: 8px;
+    cursor: pointer;
+    text-decoration: underline;
+    border: none;
+    font-family: inherit;
+  }
+
   @media (max-width: 480px) {
     .welcome-title { font-size: 28px; }
     .question-text { font-size: 22px; }
@@ -554,6 +690,7 @@
     .mascot { width: 150px; height: 150px; }
     .options-grid { grid-template-columns: 1fr; }
     .vocab-word { font-size: 26px; }
+    .guest-banner { font-size: 12px; flex-wrap: wrap; }
   }
 </style>
 </head>
@@ -565,6 +702,13 @@
     <button class="close-btn" onclick="confirmExit()">×</button>
     <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
     <div class="hearts"><span class="heart-icon">❤️</span><span id="heartsCount">3</span></div>
+  </div>
+
+  <!-- ============ GUEST BANNER ============ -->
+  <div class="guest-banner" id="guestBanner" style="display:none;">
+    <span>👋 You're a guest! Sign up to save your XP, badges, and streak.</span>
+    <button class="signup-link" onclick="goToEnroll()">Sign Up</button>
+    <button class="dismiss" onclick="dismissBanner()" title="Hide for this lesson">×</button>
   </div>
 
   <!-- ============ WELCOME SCREEN ============ -->
@@ -594,8 +738,30 @@
     <h3 style="margin: 28px 0 14px; color: #0c4a6e; font-weight: 900;">Badges You Earned:</h3>
     <div class="badge-grid" id="badgeGrid"></div>
 
-    <button class="btn go" onclick="restartLesson()">Play Again</button>
+    <button class="btn go" onclick="showSignupModal()">💾 Save My Progress</button>
+    <button class="btn ghost" style="margin-top:12px;" onclick="restartLesson()">Play Again</button>
     <button class="btn ghost" style="margin-top:12px;" onclick="goToWelcome()">Back to Start</button>
+  </div>
+
+  <!-- ============ SIGNUP MODAL ============ -->
+  <div class="modal-overlay" id="signupModal">
+    <div class="modal">
+      <div class="modal-mascot" id="modalMascot"></div>
+      <h2>Don't lose your progress!</h2>
+      <p>Sign up free to save what you earned today and keep your streak going!</p>
+
+      <div class="modal-rewards">
+        <div class="modal-rewards-label">⭐ Your Rewards Today</div>
+        <div class="modal-rewards-stats">
+          <div><div class="num" id="modalXP">0</div><div class="lbl">XP</div></div>
+          <div><div class="num" id="modalBadges">0</div><div class="lbl">Badges</div></div>
+          <div><div class="num" id="modalScore">0%</div><div class="lbl">Score</div></div>
+        </div>
+      </div>
+
+      <button class="btn go" onclick="goToEnroll()">🚀 Sign Up Free</button>
+      <button class="skip-btn" onclick="hideSignupModal()">Maybe later</button>
+    </div>
   </div>
 
   <!-- ============ GAME OVER SCREEN ============ -->
@@ -899,9 +1065,58 @@ let answered = false;
 let matchSelected = null;
 let matchAnswers = {};
 
+// ============ GUEST MODE / SIGNUP ============
+function isLoggedIn() {
+  // TODO: replace with real auth check when you build it
+  try { return !!localStorage.getItem("aii_user"); } catch(e) { return false; }
+}
+
+function isBannerDismissed() {
+  try { return sessionStorage.getItem("aii_banner_dismissed") === "1"; } catch(e) { return false; }
+}
+
+function dismissBanner() {
+  try { sessionStorage.setItem("aii_banner_dismissed", "1"); } catch(e) {}
+  document.getElementById("guestBanner").style.display = "none";
+}
+
+function goToEnroll() {
+  // Save current progress to localStorage so it can sync after signup
+  try {
+    localStorage.setItem("aii_pending_progress", JSON.stringify({
+      lesson: "business-101",
+      xp: xp,
+      hearts: hearts,
+      correct: correct,
+      total: total,
+      timestamp: Date.now()
+    }));
+  } catch(e) {}
+  // Redirect to enroll page
+  window.location.href = "/enroll";
+}
+
+function showSignupModal() {
+  const score = total > 0 ? Math.round((correct / total) * 100) : 0;
+  const earnedBadges = document.querySelectorAll(".badge.earned").length;
+  document.getElementById("modalXP").textContent = xp;
+  document.getElementById("modalBadges").textContent = earnedBadges;
+  document.getElementById("modalScore").textContent = score + "%";
+  setMascot("modalMascot", "cheer");
+  document.getElementById("signupModal").classList.add("show");
+}
+
+function hideSignupModal() {
+  document.getElementById("signupModal").classList.remove("show");
+}
+
 // ============ NAVIGATION ============
 function startLesson() {
   document.getElementById("topbar").style.display = "flex";
+  // Show guest banner if not logged in and not dismissed this session
+  if (!isLoggedIn() && !isBannerDismissed()) {
+    document.getElementById("guestBanner").style.display = "flex";
+  }
   showScreen("lesson");
   currentStep = 0;
   hearts = 3;
@@ -1162,12 +1377,22 @@ function nextStep() {
 // ============ FINISH ============
 function finishLesson() {
   document.getElementById("topbar").style.display = "none";
+  document.getElementById("guestBanner").style.display = "none";
   setMascot("completeMascot", "cheer");
   showScreen("complete");
   const score = total > 0 ? Math.round((correct / total) * 100) : 0;
   document.getElementById("finalXP").textContent = xp;
   document.getElementById("finalScore").textContent = score + "%";
   document.getElementById("finalHearts").textContent = hearts;
+
+  // Save guest progress to localStorage so it doesn't disappear on refresh
+  try {
+    localStorage.setItem("aii_guest_progress", JSON.stringify({
+      lesson: "business-101",
+      xp, hearts, correct, total, score,
+      timestamp: Date.now()
+    }));
+  } catch(e) {}
 
   const badges = [
     { id: "starter", emoji: "🚀", name: "Liftoff", earned: true },
@@ -1185,6 +1410,11 @@ function finishLesson() {
   `).join("");
 
   if (score >= 80) bigConfetti();
+
+  // Auto-show signup modal 2.5s after lesson complete (only for guests)
+  if (!isLoggedIn()) {
+    setTimeout(showSignupModal, 2500);
+  }
 }
 
 // ============ HELPERS ============
