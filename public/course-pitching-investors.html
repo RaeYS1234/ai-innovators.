@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pitching to Investors — AI Innovators</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="course-shared.css">
+</head>
+<body>
+<div id="courseRoot"></div>
+<script src="course-engine.js"></script>
+<script>
+renderCourse({
+  courseId: "pitching-investors",
+  theme: "purple",
+  tag: "9-12 INNOVATOR MISSION",
+  gradeAnchor: "high",
+  gradeLabel: "9-12",
+  title: "Pitching to Investors",
+  description: "Pitch decks, valuation, and how to talk to real investors with confidence. Learn what funders actually want to hear.",
+  duration: 70,
+  units: [
+    {
+      title: "Investor Basics",
+      lessons: [
+        { title: "Types of Investors", type: "read", time: "10 min", xp: 5 },
+        { title: "What Investors Look For", type: "read", time: "10 min", xp: 5 },
+        { title: "Valuation 101", type: "read", time: "10 min", xp: 5 }
+      ]
+    },
+    {
+      title: "The Perfect Deck",
+      lessons: [
+        { title: "10-Slide Pitch Deck Anatomy", type: "read", time: "12 min", xp: 5 },
+        { title: "Telling a Story With Data", type: "read", time: "8 min", xp: 5 },
+        { title: "Build Your Pitch Deck", type: "practice", time: "20 min", xp: 5 }
+      ]
+    },
+    {
+      title: "The Pitch Itself",
+      lessons: [
+        { title: "Delivery & Confidence", type: "read", time: "10 min", xp: 5 },
+        { title: "Q&A Strategies", type: "read", time: "10 min", xp: 5 }
+      ]
+    }
+  ],
+  finalTest: { title: "Investor Pitch Showdown", xp: 20, time: "15 min" }
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Making Pictures with AI — AI Innovators</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="course-shared.css">
+</head>
+<body>
+<div id="courseRoot"></div>
+<script src="course-engine.js"></script>
+<script>
+renderCourse({
+  courseId: "ai-pictures",
+  theme: "orange",
+  tag: "K-5 STARTER MISSION",
+  gradeAnchor: "k5",
+  gradeLabel: "K-5",
+  title: "Making Pictures with AI",
+  description: "Use kid-safe AI tools to create awesome pictures, design your own logo, and bring your business to life!",
+  duration: 25,
+  units: [
+    {
+      title: "AI Art Basics",
+      lessons: [
+        { title: "How AI Makes Pictures", type: "read", time: "5 min", xp: 5, file: "lesson-ap-1-1-how-ai-makes-pictures.html" },
+        { title: "Writing Picture Prompts", type: "read", time: "5 min", xp: 5 },
+        { title: "Try Your First Prompt", type: "practice", time: "5 min", xp: 5 }
+      ]
+    },
+    {
+      title: "Designing Your Brand",
+      lessons: [
+        { title: "What is a Logo?", type: "read", time: "5 min", xp: 5 },
+        { title: "Make Your Business Logo", type: "practice", time: "5 min", xp: 5 },
+        { title: "Pick Your Colors", type: "practice", time: "5 min", xp: 5 }
+      ]
+    }
+  ],
+  finalTest: { title: "AI Art Challenge", xp: 10, time: "5 min" }
+});
+</script>
+</body>
+</html>

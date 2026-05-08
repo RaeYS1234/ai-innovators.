@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>What is AI? — AI Innovators</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="course-shared.css">
+</head>
+<body>
+<div id="courseRoot"></div>
+<script src="course-engine.js"></script>
+<script>
+renderCourse({
+  courseId: "what-is-ai",
+  theme: "orange",
+  tag: "K-5 STARTER MISSION",
+  gradeAnchor: "k5",
+  gradeLabel: "K-5",
+  title: "What is AI?",
+  description: "Discover how AI works, where you see it every day, and why it's so cool. Your first step into the world of artificial intelligence!",
+  duration: 25,
+  units: [
+    {
+      title: "AI Basics",
+      lessons: [
+        { title: "What is AI, Really?", type: "read", time: "5 min", xp: 5, file: "lesson-ai-1-1-what-is-ai.html" },
+        { title: "AI in Your Daily Life", type: "read", time: "5 min", xp: 5 },
+        { title: "Unit 1 Check", type: "quiz", time: "3 min", xp: 5 }
+      ]
+    },
+    {
+      title: "How AI Helps People",
+      lessons: [
+        { title: "AI as a Helper", type: "read", time: "5 min", xp: 5 },
+        { title: "Different Kinds of AI", type: "read", time: "5 min", xp: 5 },
+        { title: "Match the AI Tool", type: "practice", time: "5 min", xp: 5 }
+      ]
+    },
+    {
+      title: "Using AI Smartly",
+      lessons: [
+        { title: "Be Smart with AI", type: "read", time: "5 min", xp: 5 },
+        { title: "When AI Gets It Wrong", type: "read", time: "5 min", xp: 5 }
+      ]
+    }
+  ],
+  finalTest: { title: "AI Basics Challenge", xp: 10, time: "5 min" }
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Tools Workshop — AI Innovators</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="course-shared.css">
+</head>
+<body>
+<div id="courseRoot"></div>
+<script src="course-engine.js"></script>
+<script>
+renderCourse({
+  courseId: "ai-tools-workshop",
+  theme: "green",
+  tag: "6-8 BUILDER MISSION",
+  gradeAnchor: "middle",
+  gradeLabel: "6-8",
+  title: "AI Tools Workshop",
+  description: "Hands-on with the AI tools real entrepreneurs use — ChatGPT, Canva, image generators, and more.",
+  duration: 60,
+  units: [
+    {
+      title: "Meet the Tools",
+      lessons: [
+        { title: "AI Chatbots Explained", type: "read", time: "6 min", xp: 5 },
+        { title: "Image Generators 101", type: "read", time: "6 min", xp: 5 },
+        { title: "Canva & AI Design", type: "read", time: "6 min", xp: 5 }
+      ]
+    },
+    {
+      title: "Writing Great Prompts",
+      lessons: [
+        { title: "What Makes a Good Prompt?", type: "read", time: "8 min", xp: 5 },
+        { title: "Prompt Patterns That Work", type: "read", time: "8 min", xp: 5 },
+        { title: "Practice: Better Prompts", type: "practice", time: "10 min", xp: 5 }
+      ]
+    },
+    {
+      title: "Build Real Things",
+      lessons: [
+        { title: "Make a Logo with AI", type: "practice", time: "10 min", xp: 5 },
+        { title: "Write Marketing Copy", type: "practice", time: "10 min", xp: 5 },
+        { title: "Build a Mini Website", type: "practice", time: "12 min", xp: 5 }
+      ]
+    }
+  ],
+  finalTest: { title: "AI Toolkit Challenge", xp: 15, time: "10 min" }
+});
+</script>
+</body>
+</html>

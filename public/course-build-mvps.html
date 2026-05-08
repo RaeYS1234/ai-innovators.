@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Building MVPs with AI — AI Innovators</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="course-shared.css">
+</head>
+<body>
+<div id="courseRoot"></div>
+<script src="course-engine.js"></script>
+<script>
+renderCourse({
+  courseId: "build-mvps",
+  theme: "purple",
+  tag: "9-12 INNOVATOR MISSION",
+  gradeAnchor: "high",
+  gradeLabel: "9-12",
+  title: "Building MVPs with AI",
+  description: "Use AI to build a real working prototype of your idea — fast. From concept to working product in days, not months.",
+  duration: 120,
+  units: [
+    {
+      title: "MVP Mindset",
+      lessons: [
+        { title: "What is an MVP?", type: "read", time: "10 min", xp: 5 },
+        { title: "Scoping the Smallest Useful Thing", type: "read", time: "10 min", xp: 5 },
+        { title: "MVP Examples From Real Startups", type: "read", time: "10 min", xp: 5 }
+      ]
+    },
+    {
+      title: "AI-Powered Building Blocks",
+      lessons: [
+        { title: "No-Code Tools With AI", type: "read", time: "12 min", xp: 5 },
+        { title: "AI Coding Assistants", type: "read", time: "12 min", xp: 5 },
+        { title: "Design Tools With AI", type: "read", time: "10 min", xp: 5 }
+      ]
+    },
+    {
+      title: "Build Your MVP",
+      lessons: [
+        { title: "Project Setup", type: "practice", time: "15 min", xp: 5 },
+        { title: "Build the Frontend", type: "practice", time: "20 min", xp: 5 },
+        { title: "Add Functionality", type: "practice", time: "20 min", xp: 5 },
+        { title: "Test and Iterate", type: "practice", time: "15 min", xp: 5 }
+      ]
+    }
+  ],
+  finalTest: { title: "Ship Your MVP", xp: 25, time: "20 min" }
+});
+</script>
+</body>
+</html>

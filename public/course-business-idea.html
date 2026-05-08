@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My First Business Idea — AI Innovators</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="course-shared.css">
+</head>
+<body>
+<div id="courseRoot"></div>
+<script src="course-engine.js"></script>
+<script>
+renderCourse({
+  courseId: "business-idea",
+  theme: "orange",
+  tag: "K-5 STARTER MISSION",
+  gradeAnchor: "k5",
+  gradeLabel: "K-5",
+  title: "My First Business Idea",
+  description: "Come up with a real business idea! Brainstorm, pick the best one, and learn how to make it happen.",
+  duration: 20,
+  units: [
+    {
+      title: "Finding Ideas",
+      lessons: [
+        { title: "Where Do Ideas Come From?", type: "read", time: "5 min", xp: 5, file: "lesson-bi-1-1-where-ideas-come-from.html" },
+        { title: "Solving Real Problems", type: "read", time: "5 min", xp: 5 },
+        { title: "Brainstorm Like a Pro", type: "practice", time: "5 min", xp: 5 }
+      ]
+    },
+    {
+      title: "Picking the Best Idea",
+      lessons: [
+        { title: "What Makes a Good Idea?", type: "read", time: "5 min", xp: 5 },
+        { title: "Test Your Idea", type: "practice", time: "5 min", xp: 5 }
+      ]
+    }
+  ],
+  finalTest: { title: "Idea Generator Challenge", xp: 10, time: "5 min" }
+});
+</script>
+</body>
+</html>

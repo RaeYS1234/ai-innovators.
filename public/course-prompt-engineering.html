@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prompt Engineering — AI Innovators</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="course-shared.css">
+</head>
+<body>
+<div id="courseRoot"></div>
+<script src="course-engine.js"></script>
+<script>
+renderCourse({
+  courseId: "prompt-engineering",
+  theme: "purple",
+  tag: "9-12 INNOVATOR MISSION",
+  gradeAnchor: "high",
+  gradeLabel: "9-12",
+  title: "Prompt Engineering",
+  description: "Master the art of writing AI prompts that get perfect results every time. The skill that's reshaping how work gets done.",
+  duration: 75,
+  units: [
+    {
+      title: "Prompt Foundations",
+      lessons: [
+        { title: "How Language Models Think", type: "read", time: "10 min", xp: 5 },
+        { title: "The Anatomy of a Prompt", type: "read", time: "10 min", xp: 5 },
+        { title: "Specificity & Context", type: "practice", time: "10 min", xp: 5 }
+      ]
+    },
+    {
+      title: "Advanced Techniques",
+      lessons: [
+        { title: "Chain-of-Thought Prompting", type: "read", time: "12 min", xp: 5 },
+        { title: "Few-Shot Examples", type: "read", time: "10 min", xp: 5 },
+        { title: "Role Playing & Personas", type: "read", time: "8 min", xp: 5 },
+        { title: "Output Formatting", type: "practice", time: "10 min", xp: 5 }
+      ]
+    },
+    {
+      title: "Real-World Applications",
+      lessons: [
+        { title: "Prompts for Writing", type: "practice", time: "12 min", xp: 5 },
+        { title: "Prompts for Analysis", type: "practice", time: "12 min", xp: 5 },
+        { title: "Prompts for Coding", type: "practice", time: "15 min", xp: 5 }
+      ]
+    }
+  ],
+  finalTest: { title: "Prompt Master Challenge", xp: 20, time: "15 min" }
+});
+</script>
+</body>
+</html>

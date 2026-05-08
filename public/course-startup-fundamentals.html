@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Startup Fundamentals — AI Innovators</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="course-shared.css">
+</head>
+<body>
+<div id="courseRoot"></div>
+<script src="course-engine.js"></script>
+<script>
+renderCourse({
+  courseId: "startup-fundamentals",
+  theme: "purple",
+  tag: "9-12 INNOVATOR MISSION",
+  gradeAnchor: "high",
+  gradeLabel: "9-12",
+  title: "Startup Fundamentals",
+  description: "How real startups actually work — founders, funding, product-market fit, growth, and exit strategies.",
+  duration: 90,
+  units: [
+    {
+      title: "Founder Foundations",
+      lessons: [
+        { title: "Founders, Co-founders, and Equity", type: "read", time: "10 min", xp: 5 },
+        { title: "What is a Startup vs Small Business?", type: "read", time: "8 min", xp: 5 },
+        { title: "Mission, Vision, and Values", type: "read", time: "8 min", xp: 5 }
+      ]
+    },
+    {
+      title: "Product-Market Fit",
+      lessons: [
+        { title: "Finding the Problem", type: "read", time: "10 min", xp: 5 },
+        { title: "Building an MVP", type: "read", time: "10 min", xp: 5 },
+        { title: "Customer Discovery", type: "practice", time: "12 min", xp: 5 },
+        { title: "Iteration & Pivots", type: "read", time: "8 min", xp: 5 }
+      ]
+    },
+    {
+      title: "Funding Your Startup",
+      lessons: [
+        { title: "Bootstrapping vs Investors", type: "read", time: "10 min", xp: 5 },
+        { title: "Angel Investors & VCs", type: "read", time: "10 min", xp: 5 },
+        { title: "Convertible Notes & SAFEs", type: "read", time: "10 min", xp: 5 }
+      ]
+    },
+    {
+      title: "Growth & Scaling",
+      lessons: [
+        { title: "Acquisition Channels", type: "read", time: "10 min", xp: 5 },
+        { title: "Unit Economics", type: "practice", time: "12 min", xp: 5 }
+      ]
+    }
+  ],
+  finalTest: { title: "Startup Founder Challenge", xp: 20, time: "15 min" }
+});
+</script>
+</body>
+</html>

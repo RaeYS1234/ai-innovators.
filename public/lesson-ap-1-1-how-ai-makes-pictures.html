@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How AI Makes Pictures — AI Innovators</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="lesson-shared.css">
+</head>
+<body>
+<div class="app">
+  <div class="topbar" id="topbar" style="display:none;">
+    <button class="close-btn" id="closeBtn">×</button>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="hearts">
+      <svg class="heart-svg" viewBox="0 0 32 32"><path d="M16 28 C 6 20 2 14 2 10 C 2 6 5 3 9 3 C 12 3 14 5 16 8 C 18 5 20 3 23 3 C 27 3 30 6 30 10 C 30 14 26 20 16 28 Z" fill="#ec4899" stroke="#be185d" stroke-width="1.5"/></svg>
+      <span id="heartsCount">3</span>
+    </div>
+  </div>
+  <div class="screen active" id="screen-welcome">
+    <div class="lesson-tag" id="lesson-tag">LESSON</div>
+    <div class="mascot" id="welcomeMascot"></div>
+    <h1 class="welcome-title" id="welcome-title"></h1>
+    <p class="welcome-subtitle" id="welcome-subtitle"></p>
+    <button class="btn go" id="startBtn">Make Some Art!</button>
+  </div>
+  <div class="screen" id="screen-lesson"></div>
+  <div class="screen" id="screen-complete">
+    <div class="mascot" id="completeMascot"></div>
+    <h1 class="complete-title">AI Artist Unlocked!</h1>
+    <p class="complete-subtitle">You know how AI makes pictures! Look what you earned:</p>
+    <div class="stats-row">
+      <div class="stat-box"><div class="stat-label">XP Earned</div><div class="stat-value xp" id="finalXP">0</div></div>
+      <div class="stat-box"><div class="stat-label">Score</div><div class="stat-value score" id="finalScore">0%</div></div>
+      <div class="stat-box"><div class="stat-label">Hearts Left</div><div class="stat-value" style="color:#ef4444;" id="finalHearts">3</div></div>
+    </div>
+    <h3 style="margin: 28px 0 14px; color: #0c4a6e; font-weight: 900; font-family:'Nunito',sans-serif;">Badges You Earned:</h3>
+    <div class="badge-grid" id="badgeGrid"></div>
+    <button class="btn go" id="backToCourseBtn">Back to Course →</button>
+    <button class="btn ghost" style="margin-top:12px;" id="playAgainBtn">Play Again</button>
+  </div>
+  <div class="screen" id="screen-gameover">
+    <div class="mascot" id="gameoverMascot"></div>
+    <h1 class="complete-title" style="color:#b91c1c;">Out of Hearts!</h1>
+    <p class="complete-subtitle">Try again — even artists need practice!</p>
+    <button class="btn danger" id="retryBtn">Try Again</button>
+  </div>
+</div>
+<div class="feedback" id="feedback">
+  <div class="feedback-inner">
+    <div><div class="feedback-text" id="feedbackText"></div><div class="feedback-explain" id="feedbackExplain"></div></div>
+    <button class="btn go" onclick="window._lessonNext()">Continue</button>
+  </div>
+</div>
+<script src="lesson-engine.js"></script>
+<script>
+const PALETTE_ICON = `<svg viewBox="0 0 64 64"><circle cx="32" cy="32" r="26" fill="#fde68a" stroke="#d97706" stroke-width="2.5"/><circle cx="20" cy="22" r="5" fill="#ef4444"/><circle cx="42" cy="20" r="5" fill="#0ea5e9"/><circle cx="48" cy="36" r="5" fill="#22c55e"/><circle cx="38" cy="46" r="5" fill="#a855f7"/><circle cx="20" cy="40" r="5" fill="#fbbf24"/></svg>`;
+
+runLesson({
+  lessonId: "ai-pictures-1-1",
+  courseUrl: "course-ai-pictures.html",
+  tag: "UNIT 1 · LESSON 1.1",
+  title: "How AI Makes Pictures",
+  subtitle: "Nova here! Let's discover the magic behind AI-made images.",
+  steps: [
+    {
+      type: "vocab",
+      word: "Image Generator",
+      pronounce: "say it: IM-ij JEN-uh-ray-ter",
+      definition: "An <b>image generator</b> is an AI tool that creates pictures from words. You type what you want, and it draws it for you!",
+      example: "Type \"a happy cat wearing sunglasses\" and the AI draws exactly that.",
+      icon: PALETTE_ICON
+    },
+    {
+      type: "teach",
+      title: "How Does AI Even Do That?",
+      body: "AI image generators looked at <b>BILLIONS of pictures</b> with descriptions. They learned what \"cat\" looks like, what \"sunglasses\" look like, and how to combine them. So when you ask for something new, it can mix and match.",
+      examples: ["Saw 1B labeled images", "Learned what each thing looks like", "Mixes ideas into new pictures"]
+    },
+    {
+      type: "vocab",
+      word: "Prompt",
+      pronounce: "say it: PROMPT",
+      definition: "A <b>prompt</b> is the words you type to tell the AI what picture to make. Better prompts = better pictures!",
+      example: "Bad prompt: \"a dog\". Better prompt: \"a fluffy golden retriever puppy playing in a sunny garden\".",
+      icon: PALETTE_ICON
+    },
+    {
+      type: "mc",
+      question: "Which prompt would make a BETTER picture?",
+      hint: "More details = better picture.",
+      options: [
+        { text: "\"thing\"", correct: false },
+        { text: "\"a colorful birthday cake with candles on a table\"", correct: true },
+        { text: "\"cake\"", correct: false },
+        { text: "\"food\"", correct: false }
+      ],
+      correctMsg: "Yes! Specific details (color, candles, on a table) help AI make exactly what you want.",
+      wrongMsg: "More DETAILS = better picture. Tell the AI exactly what you want to see!"
+    },
+    {
+      type: "mc",
+      question: "AI image generators learned to draw by...",
+      hint: "Lots and lots of practice with examples.",
+      options: [
+        { text: "Studying billions of pictures", correct: true },
+        { text: "Going to art school", correct: false },
+        { text: "Magic", correct: false },
+        { text: "Reading one book", correct: false }
+      ],
+      correctMsg: "Yes! AI looked at BILLIONS of labeled pictures to learn what things look like.",
+      wrongMsg: "AI learned by studying BILLIONS of pictures. No magic — just lots of training!"
+    },
+    {
+      type: "mc",
+      question: "What can you make with AI image generators?",
+      hint: "Think about your own business!",
+      options: [
+        { text: "A logo for your business", correct: true },
+        { text: "Real food you can eat", correct: false },
+        { text: "A pizza for dinner", correct: false },
+        { text: "An actual robot", correct: false }
+      ],
+      correctMsg: "YES! AI can make logos, art, designs — anything visual for your business!",
+      wrongMsg: "AI makes PICTURES, not real things. But pictures are powerful — like logos for YOUR business!"
+    },
+    {
+      type: "mc",
+      question: "FINAL: What's the secret to getting GREAT AI pictures?",
+      hint: "We covered this!",
+      options: [
+        { text: "Pay more money", correct: false },
+        { text: "Write detailed prompts that describe exactly what you want", correct: true },
+        { text: "Yell at the computer", correct: false },
+        { text: "Use only one word", correct: false }
+      ],
+      correctMsg: "PERFECT! Detailed prompts = amazing pictures. You're ready to be an AI artist!",
+      wrongMsg: "Detail is everything! Tell AI EXACTLY what you want — colors, style, mood, details."
+    }
+  ],
+  badges: [
+    { icon: "starter", name: "AI Artist", earned: true },
+    { icon: "star", name: "Prompt Padawan", earned: ({ correct }) => correct >= 2 },
+    { icon: "brain", name: "AI Thinker", earned: ({ correct }) => correct >= 3 },
+    { icon: "perfect", name: "Perfect Score", earned: ({ score }) => score === 100 },
+    { icon: "heart", name: "All Hearts", earned: ({ hearts }) => hearts === 3 },
+    { icon: "trophy", name: "AI Creator", earned: ({ score, hearts }) => score >= 80 && hearts >= 2 }
+  ]
+});
+</script>
+</body>
+</html>

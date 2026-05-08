@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>What is AI? — AI Innovators</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="lesson-shared.css">
+</head>
+<body>
+<div class="app">
+  <div class="topbar" id="topbar" style="display:none;">
+    <button class="close-btn" id="closeBtn">×</button>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="hearts">
+      <svg class="heart-svg" viewBox="0 0 32 32"><path d="M16 28 C 6 20 2 14 2 10 C 2 6 5 3 9 3 C 12 3 14 5 16 8 C 18 5 20 3 23 3 C 27 3 30 6 30 10 C 30 14 26 20 16 28 Z" fill="#ec4899" stroke="#be185d" stroke-width="1.5"/></svg>
+      <span id="heartsCount">3</span>
+    </div>
+  </div>
+  <div class="screen active" id="screen-welcome">
+    <div class="lesson-tag" id="lesson-tag">LESSON</div>
+    <div class="mascot" id="welcomeMascot"></div>
+    <h1 class="welcome-title" id="welcome-title"></h1>
+    <p class="welcome-subtitle" id="welcome-subtitle"></p>
+    <button class="btn go" id="startBtn">Let's Discover AI!</button>
+  </div>
+  <div class="screen" id="screen-lesson"></div>
+  <div class="screen" id="screen-complete">
+    <div class="mascot" id="completeMascot"></div>
+    <h1 class="complete-title">AI Explorer Unlocked!</h1>
+    <p class="complete-subtitle">You officially know what AI is. Here's your loot:</p>
+    <div class="stats-row">
+      <div class="stat-box"><div class="stat-label">XP Earned</div><div class="stat-value xp" id="finalXP">0</div></div>
+      <div class="stat-box"><div class="stat-label">Score</div><div class="stat-value score" id="finalScore">0%</div></div>
+      <div class="stat-box"><div class="stat-label">Hearts Left</div><div class="stat-value" style="color:#ef4444;" id="finalHearts">3</div></div>
+    </div>
+    <h3 style="margin: 28px 0 14px; color: #0c4a6e; font-weight: 900; font-family:'Nunito',sans-serif;">Badges You Earned:</h3>
+    <div class="badge-grid" id="badgeGrid"></div>
+    <button class="btn go" id="backToCourseBtn">Back to Course →</button>
+    <button class="btn ghost" style="margin-top:12px;" id="playAgainBtn">Play Again</button>
+  </div>
+  <div class="screen" id="screen-gameover">
+    <div class="mascot" id="gameoverMascot"></div>
+    <h1 class="complete-title" style="color:#b91c1c;">Out of Hearts!</h1>
+    <p class="complete-subtitle">Try again — exploring AI takes practice!</p>
+    <button class="btn danger" id="retryBtn">Try Again</button>
+  </div>
+</div>
+<div class="feedback" id="feedback">
+  <div class="feedback-inner">
+    <div><div class="feedback-text" id="feedbackText"></div><div class="feedback-explain" id="feedbackExplain"></div></div>
+    <button class="btn go" onclick="window._lessonNext()">Continue</button>
+  </div>
+</div>
+<script src="lesson-engine.js"></script>
+<script>
+const ROBOT_ICON = `<svg viewBox="0 0 64 64"><rect x="14" y="22" width="36" height="32" rx="6" fill="#0ea5e9" stroke="#0284c7" stroke-width="2.5"/><rect x="20" y="28" width="10" height="10" rx="2" fill="white"/><rect x="34" y="28" width="10" height="10" rx="2" fill="white"/><circle cx="25" cy="33" r="3" fill="#0c1e3e"/><circle cx="39" cy="33" r="3" fill="#0c1e3e"/><rect x="22" y="44" width="20" height="4" rx="2" fill="white"/><line x1="32" y1="14" x2="32" y2="22" stroke="#0284c7" stroke-width="3" stroke-linecap="round"/><circle cx="32" cy="11" r="4" fill="#fbbf24" stroke="#d97706" stroke-width="2"/></svg>`;
+const BRAIN_ICON = `<svg viewBox="0 0 64 64"><path d="M32 8 C 22 8 14 16 14 26 C 12 28 10 30 10 34 C 10 38 12 40 14 41 C 14 49 22 56 32 56 C 42 56 50 49 50 41 C 52 40 54 38 54 34 C 54 30 52 28 50 26 C 50 16 42 8 32 8 Z" fill="#f472b6" stroke="#be185d" stroke-width="2"/><path d="M32 12 L 32 52 M 22 18 L 42 18 M 18 26 L 46 26 M 22 36 L 42 36 M 18 44 L 46 44" stroke="#be185d" stroke-width="1.2" opacity="0.4"/></svg>`;
+
+runLesson({
+  lessonId: "what-is-ai-1-1",
+  courseUrl: "course-what-is-ai.html",
+  tag: "UNIT 1 · LESSON 1.1",
+  title: "What is AI, Really?",
+  subtitle: "Nova here — let me show you what AI actually is. Hint: it's not magic.",
+  steps: [
+    {
+      type: "vocab",
+      word: "AI (Artificial Intelligence)",
+      pronounce: "say it: ay-eye",
+      definition: "<b>AI</b> is computer software that can do things that usually need a human brain — like understanding what you say, recognizing pictures, or coming up with new ideas.",
+      example: "When you ask Siri for the weather, AI listens to your words, looks up the answer, and talks back to you!",
+      icon: ROBOT_ICON
+    },
+    {
+      type: "teach",
+      title: "AI Learns From Examples",
+      body: "AI doesn't just KNOW stuff. It LEARNS by looking at <b>millions</b> of examples. Show it 1 million pictures of cats, and it learns to spot a cat in any new picture!",
+      examples: ["Sees 1M cat pics → spots cats", "Reads 1M books → can write stories", "Hears 1M voices → can talk back"]
+    },
+    {
+      type: "teach",
+      title: "Where You See AI Every Day",
+      body: "AI is already everywhere! It's the magic behind:",
+      examples: ["YouTube suggestions", "Voice assistants (Siri, Alexa)", "Self-driving cars", "Chatbots like ChatGPT", "Spam filters in email"],
+      icon: BRAIN_ICON
+    },
+    {
+      type: "mc",
+      question: "What does AI need to LEARN how to do something?",
+      hint: "Think about how AI gets smart.",
+      options: [
+        { text: "A brain transplant", correct: false },
+        { text: "Lots of examples", correct: true },
+        { text: "A magic spell", correct: false },
+        { text: "A coffee break", correct: false }
+      ],
+      correctMsg: "Right! AI learns from EXAMPLES. The more it sees, the smarter it gets!",
+      wrongMsg: "AI learns from EXAMPLES — millions and millions of them. That's how it gets smart."
+    },
+    {
+      type: "mc",
+      question: "Which of these uses AI?",
+      hint: "Think about what we just learned.",
+      options: [
+        { text: "A toaster", correct: false },
+        { text: "YouTube suggesting your next video", correct: true },
+        { text: "A regular pencil", correct: false },
+        { text: "A swing set", correct: false }
+      ],
+      correctMsg: "Yes! YouTube uses AI to figure out what you'll like next.",
+      wrongMsg: "YouTube uses AI to RECOMMEND videos based on what you've watched. The others are just regular things!"
+    },
+    {
+      type: "mc",
+      question: "Is AI magic?",
+      hint: "Nope! It's something more interesting...",
+      options: [
+        { text: "Yes, it's pure magic", correct: false },
+        { text: "Yes, it's basically wizardry", correct: false },
+        { text: "No — it's software that learned from examples", correct: true },
+        { text: "No — it's just a robot dance", correct: false }
+      ],
+      correctMsg: "Exactly! AI is software + lots of training data. No magic needed.",
+      wrongMsg: "AI is NOT magic! It's software that learned from examples. Cool, right?"
+    },
+    {
+      type: "mc",
+      question: "FINAL: Why is AI such a big deal for entrepreneurs?",
+      hint: "Think about all the things AI can do.",
+      options: [
+        { text: "It can help you build, design, and grow your business faster", correct: true },
+        { text: "It will replace all humans", correct: false },
+        { text: "It only works for big companies", correct: false },
+        { text: "It's too hard for kids", correct: false }
+      ],
+      correctMsg: "YES! AI is like a super-helpful assistant. Even kids can use it to build amazing things!",
+      wrongMsg: "AI is a TOOL that helps anyone build faster — including kids! That's what makes this exciting."
+    }
+  ],
+  badges: [
+    { icon: "brain", name: "AI Explorer", earned: true },
+    { icon: "star", name: "Sharp Learner", earned: ({ correct }) => correct >= 2 },
+    { icon: "bulb", name: "Big Idea Brain", earned: ({ correct }) => correct >= 3 },
+    { icon: "perfect", name: "Perfect Score", earned: ({ score }) => score === 100 },
+    { icon: "heart", name: "All Hearts", earned: ({ hearts }) => hearts === 3 },
+    { icon: "trophy", name: "AI Beginner", earned: ({ score, hearts }) => score >= 80 && hearts >= 2 }
+  ]
+});
+</script>
+</body>
+</html>

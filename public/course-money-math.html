@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Money Math — AI Innovators</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="course-shared.css">
+</head>
+<body>
+<div id="courseRoot"></div>
+<script src="course-engine.js"></script>
+<script>
+renderCourse({
+  courseId: "money-math",
+  theme: "orange",
+  tag: "K-5 STARTER MISSION",
+  gradeAnchor: "k5",
+  gradeLabel: "K-5",
+  title: "Money Math",
+  description: "Real money skills for kids! Add up dollars, find profit, save smart, and become a money pro.",
+  duration: 30,
+  units: [
+    {
+      title: "Basic Money",
+      lessons: [
+        { title: "What is Money?", type: "read", time: "5 min", xp: 5, file: "lesson-mm-1-1-what-is-money.html" },
+        { title: "Adding Up Dollars", type: "practice", time: "5 min", xp: 5 },
+        { title: "Unit 1 Check", type: "quiz", time: "3 min", xp: 5 }
+      ]
+    },
+    {
+      title: "Earning vs Spending",
+      lessons: [
+        { title: "Ways to Earn Money", type: "read", time: "5 min", xp: 5 },
+        { title: "Smart Spending", type: "read", time: "5 min", xp: 5 },
+        { title: "Earning Practice", type: "practice", time: "5 min", xp: 5 },
+        { title: "Unit 2 Check", type: "quiz", time: "3 min", xp: 5 }
+      ]
+    },
+    {
+      title: "Saving Money",
+      lessons: [
+        { title: "Why Save?", type: "read", time: "5 min", xp: 5 },
+        { title: "How to Save", type: "read", time: "5 min", xp: 5 }
+      ]
+    }
+  ],
+  finalTest: { title: "Money Math Challenge", xp: 10, time: "5 min" }
+});
+</script>
+</body>
+</html>
