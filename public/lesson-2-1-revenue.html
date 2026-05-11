@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>What is Revenue? — AI Innovators</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="lesson-shared.css">
+</head>
+<body>
+<div class="app">
+  <div class="topbar" id="topbar" style="display:none;">
+    <button class="close-btn" id="closeBtn">×</button>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="hearts">
+      <svg class="heart-svg" viewBox="0 0 32 32"><path d="M16 28 C 6 20 2 14 2 10 C 2 6 5 3 9 3 C 12 3 14 5 16 8 C 18 5 20 3 23 3 C 27 3 30 6 30 10 C 30 14 26 20 16 28 Z" fill="#ec4899" stroke="#be185d" stroke-width="1.5"/></svg>
+      <span id="heartsCount">3</span>
+    </div>
+  </div>
+  <div class="screen active" id="screen-welcome">
+    <div class="lesson-tag" id="lesson-tag">LESSON</div>
+    <div class="mascot" id="welcomeMascot"></div>
+    <h1 class="welcome-title" id="welcome-title"></h1>
+    <p class="welcome-subtitle" id="welcome-subtitle"></p>
+    <button class="btn go" id="startBtn">Let's Go!</button>
+  </div>
+  <div class="screen" id="screen-lesson"></div>
+  <div class="screen" id="screen-complete">
+    <div class="mascot" id="completeMascot"></div>
+    <h1 class="complete-title">Lesson Complete!</h1>
+    <p class="complete-subtitle">Awesome work! Here's what you earned:</p>
+    <div class="stats-row">
+      <div class="stat-box"><div class="stat-label">XP Earned</div><div class="stat-value xp" id="finalXP">0</div></div>
+      <div class="stat-box"><div class="stat-label">Score</div><div class="stat-value score" id="finalScore">0%</div></div>
+      <div class="stat-box"><div class="stat-label">Hearts Left</div><div class="stat-value" style="color:#ef4444;" id="finalHearts">3</div></div>
+    </div>
+    <h3 style="margin: 28px 0 14px; color: #0c4a6e; font-weight: 900; font-family:'Nunito',sans-serif;">Badges You Earned:</h3>
+    <div class="badge-grid" id="badgeGrid"></div>
+    <button class="btn go" id="backToCourseBtn">Back to Course →</button>
+    <button class="btn ghost" style="margin-top:12px;" id="playAgainBtn">Play Again</button>
+  </div>
+  <div class="screen" id="screen-gameover">
+    <div class="mascot" id="gameoverMascot"></div>
+    <h1 class="complete-title" style="color:#b91c1c;">Out of Hearts!</h1>
+    <p class="complete-subtitle">Don't give up — every entrepreneur tries again!</p>
+    <button class="btn danger" id="retryBtn">Try Again</button>
+  </div>
+</div>
+<div class="feedback" id="feedback">
+  <div class="feedback-inner">
+    <div><div class="feedback-text" id="feedbackText"></div><div class="feedback-explain" id="feedbackExplain"></div></div>
+    <button class="btn go" onclick="window._lessonNext()">Continue</button>
+  </div>
+</div>
+<script src="lesson-engine.js"></script>
+<script>
+const MONEY_ICON = `<svg viewBox="0 0 64 64"><circle cx="32" cy="32" r="26" fill="#22c55e" stroke="#15803d" stroke-width="2.5"/><text x="32" y="42" font-size="32" fill="white" text-anchor="middle" font-weight="900" font-family="sans-serif">$</text></svg>`;
+
+runLesson({
+  lessonId: "business-101-2-1",
+  tag: "UNIT 2 · LESSON 2.1",
+  title: "What is Revenue?",
+  subtitle: "Let's learn how businesses earn money — the simple way!",
+  steps: [
+    {
+      type: "vocab",
+      word: "Revenue",
+      pronounce: "say it: REV-uh-noo",
+      definition: "<b>Revenue</b> is all the money a business gets when customers buy stuff. Think of it as <b>money IN</b>.",
+      example: "If you sell 5 cookies for $2 each, your revenue is 5 × $2 = <b>$10</b>.",
+      icon: MONEY_ICON
+    },
+    {
+      type: "teach",
+      title: "Revenue = Money IN",
+      body: "Every time a customer buys something, that's revenue. The MORE things you sell (or the higher the price), the MORE revenue you make!",
+      examples: ["Sell 1 cookie at $2 → $2", "Sell 10 cookies at $2 → $20", "Sell 100 cookies at $2 → $200"]
+    },
+    {
+      type: "mc",
+      question: "Sara sold 4 bracelets for $5 each. What's her revenue?",
+      hint: "Revenue = how many you sold × price per item.",
+      options: [
+        { text: "$5", correct: false },
+        { text: "$9", correct: false },
+        { text: "$20", correct: true },
+        { text: "$25", correct: false }
+      ],
+      correctMsg: "Yes! 4 bracelets × $5 = $20 revenue.",
+      wrongMsg: "Multiply: 4 × $5 = $20. That's her revenue!"
+    },
+    {
+      type: "math",
+      question: "Quick math!",
+      story: "You sell 6 cupcakes at $3 each. What's your revenue?",
+      equation: "6 × $3 = ?",
+      answer: 18,
+      correctMsg: "Perfect! $18 revenue.",
+      wrongMsg: "6 × 3 = 18."
+    },
+    {
+      type: "math",
+      question: "Try a bigger one!",
+      story: "Your lemonade stand sells 12 cups at $2 each. What's the revenue?",
+      equation: "12 × $2 = ?",
+      answer: 24,
+      correctMsg: "Awesome! $24 revenue.",
+      wrongMsg: "12 × 2 = 24."
+    },
+    {
+      type: "mc",
+      question: "Which of these IS revenue?",
+      hint: "Revenue = money coming IN from customers.",
+      options: [
+        { text: "Money you spent on supplies", correct: false },
+        { text: "Money customers paid you for stuff", correct: true },
+        { text: "Money you got for your birthday", correct: false },
+        { text: "Money in your piggy bank", correct: false }
+      ],
+      correctMsg: "Yes! Revenue is ONLY the money customers pay you.",
+      wrongMsg: "Revenue is just the money customers pay you for what you sold them."
+    }
+  ],
+  badges: [
+    { icon: "money", name: "Money Mover", earned: true },
+    { icon: "star", name: "Math Whiz", earned: ({ correct }) => correct >= 2 },
+    { icon: "brain", name: "Revenue Pro", earned: ({ correct }) => correct >= 3 },
+    { icon: "perfect", name: "Perfect Score", earned: ({ score }) => score === 100 },
+    { icon: "heart", name: "All Hearts", earned: ({ hearts }) => hearts === 3 },
+    { icon: "trophy", name: "Revenue Champ", earned: ({ score, hearts }) => score >= 80 && hearts >= 2 }
+  ]
+});
+</script>
+</body>
+</html>

@@ -1402,6 +1402,10 @@ function finishLesson() {
       user.xp = (user.xp || 0) + xp;
       user.badges = Math.max(user.badges || 0, document.querySelectorAll(".badge.earned").length);
       user.completedLessons = user.completedLessons || [];
+      if (!user.completedLessons.includes("business-101-1-1")) {
+        user.completedLessons.push("business-101-1-1");
+      }
+      // Keep legacy id too for backwards compatibility
       if (!user.completedLessons.includes("business-101")) {
         user.completedLessons.push("business-101");
       }

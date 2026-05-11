@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unit 1 Check — AI Innovators</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="lesson-shared.css">
+</head>
+<body>
+<div class="app">
+  <div class="topbar" id="topbar" style="display:none;">
+    <button class="close-btn" id="closeBtn">×</button>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="hearts">
+      <svg class="heart-svg" viewBox="0 0 32 32"><path d="M16 28 C 6 20 2 14 2 10 C 2 6 5 3 9 3 C 12 3 14 5 16 8 C 18 5 20 3 23 3 C 27 3 30 6 30 10 C 30 14 26 20 16 28 Z" fill="#ec4899" stroke="#be185d" stroke-width="1.5"/></svg>
+      <span id="heartsCount">3</span>
+    </div>
+  </div>
+
+  <div class="screen active" id="screen-welcome">
+    <div class="lesson-tag" id="lesson-tag">QUIZ</div>
+    <div class="mascot" id="welcomeMascot"></div>
+    <h1 class="welcome-title" id="welcome-title">Welcome</h1>
+    <p class="welcome-subtitle" id="welcome-subtitle">Subtitle</p>
+    <button class="btn go" id="startBtn">Take the Quiz!</button>
+  </div>
+
+  <div class="screen" id="screen-lesson"></div>
+
+  <div class="screen" id="screen-complete">
+    <div class="mascot" id="completeMascot"></div>
+    <h1 class="complete-title">Quiz Complete!</h1>
+    <p class="complete-subtitle">Great work! Here's how you did:</p>
+    <div class="stats-row">
+      <div class="stat-box"><div class="stat-label">XP Earned</div><div class="stat-value xp" id="finalXP">0</div></div>
+      <div class="stat-box"><div class="stat-label">Score</div><div class="stat-value score" id="finalScore">0%</div></div>
+      <div class="stat-box"><div class="stat-label">Hearts Left</div><div class="stat-value" style="color:#ef4444;" id="finalHearts">3</div></div>
+    </div>
+    <h3 style="margin: 28px 0 14px; color: #0c4a6e; font-weight: 900; font-family:'Nunito',sans-serif;">Badges You Earned:</h3>
+    <div class="badge-grid" id="badgeGrid"></div>
+    <button class="btn go" id="backToCourseBtn">Back to Course →</button>
+    <button class="btn ghost" style="margin-top:12px;" id="playAgainBtn">Play Again</button>
+  </div>
+
+  <div class="screen" id="screen-gameover">
+    <div class="mascot" id="gameoverMascot"></div>
+    <h1 class="complete-title" style="color:#b91c1c;">Out of Hearts!</h1>
+    <p class="complete-subtitle">Don't worry — try again!</p>
+    <button class="btn danger" id="retryBtn">Try Again</button>
+  </div>
+</div>
+
+<div class="feedback" id="feedback">
+  <div class="feedback-inner">
+    <div>
+      <div class="feedback-text" id="feedbackText"></div>
+      <div class="feedback-explain" id="feedbackExplain"></div>
+    </div>
+    <button class="btn go" onclick="window._lessonNext()">Continue</button>
+  </div>
+</div>
+
+<script src="lesson-engine.js"></script>
+<script>
+runLesson({
+  lessonId: "business-101-1-3",
+  tag: "UNIT 1 · CHECK",
+  title: "Unit 1 Quiz",
+  subtitle: "Let's see what you remember about businesses and entrepreneurs!",
+  steps: [
+    {
+      type: "mc",
+      question: "What is a business?",
+      hint: "Think back to Lesson 1.1.",
+      options: [
+        { text: "A place where people sleep", correct: false },
+        { text: "Someone making or selling something people want to buy", correct: true },
+        { text: "A type of homework", correct: false },
+        { text: "A vacation spot", correct: false }
+      ],
+      correctMsg: "Yes! A business sells something people want.",
+      wrongMsg: "Remember: a business is where someone sells something to other people."
+    },
+    {
+      type: "mc",
+      question: "Which one is an entrepreneur?",
+      hint: "Entrepreneurs RUN businesses.",
+      options: [
+        { text: "Someone who plays sports for fun", correct: false },
+        { text: "Someone who started a lemonade stand", correct: true },
+        { text: "Someone watching TV", correct: false },
+        { text: "Someone reading a book", correct: false }
+      ],
+      correctMsg: "Right! Starting a lemonade stand = running a business = entrepreneur!",
+      wrongMsg: "An entrepreneur is someone who STARTS and RUNS a business."
+    },
+    {
+      type: "mc",
+      question: "How do you say \"entrepreneur\"?",
+      hint: "It's a French word!",
+      options: [
+        { text: "EN-tree-pruh-neer", correct: false },
+        { text: "ON-truh-pruh-NOOR", correct: true },
+        { text: "EN-trop-RUN-er", correct: false },
+        { text: "On-tray-PUH-noor", correct: false }
+      ],
+      correctMsg: "Perfect pronunciation! ON-truh-pruh-NOOR.",
+      wrongMsg: "It's pronounced ON-truh-pruh-NOOR. The \"r\" at the end is silent!"
+    },
+    {
+      type: "mc",
+      question: "What's the FIRST thing every business needs?",
+      hint: "It's not money!",
+      options: [
+        { text: "A million dollars", correct: false },
+        { text: "An idea", correct: true },
+        { text: "A fancy office", correct: false },
+        { text: "A college degree", correct: false }
+      ],
+      correctMsg: "Yes! Every business starts with an idea. Money comes after.",
+      wrongMsg: "Nope! Every business starts with an IDEA. Mikaila started with $0 — just an idea about saving bees!"
+    },
+    {
+      type: "mc",
+      question: "Mikaila Ulmer started selling lemonade at age 4. What did her business help save?",
+      hint: "Her lemonade was special.",
+      options: [
+        { text: "Trees", correct: false },
+        { text: "Bees", correct: true },
+        { text: "Dolphins", correct: false },
+        { text: "Cats", correct: false }
+      ],
+      correctMsg: "Yes! Me & the Bees Lemonade donates money to save bees!",
+      wrongMsg: "Mikaila's lemonade is made with HONEY and helps save the bees that make it!"
+    }
+  ],
+  badges: [
+    { icon: "starter", name: "Quiz Taker", earned: true },
+    { icon: "star", name: "Knowledge Seeker", earned: ({ correct }) => correct >= 1 },
+    { icon: "brain", name: "Big Brain", earned: ({ correct }) => correct >= 3 },
+    { icon: "perfect", name: "Perfect Score", earned: ({ score }) => score === 100 },
+    { icon: "heart", name: "All Hearts", earned: ({ hearts }) => hearts === 3 },
+    { icon: "trophy", name: "Unit 1 Master", earned: ({ score, hearts }) => score >= 80 && hearts >= 2 }
+  ]
+});
+</script>
+</body>
+</html>

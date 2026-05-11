@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Marketing Basics — AI Innovators</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="lesson-shared.css">
+</head>
+<body>
+<div class="app">
+  <div class="topbar" id="topbar" style="display:none;">
+    <button class="close-btn" id="closeBtn">×</button>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="hearts">
+      <svg class="heart-svg" viewBox="0 0 32 32"><path d="M16 28 C 6 20 2 14 2 10 C 2 6 5 3 9 3 C 12 3 14 5 16 8 C 18 5 20 3 23 3 C 27 3 30 6 30 10 C 30 14 26 20 16 28 Z" fill="#ec4899" stroke="#be185d" stroke-width="1.5"/></svg>
+      <span id="heartsCount">3</span>
+    </div>
+  </div>
+  <div class="screen active" id="screen-welcome">
+    <div class="lesson-tag" id="lesson-tag">LESSON</div>
+    <div class="mascot" id="welcomeMascot"></div>
+    <h1 class="welcome-title" id="welcome-title"></h1>
+    <p class="welcome-subtitle" id="welcome-subtitle"></p>
+    <button class="btn go" id="startBtn">Let's Go!</button>
+  </div>
+  <div class="screen" id="screen-lesson"></div>
+  <div class="screen" id="screen-complete">
+    <div class="mascot" id="completeMascot"></div>
+    <h1 class="complete-title">Lesson Complete!</h1>
+    <p class="complete-subtitle">You're a marketing pro! Here's what you earned:</p>
+    <div class="stats-row">
+      <div class="stat-box"><div class="stat-label">XP Earned</div><div class="stat-value xp" id="finalXP">0</div></div>
+      <div class="stat-box"><div class="stat-label">Score</div><div class="stat-value score" id="finalScore">0%</div></div>
+      <div class="stat-box"><div class="stat-label">Hearts Left</div><div class="stat-value" style="color:#ef4444;" id="finalHearts">3</div></div>
+    </div>
+    <h3 style="margin: 28px 0 14px; color: #0c4a6e; font-weight: 900; font-family:'Nunito',sans-serif;">Badges You Earned:</h3>
+    <div class="badge-grid" id="badgeGrid"></div>
+    <button class="btn go" id="backToCourseBtn">Back to Course →</button>
+    <button class="btn ghost" style="margin-top:12px;" id="playAgainBtn">Play Again</button>
+  </div>
+  <div class="screen" id="screen-gameover">
+    <div class="mascot" id="gameoverMascot"></div>
+    <h1 class="complete-title" style="color:#b91c1c;">Out of Hearts!</h1>
+    <p class="complete-subtitle">Try again!</p>
+    <button class="btn danger" id="retryBtn">Try Again</button>
+  </div>
+</div>
+<div class="feedback" id="feedback">
+  <div class="feedback-inner">
+    <div><div class="feedback-text" id="feedbackText"></div><div class="feedback-explain" id="feedbackExplain"></div></div>
+    <button class="btn go" onclick="window._lessonNext()">Continue</button>
+  </div>
+</div>
+<script src="lesson-engine.js"></script>
+<script>
+const MEGA_ICON = `<svg viewBox="0 0 64 64"><path d="M8 24 L 8 40 L 16 40 L 44 52 L 44 12 L 16 24 Z" fill="#fbbf24" stroke="#d97706" stroke-width="2.5" stroke-linejoin="round"/><path d="M44 20 C 50 22 54 26 54 32 C 54 38 50 42 44 44" fill="none" stroke="#d97706" stroke-width="3" stroke-linecap="round"/></svg>`;
+
+runLesson({
+  lessonId: "business-101-4-1",
+  tag: "UNIT 4 · LESSON 4.1",
+  title: "Marketing Basics",
+  subtitle: "Even the best business needs to TELL people about it. That's marketing!",
+  steps: [
+    {
+      type: "vocab",
+      word: "Marketing",
+      pronounce: "say it: MAR-kit-ing",
+      definition: "<b>Marketing</b> is HOW you tell people about your business. It's like saying \"Hey! Come check out my cool stuff!\"",
+      example: "Posting a video about your lemonade stand on TikTok = marketing!",
+      icon: MEGA_ICON
+    },
+    {
+      type: "teach",
+      title: "Ways to Market Your Business",
+      body: "There are LOTS of ways to spread the word. The best entrepreneurs use a few different ways to reach the most customers!",
+      examples: ["📱 Social media posts", "🪧 Signs and posters", "👋 Word of mouth", "🎁 Free samples", "📧 Email"]
+    },
+    {
+      type: "mc",
+      question: "You opened a new lemonade stand. What's the BEST way to get customers?",
+      hint: "Marketing = telling people!",
+      options: [
+        { text: "Stay quiet and hope people show up", correct: false },
+        { text: "Make a fun sign + post about it online", correct: true },
+        { text: "Hide the stand", correct: false },
+        { text: "Only tell yourself", correct: false }
+      ],
+      correctMsg: "YES! Combining methods (sign + social) reaches more people.",
+      wrongMsg: "Marketing is TELLING people. The more ways you tell them, the more customers!"
+    },
+    {
+      type: "mc",
+      question: "Which of these is NOT marketing?",
+      hint: "Marketing = telling people about your business.",
+      options: [
+        { text: "Posting on Instagram about your slime", correct: false },
+        { text: "Putting up posters at school", correct: false },
+        { text: "Telling friends about your shop", correct: false },
+        { text: "Sleeping on the couch", correct: true }
+      ],
+      correctMsg: "Right! Sleeping doesn't help your business 😴",
+      wrongMsg: "Sleeping isn't telling anyone about your business. Marketing = spreading the word!"
+    },
+    {
+      type: "match",
+      question: "Match each thing to whether it's marketing or NOT!",
+      hint: "Marketing = telling people about your business.",
+      pairs: [
+        { prompt: "🪧 Posters at school", answer: "Marketing" },
+        { prompt: "💰 Buying supplies", answer: "Not Marketing" },
+        { prompt: "📱 TikTok video about your shop", answer: "Marketing" }
+      ],
+      correctMsg: "Yes! Marketing = anything that TELLS people. Buying stuff is just costs.",
+      wrongMsg: "Marketing = telling people. Buying things is a COST, not marketing."
+    },
+    {
+      type: "mc",
+      question: "FINAL: What's the BEST marketing for a kid's business?",
+      hint: "Think about what's free and easy for kids!",
+      options: [
+        { text: "Buying TV ads ($$$)", correct: false },
+        { text: "Telling friends + family + posting on social media", correct: true },
+        { text: "Doing nothing", correct: false },
+        { text: "Hiding from people", correct: false }
+      ],
+      correctMsg: "Yes! Word of mouth + social media = FREE marketing that works great for kids!",
+      wrongMsg: "Kids don't need expensive ads. Tell friends and post online — it's FREE and powerful!"
+    }
+  ],
+  badges: [
+    { icon: "starter", name: "Spreading the Word", earned: true },
+    { icon: "star", name: "Marketing Mind", earned: ({ correct }) => correct >= 2 },
+    { icon: "brain", name: "Marketing Pro", earned: ({ correct }) => correct >= 3 },
+    { icon: "perfect", name: "Perfect Score", earned: ({ score }) => score === 100 },
+    { icon: "heart", name: "All Hearts", earned: ({ hearts }) => hearts === 3 },
+    { icon: "trophy", name: "Marketing Champion", earned: ({ score, hearts }) => score >= 80 && hearts >= 2 }
+  ]
+});
+</script>
+</body>
+</html>

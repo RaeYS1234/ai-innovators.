@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Course Challenge — AI Innovators</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="lesson-shared.css">
+</head>
+<body>
+<div class="app">
+  <div class="topbar" id="topbar" style="display:none;">
+    <button class="close-btn" id="closeBtn">×</button>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="hearts">
+      <svg class="heart-svg" viewBox="0 0 32 32"><path d="M16 28 C 6 20 2 14 2 10 C 2 6 5 3 9 3 C 12 3 14 5 16 8 C 18 5 20 3 23 3 C 27 3 30 6 30 10 C 30 14 26 20 16 28 Z" fill="#ec4899" stroke="#be185d" stroke-width="1.5"/></svg>
+      <span id="heartsCount">3</span>
+    </div>
+  </div>
+  <div class="screen active" id="screen-welcome">
+    <div class="lesson-tag" id="lesson-tag" style="background: linear-gradient(135deg, #fbbf24, #f59e0b); color:white; box-shadow: 0 3px 0 #d97706;">FINAL TEST</div>
+    <div class="mascot" id="welcomeMascot"></div>
+    <h1 class="welcome-title" id="welcome-title"></h1>
+    <p class="welcome-subtitle" id="welcome-subtitle"></p>
+    <button class="btn go" id="startBtn">Take the Challenge!</button>
+  </div>
+  <div class="screen" id="screen-lesson"></div>
+  <div class="screen" id="screen-complete">
+    <div class="mascot" id="completeMascot"></div>
+    <h1 class="complete-title">CHALLENGE COMPLETE!</h1>
+    <p class="complete-subtitle">You finished Business 101! Here's your final score:</p>
+    <div class="stats-row">
+      <div class="stat-box"><div class="stat-label">XP Earned</div><div class="stat-value xp" id="finalXP">0</div></div>
+      <div class="stat-box"><div class="stat-label">Score</div><div class="stat-value score" id="finalScore">0%</div></div>
+      <div class="stat-box"><div class="stat-label">Hearts Left</div><div class="stat-value" style="color:#ef4444;" id="finalHearts">3</div></div>
+    </div>
+    <h3 style="margin: 28px 0 14px; color: #0c4a6e; font-weight: 900; font-family:'Nunito',sans-serif;">Your Trophies:</h3>
+    <div class="badge-grid" id="badgeGrid"></div>
+    <button class="btn go" id="backToCourseBtn">Back to Course →</button>
+    <button class="btn ghost" style="margin-top:12px;" id="playAgainBtn">Try Again</button>
+  </div>
+  <div class="screen" id="screen-gameover">
+    <div class="mascot" id="gameoverMascot"></div>
+    <h1 class="complete-title" style="color:#b91c1c;">Out of Hearts!</h1>
+    <p class="complete-subtitle">The challenge is hard — that's why it's a CHALLENGE!</p>
+    <button class="btn danger" id="retryBtn">Try Again</button>
+  </div>
+</div>
+<div class="feedback" id="feedback">
+  <div class="feedback-inner">
+    <div><div class="feedback-text" id="feedbackText"></div><div class="feedback-explain" id="feedbackExplain"></div></div>
+    <button class="btn go" onclick="window._lessonNext()">Continue</button>
+  </div>
+</div>
+<script src="lesson-engine.js"></script>
+<script>
+runLesson({
+  lessonId: "business-101-challenge",
+  tag: "COURSE CHALLENGE",
+  title: "Course Challenge!",
+  subtitle: "10 questions covering EVERYTHING. Beat the challenge to earn your trophy!",
+  steps: [
+    {
+      type: "mc",
+      question: "What is a business?",
+      options: [
+        { text: "Someone selling something other people want", correct: true },
+        { text: "A type of school", correct: false },
+        { text: "A vacation", correct: false },
+        { text: "A toy", correct: false }
+      ],
+      correctMsg: "Correct!",
+      wrongMsg: "A business sells things to other people."
+    },
+    {
+      type: "mc",
+      question: "Who is an entrepreneur?",
+      options: [
+        { text: "A person watching TV", correct: false },
+        { text: "A person who runs a business", correct: true },
+        { text: "A person sleeping", correct: false },
+        { text: "A person at the beach", correct: false }
+      ],
+      correctMsg: "Right!",
+      wrongMsg: "An entrepreneur RUNS a business."
+    },
+    {
+      type: "mc",
+      question: "What does revenue mean?",
+      options: [
+        { text: "Money OUT", correct: false },
+        { text: "Money IN", correct: true },
+        { text: "Free money", correct: false },
+        { text: "Lost money", correct: false }
+      ],
+      correctMsg: "Yes — revenue = money IN.",
+      wrongMsg: "Revenue is the money customers give you. That's IN."
+    },
+    {
+      type: "mc",
+      question: "What does cost mean?",
+      options: [
+        { text: "Money IN", correct: false },
+        { text: "Money OUT", correct: true },
+        { text: "Free stuff", correct: false },
+        { text: "A discount", correct: false }
+      ],
+      correctMsg: "Yes — cost = money OUT.",
+      wrongMsg: "Cost is what you SPEND to run your business. That's OUT."
+    },
+    {
+      type: "math",
+      question: "Calculate the profit",
+      story: "Revenue: $25. Cost: $10. Profit?",
+      equation: "$25 − $10 = ?",
+      answer: 15,
+      correctMsg: "$15 profit!",
+      wrongMsg: "Profit = Revenue − Cost. 25 − 10 = 15."
+    },
+    {
+      type: "math",
+      question: "Real-world profit",
+      story: "Sold 10 cookies at $3 each. Spent $12 on supplies. Profit?",
+      equation: "$30 − $12 = ?",
+      answer: 18,
+      correctMsg: "$18 profit!",
+      wrongMsg: "Revenue is 10 × $3 = $30. Profit = 30 − 12 = $18."
+    },
+    {
+      type: "mc",
+      question: "Who are CUSTOMERS?",
+      options: [
+        { text: "People who buy from your business", correct: true },
+        { text: "Your supplies", correct: false },
+        { text: "Your costs", correct: false },
+        { text: "Your friends only", correct: false }
+      ],
+      correctMsg: "Yes!",
+      wrongMsg: "Customers are people who BUY from you."
+    },
+    {
+      type: "mc",
+      question: "What is MARKETING?",
+      options: [
+        { text: "Spending money", correct: false },
+        { text: "Telling people about your business", correct: true },
+        { text: "Hiding your business", correct: false },
+        { text: "Buying supplies", correct: false }
+      ],
+      correctMsg: "Marketing = telling people!",
+      wrongMsg: "Marketing is HOW you tell people about your business."
+    },
+    {
+      type: "match",
+      question: "Match each business to its customer!",
+      pairs: [
+        { prompt: "🐶 Pet Store", answer: "Pet owners" },
+        { prompt: "🎮 Game Shop", answer: "Gamers" },
+        { prompt: "🍰 Bakery", answer: "Cake lovers" }
+      ],
+      correctMsg: "Customer-matching champion!",
+      wrongMsg: "Think who would walk into each store."
+    },
+    {
+      type: "mc",
+      question: "FINAL QUESTION: Could YOU start a real business right now?",
+      hint: "Think about everything we learned!",
+      options: [
+        { text: "YES — I have ideas, can take chances, and can help customers!", correct: true },
+        { text: "No, I'm too young", correct: false },
+        { text: "No, I don't have money", correct: false },
+        { text: "Only adults can", correct: false }
+      ],
+      correctMsg: "🎉 YES YOU CAN! You just finished Business 101 — go start something amazing!",
+      wrongMsg: "Mikaila started at 4. Moziah at 9. Ryan at 4. Age and money don't matter — IDEAS do!"
+    }
+  ],
+  badges: [
+    { icon: "trophy", name: "Course Trophy", earned: true },
+    { icon: "money", name: "Money Master", earned: ({ correct }) => correct >= 4 },
+    { icon: "star", name: "Top Scholar", earned: ({ correct }) => correct >= 6 },
+    { icon: "perfect", name: "PERFECT!", earned: ({ score }) => score === 100 },
+    { icon: "heart", name: "All Hearts", earned: ({ hearts }) => hearts === 3 },
+    { icon: "crown", name: "Business 101 Boss", earned: ({ score, hearts }) => score >= 80 && hearts >= 2 }
+  ]
+});
+</script>
+</body>
+</html>

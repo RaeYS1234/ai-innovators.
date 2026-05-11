@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Match Customers — AI Innovators</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="lesson-shared.css">
+</head>
+<body>
+<div class="app">
+  <div class="topbar" id="topbar" style="display:none;">
+    <button class="close-btn" id="closeBtn">×</button>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="hearts">
+      <svg class="heart-svg" viewBox="0 0 32 32"><path d="M16 28 C 6 20 2 14 2 10 C 2 6 5 3 9 3 C 12 3 14 5 16 8 C 18 5 20 3 23 3 C 27 3 30 6 30 10 C 30 14 26 20 16 28 Z" fill="#ec4899" stroke="#be185d" stroke-width="1.5"/></svg>
+      <span id="heartsCount">3</span>
+    </div>
+  </div>
+  <div class="screen active" id="screen-welcome">
+    <div class="lesson-tag" id="lesson-tag">PRACTICE</div>
+    <div class="mascot" id="welcomeMascot"></div>
+    <h1 class="welcome-title" id="welcome-title"></h1>
+    <p class="welcome-subtitle" id="welcome-subtitle"></p>
+    <button class="btn go" id="startBtn">Let's Match!</button>
+  </div>
+  <div class="screen" id="screen-lesson"></div>
+  <div class="screen" id="screen-complete">
+    <div class="mascot" id="completeMascot"></div>
+    <h1 class="complete-title">Practice Complete!</h1>
+    <p class="complete-subtitle">You're a customer-matching pro! Here's what you earned:</p>
+    <div class="stats-row">
+      <div class="stat-box"><div class="stat-label">XP Earned</div><div class="stat-value xp" id="finalXP">0</div></div>
+      <div class="stat-box"><div class="stat-label">Score</div><div class="stat-value score" id="finalScore">0%</div></div>
+      <div class="stat-box"><div class="stat-label">Hearts Left</div><div class="stat-value" style="color:#ef4444;" id="finalHearts">3</div></div>
+    </div>
+    <h3 style="margin: 28px 0 14px; color: #0c4a6e; font-weight: 900; font-family:'Nunito',sans-serif;">Badges You Earned:</h3>
+    <div class="badge-grid" id="badgeGrid"></div>
+    <button class="btn go" id="backToCourseBtn">Back to Course →</button>
+    <button class="btn ghost" style="margin-top:12px;" id="playAgainBtn">Play Again</button>
+  </div>
+  <div class="screen" id="screen-gameover">
+    <div class="mascot" id="gameoverMascot"></div>
+    <h1 class="complete-title" style="color:#b91c1c;">Out of Hearts!</h1>
+    <p class="complete-subtitle">Try again!</p>
+    <button class="btn danger" id="retryBtn">Try Again</button>
+  </div>
+</div>
+<div class="feedback" id="feedback">
+  <div class="feedback-inner">
+    <div><div class="feedback-text" id="feedbackText"></div><div class="feedback-explain" id="feedbackExplain"></div></div>
+    <button class="btn go" onclick="window._lessonNext()">Continue</button>
+  </div>
+</div>
+<script src="lesson-engine.js"></script>
+<script>
+runLesson({
+  lessonId: "business-101-3-2",
+  tag: "UNIT 3 · PRACTICE",
+  title: "Match Customers to Businesses",
+  subtitle: "Practice finding the right customer for each business!",
+  steps: [
+    {
+      type: "match",
+      question: "Round 1: Easy ones!",
+      hint: "Tap an answer in the bank, then tap the business it goes with.",
+      pairs: [
+        { prompt: "🐶 Pet store", answer: "Pet owners" },
+        { prompt: "🎮 Game shop", answer: "Gamers" },
+        { prompt: "👶 Baby store", answer: "Parents of babies" }
+      ],
+      correctMsg: "Easy mode crushed!",
+      wrongMsg: "Look at WHO would shop at each store. Try again!"
+    },
+    {
+      type: "match",
+      question: "Round 2: Trickier!",
+      hint: "Think about who would BUY from each business.",
+      pairs: [
+        { prompt: "🍰 Bakery", answer: "Cake lovers" },
+        { prompt: "🏀 Sports store", answer: "Athletes" },
+        { prompt: "🎨 Art supply shop", answer: "Artists" }
+      ],
+      correctMsg: "Nice! You're getting good at this.",
+      wrongMsg: "Think about who NEEDS what each store sells."
+    },
+    {
+      type: "match",
+      question: "Round 3: Boss level!",
+      hint: "These are tougher — read carefully!",
+      pairs: [
+        { prompt: "📚 Bookstore for kids", answer: "Young readers" },
+        { prompt: "🛹 Skateboard shop", answer: "Skateboarders" },
+        { prompt: "🎂 Birthday party planner", answer: "Kids' parents" }
+      ],
+      correctMsg: "Boss level beat! You really know your customers.",
+      wrongMsg: "Think about who would HIRE or BUY from each business."
+    },
+    {
+      type: "mc",
+      question: "Final question: Why does matching customers to businesses matter?",
+      hint: "Think about why we just did all that matching.",
+      options: [
+        { text: "So you sell to the right people who actually want your stuff", correct: true },
+        { text: "It doesn't really matter", correct: false },
+        { text: "To confuse customers", correct: false },
+        { text: "Just for fun", correct: false }
+      ],
+      correctMsg: "EXACTLY! Knowing your customer = selling more = more profit.",
+      wrongMsg: "It matters a LOT! When you sell to the right people, they actually buy. That = profit!"
+    }
+  ],
+  badges: [
+    { icon: "starter", name: "Match Master", earned: true },
+    { icon: "star", name: "Customer Wise", earned: ({ correct }) => correct >= 2 },
+    { icon: "brain", name: "Sharp Thinker", earned: ({ correct }) => correct >= 3 },
+    { icon: "perfect", name: "Perfect Score", earned: ({ score }) => score === 100 },
+    { icon: "heart", name: "All Hearts", earned: ({ hearts }) => hearts === 3 },
+    { icon: "trophy", name: "Match Champion", earned: ({ score, hearts }) => score >= 80 && hearts >= 2 }
+  ]
+});
+</script>
+</body>
+</html>
