@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>When AI Gets It Wrong — AI Innovators</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="lesson-shared.css">
+</head>
+<body>
+<div class="app">
+  <div class="topbar" id="topbar" style="display:none;">
+    <button class="close-btn" id="closeBtn">×</button>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="hearts">
+      <svg class="heart-svg" viewBox="0 0 32 32"><path d="M16 28 C 6 20 2 14 2 10 C 2 6 5 3 9 3 C 12 3 14 5 16 8 C 18 5 20 3 23 3 C 27 3 30 6 30 10 C 30 14 26 20 16 28 Z" fill="#ec4899" stroke="#be185d" stroke-width="1.5"/></svg>
+      <span id="heartsCount">3</span>
+    </div>
+  </div>
+  <div class="screen active" id="screen-welcome">
+    <div class="lesson-tag" id="lesson-tag">LESSON</div>
+    <div class="mascot" id="welcomeMascot"></div>
+    <h1 class="welcome-title" id="welcome-title"></h1>
+    <p class="welcome-subtitle" id="welcome-subtitle"></p>
+    <button class="btn go" id="startBtn">Let's Go!</button>
+  </div>
+  <div class="screen" id="screen-lesson"></div>
+  <div class="screen" id="screen-complete">
+    <div class="mascot" id="completeMascot"></div>
+    <h1 class="complete-title">Lesson Complete!</h1>
+    <p class="complete-subtitle">You know AI can be wrong! Here's what you earned:</p>
+    <div class="stats-row">
+      <div class="stat-box"><div class="stat-label">XP Earned</div><div class="stat-value xp" id="finalXP">0</div></div>
+      <div class="stat-box"><div class="stat-label">Score</div><div class="stat-value score" id="finalScore">0%</div></div>
+      <div class="stat-box"><div class="stat-label">Hearts Left</div><div class="stat-value" style="color:#ef4444;" id="finalHearts">3</div></div>
+    </div>
+    <h3 style="margin: 28px 0 14px; color: #0c4a6e; font-weight: 900; font-family:'Nunito',sans-serif;">Badges You Earned:</h3>
+    <div class="badge-grid" id="badgeGrid"></div>
+    <button class="btn go" id="backToCourseBtn">Back to Course →</button>
+    <button class="btn ghost" style="margin-top:12px;" id="playAgainBtn">Play Again</button>
+  </div>
+  <div class="screen" id="screen-gameover">
+    <div class="mascot" id="gameoverMascot"></div>
+    <h1 class="complete-title" style="color:#b91c1c;">Out of Hearts!</h1>
+    <p class="complete-subtitle">Try again!</p>
+    <button class="btn danger" id="retryBtn">Try Again</button>
+  </div>
+</div>
+<div class="feedback" id="feedback">
+  <div class="feedback-inner">
+    <div><div class="feedback-text" id="feedbackText"></div><div class="feedback-explain" id="feedbackExplain"></div></div>
+    <button class="btn go" onclick="window._lessonNext()">Continue</button>
+  </div>
+</div>
+<script src="lesson-engine.js"></script>
+<script>
+const WARN_ICON = `<svg viewBox="0 0 64 64"><path d="M 32 6 L 60 54 L 4 54 Z" fill="#fbbf24" stroke="#d97706" stroke-width="2.5" stroke-linejoin="round"/><rect x="29" y="22" width="6" height="18" rx="2" fill="#92400e"/><circle cx="32" cy="46" r="3" fill="#92400e"/></svg>`;
+
+runLesson({
+  lessonId: "what-is-ai-3-2",
+  courseUrl: "course-what-is-ai.html",
+  tag: "UNIT 3 · LESSON 3.2",
+  title: "When AI Gets It Wrong",
+  subtitle: "Plot twist: AI isn't always right! Nova will show you what to watch out for.",
+  steps: [
+    {
+      type: "teach",
+      title: "AI Can Make Stuff Up!",
+      body: "AI sometimes confidently says things that are <b>totally false</b>. This is called a \"hallucination.\" It happens because AI is trying to sound smart even when it doesn't know.",
+      icon: WARN_ICON,
+      examples: ["Wrong dates", "Fake quotes", "Made-up facts"]
+    },
+    {
+      type: "vocab",
+      word: "Hallucination",
+      pronounce: "say it: huh-LOO-suh-NAY-shun",
+      definition: "When AI <b>confidently makes up false information</b>. It's not lying on purpose — it just doesn't know what's true sometimes.",
+      example: "Ask AI \"Who won the World Cup in 2024?\" It might just GUESS and sound super confident, even if it's wrong.",
+      icon: WARN_ICON
+    },
+    {
+      type: "teach",
+      title: "AI Doesn't Know Recent Events",
+      body: "Most AI was <b>trained on old data</b>. If something happened LAST WEEK, AI probably has no clue. It only knows what it studied during training.",
+      examples: ["Recent news? Maybe wrong.", "Last week's game? Won't know.", "New movies? Won't know."]
+    },
+    {
+      type: "teach",
+      title: "ALWAYS Double-Check Important Stuff",
+      body: "For anything important (homework facts, history, science), <b>check AI's answer with a real source</b> like a book, teacher, or trusted website. AI is great, but not always right!",
+      examples: ["Wikipedia", "Textbooks", "Ask a teacher", "Trusted websites"]
+    },
+    {
+      type: "mc",
+      question: "What's a 'hallucination' in AI?",
+      hint: "We just learned this word!",
+      options: [
+        { text: "When AI takes a nap", correct: false },
+        { text: "When AI confidently makes up false info", correct: true },
+        { text: "When AI runs out of battery", correct: false },
+        { text: "When AI is angry", correct: false }
+      ],
+      correctMsg: "Right! Hallucinations = AI making up false stuff that sounds true.",
+      wrongMsg: "A hallucination is when AI MAKES UP FALSE INFO and says it confidently!"
+    },
+    {
+      type: "mc",
+      question: "You're writing a history report. You ask AI for facts. What should you do?",
+      hint: "Trust... but verify!",
+      options: [
+        { text: "Just believe AI 100% and submit it", correct: false },
+        { text: "Double-check the facts with a real source", correct: true },
+        { text: "Don't write any report", correct: false },
+        { text: "Make up your own facts", correct: false }
+      ],
+      correctMsg: "Yes! Always verify AI's answers with a real source for important stuff.",
+      wrongMsg: "ALWAYS double-check important AI answers. AI can be wrong — your real source confirms it."
+    },
+    {
+      type: "mc",
+      question: "Why doesn't AI know about last week's news?",
+      hint: "Think about when AI was trained.",
+      options: [
+        { text: "AI is too lazy to read news", correct: false },
+        { text: "AI was trained on old data and hasn't learned new stuff", correct: true },
+        { text: "AI hates current events", correct: false },
+        { text: "News isn't real", correct: false }
+      ],
+      correctMsg: "Right! AI's knowledge has a cutoff date — it can't see new stuff after training.",
+      wrongMsg: "AI was trained on OLD data. Anything that happened AFTER its training? AI has no idea!"
+    },
+    {
+      type: "mc",
+      question: "FINAL: Best mindset when using AI?",
+      hint: "Be smart about it!",
+      options: [
+        { text: "AI is always 100% right", correct: false },
+        { text: "AI is a helpful tool, but I check important stuff myself", correct: true },
+        { text: "AI is always wrong", correct: false },
+        { text: "I should never trust anyone", correct: false }
+      ],
+      correctMsg: "PERFECT! AI is a tool, not the truth. Smart kids check things themselves.",
+      wrongMsg: "AI is a HELPFUL TOOL, but always verify important stuff yourself. That's the smart move!"
+    }
+  ],
+  badges: [
+    { icon: "brain", name: "Critical Thinker", earned: true },
+    { icon: "star", name: "Fact Checker", earned: ({ correct }) => correct >= 2 },
+    { icon: "bulb", name: "Smart Skeptic", earned: ({ correct }) => correct >= 3 },
+    { icon: "perfect", name: "Perfect Score", earned: ({ score }) => score === 100 },
+    { icon: "heart", name: "All Hearts", earned: ({ hearts }) => hearts === 3 },
+    { icon: "trophy", name: "AI Wise One", earned: ({ score, hearts }) => score >= 80 && hearts >= 2 }
+  ]
+});
+</script>
+</body>
+</html>

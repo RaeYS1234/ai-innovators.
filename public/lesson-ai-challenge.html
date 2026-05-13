@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Basics Challenge — AI Innovators</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="lesson-shared.css">
+</head>
+<body>
+<div class="app">
+  <div class="topbar" id="topbar" style="display:none;">
+    <button class="close-btn" id="closeBtn">×</button>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="hearts">
+      <svg class="heart-svg" viewBox="0 0 32 32"><path d="M16 28 C 6 20 2 14 2 10 C 2 6 5 3 9 3 C 12 3 14 5 16 8 C 18 5 20 3 23 3 C 27 3 30 6 30 10 C 30 14 26 20 16 28 Z" fill="#ec4899" stroke="#be185d" stroke-width="1.5"/></svg>
+      <span id="heartsCount">3</span>
+    </div>
+  </div>
+  <div class="screen active" id="screen-welcome">
+    <div class="lesson-tag" id="lesson-tag" style="background: linear-gradient(135deg, #fbbf24, #f59e0b); color:white; box-shadow: 0 3px 0 #d97706;">FINAL TEST</div>
+    <div class="mascot" id="welcomeMascot"></div>
+    <h1 class="welcome-title" id="welcome-title"></h1>
+    <p class="welcome-subtitle" id="welcome-subtitle"></p>
+    <button class="btn go" id="startBtn">Take the Challenge!</button>
+  </div>
+  <div class="screen" id="screen-lesson"></div>
+  <div class="screen" id="screen-complete">
+    <div class="mascot" id="completeMascot"></div>
+    <h1 class="complete-title">CHALLENGE COMPLETE!</h1>
+    <p class="complete-subtitle">You finished What is AI?! Here's your final score:</p>
+    <div class="stats-row">
+      <div class="stat-box"><div class="stat-label">XP Earned</div><div class="stat-value xp" id="finalXP">0</div></div>
+      <div class="stat-box"><div class="stat-label">Score</div><div class="stat-value score" id="finalScore">0%</div></div>
+      <div class="stat-box"><div class="stat-label">Hearts Left</div><div class="stat-value" style="color:#ef4444;" id="finalHearts">3</div></div>
+    </div>
+    <h3 style="margin: 28px 0 14px; color: #0c4a6e; font-weight: 900; font-family:'Nunito',sans-serif;">Your Trophies:</h3>
+    <div class="badge-grid" id="badgeGrid"></div>
+    <button class="btn go" id="backToCourseBtn">Back to Course →</button>
+    <button class="btn ghost" style="margin-top:12px;" id="playAgainBtn">Try Again</button>
+  </div>
+  <div class="screen" id="screen-gameover">
+    <div class="mascot" id="gameoverMascot"></div>
+    <h1 class="complete-title" style="color:#b91c1c;">Out of Hearts!</h1>
+    <p class="complete-subtitle">The challenge is hard — try again!</p>
+    <button class="btn danger" id="retryBtn">Try Again</button>
+  </div>
+</div>
+<div class="feedback" id="feedback">
+  <div class="feedback-inner">
+    <div><div class="feedback-text" id="feedbackText"></div><div class="feedback-explain" id="feedbackExplain"></div></div>
+    <button class="btn go" onclick="window._lessonNext()">Continue</button>
+  </div>
+</div>
+<script src="lesson-engine.js"></script>
+<script>
+runLesson({
+  lessonId: "what-is-ai-challenge",
+  courseUrl: "course-what-is-ai.html",
+  tag: "COURSE CHALLENGE",
+  title: "What is AI? Challenge!",
+  subtitle: "10 questions covering EVERYTHING. Beat it to earn your AI Innovator trophy!",
+  steps: [
+    {
+      type: "mc",
+      question: "What does AI stand for?",
+      options: [
+        { text: "Artificial Intelligence", correct: true },
+        { text: "Awesome Internet", correct: false },
+        { text: "Anyone's Idea", correct: false },
+        { text: "Auto Information", correct: false }
+      ],
+      correctMsg: "Correct!",
+      wrongMsg: "AI = Artificial Intelligence."
+    },
+    {
+      type: "mc",
+      question: "How does AI learn to do things?",
+      options: [
+        { text: "It's born smart", correct: false },
+        { text: "From studying tons of examples", correct: true },
+        { text: "By magic", correct: false },
+        { text: "It guesses", correct: false }
+      ],
+      correctMsg: "Right!",
+      wrongMsg: "AI learns from MILLIONS of examples."
+    },
+    {
+      type: "mc",
+      question: "Which of these uses AI?",
+      options: [
+        { text: "A regular pencil", correct: false },
+        { text: "Snapchat face filters", correct: true },
+        { text: "A book", correct: false },
+        { text: "A door knob", correct: false }
+      ],
+      correctMsg: "Yes!",
+      wrongMsg: "Snapchat filters use AI to find your face!"
+    },
+    {
+      type: "mc",
+      question: "You want to draw a logo. Which AI?",
+      options: [
+        { text: "Chatbot", correct: false },
+        { text: "Voice AI", correct: false },
+        { text: "Image AI", correct: true },
+        { text: "Calculator", correct: false }
+      ],
+      correctMsg: "Right!",
+      wrongMsg: "For pictures = IMAGE AI."
+    },
+    {
+      type: "mc",
+      question: "You want hands-free help. Which AI?",
+      options: [
+        { text: "Image AI", correct: false },
+        { text: "Voice AI", correct: true },
+        { text: "A book", correct: false },
+        { text: "None", correct: false }
+      ],
+      correctMsg: "Yes!",
+      wrongMsg: "Voice AI like Siri lets you ASK out loud."
+    },
+    {
+      type: "mc",
+      question: "Should you share your address with AI?",
+      options: [
+        { text: "Sure, why not", correct: false },
+        { text: "Yes, AI needs it", correct: false },
+        { text: "Never — keep personal info private", correct: true },
+        { text: "Only on weekends", correct: false }
+      ],
+      correctMsg: "Right! Personal info stays private.",
+      wrongMsg: "NEVER share personal info like your address with AI."
+    },
+    {
+      type: "mc",
+      question: "Best way to use AI for homework?",
+      options: [
+        { text: "Have AI do all of it for you", correct: false },
+        { text: "Ask AI to explain tough stuff, then do it yourself", correct: true },
+        { text: "Don't use AI at all", correct: false },
+        { text: "Copy AI's answers word-for-word", correct: false }
+      ],
+      correctMsg: "Yes!",
+      wrongMsg: "Use AI to LEARN. Have it explain, then YOU do the work."
+    },
+    {
+      type: "mc",
+      question: "Can AI be wrong?",
+      options: [
+        { text: "No, AI is always right", correct: false },
+        { text: "Yes — sometimes AI makes stuff up (hallucinations)", correct: true },
+        { text: "Only on Tuesdays", correct: false },
+        { text: "AI never speaks", correct: false }
+      ],
+      correctMsg: "Right!",
+      wrongMsg: "AI CAN be wrong! Sometimes it confidently makes stuff up — called a hallucination."
+    },
+    {
+      type: "match",
+      question: "Match the AI type to its tool!",
+      pairs: [
+        { prompt: "ChatGPT", answer: "Chatbot AI" },
+        { prompt: "DALL-E", answer: "Image AI" },
+        { prompt: "Siri", answer: "Voice AI" }
+      ],
+      correctMsg: "Perfect matches!",
+      wrongMsg: "Chat = type. Image = pictures. Siri = voice."
+    },
+    {
+      type: "mc",
+      question: "FINAL: How should you think about AI?",
+      hint: "Sum it all up!",
+      options: [
+        { text: "A smart helper — useful for tons of stuff, but I check important things myself", correct: true },
+        { text: "It's a scary robot", correct: false },
+        { text: "It replaces everyone", correct: false },
+        { text: "Only adults can use it", correct: false }
+      ],
+      correctMsg: "🎉 YES! You officially understand AI. Go build something amazing!",
+      wrongMsg: "AI is a HELPFUL TOOL — useful for many things, but you check important stuff yourself."
+    }
+  ],
+  badges: [
+    { icon: "trophy", name: "AI Course Trophy", earned: true },
+    { icon: "brain", name: "AI Expert", earned: ({ correct }) => correct >= 5 },
+    { icon: "star", name: "Top Scholar", earned: ({ correct }) => correct >= 7 },
+    { icon: "perfect", name: "PERFECT!", earned: ({ score }) => score === 100 },
+    { icon: "heart", name: "All Hearts", earned: ({ hearts }) => hearts === 3 },
+    { icon: "crown", name: "AI Innovator Boss", earned: ({ score, hearts }) => score >= 80 && hearts >= 2 }
+  ]
+});
+</script>
+</body>
+</html>

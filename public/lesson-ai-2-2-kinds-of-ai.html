@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Different Kinds of AI — AI Innovators</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="lesson-shared.css">
+</head>
+<body>
+<div class="app">
+  <div class="topbar" id="topbar" style="display:none;">
+    <button class="close-btn" id="closeBtn">×</button>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="hearts">
+      <svg class="heart-svg" viewBox="0 0 32 32"><path d="M16 28 C 6 20 2 14 2 10 C 2 6 5 3 9 3 C 12 3 14 5 16 8 C 18 5 20 3 23 3 C 27 3 30 6 30 10 C 30 14 26 20 16 28 Z" fill="#ec4899" stroke="#be185d" stroke-width="1.5"/></svg>
+      <span id="heartsCount">3</span>
+    </div>
+  </div>
+  <div class="screen active" id="screen-welcome">
+    <div class="lesson-tag" id="lesson-tag">LESSON</div>
+    <div class="mascot" id="welcomeMascot"></div>
+    <h1 class="welcome-title" id="welcome-title"></h1>
+    <p class="welcome-subtitle" id="welcome-subtitle"></p>
+    <button class="btn go" id="startBtn">Let's Go!</button>
+  </div>
+  <div class="screen" id="screen-lesson"></div>
+  <div class="screen" id="screen-complete">
+    <div class="mascot" id="completeMascot"></div>
+    <h1 class="complete-title">Lesson Complete!</h1>
+    <p class="complete-subtitle">You know your AI types now! Here's what you earned:</p>
+    <div class="stats-row">
+      <div class="stat-box"><div class="stat-label">XP Earned</div><div class="stat-value xp" id="finalXP">0</div></div>
+      <div class="stat-box"><div class="stat-label">Score</div><div class="stat-value score" id="finalScore">0%</div></div>
+      <div class="stat-box"><div class="stat-label">Hearts Left</div><div class="stat-value" style="color:#ef4444;" id="finalHearts">3</div></div>
+    </div>
+    <h3 style="margin: 28px 0 14px; color: #0c4a6e; font-weight: 900; font-family:'Nunito',sans-serif;">Badges You Earned:</h3>
+    <div class="badge-grid" id="badgeGrid"></div>
+    <button class="btn go" id="backToCourseBtn">Back to Course →</button>
+    <button class="btn ghost" style="margin-top:12px;" id="playAgainBtn">Play Again</button>
+  </div>
+  <div class="screen" id="screen-gameover">
+    <div class="mascot" id="gameoverMascot"></div>
+    <h1 class="complete-title" style="color:#b91c1c;">Out of Hearts!</h1>
+    <p class="complete-subtitle">Try again!</p>
+    <button class="btn danger" id="retryBtn">Try Again</button>
+  </div>
+</div>
+<div class="feedback" id="feedback">
+  <div class="feedback-inner">
+    <div><div class="feedback-text" id="feedbackText"></div><div class="feedback-explain" id="feedbackExplain"></div></div>
+    <button class="btn go" onclick="window._lessonNext()">Continue</button>
+  </div>
+</div>
+<script src="lesson-engine.js"></script>
+<script>
+const CHAT_ICON = `<svg viewBox="0 0 64 64"><rect x="8" y="14" width="48" height="32" rx="8" fill="#0ea5e9" stroke="#0284c7" stroke-width="2.5"/><path d="M 20 46 L 14 56 L 28 46 Z" fill="#0ea5e9" stroke="#0284c7" stroke-width="2.5" stroke-linejoin="round"/><circle cx="22" cy="30" r="3" fill="white"/><circle cx="32" cy="30" r="3" fill="white"/><circle cx="42" cy="30" r="3" fill="white"/></svg>`;
+const PALETTE_ICON = `<svg viewBox="0 0 64 64"><circle cx="32" cy="32" r="26" fill="#fde68a" stroke="#d97706" stroke-width="2.5"/><circle cx="20" cy="22" r="5" fill="#ef4444"/><circle cx="42" cy="20" r="5" fill="#0ea5e9"/><circle cx="48" cy="36" r="5" fill="#22c55e"/><circle cx="38" cy="46" r="5" fill="#a855f7"/></svg>`;
+const MIC_ICON = `<svg viewBox="0 0 64 64"><rect x="24" y="8" width="16" height="30" rx="8" fill="#0ea5e9" stroke="#0284c7" stroke-width="2.5"/><path d="M 14 30 C 14 40 22 46 32 46 C 42 46 50 40 50 30" fill="none" stroke="#0284c7" stroke-width="3" stroke-linecap="round"/><line x1="32" y1="46" x2="32" y2="56" stroke="#0284c7" stroke-width="3"/></svg>`;
+
+runLesson({
+  lessonId: "what-is-ai-2-2",
+  courseUrl: "course-what-is-ai.html",
+  tag: "UNIT 2 · LESSON 2.2",
+  title: "Different Kinds of AI",
+  subtitle: "AI comes in flavors! Nova is gonna show you the main types.",
+  steps: [
+    {
+      type: "vocab",
+      word: "Chatbot AI",
+      pronounce: "say it: CHAT-bot",
+      definition: "A <b>chatbot</b> is AI you can TALK to with text. You type a question, it types back an answer. Like having a smart friend on call 24/7!",
+      example: "ChatGPT, Claude, Gemini — all chatbots that can help with homework, ideas, or just chat.",
+      icon: CHAT_ICON
+    },
+    {
+      type: "vocab",
+      word: "Image AI",
+      pronounce: "say it: IM-ij AY-eye",
+      definition: "<b>Image AI</b> creates pictures from your words. Type \"a happy puppy in space\" and it draws exactly that.",
+      example: "DALL-E, Midjourney, Canva's AI — all make pictures from text prompts.",
+      icon: PALETTE_ICON
+    },
+    {
+      type: "vocab",
+      word: "Voice AI",
+      pronounce: "say it: VOYS AY-eye",
+      definition: "<b>Voice AI</b> understands what you say out loud and talks back to you. It's how Siri and Alexa work!",
+      example: "\"Hey Siri, what's the weather?\" → AI listens, finds the answer, speaks back.",
+      icon: MIC_ICON
+    },
+    {
+      type: "mc",
+      question: "You want help writing a story. Which kind of AI?",
+      hint: "Think about TYPING to AI.",
+      options: [
+        { text: "Image AI", correct: false },
+        { text: "Voice AI", correct: false },
+        { text: "Chatbot AI", correct: true },
+        { text: "None of these", correct: false }
+      ],
+      correctMsg: "Yes! Chatbots like ChatGPT are perfect for writing help.",
+      wrongMsg: "Chatbots are made for TEXT — typing questions and getting answers like writing help!"
+    },
+    {
+      type: "mc",
+      question: "You want a custom logo for your business. Which AI?",
+      hint: "You want PICTURES.",
+      options: [
+        { text: "Voice AI", correct: false },
+        { text: "Image AI", correct: true },
+        { text: "Chatbot AI", correct: false },
+        { text: "A calculator", correct: false }
+      ],
+      correctMsg: "Right! Image AI makes pictures from your text prompt.",
+      wrongMsg: "For logos and pictures, you want IMAGE AI like DALL-E or Canva's AI tools."
+    },
+    {
+      type: "mc",
+      question: "You're cooking and your hands are messy. You want to know how long to bake brownies. Which AI?",
+      hint: "Hands messy = can't type!",
+      options: [
+        { text: "Image AI", correct: false },
+        { text: "Voice AI", correct: true },
+        { text: "Chatbot (typing)", correct: false },
+        { text: "Pencil and paper", correct: false }
+      ],
+      correctMsg: "Yes! \"Hey Siri\" lets you ask without using your hands.",
+      wrongMsg: "Voice AI lets you ASK out loud — perfect when your hands are busy!"
+    },
+    {
+      type: "match",
+      question: "Match each AI to what it does!",
+      hint: "Think about each type.",
+      pairs: [
+        { prompt: "ChatGPT", answer: "Chatbot AI" },
+        { prompt: "DALL-E", answer: "Image AI" },
+        { prompt: "Siri", answer: "Voice AI" }
+      ],
+      correctMsg: "Perfect matches!",
+      wrongMsg: "ChatGPT types, DALL-E draws, Siri talks!"
+    }
+  ],
+  badges: [
+    { icon: "brain", name: "AI Type Expert", earned: true },
+    { icon: "star", name: "Sharp Eye", earned: ({ correct }) => correct >= 2 },
+    { icon: "bulb", name: "Right Tool", earned: ({ correct }) => correct >= 3 },
+    { icon: "perfect", name: "Perfect Score", earned: ({ score }) => score === 100 },
+    { icon: "heart", name: "All Hearts", earned: ({ hearts }) => hearts === 3 },
+    { icon: "trophy", name: "AI Categorizer", earned: ({ score, hearts }) => score >= 80 && hearts >= 2 }
+  ]
+});
+</script>
+</body>
+</html>

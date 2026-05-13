@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Be Smart with AI — AI Innovators</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="lesson-shared.css">
+</head>
+<body>
+<div class="app">
+  <div class="topbar" id="topbar" style="display:none;">
+    <button class="close-btn" id="closeBtn">×</button>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="hearts">
+      <svg class="heart-svg" viewBox="0 0 32 32"><path d="M16 28 C 6 20 2 14 2 10 C 2 6 5 3 9 3 C 12 3 14 5 16 8 C 18 5 20 3 23 3 C 27 3 30 6 30 10 C 30 14 26 20 16 28 Z" fill="#ec4899" stroke="#be185d" stroke-width="1.5"/></svg>
+      <span id="heartsCount">3</span>
+    </div>
+  </div>
+  <div class="screen active" id="screen-welcome">
+    <div class="lesson-tag" id="lesson-tag">LESSON</div>
+    <div class="mascot" id="welcomeMascot"></div>
+    <h1 class="welcome-title" id="welcome-title"></h1>
+    <p class="welcome-subtitle" id="welcome-subtitle"></p>
+    <button class="btn go" id="startBtn">Let's Go!</button>
+  </div>
+  <div class="screen" id="screen-lesson"></div>
+  <div class="screen" id="screen-complete">
+    <div class="mascot" id="completeMascot"></div>
+    <h1 class="complete-title">Lesson Complete!</h1>
+    <p class="complete-subtitle">You're a smart AI user! Here's what you earned:</p>
+    <div class="stats-row">
+      <div class="stat-box"><div class="stat-label">XP Earned</div><div class="stat-value xp" id="finalXP">0</div></div>
+      <div class="stat-box"><div class="stat-label">Score</div><div class="stat-value score" id="finalScore">0%</div></div>
+      <div class="stat-box"><div class="stat-label">Hearts Left</div><div class="stat-value" style="color:#ef4444;" id="finalHearts">3</div></div>
+    </div>
+    <h3 style="margin: 28px 0 14px; color: #0c4a6e; font-weight: 900; font-family:'Nunito',sans-serif;">Badges You Earned:</h3>
+    <div class="badge-grid" id="badgeGrid"></div>
+    <button class="btn go" id="backToCourseBtn">Back to Course →</button>
+    <button class="btn ghost" style="margin-top:12px;" id="playAgainBtn">Play Again</button>
+  </div>
+  <div class="screen" id="screen-gameover">
+    <div class="mascot" id="gameoverMascot"></div>
+    <h1 class="complete-title" style="color:#b91c1c;">Out of Hearts!</h1>
+    <p class="complete-subtitle">Try again!</p>
+    <button class="btn danger" id="retryBtn">Try Again</button>
+  </div>
+</div>
+<div class="feedback" id="feedback">
+  <div class="feedback-inner">
+    <div><div class="feedback-text" id="feedbackText"></div><div class="feedback-explain" id="feedbackExplain"></div></div>
+    <button class="btn go" onclick="window._lessonNext()">Continue</button>
+  </div>
+</div>
+<script src="lesson-engine.js"></script>
+<script>
+const SHIELD_ICON = `<svg viewBox="0 0 64 64"><path d="M 32 8 L 50 16 L 50 32 C 50 44 42 52 32 56 C 22 52 14 44 14 32 L 14 16 Z" fill="#0ea5e9" stroke="#0284c7" stroke-width="2.5"/><path d="M 24 30 L 30 36 L 42 22" stroke="white" stroke-width="3.5" fill="none" stroke-linecap="round"/></svg>`;
+
+runLesson({
+  lessonId: "what-is-ai-3-1",
+  courseUrl: "course-what-is-ai.html",
+  tag: "UNIT 3 · LESSON 3.1",
+  title: "Be Smart with AI",
+  subtitle: "AI is awesome — but smart kids know the rules. Nova's got safety tips!",
+  steps: [
+    {
+      type: "teach",
+      title: "Rule #1: Don't Share Personal Info",
+      body: "<b>Never share</b> your real name, address, phone number, school, or passwords with AI chatbots. Treat AI like a stranger online — keep your info safe!",
+      icon: SHIELD_ICON,
+      examples: ["No real names", "No address", "No phone numbers", "No passwords"]
+    },
+    {
+      type: "teach",
+      title: "Rule #2: Use AI to LEARN, Not Cheat",
+      body: "AI can write your homework, but then you don't learn anything! Use AI to <b>understand</b> tough topics, not to do work FOR you. You're cheating yourself, not your teacher.",
+      examples: ["Ask AI to EXPLAIN", "Use it to BRAINSTORM", "Then do the work YOURSELF"]
+    },
+    {
+      type: "teach",
+      title: "Rule #3: Tell a Grown-up About Anything Weird",
+      body: "If AI ever says something <b>scary, mean, or weird</b>, tell a parent or teacher right away. Most of the time AI is great, but always have a grown-up you can tell!",
+      examples: ["Inappropriate content", "Anything that scares you", "Stranger contact"]
+    },
+    {
+      type: "mc",
+      question: "An AI chatbot asks for your home address. What do you do?",
+      hint: "Personal info!",
+      options: [
+        { text: "Tell it where you live", correct: false },
+        { text: "Refuse — never share personal info", correct: true },
+        { text: "Share half of it", correct: false },
+        { text: "Trade it for a cool sticker", correct: false }
+      ],
+      correctMsg: "Yes! Never share personal info with AI. That stays private.",
+      wrongMsg: "NEVER share personal info like your address. Real AI doesn't NEED that info!"
+    },
+    {
+      type: "mc",
+      question: "What's the SMARTEST way to use AI for homework?",
+      hint: "What helps you actually LEARN?",
+      options: [
+        { text: "Have AI do all the work for me", correct: false },
+        { text: "Ask AI to explain things I don't understand", correct: true },
+        { text: "Never use AI", correct: false },
+        { text: "Copy AI's words exactly", correct: false }
+      ],
+      correctMsg: "EXACTLY! Use AI to UNDERSTAND, then do the work yourself.",
+      wrongMsg: "Use AI to LEARN. Have it explain tough stuff, then YOU do the work. That's how you grow!"
+    },
+    {
+      type: "mc",
+      question: "An AI chatbot says something scary. What's first?",
+      hint: "Don't keep it to yourself!",
+      options: [
+        { text: "Keep using it and hope it gets better", correct: false },
+        { text: "Tell a parent or teacher right away", correct: true },
+        { text: "Ignore it forever", correct: false },
+        { text: "Yell at the AI", correct: false }
+      ],
+      correctMsg: "Right! Always tell a grown-up about anything that feels off.",
+      wrongMsg: "TELL A GROWN-UP! Parents and teachers are there to help. Don't keep weird AI stuff to yourself."
+    },
+    {
+      type: "mc",
+      question: "FINAL: What makes you a SMART AI user?",
+      hint: "Sum it up.",
+      options: [
+        { text: "Keep info private, learn don't cheat, talk to grown-ups", correct: true },
+        { text: "Share everything with AI", correct: false },
+        { text: "Never tell anyone you use AI", correct: false },
+        { text: "Use AI for every single thing", correct: false }
+      ],
+      correctMsg: "PERFECT! You're officially a smart AI user. Nova approves!",
+      wrongMsg: "Smart AI users: keep info PRIVATE, use it to LEARN, and tell GROWN-UPS about weird stuff."
+    }
+  ],
+  badges: [
+    { icon: "starter", name: "Smart User", earned: true },
+    { icon: "star", name: "Safety First", earned: ({ correct }) => correct >= 2 },
+    { icon: "brain", name: "Wise Choices", earned: ({ correct }) => correct >= 3 },
+    { icon: "perfect", name: "Perfect Score", earned: ({ score }) => score === 100 },
+    { icon: "heart", name: "All Hearts", earned: ({ hearts }) => hearts === 3 },
+    { icon: "trophy", name: "AI Safety Champ", earned: ({ score, hearts }) => score >= 80 && hearts >= 2 }
+  ]
+});
+</script>
+</body>
+</html>
