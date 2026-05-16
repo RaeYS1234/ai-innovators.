@@ -709,7 +709,7 @@
   <div class="topbar" id="topbar" style="display:none;">
     <button class="close-btn" onclick="confirmExit()">×</button>
     <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
-    <div class="hearts"><span class="heart-icon">❤️</span><span id="heartsCount">3</span></div>
+    <div class="hearts"><svg width="22" height="22" viewBox="0 0 32 32"><path d="M16 28 C 6 20 2 14 2 10 C 2 6 5 3 9 3 C 12 3 14 5 16 8 C 18 5 20 3 23 3 C 27 3 30 6 30 10 C 30 14 26 20 16 28 Z" fill="#ec4899" stroke="#be185d" stroke-width="1.5"/></svg><span id="heartsCount">3</span></div>
   </div>
 
   <!-- ============ GUEST BANNER ============ -->
@@ -724,7 +724,7 @@
     <div class="lesson-tag">LESSON 1 • GRADES K-5</div>
     <div class="mascot" id="welcomeMascot"></div>
     <h1 class="welcome-title">Starting a Business 101</h1>
-    <p class="welcome-subtitle">Hi! I'm <b style="color:#0ea5e9;">Nova</b> 🚀 Today we'll blast off and learn how businesses work!</p>
+    <p class="welcome-subtitle">Hi! I'm <b style="color:#0ea5e9;">Nova</b>. Today we'll blast off and learn how businesses work!</p>
     <button class="btn go" onclick="startLesson()">Let's Go!</button>
   </div>
 
@@ -734,7 +734,7 @@
   <!-- ============ COMPLETE SCREEN ============ -->
   <div class="screen" id="screen-complete">
     <div class="mascot" id="completeMascot"></div>
-    <h1 class="complete-title">Lesson Complete! 🎉</h1>
+    <h1 class="complete-title">Lesson Complete!</h1>
     <p class="complete-subtitle">You're a business astronaut now! Check out what you earned:</p>
 
     <div class="stats-row">
@@ -760,7 +760,7 @@
       <p>Sign up free to save what you earned today and keep your streak going!</p>
 
       <div class="modal-rewards">
-        <div class="modal-rewards-label">⭐ Your Rewards Today</div>
+        <div class="modal-rewards-label">Your Rewards Today</div>
         <div class="modal-rewards-stats">
           <div><div class="num" id="modalXP">0</div><div class="lbl">XP</div></div>
           <div><div class="num" id="modalBadges">0</div><div class="lbl">Badges</div></div>
@@ -768,7 +768,7 @@
         </div>
       </div>
 
-      <button class="btn go" onclick="goToEnroll()">🚀 Sign Up Free</button>
+      <button class="btn go" onclick="goToEnroll()">Sign Up Free</button>
       <button class="skip-btn" onclick="hideSignupModal()">Maybe later</button>
     </div>
   </div>
@@ -830,10 +830,10 @@ function novaSVG(mood) {
     </defs>
 
     <!-- Floating sparkles -->
-    <text x="15" y="50" font-size="22">✨</text>
-    <text x="265" y="35" font-size="18">⭐</text>
-    <text x="270" y="240" font-size="20">✨</text>
-    <text x="20" y="270" font-size="16">⭐</text>
+    <polygon points="18,42 20,48 26,48 21,52 23,58 18,54 13,58 15,52 10,48 16,48" fill="#fbbf24"/>
+    <polygon points="268,30 270,36 276,36 271,40 273,46 268,42 263,46 265,40 260,36 266,36" fill="#fbbf24"/>
+    <polygon points="273,235 275,241 281,241 276,245 278,251 273,247 268,251 270,245 265,241 271,241" fill="#fbbf24"/>
+    <polygon points="23,265 25,271 31,271 26,275 28,281 23,277 18,281 20,275 15,271 21,271" fill="#fbbf24"/>
 
     <!-- Tiny feet -->
     <ellipse cx="125" cy="295" rx="22" ry="13" fill="#0ea5e9" stroke="#0284c7" stroke-width="3"/>
@@ -898,10 +898,10 @@ const STEPS = [
   // ---- INTRO ----
   {
     type: "teach",
-    emoji: "🏪",
+    emoji: `<svg viewBox="0 0 64 64" style="width:80px;height:80px;"><rect x="8" y="28" width="48" height="28" fill="#fbbf24" stroke="#d97706" stroke-width="2.5"/><polygon points="6,28 32,8 58,28" fill="#ef4444" stroke="#b91c1c" stroke-width="2.5" stroke-linejoin="round"/><rect x="26" y="36" width="12" height="20" fill="#92400e"/><circle cx="36" cy="46" r="1.5" fill="#fbbf24"/><rect x="14" y="36" width="8" height="8" fill="#0ea5e9" stroke="#0284c7" stroke-width="1.5"/><rect x="42" y="36" width="8" height="8" fill="#0ea5e9" stroke="#0284c7" stroke-width="1.5"/></svg>`,
     title: "What is a Business?",
     body: "A <b>business</b> is when someone makes or sells something that other people want to buy. Businesses are everywhere — your favorite store, the pizza place down the street, even a lemonade stand!",
-    examples: ["🍕 Pizza shop", "👕 Clothing store", "🎮 Video game maker"]
+    examples: ["Pizza shop", "Clothing store", "Video game maker"]
   },
 
   // ---- VOCAB: ENTREPRENEUR ----
@@ -911,7 +911,7 @@ const STEPS = [
     pronounce: "say it: ON-truh-pruh-NOOR",
     definition: "An <b>entrepreneur</b> is a person who starts and runs a business. They come up with the idea, sell stuff, and take care of customers.",
     example: "👧 If you start a lemonade stand, <b>YOU</b> are an entrepreneur! You had the idea, you make the lemonade, and you sell it.",
-    emoji: "👩‍💼"
+    emoji: `<svg viewBox="0 0 64 64" style="width:80px;height:80px;"><circle cx="32" cy="22" r="10" fill="#fde68a" stroke="#92400e" stroke-width="2"/><path d="M 24 18 Q 32 8 40 18 Q 38 14 32 14 Q 26 14 24 18 Z" fill="#92400e"/><circle cx="28" cy="22" r="1.5" fill="#1c1917"/><circle cx="36" cy="22" r="1.5" fill="#1c1917"/><path d="M 28 26 Q 32 28 36 26" stroke="#1c1917" stroke-width="1.5" fill="none" stroke-linecap="round"/><path d="M 14 56 C 14 44 22 38 32 38 C 42 38 50 44 50 56 Z" fill="#0ea5e9" stroke="#0284c7" stroke-width="2"/><rect x="29" y="40" width="6" height="10" fill="white"/></svg>`
   },
 
   // QUIZ that uses "business"
@@ -920,10 +920,10 @@ const STEPS = [
     question: "Which of these is a business?",
     hint: "Pick the one where someone sells something to other people.",
     options: [
-      { text: "A lemonade stand 🍋", correct: true },
+      { text: "A lemonade stand", correct: true },
       { text: "Playing tag with friends 🏃", correct: false },
-      { text: "Doing your homework 📚", correct: false },
-      { text: "Sleeping in 💤", correct: false }
+      { text: "Doing your homework", correct: false },
+      { text: "Sleeping in", correct: false }
     ],
     correctMsg: "Yes! A lemonade stand sells lemonade to people. That's a business!",
     wrongMsg: "Not quite. A business sells something to other people. A lemonade stand sells lemonade!"
@@ -932,10 +932,10 @@ const STEPS = [
   // ---- IDEAS ----
   {
     type: "teach",
-    emoji: "💡",
+    emoji: `<svg viewBox="0 0 64 64" style="width:80px;height:80px;"><path d="M32 6 C 22 6 14 14 14 24 C 14 30 18 34 20 38 L 20 44 L 44 44 L 44 38 C 46 34 50 30 50 24 C 50 14 42 6 32 6 Z" fill="#fbbf24" stroke="#d97706" stroke-width="2.5"/><circle cx="26" cy="20" r="3" fill="white" opacity="0.6"/><rect x="22" y="46" width="20" height="4" rx="2" fill="#475569"/><rect x="24" y="52" width="16" height="4" rx="2" fill="#475569"/><line x1="32" y1="2" x2="32" y2="0" stroke="#fbbf24" stroke-width="2"/></svg>`,
     title: "Every Business Starts with an Idea",
     body: "Before a business can sell anything, the entrepreneur needs an <b>idea</b>! The best ideas <b>solve a problem</b> or make people happy.",
-    examples: ["Hungry? 🍔 Restaurant", "Bored? 🎮 Toy shop", "Cold? 🧥 Coat store"]
+    examples: ["Hungry? Restaurant", "Bored? Toy shop", "Cold? Coat store"]
   },
 
   // QUIZ on ideas
@@ -944,10 +944,10 @@ const STEPS = [
     question: "What problem does an ice cream shop solve?",
     hint: "Think about why people go there.",
     options: [
-      { emoji: "🥶", label: "People are cold", correct: false },
-      { emoji: "😋", label: "People want a yummy treat", correct: true },
-      { emoji: "📚", label: "People need books", correct: false },
-      { emoji: "💤", label: "People want to sleep", correct: false }
+      { emoji: `<svg viewBox="0 0 48 48" style="width:48px;height:48px;"><circle cx="24" cy="24" r="20" fill="#bae6fd" stroke="#0ea5e9" stroke-width="2"/><path d="M24 8 L 24 40 M 8 24 L 40 24 M 12 12 L 36 36 M 36 12 L 12 36" stroke="#0ea5e9" stroke-width="2"/></svg>`, label: "People are cold", correct: false },
+      { emoji: `<svg viewBox="0 0 48 48" style="width:48px;height:48px;"><circle cx="24" cy="24" r="20" fill="#fbbf24" stroke="#d97706" stroke-width="2"/><path d="M 14 28 Q 24 38 34 28" stroke="#1c1917" stroke-width="3" fill="none" stroke-linecap="round"/><circle cx="17" cy="20" r="2.5" fill="#1c1917"/><circle cx="31" cy="20" r="2.5" fill="#1c1917"/><path d="M 18 30 Q 24 36 30 30 Q 24 33 18 30 Z" fill="#ef4444"/></svg>`, label: "People want a yummy treat", correct: true },
+      { emoji: `<svg viewBox="0 0 48 48" style="width:48px;height:48px;"><rect x="10" y="14" width="28" height="22" rx="2" fill="#0ea5e9" stroke="#0284c7" stroke-width="2"/><line x1="10" y1="20" x2="38" y2="20" stroke="white" stroke-width="2"/><line x1="10" y1="26" x2="38" y2="26" stroke="white" stroke-width="2"/><line x1="10" y1="32" x2="38" y2="32" stroke="white" stroke-width="2"/></svg>`, label: "People need books", correct: false },
+      { emoji: `<svg viewBox="0 0 48 48" style="width:48px;height:48px;"><circle cx="24" cy="24" r="20" fill="#a78bfa" stroke="#7c3aed" stroke-width="2"/><text x="24" y="20" font-size="14" font-weight="900" fill="white" text-anchor="middle" font-family="sans-serif">Z</text><text x="24" y="30" font-size="11" font-weight="900" fill="white" text-anchor="middle" font-family="sans-serif">Z</text><text x="24" y="38" font-size="8" font-weight="900" fill="white" text-anchor="middle" font-family="sans-serif">z</text></svg>`, label: "People want to sleep", correct: false }
     ],
     correctMsg: "Right! Ice cream shops give people a sweet, cold treat they love!",
     wrongMsg: "Hmm, think about why someone walks into an ice cream shop. They want something tasty!"
@@ -958,9 +958,9 @@ const STEPS = [
     type: "vocab",
     word: "Revenue",
     pronounce: "say it: REV-uh-noo",
-    definition: "<b>Revenue</b> is all the money a business gets in from selling things. Think of it as <b>money IN</b> 💵.",
-    example: "🍪 You sell 5 cookies for $2 each. Your revenue is 5 × $2 = <b>$10</b>.",
-    emoji: "💵"
+    definition: "<b>Revenue</b> is all the money a business gets in from selling things. Think of it as <b>money IN</b>.",
+    example: "You sell 5 cookies for $2 each. Your revenue is 5 × $2 = <b>$10</b>.",
+    emoji: `<svg viewBox="0 0 64 64" style="width:80px;height:80px;"><rect x="6" y="18" width="52" height="28" rx="3" fill="#22c55e" stroke="#15803d" stroke-width="2.5"/><circle cx="32" cy="32" r="10" fill="#bbf7d0" stroke="#15803d" stroke-width="1.5"/><text x="32" y="38" font-size="14" fill="#15803d" text-anchor="middle" font-weight="900" font-family="sans-serif">$</text></svg>`
   },
 
   // ---- VOCAB: COST ----
@@ -968,9 +968,9 @@ const STEPS = [
     type: "vocab",
     word: "Cost",
     pronounce: "say it: KAWST",
-    definition: "<b>Cost</b> is the money a business has to spend to make or sell its stuff. Think of it as <b>money OUT</b> 💸.",
-    example: "🍪 To make those 5 cookies, you spent $4 on flour, sugar, and chocolate chips. Your cost is <b>$4</b>.",
-    emoji: "💸"
+    definition: "<b>Cost</b> is the money a business has to spend to make or sell its stuff. Think of it as <b>money OUT</b>.",
+    example: "To make those 5 cookies, you spent $4 on flour, sugar, and chocolate chips. Your cost is <b>$4</b>.",
+    emoji: `<svg viewBox="0 0 64 64" style="width:80px;height:80px;"><rect x="20" y="32" width="40" height="22" rx="3" fill="#94a3b8" stroke="#64748b" stroke-width="2.5"/><text x="40" y="48" font-size="14" fill="#64748b" text-anchor="middle" font-weight="900" font-family="sans-serif">$</text><path d="M 4 10 L 18 18 M 10 6 L 18 18 M 4 22 L 18 18" stroke="#0ea5e9" stroke-width="2.5" stroke-linecap="round"/></svg>`
   },
 
   // ---- VOCAB: PROFIT ----
@@ -979,8 +979,8 @@ const STEPS = [
     word: "Profit",
     pronounce: "say it: PRAW-fit",
     definition: "<b>Profit</b> is the money you have LEFT after paying your costs. It's the goal of every business!<br><br>👉 <b>Profit = Revenue − Cost</b>",
-    example: "🍪 Revenue $10 − Cost $4 = <b>$6 profit!</b> That's money you get to keep.",
-    emoji: "🏆"
+    example: "Revenue $10 − Cost $4 = <b>$6 profit!</b> That's money you get to keep.",
+    emoji: `<svg viewBox="0 0 64 64" style="width:80px;height:80px;"><path d="M20 8 L 44 8 L 44 28 C 44 36 38 42 32 42 C 26 42 20 36 20 28 Z" fill="#fbbf24" stroke="#d97706" stroke-width="2.5"/><path d="M20 14 L 12 14 L 12 22 C 12 26 16 30 20 30" fill="none" stroke="#d97706" stroke-width="2.5" stroke-linecap="round"/><path d="M44 14 L 52 14 L 52 22 C 52 26 48 30 44 30" fill="none" stroke="#d97706" stroke-width="2.5" stroke-linecap="round"/><rect x="26" y="42" width="12" height="8" fill="#d97706"/><rect x="18" y="50" width="28" height="6" rx="2" fill="#92400e"/><text x="32" y="28" font-size="14" fill="white" text-anchor="middle" font-weight="900" font-family="sans-serif">$</text></svg>`
   },
 
   // QUIZ on profit math
@@ -1004,8 +1004,8 @@ const STEPS = [
     word: "Customer",
     pronounce: "say it: KUS-tuh-mer",
     definition: "A <b>customer</b> is a person who buys from your business. A smart entrepreneur knows who their customers are and what they want!",
-    example: "🐶 If you sell dog treats, your customers are <b>people who own dogs</b>!",
-    emoji: "👥"
+    example: "If you sell dog treats, your customers are <b>people who own dogs</b>!",
+    emoji: `<svg viewBox="0 0 64 64" style="width:80px;height:80px;"><circle cx="22" cy="22" r="8" fill="#0ea5e9" stroke="#0284c7" stroke-width="2.5"/><path d="M 10 50 C 10 40 16 34 22 34 C 28 34 34 40 34 50 Z" fill="#0ea5e9" stroke="#0284c7" stroke-width="2.5"/><circle cx="42" cy="22" r="8" fill="#22c55e" stroke="#15803d" stroke-width="2.5"/><path d="M 30 50 C 30 40 36 34 42 34 C 48 34 54 40 54 50 Z" fill="#22c55e" stroke="#15803d" stroke-width="2.5"/></svg>`
   },
 
   // QUIZ: matching
@@ -1014,9 +1014,9 @@ const STEPS = [
     question: "Match the business to its customer!",
     hint: "Tap a customer in the bank, then tap a business box.",
     pairs: [
-      { prompt: "🎮 Video Game Store", answer: "Gamers" },
-      { prompt: "🐾 Pet Shop", answer: "Pet owners" },
-      { prompt: "🍰 Bakery", answer: "Cake lovers" }
+      { prompt: "Video Game Store", answer: "Gamers" },
+      { prompt: "Pet Shop", answer: "Pet owners" },
+      { prompt: "Bakery", answer: "Cake lovers" }
     ],
     correctMsg: "Perfect matches! You know your customers!",
     wrongMsg: "Some matches were off. Think about who would shop at each store!"
@@ -1028,8 +1028,8 @@ const STEPS = [
     word: "Marketing",
     pronounce: "say it: MAR-kit-ing",
     definition: "<b>Marketing</b> is how you tell people about your business. It's like saying \"Hey! Come check out my cool stuff!\" — through signs, social media, ads, or word of mouth.",
-    example: "📱 Posting a video about your lemonade stand on TikTok = marketing!",
-    emoji: "📣"
+    example: "Posting a video about your lemonade stand on TikTok = marketing!",
+    emoji: `<svg viewBox="0 0 64 64" style="width:80px;height:80px;"><path d="M8 24 L 8 40 L 16 40 L 44 52 L 44 12 L 16 24 Z" fill="#fbbf24" stroke="#d97706" stroke-width="2.5" stroke-linejoin="round"/><path d="M44 20 C 50 22 54 26 54 32 C 54 38 50 42 44 44" fill="none" stroke="#d97706" stroke-width="3" stroke-linecap="round"/></svg>`
   },
 
   // QUIZ on marketing
@@ -1040,7 +1040,7 @@ const STEPS = [
     options: [
       { text: "Stay quiet and hope people show up", correct: false },
       { text: "Make a fun sign AND post about it online", correct: true },
-      { text: "Only tell your dog 🐶", correct: false },
+      { text: "Only tell your dog", correct: false },
       { text: "Hide the shop", correct: false }
     ],
     correctMsg: "Yes! Marketing = telling people. A sign + social media = more customers!",
@@ -1053,12 +1053,12 @@ const STEPS = [
     question: "FINAL CHALLENGE! What does an entrepreneur do?",
     hint: "Think about EVERYTHING we learned today.",
     options: [
-      { emoji: "🚀", label: "Has an idea, sells stuff, makes profit", correct: true },
-      { emoji: "😴", label: "Just sleeps all day", correct: false },
-      { emoji: "🎮", label: "Only plays games", correct: false },
-      { emoji: "🙈", label: "Hides from customers", correct: false }
+      { emoji: `<svg viewBox="0 0 48 48" style="width:48px;height:48px;"><path d="M24 4 C 17 10 13 18 13 26 L 13 36 L 18 33 L 18 38 L 24 35 L 30 38 L 30 33 L 35 36 L 35 26 C 35 18 31 10 24 4 Z" fill="#0ea5e9" stroke="#0284c7" stroke-width="2"/><circle cx="24" cy="20" r="4" fill="#fbbf24"/></svg>`, label: "Has an idea, sells stuff, makes profit", correct: true },
+      { emoji: `<svg viewBox="0 0 48 48" style="width:48px;height:48px;"><circle cx="24" cy="24" r="20" fill="#a78bfa" stroke="#7c3aed" stroke-width="2"/><path d="M 14 20 L 18 22 L 14 24" stroke="#1c1917" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M 34 20 L 30 22 L 34 24" stroke="#1c1917" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M 18 32 Q 24 28 30 32" stroke="#1c1917" stroke-width="2" fill="none" stroke-linecap="round"/></svg>`, label: "Just sleeps all day", correct: false },
+      { emoji: `<svg viewBox="0 0 48 48" style="width:48px;height:48px;"><rect x="6" y="16" width="36" height="20" rx="8" fill="#475569" stroke="#1e293b" stroke-width="2"/><circle cx="16" cy="26" r="3" fill="white"/><circle cx="32" cy="26" r="3" fill="white"/><rect x="14" y="24" width="4" height="1" fill="#1e293b"/><rect x="13.5" y="22.5" width="1" height="4" fill="#1e293b"/></svg>`, label: "Only plays games", correct: false },
+      { emoji: `<svg viewBox="0 0 48 48" style="width:48px;height:48px;"><circle cx="24" cy="24" r="20" fill="#fbbf24" stroke="#d97706" stroke-width="2"/><rect x="14" y="16" width="20" height="10" fill="#92400e"/><rect x="12" y="14" width="8" height="6" rx="2" fill="#92400e"/><rect x="28" y="14" width="8" height="6" rx="2" fill="#92400e"/></svg>`, label: "Hides from customers", correct: false }
     ],
-    correctMsg: "🎉 YOU GOT IT! You understand business! Time to celebrate!",
+    correctMsg: "YOU GOT IT! You understand business! Time to celebrate!",
     wrongMsg: "Entrepreneurs work hard! They have ideas, sell things, and care for their customers."
   }
 ];
@@ -1358,7 +1358,7 @@ function showFeedback(isCorrect, msg) {
   fb.classList.add("show");
   fb.classList.toggle("correct", isCorrect);
   fb.classList.toggle("wrong", !isCorrect);
-  document.getElementById("feedbackText").textContent = isCorrect ? "Nice work, astronaut! 🚀" : "Not quite. 💪";
+  document.getElementById("feedbackText").textContent = isCorrect ? "Nice work, astronaut!" : "Not quite. Keep going!";
   document.getElementById("feedbackExplain").textContent = msg;
 
   if (isCorrect) {
