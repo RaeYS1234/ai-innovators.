@@ -90,6 +90,17 @@ function clearPendingProgressKeys() {
   localStorage.removeItem("aii_guest_progress");
 }
 
+function getPostAuthRedirect(): string {
+  try {
+    const saved = localStorage.getItem("aii_redirect_after_signup");
+    localStorage.removeItem("aii_redirect_after_signup");
+    if (saved && saved.startsWith("/")) return saved;
+  } catch {
+    /* ignore */
+  }
+  return "/";
+}
+
 function displayNameFromEmail(email: string) {
   const local = email.split("@")[0] || "friend";
   return local.charAt(0).toUpperCase() + local.slice(1);
@@ -148,7 +159,7 @@ export default function Enroll() {
         saveAccounts(accounts);
         localStorage.setItem("aii_user", JSON.stringify(merged));
         clearPendingProgressKeys();
-        router.push("/");
+        router.push(getPostAuthRedirect());
         router.refresh();
         return;
       }
@@ -164,7 +175,7 @@ export default function Enroll() {
       saveAccounts(accounts);
       localStorage.setItem("aii_user", JSON.stringify(profile));
       clearPendingProgressKeys();
-      router.push("/");
+      router.push(getPostAuthRedirect());
       router.refresh();
     } finally {
       setIsSubmitting(false);
