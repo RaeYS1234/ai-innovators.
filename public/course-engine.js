@@ -83,7 +83,7 @@
           <a href="/#k5">K-5</a>
           <a href="/#middle">6-8</a>
           <a href="/#high">9-12</a>
-          <a href="/enroll" class="enroll-btn">Enroll</a>
+          <a href="enroll.html" class="enroll-btn">Enroll</a>
         </div>
       </nav>
 
@@ -192,7 +192,7 @@
     const user = getUser();
     if (!user) {
       try { localStorage.setItem("aii_redirect_after_signup", window.location.pathname); } catch(e) {}
-      window.location.href = "/enroll";
+      window.location.href = "enroll.html";
       return;
     }
 

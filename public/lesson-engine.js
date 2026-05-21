@@ -132,7 +132,7 @@
     function startLesson() {
       if (!isLoggedIn()) {
         try { localStorage.setItem("aii_redirect_after_signup", window.location.pathname); } catch(e) {}
-        window.location.href = "/enroll";
+        window.location.href = "enroll.html";
         return;
       }
       document.getElementById("topbar").style.display = "flex";
