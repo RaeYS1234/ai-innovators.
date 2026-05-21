@@ -1,0 +1,54 @@
+{
+  "name": "AI Innovators",
+  "short_name": "AI Innovators",
+  "description": "Real business + AI lessons for K-12 students. Learn entrepreneurship, AI tools, money, and pitching with Nova!",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#e0f2fe",
+  "theme_color": "#0ea5e9",
+  "categories": ["education", "kids"],
+  "lang": "en-US",
+  "dir": "ltr",
+  "icons": [
+    {
+      "src": "/app-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/app-icon-maskable.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/app-icon-192.svg",
+      "sizes": "192x192",
+      "type": "image/svg+xml"
+    },
+    {
+      "src": "/app-icon-512.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Continue Lesson",
+      "short_name": "Continue",
+      "description": "Pick up where you left off",
+      "url": "/course-business-101.html",
+      "icons": [{ "src": "/app-icon-192.svg", "sizes": "192x192" }]
+    },
+    {
+      "name": "Browse Courses",
+      "short_name": "Courses",
+      "description": "See all available courses",
+      "url": "/#k5",
+      "icons": [{ "src": "/app-icon-192.svg", "sizes": "192x192" }]
+    }
+  ]
+}
