@@ -832,7 +832,7 @@
     </div>
     <div class="stat">
       <div class="stat-icon heart"><svg width="32" height="32"><use href="#i-heart"/></svg></div>
-      <div class="stat-text"><div class="num" id="user-hearts">5</div><div class="label">Hearts</div></div>
+      <div class="stat-text"><div class="num" id="user-hearts">0</div><div class="label">Hearts</div></div>
     </div>
     <div class="stat">
       <div class="stat-icon badge"><svg width="32" height="32"><use href="#i-trophy"/></svg></div>
@@ -1384,9 +1384,9 @@ function checkAuth() {
     document.getElementById("guestCTA").style.display = "none";
 
     // Fill in user's real stats
-    document.getElementById("user-streak").textContent = user.streak || 1;
+    document.getElementById("user-streak").textContent = user.streak || 0;
     document.getElementById("user-xp").textContent = user.xp || 0;
-    document.getElementById("user-hearts").textContent = user.hearts || 5;
+    document.getElementById("user-hearts").textContent = user.hearts || 0;
     document.getElementById("user-badges").textContent = user.badges || 0;
 
     // Update enroll button to show user is logged in

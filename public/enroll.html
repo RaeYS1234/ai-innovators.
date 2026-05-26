@@ -469,8 +469,8 @@
     <p class="sub" id="formSub">Takes less than a minute!</p>
 
     <div class="toggle-tabs">
-      <button type="button" class="toggle-tab active" id="tab-signup" onclick="switchTab('signup')">Sign Up</button>
-      <button type="button" class="toggle-tab" id="tab-login" onclick="switchTab('login')">Log In</button>
+      <button class="toggle-tab active" id="tab-signup" onclick="switchTab('signup')">Sign Up</button>
+      <button class="toggle-tab" id="tab-login" onclick="switchTab('login')">Log In</button>
     </div>
 
     <form id="signupForm" onsubmit="handleSubmit(event)">
@@ -591,20 +591,18 @@ document.getElementById("successMascot").innerHTML = novaSVG;
 
 // Twinkling stars
 const bg = document.getElementById("spaceBg");
-if (bg) {
-  for (let i = 0; i < 30; i++) {
-    const s = document.createElement("div");
-    s.className = "twinkle-star";
-    s.style.left = Math.random() * 100 + "%";
-    s.style.top = Math.random() * 100 + "%";
-    const size = 2 + Math.random() * 3;
-    s.style.width = size + "px";
-    s.style.height = size + "px";
-    s.style.background = Math.random() > 0.5 ? "#fbbf24" : "#0ea5e9";
-    s.style.animation = `twinkle ${2 + Math.random() * 3}s infinite`;
-    s.style.animationDelay = (Math.random() * 3) + "s";
-    bg.appendChild(s);
-  }
+for (let i = 0; i < 30; i++) {
+  const s = document.createElement("div");
+  s.className = "twinkle-star";
+  s.style.left = Math.random() * 100 + "%";
+  s.style.top = Math.random() * 100 + "%";
+  const size = 2 + Math.random() * 3;
+  s.style.width = size + "px";
+  s.style.height = size + "px";
+  s.style.background = Math.random() > 0.5 ? "#fbbf24" : "#0ea5e9";
+  s.style.animation = `twinkle ${2 + Math.random() * 3}s infinite`;
+  s.style.animationDelay = (Math.random() * 3) + "s";
+  bg.appendChild(s);
 }
 
 // ============ State ============
@@ -617,7 +615,7 @@ try {
   const pending = localStorage.getItem("aii_pending_progress") || localStorage.getItem("aii_guest_progress");
   if (pending) {
     pendingProgress = JSON.parse(pending);
-    if (Number(pendingProgress.xp) > 0) {
+    if (pendingProgress.xp > 0) {
       document.getElementById("pendingProgressBanner").style.display = "flex";
       document.getElementById("pendingXP").textContent = pendingProgress.xp;
       // Try to count badges from another store, fallback to score-based estimate
@@ -650,108 +648,41 @@ function pickGrade(btn) {
   selectedGrade = btn.dataset.grade;
 }
 
-function loadAccounts() {
-  try {
-    const raw = localStorage.getItem("aii_accounts");
-    if (!raw) return {};
-    const o = JSON.parse(raw);
-    return o && typeof o === "object" ? o : {};
-  } catch (e) {
-    return {};
-  }
-}
-
-function saveAccounts(accounts) {
-  localStorage.setItem("aii_accounts", JSON.stringify(accounts));
-}
-
-function mergePendingIntoUser(user, pending) {
-  if (!pending) return user;
-  const xpAdd = Number(pending.xp) || 0;
-  const score = Number(pending.score) || 0;
-  const badgeFromPending = typeof pending.badges === "number" ? pending.badges : Math.floor(score / 20);
-  const lesson = typeof pending.lesson === "string" ? pending.lesson : null;
-  const completed = Array.isArray(user.completedLessons) ? [...user.completedLessons] : [];
-  if (lesson && !completed.includes(lesson)) completed.push(lesson);
-  return {
-    ...user,
-    xp: (user.xp || 0) + xpAdd,
-    badges: Math.max(user.badges || 0, badgeFromPending),
-    completedLessons: completed,
-    account: { ...(user.account || {}), progress: pending }
-  };
-}
-
 function handleSubmit(e) {
   e.preventDefault();
 
   const name = document.getElementById("name").value.trim();
-  const emailRaw = document.getElementById("email").value.trim();
+  const email = document.getElementById("email").value.trim();
   const password = document.getElementById("password").value;
-  const emailKey = emailRaw.toLowerCase();
-
-  if (!emailKey || !password) {
-    alert("Please enter email and password.");
-    return;
-  }
-  if (password.length < 6) {
-    alert("Password needs at least 6 characters.");
-    return;
-  }
-
-  const accounts = loadAccounts();
 
   if (currentMode === "signup") {
     if (!name) { alert("Please tell us your name!"); return; }
     if (!selectedGrade) { alert("Please pick your grade level!"); return; }
-    if (accounts[emailKey]) {
-      alert("That email is already signed up. Try Log In!");
-      return;
-    }
-
-    const baseUser = {
-      id: "user_" + Date.now(),
-      name,
-      email: emailKey,
-      grade: selectedGrade,
-      createdAt: new Date().toISOString(),
-      signedUpAt: Date.now(),
-      xp: 0,
-      streak: 1,
-      badges: 0,
-      completedLessons: [],
-      account: { progress: null }
-    };
-
-    const user = mergePendingIntoUser(baseUser, pendingProgress);
-    accounts[emailKey] = { password, profile: user };
-    saveAccounts(accounts);
-    try {
-      localStorage.setItem("aii_user", JSON.stringify(user));
-      localStorage.removeItem("aii_pending_progress");
-      localStorage.removeItem("aii_guest_progress");
-    } catch (err) {}
-    pendingProgress = null;
-    showSuccessScreen(user);
-    return;
+    if (password.length < 6) { alert("Password needs at least 6 characters."); return; }
   }
 
-  const entry = accounts[emailKey];
-  if (!entry || entry.password !== password) {
-    alert("Wrong email or password.");
-    return;
-  }
+  // ⚠️ DEMO ONLY: this saves to localStorage in your browser.
+  // For a real app, send these to your backend (Firebase, Supabase, etc.)
+  const user = {
+    name: name || "friend",
+    email: email,
+    grade: selectedGrade || "K-5",
+    signedUpAt: Date.now(),
+    xp: pendingProgress ? pendingProgress.xp : 0,
+    streak: 0,
+    hearts: 0,
+    badges: pendingProgress ? Math.floor((pendingProgress.score || 0) / 20) : 0,
+    lastActivityDate: null,
+    completedLessons: pendingProgress ? [pendingProgress.lesson] : []
+  };
 
-  let user = { ...entry.profile, email: emailKey };
-  user = mergePendingIntoUser(user, pendingProgress);
-  accounts[emailKey] = { password, profile: user };
-  saveAccounts(accounts);
   try {
     localStorage.setItem("aii_user", JSON.stringify(user));
+    // Clear pending progress (now saved to user)
     localStorage.removeItem("aii_pending_progress");
     localStorage.removeItem("aii_guest_progress");
-  } catch (err) {}
-  pendingProgress = null;
+  } catch(e) {}
+
   showSuccessScreen(user);
 }
 
@@ -760,15 +691,13 @@ function showSuccessScreen(user) {
   document.getElementById("successContainer").style.display = "grid";
   document.getElementById("welcomeName").textContent = user.name;
 
-  const rewardsRow = document.getElementById("rewardsRestored");
-  if ((user.xp || 0) > 0 || (user.badges || 0) > 0) {
-    rewardsRow.style.display = "flex";
-    document.getElementById("restoredXP").textContent = user.xp || 0;
-    document.getElementById("restoredBadges").textContent = user.badges || 0;
-  } else {
-    rewardsRow.style.display = "none";
+  if (pendingProgress && pendingProgress.xp > 0) {
+    document.getElementById("rewardsRestored").style.display = "flex";
+    document.getElementById("restoredXP").textContent = user.xp;
+    document.getElementById("restoredBadges").textContent = user.badges;
   }
 
+  // Confetti!
   confettiBurst();
   setTimeout(confettiBurst, 400);
 }
