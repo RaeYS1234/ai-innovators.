@@ -32,9 +32,17 @@
     color: #0c1e3e;
     overflow-x: hidden;
     line-height: 1.5;
+    -webkit-text-size-adjust: 100%;
+    -webkit-font-smoothing: antialiased;
+    /* Safe-area padding for notched phones (iPhone X+) */
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom);
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
   }
-  button, a { font-family: inherit; cursor: pointer; border: none; outline: none; text-decoration: none; }
+  button, a { font-family: inherit; cursor: pointer; border: none; outline: none; text-decoration: none; touch-action: manipulation; -webkit-user-select: none; user-select: none; }
   svg { display: block; }
+  img, svg { -webkit-user-drag: none; }
 
   /* ============ INSTALL BANNER ============ */
   .install-banner {
@@ -602,13 +610,13 @@
   footer .logo { color: white; justify-content: center; margin-bottom: 16px; }
   footer p { font-size: 14px; }
 
-  /* ============ RESPONSIVE ============ */
+  /* ============ RESPONSIVE — TABLET (under 900px) ============ */
   @media (max-width: 900px) {
-    .hero-inner { grid-template-columns: 1fr; text-align: center; }
+    .hero-inner { grid-template-columns: 1fr; text-align: center; gap: 24px; }
     .hero-cta { justify-content: center; }
     .nova-stage { margin: 0 auto; width: 280px; height: 280px; }
     .nova-mascot { width: 240px; height: 240px; }
-    .hero h1 { font-size: 38px; }
+    .hero h1 { font-size: 42px; }
     .hero p.lead { margin: 0 auto 24px; }
     .stats-bar { grid-template-columns: repeat(2, 1fr); }
     .nav-links a:not(.enroll-btn) { display: none; }
@@ -616,6 +624,89 @@
     .speech-bubble { left: 50%; transform: translateX(-50%); top: -10px; }
     .grade-info h2 { font-size: 24px; }
     .grade-pill { font-size: 18px; padding: 10px 14px; }
+  }
+
+  /* ============ RESPONSIVE — PHONE (under 600px) ============ */
+  @media (max-width: 600px) {
+    /* Nav: tighter, no menu links, smaller logo */
+    nav { padding: 10px 16px; }
+    .logo { font-size: 18px; gap: 8px; }
+    .logo-icon { width: 36px; height: 36px; }
+    .enroll-btn { padding: 10px 16px !important; font-size: 14px; }
+
+    /* Hero: less padding, smaller fonts, full-width CTAs */
+    .hero { padding: 24px 16px 50px; }
+    .hero-badge { font-size: 12px; padding: 6px 12px; margin-bottom: 12px; }
+    .hero h1 { font-size: 30px; letter-spacing: -0.5px; margin-bottom: 12px; }
+    .hero h1 .highlight::after { height: 8px; bottom: 2px; }
+    .hero p.lead { font-size: 16px; margin-bottom: 20px; }
+    .hero-cta { flex-direction: column; gap: 10px; align-items: stretch; }
+    .btn-big { width: 100%; justify-content: center; padding: 16px 20px; font-size: 17px; }
+
+    /* Nova: smaller on phones */
+    .nova-stage { width: 220px; height: 220px; }
+    .nova-mascot { width: 200px; height: 200px; }
+    .speech-bubble { font-size: 14px; padding: 10px 14px; }
+
+    /* Stats bar: 2x2 grid, tighter */
+    .stats-bar {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+      padding: 12px;
+      border-radius: 18px;
+      margin: -24px 12px 0;
+    }
+    .stat { padding: 6px 8px; gap: 8px; }
+    .stat-icon { width: 44px; height: 44px; border-radius: 12px; }
+    .stat-icon svg { width: 26px; height: 26px; }
+    .stat-text .num { font-size: 22px; }
+    .stat-text .label { font-size: 11px; }
+
+    /* Continue card */
+    .continue-card { padding: 18px 16px; }
+    .continue-card h3 { font-size: 18px; }
+
+    /* Course grade sections */
+    .grade-header { gap: 12px; margin-bottom: 18px; padding: 0 12px; }
+    .grade-info h2 { font-size: 20px; }
+    .grade-info p { font-size: 13px; }
+    .grade-pill { font-size: 14px; padding: 6px 10px; }
+
+    /* Course grid: 1 column, less gap, less padding */
+    .course-grid {
+      grid-template-columns: 1fr;
+      gap: 14px;
+      padding: 0 12px;
+    }
+    .course-card { padding: 16px; border-radius: 18px; }
+    .course-card h4 { font-size: 19px; }
+    .course-card .desc { font-size: 14px; }
+    .course-illustration { height: 110px; margin-bottom: 12px; }
+    .start-btn { padding: 14px; font-size: 15px; }
+
+    /* Container side padding tighter */
+    .container { padding-left: 12px !important; padding-right: 12px !important; }
+
+    /* Footer */
+    footer { padding: 28px 16px; }
+    footer p { font-size: 13px; }
+
+    /* Guest CTA card */
+    .guest-cta-card { padding: 20px 16px; }
+    .guest-cta-content h3 { font-size: 20px; }
+    .guest-cta-content p { font-size: 14px; }
+  }
+
+  /* ============ RESPONSIVE — TINY PHONE (under 380px) ============ */
+  @media (max-width: 380px) {
+    .hero h1 { font-size: 26px; }
+    .hero p.lead { font-size: 14px; }
+    .nova-stage { width: 180px; height: 180px; }
+    .nova-mascot { width: 170px; height: 170px; }
+    .stat-text .num { font-size: 18px; }
+    .stat-icon { width: 38px; height: 38px; }
+    .stat-icon svg { width: 22px; height: 22px; }
+    .course-card h4 { font-size: 17px; }
   }
 </style>
 </head>
