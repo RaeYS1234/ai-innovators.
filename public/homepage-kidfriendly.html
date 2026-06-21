@@ -1553,6 +1553,27 @@ function animateCount(el, from, to, duration) {
   requestAnimationFrame(tick);
 }
 
+// ============ SIGN OUT ============
+async function signOutUser() {
+  // Clear our app's localStorage keys
+  try {
+    localStorage.removeItem("aii_user");
+    // Clear last-seen markers so stat bounce works fresh next signup
+    localStorage.removeItem("lastSeen_streak");
+    localStorage.removeItem("lastSeen_xp");
+    localStorage.removeItem("lastSeen_hearts");
+    localStorage.removeItem("lastSeen_badges");
+  } catch(e) {}
+
+  // Try to sign out of Firebase too (so the "pick account" popup shows next time)
+  try {
+    if (window.firebaseSignOut) await window.firebaseSignOut();
+  } catch(e) { console.log("Firebase sign-out:", e); }
+
+  // Reload to fresh state
+  window.location.href = "/";
+}
+
 // ============ TOGGLE GUEST vs LOGGED-IN ============
 function checkAuth() {
   let user = null;
@@ -1573,10 +1594,19 @@ function checkAuth() {
     fillStatWithBounce("user-hearts", user.hearts || 0, "lastSeen_hearts");
     fillStatWithBounce("user-badges", user.badges || 0, "lastSeen_badges");
 
-    // Update enroll button to show user is logged in
+    // Update enroll button to show user is logged in + add sign-out on click
     const enrollBtn = document.querySelector(".enroll-btn");
     if (enrollBtn) {
       enrollBtn.textContent = "Hi, " + (user.name || "friend") + "!";
+      enrollBtn.title = "Tap to sign out";
+      enrollBtn.removeAttribute("href"); // no longer a link to enroll page
+      enrollBtn.onclick = function(e) {
+        e.preventDefault();
+        const name = user.name || "friend";
+        if (confirm("Sign out, " + name + "?\n\n(Your XP, badges, and streak stay safe on this device.)")) {
+          signOutUser();
+        }
+      };
     }
 
     // Update hero button to "Continue Learning"
@@ -1632,6 +1662,29 @@ setInterval(() => {
   msgIdx = (msgIdx + 1) % messages.length;
   document.querySelector(".speech-bubble").textContent = messages[msgIdx];
 }, 4000);
+</script>
+
+<!-- ============ FIREBASE: Sign-Out helper ============ -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
+  import { getAuth, signOut } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyDj-0TOvaENVWvUgP-MIJpy0xxYGzzxymg",
+    authDomain: "ai-innovators-6fc07.firebaseapp.com",
+    projectId: "ai-innovators-6fc07",
+    storageBucket: "ai-innovators-6fc07.firebasestorage.app",
+    messagingSenderId: "316596960929",
+    appId: "1:316596960929:web:152759a44e57e25462fae0"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  // Expose sign-out so the non-module script can call it
+  window.firebaseSignOut = async function() {
+    await signOut(auth);
+  };
 </script>
 
 </body>
