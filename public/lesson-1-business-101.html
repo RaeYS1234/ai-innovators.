@@ -725,6 +725,79 @@
   }
   .nova-popup-mascot { width: 60px; height: 60px; flex-shrink: 0; }
   .nova-popup-msg { flex: 1; font-weight: 700; color: #0c4a6e; font-size: 14px; line-height: 1.3; }
+
+  /* PERFECT! banner overlay */
+  .perfect-banner {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 200;
+    pointer-events: none;
+    animation: perfect-fade-in 0.4s ease;
+  }
+  .perfect-banner.fade-out { animation: perfect-fade-out 0.6s ease forwards; }
+  @keyframes perfect-fade-in { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes perfect-fade-out { to { opacity: 0; transform: scale(1.2); } }
+  .perfect-banner-inner {
+    background: linear-gradient(135deg, #fef3c7, #fbbf24 50%, #f59e0b);
+    border: 6px solid white;
+    border-radius: 28px;
+    padding: 32px 56px;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(251, 191, 36, 0.6), 0 0 0 6px #d97706;
+    animation: perfect-pop 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  @keyframes perfect-pop {
+    0% { transform: scale(0.3) rotate(-15deg); }
+    60% { transform: scale(1.15) rotate(3deg); }
+    100% { transform: scale(1) rotate(0); }
+  }
+  .perfect-banner-star {
+    font-size: 70px;
+    line-height: 1;
+    margin-bottom: 8px;
+    animation: perfect-spin 1.5s ease infinite;
+  }
+  @keyframes perfect-spin {
+    0%, 100% { transform: rotate(0); }
+    50% { transform: rotate(360deg); }
+  }
+  .perfect-banner-text {
+    font-family: "Nunito", sans-serif;
+    font-size: 48px;
+    font-weight: 900;
+    color: white;
+    letter-spacing: 3px;
+    text-shadow: 0 4px 0 #b45309;
+  }
+  .perfect-banner-subtext {
+    font-size: 16px;
+    font-weight: 800;
+    color: #78350f;
+    margin-top: 6px;
+    letter-spacing: 1px;
+  }
+
+  /* Mute button */
+  .mute-btn {
+    background: transparent;
+    border: 2px solid #bae6fd;
+    color: #0284c7;
+    width: 36px;
+    height: 36px;
+    border-radius: 12px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: all 0.15s;
+  }
+  .mute-btn:hover { background: #e0f2fe; }
+  .mute-btn:active { transform: scale(0.92); }
+  .mute-btn.muted { color: #94a3b8; border-color: #e2e8f0; }
   .nova-popup-close { background: transparent; border: none; color: #94a3b8; font-size: 20px; cursor: pointer; padding: 0; line-height: 1; }
   .nova-popup-close:hover { color: #0c4a6e; }
 
@@ -806,8 +879,13 @@
     .teach-title { font-size: 20px; }
     .option { font-size: 15px; padding: 12px 14px; }
     .btn { padding: 14px 18px; font-size: 15px; }
+    .perfect-banner-inner { padding: 24px 32px; }
+    .perfect-banner-text { font-size: 36px; }
+    .perfect-banner-star { font-size: 56px; }
   }
 </style>
+<!-- Sound effects module -->
+<script src="sound.js" defer></script>
 </head>
 <body>
 <div class="app">
@@ -816,6 +894,13 @@
   <div class="topbar" id="topbar" style="display:none;">
     <button class="close-btn" onclick="confirmExit()">×</button>
     <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <button class="mute-btn" id="muteBtn" onclick="toggleMuteBtn()" title="Sound on/off" aria-label="Toggle sound">
+      <svg id="muteIcon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+        <path d="M15.5 8.5 a 5 5 0 0 1 0 7"/>
+        <path d="M18.5 5.5 a 9 9 0 0 1 0 13"/>
+      </svg>
+    </button>
     <div class="hearts"><svg width="22" height="22" viewBox="0 0 32 32"><path d="M16 28 C 6 20 2 14 2 10 C 2 6 5 3 9 3 C 12 3 14 5 16 8 C 18 5 20 3 23 3 C 27 3 30 6 30 10 C 30 14 26 20 16 28 Z" fill="#ec4899" stroke="#be185d" stroke-width="1.5"/></svg><span id="heartsCount">3</span></div>
   </div>
 
@@ -1448,6 +1533,29 @@ function updateProgress() {
   document.getElementById("progressFill").style.width = pct + "%";
 }
 
+// ============ MUTE TOGGLE ============
+function toggleMuteBtn() {
+  if (!window.AIISound) return;
+  const muted = window.AIISound.toggleMute();
+  updateMuteIcon(muted);
+  // Play click sound to confirm un-mute
+  if (!muted) window.AIISound.click();
+}
+function updateMuteIcon(muted) {
+  const btn = document.getElementById("muteBtn");
+  const icon = document.getElementById("muteIcon");
+  if (!btn || !icon) return;
+  btn.classList.toggle("muted", muted);
+  // Swap between speaker-on and speaker-off icon
+  icon.innerHTML = muted
+    ? `<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/>`
+    : `<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.5 8.5 a 5 5 0 0 1 0 7"/><path d="M18.5 5.5 a 9 9 0 0 1 0 13"/>`;
+}
+// Set initial icon state once sound module loads
+window.addEventListener("DOMContentLoaded", () => {
+  if (window.AIISound) updateMuteIcon(window.AIISound.isMuted());
+});
+
 // ============ RENDER STEP ============
 function renderStep() {
   if (currentStep >= STEPS.length) { finishLesson(); return; }
@@ -1503,6 +1611,8 @@ function renderVocab(step, container) {
       <button class="btn go" onclick="nextStep()">I got it!</button>
     </div>
   `;
+  // Magical "new word!" chime
+  if (window.AIISound) window.AIISound.vocab();
 }
 
 function renderMC(step, container) {
@@ -1673,6 +1783,7 @@ function showFeedback(isCorrect, msg) {
     correct++;
     xp += 10;
     confettiBurst();
+    if (window.AIISound) window.AIISound.correct();
     // Nova drops in to cheer every 2 correct answers
     if (correct % 2 === 0 && correct > 0) {
       setTimeout(showNovaPopup, 1500);
@@ -1681,6 +1792,7 @@ function showFeedback(isCorrect, msg) {
     hearts--;
     updateHearts();
     document.querySelector(".mascot")?.classList.add("shake");
+    if (window.AIISound) { window.AIISound.wrong(); window.AIISound.heartLost(); }
   }
 }
 
@@ -1722,6 +1834,38 @@ function nextStep() {
   setTimeout(renderStep, 200);
 }
 
+// ============ ANIMATION HELPERS ============
+function animateCount(el, from, to, duration) {
+  if (!el) return;
+  if (from === to) { el.textContent = to; return; }
+  const start = performance.now();
+  function tick(now) {
+    const t = Math.min(1, (now - start) / duration);
+    const eased = 1 - Math.pow(1 - t, 3); // ease out
+    el.textContent = Math.round(from + (to - from) * eased);
+    if (t < 1) requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+}
+
+function showPerfectBanner() {
+  const banner = document.createElement("div");
+  banner.className = "perfect-banner";
+  banner.innerHTML = `
+    <div class="perfect-banner-inner">
+      <div class="perfect-banner-star">★</div>
+      <div class="perfect-banner-text">PERFECT!</div>
+      <div class="perfect-banner-subtext">100% + All hearts</div>
+    </div>`;
+  document.body.appendChild(banner);
+  setTimeout(() => banner.classList.add("fade-out"), 2000);
+  setTimeout(() => banner.remove(), 2700);
+  if (typeof bigConfetti === "function") {
+    bigConfetti();
+    setTimeout(bigConfetti, 400);
+  }
+}
+
 // ============ FINISH ============
 function finishLesson() {
   document.getElementById("topbar").style.display = "none";
@@ -1729,9 +1873,20 @@ function finishLesson() {
   setMascot("completeMascot", "cheer");
   showScreen("complete");
   const score = total > 0 ? Math.round((correct / total) * 100) : 0;
-  document.getElementById("finalXP").textContent = xp;
+  const isPerfect = score === 100 && hearts === 3;
+
+  // Animated XP counter
+  animateCount(document.getElementById("finalXP"), 0, xp, 1200);
   document.getElementById("finalScore").textContent = score + "%";
   document.getElementById("finalHearts").textContent = hearts;
+
+  // Triumphant sound
+  if (window.AIISound) {
+    setTimeout(() => isPerfect ? window.AIISound.perfect() : window.AIISound.complete(), 200);
+  }
+
+  // PERFECT banner overlay
+  if (isPerfect) showPerfectBanner();
 
   // Save progress
   try {

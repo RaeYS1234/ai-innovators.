@@ -1,9 +1,13 @@
 // ============ AI INNOVATORS — Service Worker ============
-// Caches the app for offline access. Bumps version when files change.
+// Auto-updating: always grabs the freshest files when online,
+// falls back to cache when offline.
 
-const CACHE_NAME = "ai-innovators-v1";
+// Cache version — change this string when you want to force everyone
+// to clear their cache. With the network-first strategy below, updates
+// already show up immediately when the user has internet.
+const CACHE_NAME = "ai-innovators-2026-05-26";
 
-// Core files to cache when the app installs
+// Core files to cache so the app works offline
 const CORE_FILES = [
   "/",
   "/homepage-kidfriendly.html",
@@ -15,6 +19,7 @@ const CORE_FILES = [
   "/app-icon-maskable.svg",
   "/lesson-shared.css",
   "/lesson-engine.js",
+  "/sound.js",
   "/course-shared.css",
   "/course-engine.js",
   // Course pages
@@ -62,7 +67,7 @@ const CORE_FILES = [
   "/lesson-ap-1-1-how-ai-makes-pictures.html"
 ];
 
-// Install: cache core files
+// Install: cache core files and activate immediately
 self.addEventListener("install", (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME)
@@ -72,7 +77,7 @@ self.addEventListener("install", (event) => {
   );
 });
 
-// Activate: clean up old caches
+// Activate: clean up old caches and take control immediately
 self.addEventListener("activate", (event) => {
   event.waitUntil(
     caches.keys().then((names) =>
@@ -81,36 +86,43 @@ self.addEventListener("activate", (event) => {
   );
 });
 
-// Fetch: serve from cache first, fall back to network
+// Fetch: NETWORK-FIRST strategy
+// = always try to get the latest version from the internet first.
+// = only fall back to cache when offline.
+// This means changes show up IMMEDIATELY when users have internet.
 self.addEventListener("fetch", (event) => {
   // Only handle GET requests
   if (event.request.method !== "GET") return;
 
-  // Only cache same-origin
+  // Only handle same-origin
   const url = new URL(event.request.url);
   if (url.origin !== self.location.origin) return;
 
   event.respondWith(
-    caches.match(event.request).then((cached) => {
-      if (cached) {
-        // Return cached version, also fetch fresh in background
-        fetch(event.request).then((response) => {
-          if (response && response.ok) {
-            caches.open(CACHE_NAME).then((cache) => cache.put(event.request, response));
-          }
-        }).catch(() => {});
-        return cached;
-      }
-      // Not in cache - fetch from network and cache it
-      return fetch(event.request).then((response) => {
-        if (!response || !response.ok) return response;
-        const clone = response.clone();
-        caches.open(CACHE_NAME).then((cache) => cache.put(event.request, clone));
+    // Try the network first
+    fetch(event.request)
+      .then((response) => {
+        // Got fresh version - update cache and return it
+        if (response && response.ok) {
+          const clone = response.clone();
+          caches.open(CACHE_NAME).then((cache) => cache.put(event.request, clone));
+        }
         return response;
-      }).catch(() => {
-        // Offline and not cached - return homepage as fallback
-        return caches.match("/homepage-kidfriendly.html");
-      });
-    })
+      })
+      .catch(() => {
+        // Network failed (offline) - use cache
+        return caches.match(event.request).then((cached) => {
+          if (cached) return cached;
+          // Not in cache either - return homepage as fallback
+          return caches.match("/homepage-kidfriendly.html");
+        });
+      })
   );
+});
+
+// Listen for "skip waiting" messages from the page
+self.addEventListener("message", (event) => {
+  if (event.data && event.data.type === "SKIP_WAITING") {
+    self.skipWaiting();
+  }
 });

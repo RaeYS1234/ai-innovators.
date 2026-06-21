@@ -1,6 +1,15 @@
 // ============ AI INNOVATORS — Shared Lesson Engine ============
 // Each lesson HTML file calls runLesson(config) to set everything up.
 
+// Auto-load the sound module so every lesson gets cute sound effects
+(function() {
+  if (!window.AIISound && !document.querySelector('script[src*="sound.js"]')) {
+    var s = document.createElement("script");
+    s.src = "sound.js";
+    document.head.appendChild(s);
+  }
+})();
+
 (function() {
   // ---- Nova Mascot SVG ----
   function novaSVG(mood) {
@@ -176,6 +185,8 @@
           ${s.example ? `<div class="vocab-example"><b>Example:</b> ${s.example}</div>` : ""}
         </div>
         <div class="action-bar"><button class="btn go" onclick="window._lessonNext()">Got it!</button></div>`;
+      // Magical "new word!" chime
+      if (window.AIISound) window.AIISound.vocab();
     }
 
     function renderTeach(s, c) {
@@ -328,8 +339,13 @@
       fb.classList.toggle("wrong", !isCorrect);
       document.getElementById("feedbackText").textContent = isCorrect ? "Nice work!" : "Not quite.";
       document.getElementById("feedbackExplain").textContent = msg;
-      if (isCorrect) { correct++; xp += 10; confettiBurst(); }
-      else { hearts--; updateHearts(); document.querySelector(".mascot")?.classList.add("shake"); }
+      if (isCorrect) {
+        correct++; xp += 10; confettiBurst();
+        if (window.AIISound) window.AIISound.correct();
+      } else {
+        hearts--; updateHearts(); document.querySelector(".mascot")?.classList.add("shake");
+        if (window.AIISound) { window.AIISound.wrong(); window.AIISound.heartLost(); }
+      }
     }
 
     function finishLesson() {
@@ -337,20 +353,20 @@
       setMascot("completeMascot", "cheer");
       showScreen("complete");
       const score = total > 0 ? Math.round((correct / total) * 100) : 100;
-      document.getElementById("finalXP").textContent = xp;
+      const isPerfect = score === 100 && hearts === 3;
+
+      // Animated XP counter — counts up from 0 to earned XP
+      animateCount(document.getElementById("finalXP"), 0, xp, 1200);
       document.getElementById("finalScore").textContent = score + "%";
       document.getElementById("finalHearts").textContent = hearts;
 
-      // Save progress
-      try {
-        if (isLoggedIn() && lessonId) {
-          const user = JSON.parse(localStorage.getItem("aii_user"));
-          user.xp = (user.xp || 0) + xp;
-          user.completedLessons = user.completedLessons || [];
-          if (!user.completedLessons.includes(lessonId)) user.completedLessons.push(lessonId);
-          localStorage.setItem("aii_user", JSON.stringify(user));
-        }
-      } catch(e) {}
+      // Triumphant sound — perfect gets a fancier one
+      if (window.AIISound) {
+        setTimeout(() => isPerfect ? window.AIISound.perfect() : window.AIISound.complete(), 200);
+      }
+
+      // PERFECT banner overlay
+      if (isPerfect) showPerfectBanner();
 
       // Render badges
       const badges = (config.badges || [
@@ -372,13 +388,89 @@
         ...b,
         earned: typeof b.earned === "function" ? b.earned({ correct, total, score, hearts, xp }) : b.earned
       }));
+      const earnedBadgeCount = evaluated.filter(b => b.earned).length;
       document.getElementById("badgeGrid").innerHTML = evaluated.map(b => `
         <div class="badge ${b.earned ? "earned" : "locked"}">
           <div class="badge-icon-svg">${b.icon}</div>
           <div class="badge-name">${b.name}</div>
         </div>`).join("");
 
+      // Save progress — updates XP, streak, hearts, badges
+      try {
+        if (isLoggedIn() && lessonId) {
+          const user = JSON.parse(localStorage.getItem("aii_user")) || {};
+          user.completedLessons = user.completedLessons || [];
+          const isFirstCompletion = !user.completedLessons.includes(lessonId);
+
+          // XP — always award (so retakes still feel rewarding)
+          user.xp = (user.xp || 0) + xp;
+
+          // Hearts — +1 for finishing a lesson with all 3 hearts (first time only)
+          if (isFirstCompletion && hearts === 3) {
+            user.hearts = (user.hearts || 0) + 1;
+          }
+
+          // Badges — total earned across all lessons (first completion only, no farming)
+          if (isFirstCompletion) {
+            user.badges = (user.badges || 0) + earnedBadgeCount;
+            user.completedLessons.push(lessonId);
+          }
+
+          // Day Streak — increment if it's a new day, reset if a day was skipped
+          const today = new Date().toDateString();
+          if (user.lastActivityDate !== today) {
+            if (user.lastActivityDate) {
+              const lastDate = new Date(user.lastActivityDate);
+              const todayDate = new Date(today);
+              const dayDiff = Math.round((todayDate - lastDate) / 86400000);
+              user.streak = (dayDiff === 1) ? (user.streak || 0) + 1 : 1;
+            } else {
+              user.streak = 1;
+            }
+            user.lastActivityDate = today;
+          }
+
+          localStorage.setItem("aii_user", JSON.stringify(user));
+        }
+      } catch(e) {}
+
       if (score >= 80) bigConfetti();
+    }
+
+    // ---- Helper: animated number counter ----
+    function animateCount(el, from, to, duration) {
+      if (!el) return;
+      if (from === to) { el.textContent = to; return; }
+      const start = performance.now();
+      function tick(now) {
+        const t = Math.min(1, (now - start) / duration);
+        // Ease-out curve so it slows down at the end
+        const eased = 1 - Math.pow(1 - t, 3);
+        el.textContent = Math.round(from + (to - from) * eased);
+        if (t < 1) requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+    }
+
+    // ---- Helper: PERFECT banner overlay (for 100% with all hearts) ----
+    function showPerfectBanner() {
+      const banner = document.createElement("div");
+      banner.className = "perfect-banner";
+      banner.innerHTML = `
+        <div class="perfect-banner-inner">
+          <div class="perfect-banner-star">★</div>
+          <div class="perfect-banner-text">PERFECT!</div>
+          <div class="perfect-banner-subtext">100% + All hearts</div>
+        </div>`;
+      document.body.appendChild(banner);
+      // Auto-remove after 2.5 seconds
+      setTimeout(() => banner.classList.add("fade-out"), 2000);
+      setTimeout(() => banner.remove(), 2700);
+      // Extra confetti burst
+      if (typeof bigConfetti === "function") {
+        bigConfetti();
+        setTimeout(bigConfetti, 400);
+      }
     }
   };
 })();

@@ -610,6 +610,14 @@
   footer .logo { color: white; justify-content: center; margin-bottom: 16px; }
   footer p { font-size: 14px; }
 
+  /* Stat counter bounce when stats increase */
+  .stat-pop { animation: stat-pop-anim 0.7s cubic-bezier(0.34, 1.56, 0.64, 1); display: inline-block; }
+  @keyframes stat-pop-anim {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.4); color: #fbbf24; text-shadow: 0 0 20px rgba(251, 191, 36, 0.6); }
+    100% { transform: scale(1); }
+  }
+
   /* ============ RESPONSIVE — TABLET (under 900px) ============ */
   @media (max-width: 900px) {
     .hero-inner { grid-template-columns: 1fr; text-align: center; gap: 24px; }
@@ -1460,6 +1468,38 @@ const novaSVG = `
 </svg>`;
 document.getElementById("novaMascot").innerHTML = novaSVG;
 
+// ============ STAT BOUNCE — animates stat counters when they've increased ============
+function fillStatWithBounce(id, newValue, lastSeenKey) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  let lastSeen = 0;
+  try { lastSeen = parseInt(localStorage.getItem(lastSeenKey) || "0"); } catch(e) {}
+
+  if (newValue > lastSeen) {
+    // Count up from old value to new — feels rewarding
+    animateCount(el, lastSeen, newValue, 1000);
+    // Pop bounce
+    el.classList.remove("stat-pop");
+    void el.offsetWidth; // force reflow
+    el.classList.add("stat-pop");
+  } else {
+    el.textContent = newValue;
+  }
+  try { localStorage.setItem(lastSeenKey, String(newValue)); } catch(e) {}
+}
+
+function animateCount(el, from, to, duration) {
+  if (!el || from === to) { if (el) el.textContent = to; return; }
+  const start = performance.now();
+  function tick(now) {
+    const t = Math.min(1, (now - start) / duration);
+    const eased = 1 - Math.pow(1 - t, 3);
+    el.textContent = Math.round(from + (to - from) * eased);
+    if (t < 1) requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+}
+
 // ============ TOGGLE GUEST vs LOGGED-IN ============
 function checkAuth() {
   let user = null;
@@ -1474,11 +1514,11 @@ function checkAuth() {
     document.getElementById("continueSection").style.display = "block";
     document.getElementById("guestCTA").style.display = "none";
 
-    // Fill in user's real stats
-    document.getElementById("user-streak").textContent = user.streak || 0;
-    document.getElementById("user-xp").textContent = user.xp || 0;
-    document.getElementById("user-hearts").textContent = user.hearts || 0;
-    document.getElementById("user-badges").textContent = user.badges || 0;
+    // Fill in user's real stats — with bounce animation if anything changed since last visit
+    fillStatWithBounce("user-streak", user.streak || 0, "lastSeen_streak");
+    fillStatWithBounce("user-xp", user.xp || 0, "lastSeen_xp");
+    fillStatWithBounce("user-hearts", user.hearts || 0, "lastSeen_hearts");
+    fillStatWithBounce("user-badges", user.badges || 0, "lastSeen_badges");
 
     // Update enroll button to show user is logged in
     const enrollBtn = document.querySelector(".enroll-btn");
