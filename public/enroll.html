@@ -702,9 +702,55 @@ function showSuccessScreen(user) {
   setTimeout(confettiBurst, 400);
 }
 
-function signInWithGoogle() {
-  alert("Google sign-in is coming soon! For now, please use the form. 🚀");
-  // TODO: Hook up Firebase/Supabase Google auth here
+async function signInWithGoogle() {
+  // Wait for Firebase module to load
+  if (!window.firebaseSignInWithGoogle) {
+    // Try waiting a moment, the script tag might still be loading
+    await new Promise(r => setTimeout(r, 500));
+    if (!window.firebaseSignInWithGoogle) {
+      alert("Sign in is still loading. Give it a sec and try again!");
+      return;
+    }
+  }
+
+  try {
+    const fbUser = await window.firebaseSignInWithGoogle();
+    if (!fbUser) return; // popup was closed
+
+    // Check if this Google account has already signed up on this device
+    let existingUser = null;
+    try { existingUser = JSON.parse(localStorage.getItem("aii_user") || "null"); } catch(e) {}
+    const isReturning = existingUser && existingUser.email === fbUser.email;
+
+    // Build user object in our standard format
+    const user = {
+      name: fbUser.displayName || "friend",
+      email: fbUser.email,
+      photoURL: fbUser.photoURL || null,
+      firebaseUid: fbUser.uid,
+      signedUpAt: isReturning ? existingUser.signedUpAt : Date.now(),
+      // Keep existing stats if returning user; otherwise fresh start
+      xp: isReturning ? existingUser.xp : (pendingProgress ? pendingProgress.xp : 0),
+      streak: isReturning ? existingUser.streak : 0,
+      hearts: isReturning ? existingUser.hearts : 0,
+      badges: isReturning ? existingUser.badges : (pendingProgress ? Math.floor((pendingProgress.score || 0) / 20) : 0),
+      lastActivityDate: isReturning ? existingUser.lastActivityDate : null,
+      completedLessons: isReturning ? existingUser.completedLessons : (pendingProgress ? [pendingProgress.lesson] : [])
+    };
+
+    try {
+      localStorage.setItem("aii_user", JSON.stringify(user));
+      localStorage.removeItem("aii_pending_progress");
+      localStorage.removeItem("aii_guest_progress");
+    } catch(e) {}
+
+    showSuccessScreen(user);
+  } catch (err) {
+    // Closing the popup is not an error — be silent
+    if (err && (err.code === "auth/popup-closed-by-user" || err.code === "auth/cancelled-popup-request")) return;
+    console.error("Google sign-in error:", err);
+    alert("Hmm, sign in didn't work. Try again?\n\nError: " + (err && err.message ? err.message : err));
+  }
 }
 
 function goHome() {
@@ -737,6 +783,31 @@ function confettiBurst() {
     setTimeout(() => c.remove(), duration);
   }
 }
+</script>
+
+<!-- ============ FIREBASE: Google Sign-In ============ -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
+  import { getAuth, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyDj-0TOvaENVWvUgP-MIJpy0xxYGzzxymg",
+    authDomain: "ai-innovators-6fc07.firebaseapp.com",
+    projectId: "ai-innovators-6fc07",
+    storageBucket: "ai-innovators-6fc07.firebasestorage.app",
+    messagingSenderId: "316596960929",
+    appId: "1:316596960929:web:152759a44e57e25462fae0"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const provider = new GoogleAuthProvider();
+
+  // Expose to the non-module script that handles the button click
+  window.firebaseSignInWithGoogle = async function() {
+    const result = await signInWithPopup(auth, provider);
+    return result.user;
+  };
 </script>
 
 </body>
