@@ -8,6 +8,8 @@
 
   // ---- Audio context (created lazily on first user interaction) ----
   let ctx = null;
+  let unlocked = false;
+
   function getCtx() {
     if (!ctx) {
       try {
@@ -19,6 +21,40 @@
       try { ctx.resume(); } catch(e) {}
     }
     return ctx;
+  }
+
+  // ---- iOS audio unlock ----
+  // iOS Safari/PWA requires the AudioContext to be created AND a silent
+  // sound played within the very first user interaction. We hook into the
+  // first touch/click anywhere on the page to prime the audio system.
+  function unlockAudio() {
+    if (unlocked) return;
+    const audio = getCtx();
+    if (!audio) return;
+    // Play a tiny silent buffer to satisfy iOS's "must play during gesture" rule
+    try {
+      const buf = audio.createBuffer(1, 1, 22050);
+      const src = audio.createBufferSource();
+      src.buffer = buf;
+      src.connect(audio.destination);
+      src.start(0);
+      unlocked = true;
+    } catch(e) {}
+  }
+
+  // Auto-prime on first user interaction (one-time)
+  function primeOnce() {
+    unlockAudio();
+    document.removeEventListener("touchstart", primeOnce, true);
+    document.removeEventListener("touchend", primeOnce, true);
+    document.removeEventListener("click", primeOnce, true);
+    document.removeEventListener("keydown", primeOnce, true);
+  }
+  if (typeof document !== "undefined") {
+    document.addEventListener("touchstart", primeOnce, true);
+    document.addEventListener("touchend", primeOnce, true);
+    document.addEventListener("click", primeOnce, true);
+    document.addEventListener("keydown", primeOnce, true);
   }
 
   // ---- Mute preference ----
