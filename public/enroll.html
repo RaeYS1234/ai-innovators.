@@ -802,6 +802,9 @@ function confettiBurst() {
   const app = initializeApp(firebaseConfig);
   const auth = getAuth(app);
   const provider = new GoogleAuthProvider();
+  // Always show the "Choose an account" picker — even if one Google account
+  // is already signed in. This lets people sign in with different accounts.
+  provider.setCustomParameters({ prompt: "select_account" });
 
   // Expose to the non-module script that handles the button click
   window.firebaseSignInWithGoogle = async function() {
