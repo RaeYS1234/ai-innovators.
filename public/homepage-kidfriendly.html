@@ -26,6 +26,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+  html { scroll-behavior: smooth; }
   html, body {
     font-family: "Fredoka", "Nunito", -apple-system, sans-serif;
     background: #e0f2fe;
@@ -41,6 +42,20 @@
     padding-right: env(safe-area-inset-right);
   }
   button, a { font-family: inherit; cursor: pointer; border: none; outline: none; text-decoration: none; touch-action: manipulation; -webkit-user-select: none; user-select: none; }
+  /* Accessibility: visible focus ring for keyboard users (Tab key) */
+  button:focus-visible, a:focus-visible {
+    outline: 3px solid #0ea5e9;
+    outline-offset: 3px;
+    border-radius: 8px;
+  }
+  /* Quick press feedback so taps feel instant on mobile */
+  .btn-big:active, .start-btn:active, .nav-links a:active, .enroll-btn:active, .install-banner-btn:active {
+    filter: brightness(0.95);
+  }
+  /* Disabled / loading state */
+  a[aria-disabled="true"], button[aria-disabled="true"] {
+    opacity: 0.6; cursor: not-allowed;
+  }
   svg { display: block; }
   img, svg { -webkit-user-drag: none; }
 
@@ -893,23 +908,24 @@
     Install AI Innovators as an app for the best experience!
   </div>
   <button class="install-banner-btn" id="installBtn" onclick="installApp()">Install</button>
-  <button class="install-banner-close" onclick="dismissInstallBanner()" title="Hide">×</button>
+  <button class="install-banner-close" onclick="dismissInstallBanner()" title="Hide" aria-label="Close install banner">×</button>
 </div>
 
 <!-- Floating space background -->
 <div class="space-bg" id="spaceBg"></div>
 
 <!-- ============ NAV ============ -->
+<a id="top"></a>
 <nav>
-  <div class="logo">
+  <button type="button" class="logo" onclick="window.scrollTo({top:0,behavior:'smooth'})" style="background:transparent;cursor:pointer;padding:0;color:inherit;" aria-label="Go to top">
     <div class="logo-icon"><svg width="28" height="28"><use href="#i-rocket"/></svg></div>
     <span>AI <span style="color:#fbbf24;">Innovators</span></span>
-  </div>
+  </button>
   <div class="nav-links">
-    <a href="#">Home</a>
+    <a href="#top" id="navHome">Home</a>
     <a href="#level-1">Levels</a>
-    <a href="#">My Stats</a>
-    <a href="#" class="enroll-btn">Enroll</a>
+    <a href="#" id="navMyStats">My Stats</a>
+    <a href="enroll.html" class="enroll-btn" id="navEnroll">Enroll</a>
   </div>
 </nav>
 
@@ -928,7 +944,7 @@
           Sign Up Free
           <svg width="18" height="18"><use href="#i-arrow"/></svg>
         </a>
-        <a href="#k5" class="btn-big white">Browse Courses</a>
+        <a href="#level-1" class="btn-big white">Browse Courses</a>
       </div>
     </div>
     <div class="nova-stage">
@@ -1635,6 +1651,48 @@ function checkAuth() {
     document.getElementById("userStatsContainer").style.display = "none";
     document.getElementById("continueSection").style.display = "none";
     document.getElementById("guestCTA").style.display = "block";
+
+    // Make sure Enroll button works for guests (linkable, clear text)
+    const enrollBtn = document.querySelector(".enroll-btn");
+    if (enrollBtn) {
+      enrollBtn.textContent = "Enroll";
+      enrollBtn.title = "Sign up free";
+      enrollBtn.href = "enroll.html";
+      enrollBtn.onclick = null;
+    }
+
+    // Guests tapping "My Stats" — send to enroll so they can sign up first
+    const statsLink = document.getElementById("navMyStats");
+    if (statsLink) {
+      statsLink.onclick = function(e) {
+        e.preventDefault();
+        alert("Sign up to see your stats! 📊");
+        window.location.href = "enroll.html";
+      };
+    }
+  }
+
+  // === Common to both guest + logged-in ===
+
+  // "Home" link smooth-scrolls to top
+  const homeLink = document.getElementById("navHome");
+  if (homeLink) {
+    homeLink.onclick = function(e) {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    };
+  }
+
+  // "My Stats" link for logged-in users → scroll to stats bar
+  if (user) {
+    const statsLink = document.getElementById("navMyStats");
+    if (statsLink) {
+      statsLink.onclick = function(e) {
+        e.preventDefault();
+        const stats = document.getElementById("userStatsContainer");
+        if (stats) stats.scrollIntoView({ behavior: "smooth", block: "center" });
+      };
+    }
   }
 }
 checkAuth();
