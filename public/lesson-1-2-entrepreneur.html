@@ -174,7 +174,14 @@
     .mascot { width: 150px; height: 150px; }
     .vocab-word { font-size: 26px; }
   }
+  /* Mute button */
+  .mute-btn { background: transparent; border: 2px solid #bae6fd; color: #0284c7; width: 36px; height: 36px; border-radius: 12px; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0; transition: all 0.15s; }
+  .mute-btn:hover { background: #e0f2fe; }
+  .mute-btn:active { transform: scale(0.92); }
+  .mute-btn.muted { color: #94a3b8; border-color: #e2e8f0; }
 </style>
+<!-- Sound effects module -->
+<script src="sound.js" defer></script>
 </head>
 <body>
 <div class="app">
@@ -182,6 +189,9 @@
   <div class="topbar" id="topbar" style="display:none;">
     <button class="close-btn" onclick="confirmExit()">×</button>
     <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <button class="mute-btn" id="muteBtn" onclick="toggleMuteBtn()" title="Sound on/off" aria-label="Toggle sound">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.5 8.5 a 5 5 0 0 1 0 7"/><path d="M18.5 5.5 a 9 9 0 0 1 0 13"/></svg>
+    </button>
     <div class="hearts">
       <svg class="heart-svg" viewBox="0 0 32 32"><path d="M16 28 C 6 20 2 14 2 10 C 2 6 5 3 9 3 C 12 3 14 5 16 8 C 18 5 20 3 23 3 C 27 3 30 6 30 10 C 30 14 26 20 16 28 Z" fill="#ec4899" stroke="#be185d" stroke-width="1.5"/></svg>
       <span id="heartsCount">3</span>
@@ -515,10 +525,11 @@ function startLesson() {
   // Require login
   if (!isLoggedIn()) {
     try { localStorage.setItem("aii_redirect_after_signup", window.location.pathname); } catch(e) {}
-    window.location.href = "/enroll";
+    window.location.href = "enroll.html";
     return;
   }
   document.getElementById("topbar").style.display = "flex";
+  renderMuteIcon();
   showScreen("lesson");
   currentStep = 0; hearts = 3; xp = 0; correct = 0; total = 0;
   updateHearts();
@@ -559,6 +570,7 @@ function renderVocab(s, c) {
       <div class="vocab-example"><b>Quick fact:</b> ${s.example}</div>
     </div>
     <div class="action-bar"><button class="btn go" onclick="nextStep()">Got it!</button></div>`;
+  if (window.AIISound) window.AIISound.vocab();
 }
 
 function renderTeachKids(s, c) {
@@ -737,12 +749,32 @@ function showFeedback(isCorrect, msg) {
   document.getElementById("feedbackExplain").textContent = msg;
   if (isCorrect) {
     correct++; xp += 10; confettiBurst();
+    if (window.AIISound) window.AIISound.correct();
     // Show Nova encouragement after every 2 correct answers
     if (correct % 2 === 0 && correct > 0) {
       setTimeout(showNovaPopup, 1500);
     }
   }
-  else { hearts--; updateHearts(); document.querySelector(".mascot")?.classList.add("shake"); }
+  else {
+    hearts--; updateHearts(); document.querySelector(".mascot")?.classList.add("shake");
+    if (window.AIISound) { window.AIISound.wrong(); window.AIISound.heartLost(); }
+  }
+}
+
+// ============ MUTE BUTTON ============
+function renderMuteIcon() {
+  const btn = document.getElementById("muteBtn");
+  if (!btn) return;
+  const muted = (window.AIISound && window.AIISound.isMuted) ? window.AIISound.isMuted() : false;
+  btn.classList.toggle("muted", muted);
+  btn.innerHTML = muted
+    ? '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>'
+    : '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.5 8.5 a 5 5 0 0 1 0 7"/><path d="M18.5 5.5 a 9 9 0 0 1 0 13"/></svg>';
+}
+function toggleMuteBtn() {
+  if (window.AIISound && window.AIISound.toggleMute) window.AIISound.toggleMute();
+  renderMuteIcon();
+  if (window.AIISound && window.AIISound.click && window.AIISound.isMuted && !window.AIISound.isMuted()) window.AIISound.click();
 }
 
 function nextStep() {
@@ -758,9 +790,11 @@ function finishLesson() {
   setMascot("completeMascot", "cheer");
   showScreen("complete");
   const score = total > 0 ? Math.round((correct / total) * 100) : 0;
+  const isPerfect = score === 100 && hearts === 3;
   document.getElementById("finalXP").textContent = xp;
   document.getElementById("finalScore").textContent = score + "%";
   document.getElementById("finalHearts").textContent = hearts;
+  if (window.AIISound) setTimeout(() => isPerfect ? window.AIISound.perfect() : window.AIISound.complete(), 200);
 
   // Save progress to user account
   try {
