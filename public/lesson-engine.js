@@ -106,6 +106,80 @@
     return a;
   }
 
+  // ---- Nova encouragement popup (drops in to cheer the learner on) ----
+  const NOVA_ENCOURAGEMENTS = [
+    "You're doing AMAZING!",
+    "Great job! Keep going!",
+    "Wow, you're learning fast!",
+    "You're going to be a great entrepreneur!",
+    "I'm so proud of you!",
+    "Keep crushing it!",
+    "You got this!",
+    "Nice thinking, superstar!",
+    "High five! You're on fire!",
+    "Smart move! Keep it up!"
+  ];
+  function ensureNovaPopup() {
+    if (document.getElementById("novaPopup")) return;
+    const p = document.createElement("div");
+    p.className = "nova-popup";
+    p.id = "novaPopup";
+    p.innerHTML =
+      '<div class="nova-popup-mascot" id="novaPopupMascot"></div>' +
+      '<div class="nova-popup-msg" id="novaPopupMsg"></div>' +
+      '<button class="nova-popup-close" aria-label="Close" onclick="window._novaHide()">×</button>';
+    document.body.appendChild(p);
+  }
+  function showNovaPopup(customMsg) {
+    ensureNovaPopup();
+    const popup = document.getElementById("novaPopup");
+    if (!popup) return;
+    document.getElementById("novaPopupMascot").innerHTML = novaSVG("cheer");
+    document.getElementById("novaPopupMsg").textContent =
+      customMsg || NOVA_ENCOURAGEMENTS[Math.floor(Math.random() * NOVA_ENCOURAGEMENTS.length)];
+    popup.classList.add("show");
+    if (window.AIISound && window.AIISound.nova) window.AIISound.nova();
+    clearTimeout(window._novaPopupTimer);
+    window._novaPopupTimer = setTimeout(window._novaHide, 4000);
+  }
+  window._novaHide = function() {
+    const popup = document.getElementById("novaPopup");
+    if (popup) popup.classList.remove("show");
+  };
+
+  // ---- Mute button (lets kids turn sound effects on/off) ----
+  function muteIconSVG(muted) {
+    return muted
+      ? '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>'
+      : '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.5 8.5 a 5 5 0 0 1 0 7"/><path d="M18.5 5.5 a 9 9 0 0 1 0 13"/></svg>';
+  }
+  function renderMuteIcon() {
+    const btn = document.getElementById("muteBtn");
+    if (!btn) return;
+    const muted = (window.AIISound && window.AIISound.isMuted) ? window.AIISound.isMuted() : false;
+    btn.classList.toggle("muted", muted);
+    btn.innerHTML = muteIconSVG(muted);
+  }
+  function ensureMuteButton() {
+    const topbar = document.getElementById("topbar");
+    if (!topbar || document.getElementById("muteBtn")) return;
+    const btn = document.createElement("button");
+    btn.className = "mute-btn";
+    btn.id = "muteBtn";
+    btn.title = "Sound on/off";
+    btn.setAttribute("aria-label", "Toggle sound");
+    btn.onclick = window._toggleMute;
+    const hearts = topbar.querySelector(".hearts");
+    if (hearts) topbar.insertBefore(btn, hearts);
+    else topbar.appendChild(btn);
+    renderMuteIcon();
+  }
+  window._toggleMute = function() {
+    if (window.AIISound && window.AIISound.toggleMute) window.AIISound.toggleMute();
+    renderMuteIcon();
+    if (window.AIISound && window.AIISound.click && window.AIISound.isMuted && !window.AIISound.isMuted()) window.AIISound.click();
+  };
+
   // ---- Main Engine ----
   window.runLesson = function(config) {
     let currentStep = 0;
@@ -129,6 +203,10 @@
     document.getElementById("welcome-subtitle").textContent = config.subtitle || "Let's learn something new!";
     setMascot("welcomeMascot", "happy");
 
+    // Set up Nova encouragement popup + mute button
+    ensureNovaPopup();
+    ensureMuteButton();
+
     // Wire up buttons
     document.getElementById("startBtn").onclick = startLesson;
     if (document.getElementById("playAgainBtn")) document.getElementById("playAgainBtn").onclick = startLesson;
@@ -145,6 +223,7 @@
         return;
       }
       document.getElementById("topbar").style.display = "flex";
+      ensureMuteButton();
       showScreen("lesson");
       currentStep = 0; hearts = 3; xp = 0; correct = 0; total = 0;
       updateHearts();
@@ -263,6 +342,7 @@
     // Public actions on window
     window._lessonNext = function() {
       document.getElementById("feedback").classList.remove("show");
+      window._novaHide();
       if (hearts <= 0) { setMascot("gameoverMascot", "sad"); showScreen("gameover"); return; }
       currentStep++;
       setTimeout(renderStep, 200);
@@ -342,6 +422,8 @@
       if (isCorrect) {
         correct++; xp += 10; confettiBurst();
         if (window.AIISound) window.AIISound.correct();
+        // Nova drops in to cheer every 2 correct answers
+        if (correct % 2 === 0) setTimeout(showNovaPopup, 1400);
       } else {
         hearts--; updateHearts(); document.querySelector(".mascot")?.classList.add("shake");
         if (window.AIISound) { window.AIISound.wrong(); window.AIISound.heartLost(); }
