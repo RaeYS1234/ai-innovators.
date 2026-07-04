@@ -106,6 +106,14 @@
     return a;
   }
 
+  function escapeAttr(str) {
+    return String(str)
+      .replace(/&/g, "&amp;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#39;")
+      .replace(/</g, "&lt;");
+  }
+
   // ---- Nova encouragement popup (drops in to cheer the learner on) ----
   const NOVA_ENCOURAGEMENTS = [
     "You're doing AMAZING!",
@@ -191,6 +199,7 @@
     let answered = false;
     let matchSelected = null;
     let matchAnswers = {};
+    let matchChipByDrop = {};
     let mathAnswer = null;
 
     const STEPS = config.steps || [];
@@ -242,7 +251,7 @@
     function renderStep() {
       if (currentStep >= STEPS.length) { finishLesson(); return; }
       updateProgress();
-      answered = false; selectedAnswer = null; matchSelected = null; matchAnswers = {}; mathAnswer = null;
+      answered = false; selectedAnswer = null; matchSelected = null; matchAnswers = {}; matchChipByDrop = {}; mathAnswer = null;
       const step = STEPS[currentStep];
       const c = document.getElementById("screen-lesson");
       c.innerHTML = "";
@@ -300,6 +309,7 @@
 
     function renderMatch(s, c) {
       total++;
+      const chips = shuffle(s.pairs.map((p, i) => ({ answer: p.answer, chipId: i })));
       c.innerHTML = `
         <div class="question-block">
           <div class="question-text">${s.question}</div>
@@ -313,8 +323,8 @@
             `).join("")}
           </div>
           <div class="match-bank">
-            ${shuffle(s.pairs.map(p => p.answer)).map(a => `
-              <button class="match-chip" data-answer="${a}" onclick="window._lessonSelectMatch('${a}', this)">${a}</button>
+            ${chips.map((chip) => `
+              <button class="match-chip" data-chip-id="${chip.chipId}" data-answer="${escapeAttr(chip.answer)}" onclick="window._lessonSelectMatch(${chip.chipId}, this)">${chip.answer}</button>
             `).join("")}
           </div>
         </div>
@@ -366,23 +376,25 @@
       });
       showFeedback(isCorrect, isCorrect ? s.correctMsg : s.wrongMsg);
     };
-    window._lessonSelectMatch = function(answer, el) {
+    window._lessonSelectMatch = function(chipId, el) {
       if (answered || el.classList.contains("used")) return;
       document.querySelectorAll(".match-chip").forEach(c => c.style.outline = "");
       el.style.outline = "3px solid #0ea5e9";
-      matchSelected = answer;
+      matchSelected = { chipId, answer: el.dataset.answer, el };
     };
     window._lessonPlaceMatch = function(dropIdx) {
       if (answered || !matchSelected) return;
-      if (matchAnswers[dropIdx]) {
-        const oldChip = document.querySelector(`.match-chip[data-answer="${matchAnswers[dropIdx]}"]`);
+      if (matchChipByDrop[dropIdx] !== undefined) {
+        const oldChip = document.querySelector(`.match-chip[data-chip-id="${matchChipByDrop[dropIdx]}"]`);
         if (oldChip) oldChip.classList.remove("used");
       }
-      matchAnswers[dropIdx] = matchSelected;
+      matchAnswers[dropIdx] = matchSelected.answer;
+      matchChipByDrop[dropIdx] = matchSelected.chipId;
       const drop = document.getElementById(`drop-${dropIdx}`);
-      drop.textContent = matchSelected;
+      drop.textContent = matchSelected.answer;
       drop.classList.add("has-item");
-      document.querySelectorAll(`.match-chip[data-answer="${matchSelected}"]`).forEach(c => { c.classList.add("used"); c.style.outline = ""; });
+      matchSelected.el.classList.add("used");
+      matchSelected.el.style.outline = "";
       matchSelected = null;
       if (Object.keys(matchAnswers).length === STEPS[currentStep].pairs.length) document.getElementById("checkBtn").disabled = false;
     };
