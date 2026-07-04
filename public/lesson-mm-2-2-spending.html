@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Smart Spending — AI Innovators</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="lesson-shared.css">
+</head>
+<body>
+<div class="app">
+  <div class="topbar" id="topbar" style="display:none;">
+    <button class="close-btn" id="closeBtn">×</button>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="hearts">
+      <svg class="heart-svg" viewBox="0 0 32 32"><path d="M16 28 C 6 20 2 14 2 10 C 2 6 5 3 9 3 C 12 3 14 5 16 8 C 18 5 20 3 23 3 C 27 3 30 6 30 10 C 30 14 26 20 16 28 Z" fill="#ec4899" stroke="#be185d" stroke-width="1.5"/></svg>
+      <span id="heartsCount">3</span>
+    </div>
+  </div>
+  <div class="screen active" id="screen-welcome">
+    <div class="lesson-tag" id="lesson-tag">LESSON</div>
+    <div class="mascot" id="welcomeMascot"></div>
+    <h1 class="welcome-title" id="welcome-title"></h1>
+    <p class="welcome-subtitle" id="welcome-subtitle"></p>
+    <button class="btn go" id="startBtn">Let's Go!</button>
+  </div>
+  <div class="screen" id="screen-lesson"></div>
+  <div class="screen" id="screen-complete">
+    <div class="mascot" id="completeMascot"></div>
+    <h1 class="complete-title">Lesson Complete!</h1>
+    <p class="complete-subtitle">Awesome work! Here's what you earned:</p>
+    <div class="stats-row">
+      <div class="stat-box"><div class="stat-label">XP Earned</div><div class="stat-value xp" id="finalXP">0</div></div>
+      <div class="stat-box"><div class="stat-label">Score</div><div class="stat-value score" id="finalScore">0%</div></div>
+      <div class="stat-box"><div class="stat-label">Hearts Left</div><div class="stat-value" style="color:#ef4444;" id="finalHearts">3</div></div>
+    </div>
+    <h3 style="margin: 28px 0 14px; color: #0c4a6e; font-weight: 900; font-family:'Nunito',sans-serif;">Badges You Earned:</h3>
+    <div class="badge-grid" id="badgeGrid"></div>
+    <button class="btn go" id="backToCourseBtn">Back to Course →</button>
+    <button class="btn ghost" style="margin-top:12px;" id="playAgainBtn">Play Again</button>
+  </div>
+  <div class="screen" id="screen-gameover">
+    <div class="mascot" id="gameoverMascot"></div>
+    <h1 class="complete-title" style="color:#b91c1c;">Out of Hearts!</h1>
+    <p class="complete-subtitle">Try again — you got this!</p>
+    <button class="btn danger" id="retryBtn">Try Again</button>
+  </div>
+</div>
+<div class="feedback" id="feedback">
+  <div class="feedback-inner">
+    <div><div class="feedback-text" id="feedbackText"></div><div class="feedback-explain" id="feedbackExplain"></div></div>
+    <button class="btn go" onclick="window._lessonNext()">Continue</button>
+  </div>
+</div>
+<script src="lesson-engine.js"></script>
+<script>
+const SHOP_ICON = `<svg viewBox="0 0 64 64"><path d="M 10 26 L 54 26 L 51 32 L 13 32 Z" fill="#ef4444" stroke="#b91c1c" stroke-width="2" stroke-linejoin="round"/><path d="M 16 26 L 15 32 M 26 26 L 26 32 M 36 26 L 37 32 M 46 26 L 47 32" stroke="white" stroke-width="2.5"/><rect x="10" y="32" width="44" height="24" fill="#fde68a" stroke="#92400e" stroke-width="1.5"/><rect x="26" y="42" width="12" height="14" rx="1" fill="#92400e"/><rect x="14" y="38" width="8" height="6" fill="#bae6fd" stroke="#0284c7" stroke-width="1"/><rect x="42" y="38" width="8" height="6" fill="#bae6fd" stroke="#0284c7" stroke-width="1"/></svg>`;
+
+runLesson({
+  lessonId: "money-math-2-2",
+  courseUrl: "course-money-math.html",
+  tag: "UNIT 2 · LESSON 2.2",
+  title: "Smart Spending",
+  subtitle: "How do you spend money without wasting it? Learn the WANTS vs NEEDS trick!",
+  steps: [
+    {
+      type: "vocab",
+      word: "Spending",
+      pronounce: "say it: SPEN-ding",
+      definition: "<b>Spending</b> is when you <b>use money to buy things</b>. Every time you swipe a card or hand over cash, you're spending.",
+      example: "You buy an ice cream cone for $3. You just spent $3!",
+      icon: SHOP_ICON
+    },
+    {
+      type: "teach",
+      title: "Needs vs Wants",
+      body: "There are 2 kinds of things you can spend money on:<br><br>✅ <b>NEEDS</b> = things you MUST have to live (food, water, clothes, a home)<br>💫 <b>WANTS</b> = things that are FUN but not necessary (toys, candy, video games)<br><br>Smart spenders take care of NEEDS first, then WANTS.",
+      examples: ["Need: Food", "Need: Coat in winter", "Want: New toy", "Want: Video game"]
+    },
+    {
+      type: "mc",
+      question: "Which of these is a NEED?",
+      hint: "Something you can't live without.",
+      options: [
+        { text: "A brand new video game", correct: false },
+        { text: "Food for dinner", correct: true },
+        { text: "A new phone case", correct: false },
+        { text: "Extra candy", correct: false }
+      ],
+      correctMsg: "Right! You need food to stay alive and healthy.",
+      wrongMsg: "Food is a need — you'd get sick without it. The others are wants."
+    },
+    {
+      type: "mc",
+      question: "Which is a WANT (not a need)?",
+      hint: "You'd survive without it — it's just fun to have.",
+      options: [
+        { text: "A warm coat in winter", correct: false },
+        { text: "Water", correct: false },
+        { text: "The latest gaming console", correct: true },
+        { text: "A place to sleep", correct: false }
+      ],
+      correctMsg: "Yes! Fun, but not required to live. That's a want.",
+      wrongMsg: "A gaming console is a WANT. Warm coat, water, and shelter are NEEDS."
+    },
+    {
+      type: "teach",
+      title: "Ask Yourself First",
+      body: "Before you spend money, smart spenders ask 3 questions:<br><br>1️⃣ Do I <b>need</b> this or <b>want</b> it?<br>2️⃣ Can I <b>wait</b> and think about it?<br>3️⃣ Do I have <b>enough</b> for other things too?",
+      examples: ["Need or want?", "Can I wait?", "Do I have enough?"]
+    },
+    {
+      type: "mc",
+      question: "You see a $50 toy but you only have $30. What's SMART?",
+      hint: "You don't have enough. Now what?",
+      options: [
+        { text: "Borrow money and buy it anyway", correct: false },
+        { text: "Wait, earn more, then buy it later", correct: true },
+        { text: "Get mad and cry", correct: false },
+        { text: "Steal it", correct: false }
+      ],
+      correctMsg: "Yes! Waiting and saving up is the smart move.",
+      wrongMsg: "The smart choice is to wait, save up, then buy it. Borrowing means owing someone!"
+    },
+    {
+      type: "mc",
+      question: "You have $10. You NEED lunch ($5). You WANT candy ($8). What should you do?",
+      hint: "Needs come first!",
+      options: [
+        { text: "Buy candy — you only live once", correct: false },
+        { text: "Buy lunch AND save the rest", correct: true },
+        { text: "Buy nothing and be hungry", correct: false },
+        { text: "Try to buy both", correct: false }
+      ],
+      correctMsg: "SMART! Lunch is a need. You can save the extra $5 or buy something small.",
+      wrongMsg: "Needs first! Lunch ($5) leaves $5 leftover. Candy ($8) would leave you hungry."
+    }
+  ],
+  badges: [
+    { icon: "money", name: "Smart Spender", earned: true },
+    { icon: "star", name: "Needs Aware", earned: ({ correct }) => correct >= 2 },
+    { icon: "brain", name: "Wise Buyer", earned: ({ correct }) => correct >= 4 },
+    { icon: "perfect", name: "Perfect Score", earned: ({ score }) => score === 100 },
+    { icon: "heart", name: "All Hearts", earned: ({ hearts }) => hearts === 3 },
+    { icon: "trophy", name: "Money Wise", earned: ({ score, hearts }) => score >= 80 && hearts >= 2 }
+  ]
+});
+</script>
+</body>
+</html>

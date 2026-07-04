@@ -5,7 +5,7 @@
 // Cache version — change this string when you want to force everyone
 // to clear their cache. With the network-first strategy below, updates
 // already show up immediately when the user has internet.
-const CACHE_NAME = "ai-innovators-2026-07-03";
+const CACHE_NAME = "ai-innovators-2026-07-04";
 
 // Core files to cache so the app works offline
 const CORE_FILES = [
@@ -64,7 +64,17 @@ const CORE_FILES = [
   // Other K-5 starter lessons
   "/lesson-mm-1-1-what-is-money.html",
   "/lesson-bi-1-1-where-ideas-come-from.html",
-  "/lesson-ap-1-1-how-ai-makes-pictures.html"
+  "/lesson-ap-1-1-how-ai-makes-pictures.html",
+  // Money Math full course
+  "/lesson-mm-1-2-adding-dollars.html",
+  "/lesson-mm-1-3-unit1-quiz.html",
+  "/lesson-mm-2-1-earning.html",
+  "/lesson-mm-2-2-spending.html",
+  "/lesson-mm-2-3-earn-practice.html",
+  "/lesson-mm-2-4-unit2-quiz.html",
+  "/lesson-mm-3-1-why-save.html",
+  "/lesson-mm-3-2-how-to-save.html",
+  "/lesson-mm-challenge.html"
 ];
 
 // Install: cache core files and activate immediately

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Unit 2 Check — AI Innovators</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="lesson-shared.css">
+</head>
+<body>
+<div class="app">
+  <div class="topbar" id="topbar" style="display:none;">
+    <button class="close-btn" id="closeBtn">×</button>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="hearts">
+      <svg class="heart-svg" viewBox="0 0 32 32"><path d="M16 28 C 6 20 2 14 2 10 C 2 6 5 3 9 3 C 12 3 14 5 16 8 C 18 5 20 3 23 3 C 27 3 30 6 30 10 C 30 14 26 20 16 28 Z" fill="#ec4899" stroke="#be185d" stroke-width="1.5"/></svg>
+      <span id="heartsCount">3</span>
+    </div>
+  </div>
+  <div class="screen active" id="screen-welcome">
+    <div class="lesson-tag" id="lesson-tag">LESSON</div>
+    <div class="mascot" id="welcomeMascot"></div>
+    <h1 class="welcome-title" id="welcome-title"></h1>
+    <p class="welcome-subtitle" id="welcome-subtitle"></p>
+    <button class="btn go" id="startBtn">Let's Go!</button>
+  </div>
+  <div class="screen" id="screen-lesson"></div>
+  <div class="screen" id="screen-complete">
+    <div class="mascot" id="completeMascot"></div>
+    <h1 class="complete-title">Lesson Complete!</h1>
+    <p class="complete-subtitle">Awesome work! Here's what you earned:</p>
+    <div class="stats-row">
+      <div class="stat-box"><div class="stat-label">XP Earned</div><div class="stat-value xp" id="finalXP">0</div></div>
+      <div class="stat-box"><div class="stat-label">Score</div><div class="stat-value score" id="finalScore">0%</div></div>
+      <div class="stat-box"><div class="stat-label">Hearts Left</div><div class="stat-value" style="color:#ef4444;" id="finalHearts">3</div></div>
+    </div>
+    <h3 style="margin: 28px 0 14px; color: #0c4a6e; font-weight: 900; font-family:'Nunito',sans-serif;">Badges You Earned:</h3>
+    <div class="badge-grid" id="badgeGrid"></div>
+    <button class="btn go" id="backToCourseBtn">Back to Course →</button>
+    <button class="btn ghost" style="margin-top:12px;" id="playAgainBtn">Play Again</button>
+  </div>
+  <div class="screen" id="screen-gameover">
+    <div class="mascot" id="gameoverMascot"></div>
+    <h1 class="complete-title" style="color:#b91c1c;">Out of Hearts!</h1>
+    <p class="complete-subtitle">Try again — you got this!</p>
+    <button class="btn danger" id="retryBtn">Try Again</button>
+  </div>
+</div>
+<div class="feedback" id="feedback">
+  <div class="feedback-inner">
+    <div><div class="feedback-text" id="feedbackText"></div><div class="feedback-explain" id="feedbackExplain"></div></div>
+    <button class="btn go" onclick="window._lessonNext()">Continue</button>
+  </div>
+</div>
+<script src="lesson-engine.js"></script>
+<script>
+runLesson({
+  lessonId: "money-math-2-4",
+  courseUrl: "course-money-math.html",
+  tag: "UNIT 2 CHECK",
+  title: "Unit 2 Quiz",
+  subtitle: "Prove you know how to earn AND spend smart!",
+  steps: [
+    {
+      type: "mc",
+      question: "What does 'earning' mean?",
+      hint: "Getting paid for doing something.",
+      options: [
+        { text: "Losing money", correct: false },
+        { text: "Getting paid for work", correct: true },
+        { text: "Sleeping in", correct: false },
+        { text: "Watching TV", correct: false }
+      ],
+      correctMsg: "Right! Earning = getting paid for doing work.",
+      wrongMsg: "Earning = doing work and getting paid for it."
+    },
+    {
+      type: "mc",
+      question: "Which is a NEED (not a want)?",
+      hint: "Something you MUST have to live.",
+      options: [
+        { text: "Water to drink", correct: true },
+        { text: "A new video game", correct: false },
+        { text: "Fancy sneakers", correct: false },
+        { text: "Candy", correct: false }
+      ],
+      correctMsg: "Yes! Water is a need — you can't live without it.",
+      wrongMsg: "Water is the need. Games, sneakers, and candy are wants."
+    },
+    {
+      type: "mc",
+      question: "You babysit for 3 hours at $6/hour. Earned?",
+      hint: "Hours × pay per hour = ?",
+      options: [
+        { text: "$3", correct: false },
+        { text: "$9", correct: false },
+        { text: "$18", correct: true },
+        { text: "$63", correct: false }
+      ],
+      correctMsg: "Perfect! 3 hours × $6 = $18.",
+      wrongMsg: "Multiply hours by hourly pay: 3 × $6 = $18."
+    },
+    {
+      type: "mc",
+      question: "Smart spenders take care of ___ before ___.",
+      hint: "Which comes first?",
+      options: [
+        { text: "Wants before needs", correct: false },
+        { text: "Needs before wants", correct: true },
+        { text: "Neither — just spend it all", correct: false },
+        { text: "Whichever is cheaper", correct: false }
+      ],
+      correctMsg: "Yes! Needs first, then wants. That's smart money.",
+      wrongMsg: "NEEDS come first (food, shelter). Then wants (fun stuff)."
+    },
+    {
+      type: "mc",
+      question: "You have $25. You spend $8 on lunch and $6 on a book. Left?",
+      hint: "$25 - $8 - $6 = ?",
+      options: [
+        { text: "$5", correct: false },
+        { text: "$11", correct: true },
+        { text: "$14", correct: false },
+        { text: "$25", correct: false }
+      ],
+      correctMsg: "🎯 Yes! $25 - $8 - $6 = $11 left.",
+      wrongMsg: "Subtract each purchase: $25 - $8 = $17, then $17 - $6 = $11."
+    }
+  ],
+  badges: [
+    { icon: "money", name: "Unit 2 Complete", earned: true },
+    { icon: "star", name: "Quiz Master", earned: ({ correct }) => correct >= 2 },
+    { icon: "brain", name: "Money Wise", earned: ({ correct }) => correct >= 4 },
+    { icon: "perfect", name: "Perfect Score", earned: ({ score }) => score === 100 },
+    { icon: "heart", name: "All Hearts", earned: ({ hearts }) => hearts === 3 },
+    { icon: "trophy", name: "Money Champion", earned: ({ score, hearts }) => score >= 80 && hearts >= 2 }
+  ]
+});
+</script>
+</body>
+</html>

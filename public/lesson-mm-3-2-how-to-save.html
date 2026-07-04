@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>How to Save — AI Innovators</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="lesson-shared.css">
+</head>
+<body>
+<div class="app">
+  <div class="topbar" id="topbar" style="display:none;">
+    <button class="close-btn" id="closeBtn">×</button>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="hearts">
+      <svg class="heart-svg" viewBox="0 0 32 32"><path d="M16 28 C 6 20 2 14 2 10 C 2 6 5 3 9 3 C 12 3 14 5 16 8 C 18 5 20 3 23 3 C 27 3 30 6 30 10 C 30 14 26 20 16 28 Z" fill="#ec4899" stroke="#be185d" stroke-width="1.5"/></svg>
+      <span id="heartsCount">3</span>
+    </div>
+  </div>
+  <div class="screen active" id="screen-welcome">
+    <div class="lesson-tag" id="lesson-tag">LESSON</div>
+    <div class="mascot" id="welcomeMascot"></div>
+    <h1 class="welcome-title" id="welcome-title"></h1>
+    <p class="welcome-subtitle" id="welcome-subtitle"></p>
+    <button class="btn go" id="startBtn">Let's Go!</button>
+  </div>
+  <div class="screen" id="screen-lesson"></div>
+  <div class="screen" id="screen-complete">
+    <div class="mascot" id="completeMascot"></div>
+    <h1 class="complete-title">Lesson Complete!</h1>
+    <p class="complete-subtitle">Awesome work! Here's what you earned:</p>
+    <div class="stats-row">
+      <div class="stat-box"><div class="stat-label">XP Earned</div><div class="stat-value xp" id="finalXP">0</div></div>
+      <div class="stat-box"><div class="stat-label">Score</div><div class="stat-value score" id="finalScore">0%</div></div>
+      <div class="stat-box"><div class="stat-label">Hearts Left</div><div class="stat-value" style="color:#ef4444;" id="finalHearts">3</div></div>
+    </div>
+    <h3 style="margin: 28px 0 14px; color: #0c4a6e; font-weight: 900; font-family:'Nunito',sans-serif;">Badges You Earned:</h3>
+    <div class="badge-grid" id="badgeGrid"></div>
+    <button class="btn go" id="backToCourseBtn">Back to Course →</button>
+    <button class="btn ghost" style="margin-top:12px;" id="playAgainBtn">Play Again</button>
+  </div>
+  <div class="screen" id="screen-gameover">
+    <div class="mascot" id="gameoverMascot"></div>
+    <h1 class="complete-title" style="color:#b91c1c;">Out of Hearts!</h1>
+    <p class="complete-subtitle">Try again — you got this!</p>
+    <button class="btn danger" id="retryBtn">Try Again</button>
+  </div>
+</div>
+<div class="feedback" id="feedback">
+  <div class="feedback-inner">
+    <div><div class="feedback-text" id="feedbackText"></div><div class="feedback-explain" id="feedbackExplain"></div></div>
+    <button class="btn go" onclick="window._lessonNext()">Continue</button>
+  </div>
+</div>
+<script src="lesson-engine.js"></script>
+<script>
+runLesson({
+  lessonId: "money-math-3-2",
+  courseUrl: "course-money-math.html",
+  tag: "UNIT 3 · LESSON 3.2",
+  title: "How to Save",
+  subtitle: "3 pro tricks that make saving money EASY.",
+  steps: [
+    {
+      type: "teach",
+      title: "Trick #1: Pay Yourself FIRST",
+      body: "This is the golden rule of saving! The moment you get money, put some in savings <b>before</b> you spend anything.<br><br>Get $10 → Save $2 FIRST → THEN spend the other $8.<br><br>Most people spend first and save what's left over. Guess what — there's usually NOTHING left over!",
+      examples: ["Get money", "Save FIRST", "Spend the rest"]
+    },
+    {
+      type: "mc",
+      question: "You get $20 allowance. Following the 'Pay Yourself First' rule, what should you do?",
+      hint: "Save some FIRST.",
+      options: [
+        { text: "Spend $20, save nothing", correct: false },
+        { text: "Put $4 in savings, then spend up to $16", correct: true },
+        { text: "Wait a week to decide", correct: false },
+        { text: "Give it to your friend", correct: false }
+      ],
+      correctMsg: "Yes! Save some FIRST (like $4), spend the rest. Now saving is automatic!",
+      wrongMsg: "Rule: save FIRST, spend AFTER. Even $4 saved out of $20 is a great start."
+    },
+    {
+      type: "teach",
+      title: "Trick #2: Have a GOAL",
+      body: "Saving with a goal is 10x easier than saving 'just because.' Pick something you REALLY want.<br><br>💰 Bike ($60)<br>🎮 Video game ($40)<br>📱 Phone ($200)<br><br>Then figure out: how much do I need to save each week?",
+      examples: ["Pick a goal", "See the price", "Break it up"]
+    },
+    {
+      type: "mc",
+      question: "You want a $30 toy. You can save $5/week. How many weeks?",
+      hint: "$30 ÷ $5 = ?",
+      options: [
+        { text: "3 weeks", correct: false },
+        { text: "5 weeks", correct: false },
+        { text: "6 weeks", correct: true },
+        { text: "30 weeks", correct: false }
+      ],
+      correctMsg: "Right! $30 ÷ $5 = 6 weeks. Now you know the plan!",
+      wrongMsg: "Divide the goal by your weekly savings: $30 ÷ $5 = 6 weeks."
+    },
+    {
+      type: "teach",
+      title: "Trick #3: Hide Your Money",
+      body: "Money you can SEE is money you'll SPEND. Solution: put savings <b>somewhere separate</b>.<br><br>🐷 Piggy bank<br>🏦 Bank account (parents can help)<br>📦 A jar labeled 'GOAL' in your closet<br><br>Out of sight = safer from your own spending!",
+      examples: ["Piggy bank", "Bank account", "Hidden jar"]
+    },
+    {
+      type: "mc",
+      question: "Where's the BEST place to keep your savings?",
+      hint: "Somewhere you can't easily grab it.",
+      options: [
+        { text: "In your wallet with all your other money", correct: false },
+        { text: "In a piggy bank or bank account, separate", correct: true },
+        { text: "On your desk", correct: false },
+        { text: "In a video game", correct: false }
+      ],
+      correctMsg: "Yes! Separate = safer. You won't spend what you can't see.",
+      wrongMsg: "Keep savings SEPARATE from spending money. Piggy bank or bank account works great."
+    },
+    {
+      type: "mc",
+      question: "You want a $100 goal. You save $10/week. How many weeks to reach it?",
+      hint: "$100 ÷ $10 = ?",
+      options: [
+        { text: "1 week", correct: false },
+        { text: "10 weeks", correct: true },
+        { text: "50 weeks", correct: false },
+        { text: "100 weeks", correct: false }
+      ],
+      correctMsg: "🎯 $100 ÷ $10 = 10 weeks. Only 10 weeks away from your goal!",
+      wrongMsg: "$100 ÷ $10/week = 10 weeks to reach $100."
+    }
+  ],
+  badges: [
+    { icon: "money", name: "Saving Pro", earned: true },
+    { icon: "star", name: "Goal Setter", earned: ({ correct }) => correct >= 2 },
+    { icon: "brain", name: "Money Strategist", earned: ({ correct }) => correct >= 4 },
+    { icon: "perfect", name: "Perfect Score", earned: ({ score }) => score === 100 },
+    { icon: "heart", name: "All Hearts", earned: ({ hearts }) => hearts === 3 },
+    { icon: "trophy", name: "Money Wizard", earned: ({ score, hearts }) => score >= 80 && hearts >= 2 }
+  ]
+});
+</script>
+</body>
+</html>

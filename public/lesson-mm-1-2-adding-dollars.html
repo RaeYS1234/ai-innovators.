@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Adding Up Dollars — AI Innovators</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="lesson-shared.css">
+</head>
+<body>
+<div class="app">
+  <div class="topbar" id="topbar" style="display:none;">
+    <button class="close-btn" id="closeBtn">×</button>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="hearts">
+      <svg class="heart-svg" viewBox="0 0 32 32"><path d="M16 28 C 6 20 2 14 2 10 C 2 6 5 3 9 3 C 12 3 14 5 16 8 C 18 5 20 3 23 3 C 27 3 30 6 30 10 C 30 14 26 20 16 28 Z" fill="#ec4899" stroke="#be185d" stroke-width="1.5"/></svg>
+      <span id="heartsCount">3</span>
+    </div>
+  </div>
+  <div class="screen active" id="screen-welcome">
+    <div class="lesson-tag" id="lesson-tag">LESSON</div>
+    <div class="mascot" id="welcomeMascot"></div>
+    <h1 class="welcome-title" id="welcome-title"></h1>
+    <p class="welcome-subtitle" id="welcome-subtitle"></p>
+    <button class="btn go" id="startBtn">Let's Go!</button>
+  </div>
+  <div class="screen" id="screen-lesson"></div>
+  <div class="screen" id="screen-complete">
+    <div class="mascot" id="completeMascot"></div>
+    <h1 class="complete-title">Lesson Complete!</h1>
+    <p class="complete-subtitle">Awesome work! Here's what you earned:</p>
+    <div class="stats-row">
+      <div class="stat-box"><div class="stat-label">XP Earned</div><div class="stat-value xp" id="finalXP">0</div></div>
+      <div class="stat-box"><div class="stat-label">Score</div><div class="stat-value score" id="finalScore">0%</div></div>
+      <div class="stat-box"><div class="stat-label">Hearts Left</div><div class="stat-value" style="color:#ef4444;" id="finalHearts">3</div></div>
+    </div>
+    <h3 style="margin: 28px 0 14px; color: #0c4a6e; font-weight: 900; font-family:'Nunito',sans-serif;">Badges You Earned:</h3>
+    <div class="badge-grid" id="badgeGrid"></div>
+    <button class="btn go" id="backToCourseBtn">Back to Course →</button>
+    <button class="btn ghost" style="margin-top:12px;" id="playAgainBtn">Play Again</button>
+  </div>
+  <div class="screen" id="screen-gameover">
+    <div class="mascot" id="gameoverMascot"></div>
+    <h1 class="complete-title" style="color:#b91c1c;">Out of Hearts!</h1>
+    <p class="complete-subtitle">Try again — you got this!</p>
+    <button class="btn danger" id="retryBtn">Try Again</button>
+  </div>
+</div>
+<div class="feedback" id="feedback">
+  <div class="feedback-inner">
+    <div><div class="feedback-text" id="feedbackText"></div><div class="feedback-explain" id="feedbackExplain"></div></div>
+    <button class="btn go" onclick="window._lessonNext()">Continue</button>
+  </div>
+</div>
+<script src="lesson-engine.js"></script>
+<script>
+const CALCULATOR_ICON = `<svg viewBox="0 0 64 64"><rect x="14" y="8" width="36" height="48" rx="4" fill="#0ea5e9" stroke="#0284c7" stroke-width="2"/><rect x="18" y="12" width="28" height="10" fill="#bae6fd" stroke="#0284c7" stroke-width="1"/><text x="42" y="20" font-size="8" fill="#0284c7" text-anchor="end" font-weight="900" font-family="monospace">$8</text><rect x="18" y="26" width="6" height="6" rx="1" fill="#fbbf24"/><rect x="26" y="26" width="6" height="6" rx="1" fill="#fbbf24"/><rect x="34" y="26" width="12" height="6" rx="1" fill="#22c55e"/><rect x="18" y="34" width="6" height="6" rx="1" fill="#fbbf24"/><rect x="26" y="34" width="6" height="6" rx="1" fill="#fbbf24"/><rect x="34" y="34" width="12" height="6" rx="1" fill="#22c55e"/><rect x="18" y="42" width="14" height="10" rx="1" fill="#fbbf24"/><rect x="34" y="42" width="12" height="10" rx="1" fill="#ef4444"/></svg>`;
+
+runLesson({
+  lessonId: "money-math-1-2",
+  courseUrl: "course-money-math.html",
+  tag: "UNIT 1 · LESSON 1.2",
+  title: "Adding Up Dollars",
+  subtitle: "Time to do some real money math! Let's count coins and add up bills.",
+  steps: [
+    {
+      type: "teach",
+      title: "Coins Have Values",
+      body: "Each coin is worth a different amount:<br><br>🪙 <b>Penny = 1¢</b><br>🪙 <b>Nickel = 5¢</b><br>🪙 <b>Dime = 10¢</b><br>🪙 <b>Quarter = 25¢</b><br><br>100 pennies = $1! And 4 quarters also = $1!",
+      examples: ["1 quarter = 25¢", "10 dimes = $1", "4 quarters = $1"]
+    },
+    {
+      type: "mc",
+      question: "How many pennies make $1?",
+      hint: "Remember, 100 pennies = $1!",
+      options: [
+        { text: "10", correct: false },
+        { text: "50", correct: false },
+        { text: "100", correct: true },
+        { text: "1000", correct: false }
+      ],
+      correctMsg: "Right! 100 pennies = $1.00.",
+      wrongMsg: "It's 100! 100 pennies = 100 cents = $1.00."
+    },
+    {
+      type: "mc",
+      question: "You have 2 quarters. How much money is that?",
+      hint: "Each quarter is 25¢. Add two together!",
+      options: [
+        { text: "25¢", correct: false },
+        { text: "50¢", correct: true },
+        { text: "$1.00", correct: false },
+        { text: "10¢", correct: false }
+      ],
+      correctMsg: "Yes! 25¢ + 25¢ = 50¢. Halfway to a dollar!",
+      wrongMsg: "Two quarters = 25¢ + 25¢ = 50¢."
+    },
+    {
+      type: "teach",
+      title: "Adding Up Bills",
+      body: "Bills work the same way! When you have multiple bills, you just <b>add them up</b>.<br><br>💵 $1 + $5 = <b>$6</b><br>💵 $10 + $5 + $1 = <b>$16</b><br>💵 $20 + $10 = <b>$30</b>",
+      examples: ["Line them up", "Add them together", "Get your total"]
+    },
+    {
+      type: "mc",
+      question: "You have a $5 bill and a $10 bill. How much total?",
+      hint: "$5 + $10 = ?",
+      options: [
+        { text: "$5", correct: false },
+        { text: "$10", correct: false },
+        { text: "$15", correct: true },
+        { text: "$50", correct: false }
+      ],
+      correctMsg: "Perfect! $5 + $10 = $15.",
+      wrongMsg: "Just add them: $5 + $10 = $15."
+    },
+    {
+      type: "mc",
+      question: "You want to buy a toy that costs $12. You have $8. How much MORE do you need?",
+      hint: "$12 - $8 = ?",
+      options: [
+        { text: "$2", correct: false },
+        { text: "$4", correct: true },
+        { text: "$8", correct: false },
+        { text: "$12", correct: false }
+      ],
+      correctMsg: "Yes! $12 - $8 = $4. You need $4 more.",
+      wrongMsg: "Subtract what you have from what you need: $12 - $8 = $4."
+    },
+    {
+      type: "mc",
+      question: "You have $20. You buy a book for $7. How much money do you have LEFT?",
+      hint: "Start with $20 and take away $7.",
+      options: [
+        { text: "$7", correct: false },
+        { text: "$13", correct: true },
+        { text: "$20", correct: false },
+        { text: "$27", correct: false }
+      ],
+      correctMsg: "Awesome! $20 - $7 = $13 left.",
+      wrongMsg: "$20 - $7 = $13. Subtracting shows what's left after spending."
+    }
+  ],
+  badges: [
+    { icon: "money", name: "Math Whiz", earned: true },
+    { icon: "star", name: "Adder", earned: ({ correct }) => correct >= 1 },
+    { icon: "brain", name: "Money Counter", earned: ({ correct }) => correct >= 3 },
+    { icon: "perfect", name: "Perfect Score", earned: ({ score }) => score === 100 },
+    { icon: "heart", name: "All Hearts", earned: ({ hearts }) => hearts === 3 },
+    { icon: "trophy", name: "Calculator", earned: ({ score, hearts }) => score >= 80 && hearts >= 2 }
+  ]
+});
+</script>
+</body>
+</html>
