@@ -933,12 +933,20 @@
 <section class="hero">
   <div class="hero-inner">
     <div class="hero-content">
-      <div class="hero-badge">
-        <svg width="16" height="16"><use href="#i-star"/></svg>
-        Free for kids — Beginner to Master!
+      <!-- Marketing intro — only shown to guests -->
+      <div id="guestIntro">
+        <div class="hero-badge">
+          <svg width="16" height="16"><use href="#i-star"/></svg>
+          Free for kids — Beginner to Master!
+        </div>
+        <h1>Hi! I'm Nova!<br/>Let's build a <span class="highlight">business</span><br/>using AI!</h1>
+        <p class="lead">Real lessons that teach you what businesses are, how to make profit, and how to use AI tools — pick the level that's right for YOU, not your grade.</p>
       </div>
-      <h1>Hi! I'm Nova!<br/>Let's build a <span class="highlight">business</span><br/>using AI!</h1>
-      <p class="lead">Real lessons that teach you what businesses are, how to make profit, and how to use AI tools — pick the level that's right for YOU, not your grade.</p>
+      <!-- Simple welcome — only shown to logged-in users -->
+      <div id="loggedInIntro" style="display:none;">
+        <h1>Welcome back,<br/><span class="highlight" id="welcomeBackName">friend</span>!</h1>
+        <p class="lead">Ready to keep learning? Let's pick up where you left off.</p>
+      </div>
       <div class="hero-cta">
         <a href="enroll.html" class="btn-big" id="heroPrimaryBtn">
           Sign Up Free
@@ -1604,6 +1612,11 @@ function checkAuth() {
     document.getElementById("continueSection").style.display = "block";
     document.getElementById("guestCTA").style.display = "none";
 
+    // Swap the hero intro: hide marketing text, show welcome back
+    document.getElementById("guestIntro").style.display = "none";
+    document.getElementById("loggedInIntro").style.display = "block";
+    document.getElementById("welcomeBackName").textContent = user.name || "friend";
+
     // Fill in user's real stats — with bounce animation if anything changed since last visit
     fillStatWithBounce("user-streak", user.streak || 0, "lastSeen_streak");
     fillStatWithBounce("user-xp", user.xp || 0, "lastSeen_xp");
@@ -1651,6 +1664,10 @@ function checkAuth() {
     document.getElementById("userStatsContainer").style.display = "none";
     document.getElementById("continueSection").style.display = "none";
     document.getElementById("guestCTA").style.display = "block";
+
+    // Show the marketing hero intro for guests
+    document.getElementById("guestIntro").style.display = "block";
+    document.getElementById("loggedInIntro").style.display = "none";
 
     // Make sure Enroll button works for guests (linkable, clear text)
     const enrollBtn = document.querySelector(".enroll-btn");
