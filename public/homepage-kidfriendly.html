@@ -1623,19 +1623,13 @@ function checkAuth() {
     fillStatWithBounce("user-hearts", user.hearts || 0, "lastSeen_hearts");
     fillStatWithBounce("user-badges", user.badges || 0, "lastSeen_badges");
 
-    // Update enroll button to show user is logged in + add sign-out on click
+    // Update enroll button to show user is logged in + open profile page
     const enrollBtn = document.querySelector(".enroll-btn");
     if (enrollBtn) {
       enrollBtn.textContent = "Hi, " + (user.name || "friend") + "!";
-      enrollBtn.title = "Tap to sign out";
-      enrollBtn.removeAttribute("href"); // no longer a link to enroll page
-      enrollBtn.onclick = function(e) {
-        e.preventDefault();
-        const name = user.name || "friend";
-        if (confirm("Sign out, " + name + "?\n\n(Your XP, badges, and streak stay safe on this device.)")) {
-          signOutUser();
-        }
-      };
+      enrollBtn.title = "Open your profile";
+      enrollBtn.href = "profile.html";
+      enrollBtn.onclick = null;
     }
 
     // Update hero button to "Continue Learning"

@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>My Profile — AI Innovators</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+  html { scroll-behavior: smooth; }
+  html, body {
+    font-family: "Fredoka", "Nunito", -apple-system, sans-serif;
+    background: linear-gradient(135deg, #e0f2fe 0%, #f0f9ff 50%, #ffffff 100%);
+    color: #0c1e3e;
+    min-height: 100vh;
+    overflow-x: hidden;
+    -webkit-text-size-adjust: 100%;
+    -webkit-font-smoothing: antialiased;
+  }
+  body {
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  button, a { font-family: inherit; cursor: pointer; border: none; outline: none; text-decoration: none; touch-action: manipulation; -webkit-user-select: none; user-select: none; }
+  button:focus-visible, a:focus-visible { outline: 3px solid #0ea5e9; outline-offset: 3px; border-radius: 8px; }
+  svg { display: block; }
+
+  /* Nav */
+  nav {
+    background: white;
+    padding: 14px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 2px 10px rgba(14, 165, 233, 0.08);
+    position: sticky; top: 0; z-index: 50;
+  }
+  .back-btn { display: flex; align-items: center; gap: 8px; color: #0ea5e9; font-weight: 700; font-size: 15px; padding: 8px 12px; border-radius: 10px; background: transparent; }
+  .back-btn:hover { background: #e0f2fe; }
+  .nav-title { font-family: "Nunito", sans-serif; font-weight: 900; font-size: 18px; color: #0c1e3e; }
+  .nav-spacer { width: 60px; }
+
+  /* Container */
+  .container { max-width: 640px; margin: 0 auto; padding: 24px 20px 40px; }
+
+  /* Profile card */
+  .profile-card {
+    background: white;
+    border-radius: 24px;
+    padding: 32px 24px;
+    box-shadow: 0 6px 0 #bae6fd, 0 12px 30px rgba(14, 165, 233, 0.12);
+    border: 3px solid #bae6fd;
+    text-align: center;
+    margin-bottom: 24px;
+  }
+  .avatar-big {
+    width: 140px;
+    height: 140px;
+    margin: 0 auto 16px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #fef3c7, #fde68a);
+    border: 5px solid #fbbf24;
+    box-shadow: 0 6px 0 #d97706;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px;
+  }
+  .avatar-big svg { width: 100%; height: 100%; }
+  .nickname-wrap { display: inline-flex; align-items: center; gap: 8px; margin-bottom: 4px; }
+  .nickname-input {
+    font-family: "Nunito", sans-serif;
+    font-size: 28px;
+    font-weight: 900;
+    color: #0c4a6e;
+    background: transparent;
+    border: 2px dashed transparent;
+    text-align: center;
+    padding: 4px 12px;
+    border-radius: 10px;
+    max-width: 280px;
+    outline: none;
+    transition: all 0.2s;
+  }
+  .nickname-input:hover, .nickname-input:focus { border-color: #bae6fd; background: #f0f9ff; }
+  .edit-hint { font-size: 12px; color: #64748b; font-weight: 600; margin-bottom: 12px; }
+  .email-line { font-size: 14px; color: #64748b; }
+
+  /* Avatar picker */
+  .section-title { font-family: "Nunito", sans-serif; font-size: 20px; font-weight: 900; color: #0c4a6e; margin: 24px 0 14px; padding: 0 4px; }
+  .avatar-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    background: white;
+    border-radius: 20px;
+    padding: 16px;
+    box-shadow: 0 4px 0 #e0f2fe;
+    border: 2px solid #e0f2fe;
+  }
+  .avatar-choice {
+    aspect-ratio: 1;
+    border-radius: 16px;
+    background: #f0f9ff;
+    border: 3px solid transparent;
+    padding: 8px;
+    cursor: pointer;
+    transition: all 0.15s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .avatar-choice:hover { transform: translateY(-2px); background: #e0f2fe; }
+  .avatar-choice.selected { border-color: #0ea5e9; background: #e0f2fe; box-shadow: 0 4px 0 #0284c7; }
+  .avatar-choice svg { width: 100%; height: 100%; }
+
+  /* Stats */
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+  .stat-card {
+    background: white;
+    border-radius: 18px;
+    padding: 18px 14px;
+    text-align: center;
+    box-shadow: 0 4px 0 #e0f2fe;
+    border: 2px solid #e0f2fe;
+  }
+  .stat-card .stat-icon-wrap {
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 8px;
+  }
+  .stat-icon-wrap.fire { background: linear-gradient(135deg, #fee2e2, #fecaca); }
+  .stat-icon-wrap.xp { background: linear-gradient(135deg, #fef3c7, #fde68a); }
+  .stat-icon-wrap.heart { background: linear-gradient(135deg, #fce7f3, #fbcfe8); }
+  .stat-icon-wrap.badge { background: linear-gradient(135deg, #e9d5ff, #d8b4fe); }
+  .stat-icon-wrap.book { background: linear-gradient(135deg, #dcfce7, #bbf7d0); }
+  .stat-icon-wrap.level { background: linear-gradient(135deg, #bae6fd, #7dd3fc); }
+  .stat-number {
+    font-family: "Nunito", sans-serif;
+    font-size: 30px;
+    font-weight: 900;
+    color: #0c4a6e;
+    line-height: 1;
+  }
+  .stat-label {
+    font-size: 12px;
+    font-weight: 700;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-top: 4px;
+  }
+
+  /* Level card */
+  .level-card {
+    background: linear-gradient(135deg, #38bdf8, #0ea5e9);
+    color: white;
+    border-radius: 20px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 6px 0 #0284c7;
+    margin-bottom: 12px;
+  }
+  .level-name { font-family: "Nunito", sans-serif; font-size: 24px; font-weight: 900; margin-bottom: 4px; }
+  .level-progress { font-size: 13px; opacity: 0.9; }
+
+  /* Sign out */
+  .signout-section { margin-top: 32px; padding: 20px; background: #fef2f2; border-radius: 20px; border: 2px solid #fecaca; text-align: center; }
+  .signout-section p { font-size: 14px; color: #7f1d1d; margin-bottom: 12px; }
+  .signout-btn {
+    background: #ef4444;
+    color: white;
+    padding: 14px 32px;
+    border-radius: 14px;
+    font-weight: 800;
+    font-size: 16px;
+    box-shadow: 0 4px 0 #b91c1c;
+    transition: all 0.1s;
+  }
+  .signout-btn:hover { transform: translateY(-1px); box-shadow: 0 5px 0 #b91c1c; }
+  .signout-btn:active { transform: translateY(2px); box-shadow: 0 2px 0 #b91c1c; }
+
+  /* Saved toast */
+  .toast {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%) translateY(200%);
+    background: #22c55e;
+    color: white;
+    padding: 12px 22px;
+    border-radius: 14px;
+    font-weight: 800;
+    box-shadow: 0 4px 20px rgba(34, 197, 94, 0.4);
+    transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+    z-index: 100;
+  }
+  .toast.show { transform: translateX(-50%) translateY(0); }
+
+  @media (max-width: 480px) {
+    .container { padding: 16px 12px 32px; }
+    .profile-card { padding: 24px 16px; }
+    .avatar-big { width: 120px; height: 120px; }
+    .nickname-input { font-size: 24px; }
+    .avatar-grid { grid-template-columns: repeat(3, 1fr); gap: 10px; padding: 12px; }
+    .stat-number { font-size: 26px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <button class="back-btn" onclick="goHome()" aria-label="Back to home">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+    Home
+  </button>
+  <div class="nav-title">My Profile</div>
+  <div class="nav-spacer"></div>
+</nav>
+
+<div class="container">
+
+  <!-- Profile card -->
+  <div class="profile-card">
+    <div class="avatar-big" id="avatarBig"></div>
+    <div class="nickname-wrap">
+      <input type="text" class="nickname-input" id="nicknameInput" maxlength="20" spellcheck="false" aria-label="Your nickname" />
+    </div>
+    <div class="edit-hint">Tap your name to change it</div>
+    <div class="email-line" id="emailLine"></div>
+  </div>
+
+  <!-- Level -->
+  <div class="level-card">
+    <div class="level-name" id="levelName">Beginner</div>
+    <div class="level-progress" id="levelProgress">0 XP · Complete lessons to level up</div>
+  </div>
+
+  <!-- Stats -->
+  <div class="section-title">My Achievements</div>
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-icon-wrap fire"><svg width="28" height="28" viewBox="0 0 32 32"><path d="M16 4 C 12 10 8 12 8 18 C 8 24 12 28 16 28 C 20 28 24 24 24 18 C 24 14 22 12 20 14 C 20 10 18 6 16 4 Z" fill="#ef4444" stroke="#b91c1c" stroke-width="1.5" stroke-linejoin="round"/><path d="M16 14 C 14 17 13 19 13 22 C 13 25 14 27 16 27 C 18 27 19 25 19 22 C 19 19 17 17 16 14 Z" fill="#fbbf24"/></svg></div>
+      <div class="stat-number" id="statStreak">0</div>
+      <div class="stat-label">Day Streak</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon-wrap xp"><svg width="28" height="28" viewBox="0 0 32 32"><path d="M16 3 L 20 12 L 30 13 L 22 20 L 25 30 L 16 24 L 7 30 L 10 20 L 2 13 L 12 12 Z" fill="#fbbf24" stroke="#d97706" stroke-width="1.5" stroke-linejoin="round"/></svg></div>
+      <div class="stat-number" id="statXP">0</div>
+      <div class="stat-label">Total XP</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon-wrap heart"><svg width="28" height="28" viewBox="0 0 32 32"><path d="M16 28 C 6 20 2 14 2 10 C 2 6 5 3 9 3 C 12 3 14 5 16 8 C 18 5 20 3 23 3 C 27 3 30 6 30 10 C 30 14 26 20 16 28 Z" fill="#ec4899" stroke="#be185d" stroke-width="1.5"/></svg></div>
+      <div class="stat-number" id="statHearts">0</div>
+      <div class="stat-label">Perfect Runs</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon-wrap badge"><svg width="28" height="28" viewBox="0 0 32 32"><path d="M10 4 L 22 4 L 22 14 C 22 18 19 21 16 21 C 13 21 10 18 10 14 Z" fill="#fbbf24" stroke="#d97706" stroke-width="1.5" stroke-linejoin="round"/><path d="M10 6 L 5 6 L 5 10 C 5 12 7 14 10 14" fill="none" stroke="#d97706" stroke-width="1.5"/><path d="M22 6 L 27 6 L 27 10 C 27 12 25 14 22 14" fill="none" stroke="#d97706" stroke-width="1.5"/><rect x="13" y="21" width="6" height="4" fill="#d97706"/><rect x="9" y="25" width="14" height="3" rx="1" fill="#92400e"/></svg></div>
+      <div class="stat-number" id="statBadges">0</div>
+      <div class="stat-label">Badges</div>
+    </div>
+    <div class="stat-card" style="grid-column: 1 / -1;">
+      <div class="stat-icon-wrap book"><svg width="28" height="28" viewBox="0 0 32 32"><path d="M4 6 L 14 4 L 14 26 L 4 28 Z" fill="#22c55e" stroke="#15803d" stroke-width="1.5" stroke-linejoin="round"/><path d="M28 6 L 18 4 L 18 26 L 28 28 Z" fill="#22c55e" stroke="#15803d" stroke-width="1.5" stroke-linejoin="round"/><path d="M14 4 L 18 4" stroke="#15803d" stroke-width="1.5"/></svg></div>
+      <div class="stat-number" id="statLessons">0</div>
+      <div class="stat-label">Lessons Completed</div>
+    </div>
+  </div>
+
+  <!-- Avatar picker -->
+  <div class="section-title">Choose Your Avatar</div>
+  <div class="avatar-grid" id="avatarGrid"></div>
+
+  <!-- Sign out -->
+  <div class="signout-section">
+    <p>See you soon! Your progress stays saved on this device.</p>
+    <button class="signout-btn" onclick="handleSignOut()">Sign Out</button>
+  </div>
+
+</div>
+
+<div class="toast" id="toast">Saved!</div>
+
+<script>
+// ============ AVATAR OPTIONS ============
+const AVATARS = {
+  nova: `<svg viewBox="0 0 300 320"><ellipse cx="125" cy="295" rx="22" ry="13" fill="#0ea5e9" stroke="#0284c7" stroke-width="3"/><ellipse cx="175" cy="295" rx="22" ry="13" fill="#0ea5e9" stroke="#0284c7" stroke-width="3"/><ellipse cx="150" cy="245" rx="78" ry="55" fill="white"/><ellipse cx="150" cy="245" rx="78" ry="55" fill="none" stroke="#bae6fd" stroke-width="4"/><ellipse cx="78" cy="240" rx="18" ry="22" fill="white" stroke="#bae6fd" stroke-width="4"/><ellipse cx="222" cy="240" rx="18" ry="22" fill="white" stroke="#bae6fd" stroke-width="4"/><circle cx="72" cy="262" r="20" fill="#0ea5e9" stroke="#0284c7" stroke-width="3"/><circle cx="228" cy="262" r="20" fill="#0ea5e9" stroke="#0284c7" stroke-width="3"/><circle cx="150" cy="248" r="20" fill="#fbbf24" stroke="#d97706" stroke-width="3"/><text x="150" y="256" font-size="18" fill="white" text-anchor="middle" font-weight="900" font-family="sans-serif">AI</text><ellipse cx="150" cy="195" rx="85" ry="14" fill="#0ea5e9"/><circle cx="150" cy="125" r="85" fill="white"/><circle cx="150" cy="125" r="85" fill="none" stroke="#bae6fd" stroke-width="4"/><ellipse cx="92" cy="155" rx="14" ry="9" fill="#fda4af" opacity="0.75"/><ellipse cx="208" cy="155" rx="14" ry="9" fill="#fda4af" opacity="0.75"/><ellipse cx="110" cy="128" rx="16" ry="22" fill="#1a1a2e"/><ellipse cx="190" cy="128" rx="16" ry="22" fill="#1a1a2e"/><circle cx="116" cy="120" r="6" fill="white"/><circle cx="196" cy="120" r="6" fill="white"/><path d="M 138 168 Q 150 178 162 168" stroke="#1a1a2e" stroke-width="4" fill="none" stroke-linecap="round"/><circle cx="150" cy="125" r="95" fill="#bae6fd" opacity="0.2"/><line x1="150" y1="30" x2="150" y2="12" stroke="#0284c7" stroke-width="5" stroke-linecap="round"/><polygon points="150,0 157,14 173,14 160,24 166,40 150,30 134,40 140,24 127,14 143,14" fill="#fbbf24" stroke="#d97706" stroke-width="2"/></svg>`,
+  rocket: `<svg viewBox="0 0 64 64"><path d="M32 4 C 22 12 16 22 16 32 L 16 44 L 22 40 L 22 50 L 32 46 L 42 50 L 42 40 L 48 44 L 48 32 C 48 22 42 12 32 4 Z" fill="#0ea5e9" stroke="#0284c7" stroke-width="2.5" stroke-linejoin="round"/><circle cx="32" cy="24" r="7" fill="#fbbf24" stroke="#d97706" stroke-width="1.5"/><circle cx="32" cy="24" r="3" fill="white"/><path d="M20 40 L 12 54 L 22 50" fill="#f97316" stroke="#c2410c" stroke-width="1.5" stroke-linejoin="round"/><path d="M44 40 L 52 54 L 42 50" fill="#f97316" stroke="#c2410c" stroke-width="1.5" stroke-linejoin="round"/><path d="M28 50 L 32 60 L 36 50" fill="#fbbf24" stroke="#d97706" stroke-width="1.5" stroke-linejoin="round"/></svg>`,
+  star: `<svg viewBox="0 0 64 64"><polygon points="32,4 40,24 62,26 44,40 50,62 32,50 14,62 20,40 2,26 24,24" fill="#fbbf24" stroke="#d97706" stroke-width="2.5" stroke-linejoin="round"/><circle cx="32" cy="32" r="8" fill="white" opacity="0.6"/><circle cx="26" cy="26" r="2" fill="white"/></svg>`,
+  planet: `<svg viewBox="0 0 64 64"><circle cx="32" cy="32" r="20" fill="#a855f7" stroke="#7e22ce" stroke-width="2"/><ellipse cx="32" cy="32" rx="28" ry="6" fill="none" stroke="#c084fc" stroke-width="3" transform="rotate(-15 32 32)"/><ellipse cx="32" cy="32" rx="28" ry="6" fill="none" stroke="#e9d5ff" stroke-width="1.5" transform="rotate(-15 32 32)"/><circle cx="24" cy="26" r="3" fill="#7e22ce" opacity="0.6"/><circle cx="38" cy="34" r="4" fill="#7e22ce" opacity="0.6"/><circle cx="26" cy="38" r="2" fill="#7e22ce" opacity="0.6"/></svg>`,
+  robot: `<svg viewBox="0 0 64 64"><rect x="18" y="20" width="28" height="26" rx="4" fill="#94a3b8" stroke="#475569" stroke-width="2"/><rect x="14" y="26" width="6" height="14" rx="2" fill="#94a3b8" stroke="#475569" stroke-width="1.5"/><rect x="44" y="26" width="6" height="14" rx="2" fill="#94a3b8" stroke="#475569" stroke-width="1.5"/><rect x="24" y="46" width="6" height="10" fill="#94a3b8" stroke="#475569" stroke-width="1.5"/><rect x="34" y="46" width="6" height="10" fill="#94a3b8" stroke="#475569" stroke-width="1.5"/><circle cx="26" cy="30" r="3" fill="#22c55e"/><circle cx="38" cy="30" r="3" fill="#22c55e"/><rect x="26" y="38" width="12" height="3" rx="1" fill="#1e293b"/><line x1="32" y1="14" x2="32" y2="20" stroke="#475569" stroke-width="2"/><circle cx="32" cy="12" r="3" fill="#fbbf24" stroke="#d97706" stroke-width="1.5"/></svg>`,
+  moon: `<svg viewBox="0 0 64 64"><circle cx="32" cy="32" r="24" fill="#fef3c7" stroke="#d97706" stroke-width="2.5"/><circle cx="20" cy="24" r="3" fill="#fbbf24" opacity="0.6"/><circle cx="40" cy="28" r="4" fill="#fbbf24" opacity="0.5"/><circle cx="28" cy="42" r="3" fill="#fbbf24" opacity="0.5"/><circle cx="42" cy="44" r="2" fill="#fbbf24" opacity="0.6"/><path d="M 24 22 Q 26 20 28 22" stroke="#1c1917" stroke-width="1.5" fill="none" stroke-linecap="round"/><path d="M 36 22 Q 38 20 40 22" stroke="#1c1917" stroke-width="1.5" fill="none" stroke-linecap="round"/><path d="M 26 36 Q 32 42 38 36" stroke="#1c1917" stroke-width="2" fill="none" stroke-linecap="round"/></svg>`,
+  ufo: `<svg viewBox="0 0 64 64"><ellipse cx="32" cy="36" rx="26" ry="8" fill="#94a3b8" stroke="#475569" stroke-width="2"/><ellipse cx="32" cy="30" rx="16" ry="10" fill="#bae6fd" stroke="#0284c7" stroke-width="2"/><circle cx="26" cy="28" r="2" fill="#0284c7"/><circle cx="32" cy="26" r="2" fill="#0284c7"/><circle cx="38" cy="28" r="2" fill="#0284c7"/><circle cx="12" cy="42" r="2.5" fill="#fbbf24"/><circle cx="24" cy="46" r="2.5" fill="#22c55e"/><circle cx="40" cy="46" r="2.5" fill="#ef4444"/><circle cx="52" cy="42" r="2.5" fill="#a855f7"/><path d="M 32 46 L 26 60 L 38 60 Z" fill="#fbbf24" opacity="0.4"/></svg>`,
+  comet: `<svg viewBox="0 0 64 64"><path d="M 8 56 Q 20 44 32 32 L 40 40 Q 28 52 8 56 Z" fill="#fbbf24" opacity="0.5"/><path d="M 12 50 Q 22 42 32 32 L 38 38 Q 26 48 12 50 Z" fill="#fef3c7"/><circle cx="42" cy="22" r="14" fill="#fbbf24" stroke="#d97706" stroke-width="2.5"/><circle cx="42" cy="22" r="14" fill="url(#g1)"/><defs><radialGradient id="g1"><stop offset="0%" stop-color="white" stop-opacity="0.7"/><stop offset="100%" stop-color="white" stop-opacity="0"/></radialGradient></defs><circle cx="38" cy="18" r="4" fill="white" opacity="0.7"/></svg>`
+};
+
+const AVATAR_ORDER = ["nova", "rocket", "star", "planet", "robot", "moon", "ufo", "comet"];
+
+// ============ LOAD USER ============
+let user = null;
+try {
+  const raw = localStorage.getItem("aii_user");
+  if (raw) user = JSON.parse(raw);
+} catch(e) {}
+
+if (!user) {
+  // Not signed in — bounce them to enroll
+  window.location.href = "enroll.html";
+}
+
+// ============ RENDER ============
+function currentAvatarKey() { return user.avatar || "nova"; }
+function saveUser() {
+  try { localStorage.setItem("aii_user", JSON.stringify(user)); } catch(e) {}
+}
+
+function renderAvatarBig() {
+  document.getElementById("avatarBig").innerHTML = AVATARS[currentAvatarKey()] || AVATARS.nova;
+}
+
+function renderNickname() {
+  document.getElementById("nicknameInput").value = user.name || "friend";
+}
+
+function renderEmail() {
+  const line = document.getElementById("emailLine");
+  if (user.email) line.textContent = user.email;
+  else line.style.display = "none";
+}
+
+function renderStats() {
+  document.getElementById("statStreak").textContent = user.streak || 0;
+  document.getElementById("statXP").textContent = user.xp || 0;
+  document.getElementById("statHearts").textContent = user.hearts || 0;
+  document.getElementById("statBadges").textContent = user.badges || 0;
+  document.getElementById("statLessons").textContent = (user.completedLessons || []).length;
+}
+
+function renderLevel() {
+  const xp = user.xp || 0;
+  let name = "Beginner", nextGoal = 100;
+  if (xp >= 1000) { name = "Master"; nextGoal = null; }
+  else if (xp >= 500) { name = "Pro"; nextGoal = 1000; }
+  else if (xp >= 250) { name = "Builder"; nextGoal = 500; }
+  else if (xp >= 100) { name = "Explorer"; nextGoal = 250; }
+  document.getElementById("levelName").textContent = name;
+  document.getElementById("levelProgress").textContent = nextGoal
+    ? `${xp} XP · ${nextGoal - xp} XP to next level`
+    : `${xp} XP · Max level reached!`;
+}
+
+function renderAvatarGrid() {
+  const grid = document.getElementById("avatarGrid");
+  grid.innerHTML = "";
+  AVATAR_ORDER.forEach(key => {
+    const btn = document.createElement("button");
+    btn.className = "avatar-choice" + (key === currentAvatarKey() ? " selected" : "");
+    btn.innerHTML = AVATARS[key];
+    btn.setAttribute("aria-label", "Pick " + key + " avatar");
+    btn.onclick = () => {
+      user.avatar = key;
+      saveUser();
+      renderAvatarBig();
+      renderAvatarGrid();
+      showToast("Avatar saved!");
+    };
+    grid.appendChild(btn);
+  });
+}
+
+// ============ NICKNAME EDIT ============
+const nickInput = document.getElementById("nicknameInput");
+nickInput.addEventListener("blur", () => {
+  const newName = nickInput.value.trim() || "friend";
+  if (newName !== user.name) {
+    user.name = newName;
+    saveUser();
+    showToast("Name saved!");
+  }
+});
+nickInput.addEventListener("keydown", (e) => {
+  if (e.key === "Enter") nickInput.blur();
+});
+
+// ============ TOAST ============
+function showToast(msg) {
+  const t = document.getElementById("toast");
+  t.textContent = msg;
+  t.classList.add("show");
+  clearTimeout(window._toastTimer);
+  window._toastTimer = setTimeout(() => t.classList.remove("show"), 1800);
+}
+
+// ============ SIGN OUT ============
+async function handleSignOut() {
+  if (!confirm("Sign out, " + (user.name || "friend") + "?\n\n(Your XP, badges, and streak stay safe on this device.)")) return;
+  try {
+    localStorage.removeItem("aii_user");
+    localStorage.removeItem("lastSeen_streak");
+    localStorage.removeItem("lastSeen_xp");
+    localStorage.removeItem("lastSeen_hearts");
+    localStorage.removeItem("lastSeen_badges");
+  } catch(e) {}
+  try {
+    if (window.firebaseSignOutFromProfile) await window.firebaseSignOutFromProfile();
+  } catch(e) {}
+  window.location.href = "/";
+}
+
+function goHome() { window.location.href = "/"; }
+
+// ============ INITIAL RENDER ============
+if (user) {
+  renderAvatarBig();
+  renderNickname();
+  renderEmail();
+  renderStats();
+  renderLevel();
+  renderAvatarGrid();
+}
+</script>
+
+<!-- Firebase sign-out helper (so the picker shows next time too) -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
+  import { getAuth, signOut } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-auth.js";
+  const firebaseConfig = {
+    apiKey: "AIzaSyDj-0TOvaENVWvUgP-MIJpy0xxYGzzxymg",
+    authDomain: "ai-innovators-6fc07.firebaseapp.com",
+    projectId: "ai-innovators-6fc07",
+    storageBucket: "ai-innovators-6fc07.firebasestorage.app",
+    messagingSenderId: "316596960929",
+    appId: "1:316596960929:web:152759a44e57e25462fae0"
+  };
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  window.firebaseSignOutFromProfile = async () => signOut(auth);
+</script>
+
+</body>
+</html>

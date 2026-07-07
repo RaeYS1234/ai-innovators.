@@ -5,13 +5,14 @@
 // Cache version — change this string when you want to force everyone
 // to clear their cache. With the network-first strategy below, updates
 // already show up immediately when the user has internet.
-const CACHE_NAME = "ai-innovators-2026-07-04";
+const CACHE_NAME = "ai-innovators-2026-07-05";
 
 // Core files to cache so the app works offline
 const CORE_FILES = [
   "/",
   "/homepage-kidfriendly.html",
   "/enroll.html",
+  "/profile.html",
   "/manifest.json",
   "/app-icon.svg",
   "/app-icon-192.svg",
