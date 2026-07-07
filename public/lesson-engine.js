@@ -106,14 +106,6 @@
     return a;
   }
 
-  function escapeAttr(str) {
-    return String(str)
-      .replace(/&/g, "&amp;")
-      .replace(/"/g, "&quot;")
-      .replace(/'/g, "&#39;")
-      .replace(/</g, "&lt;");
-  }
-
   // ---- Nova encouragement popup (drops in to cheer the learner on) ----
   const NOVA_ENCOURAGEMENTS = [
     "You're doing AMAZING!",
@@ -199,7 +191,6 @@
     let answered = false;
     let matchSelected = null;
     let matchAnswers = {};
-    let matchChipByDrop = {};
     let mathAnswer = null;
 
     const STEPS = config.steps || [];
@@ -251,7 +242,7 @@
     function renderStep() {
       if (currentStep >= STEPS.length) { finishLesson(); return; }
       updateProgress();
-      answered = false; selectedAnswer = null; matchSelected = null; matchAnswers = {}; matchChipByDrop = {}; mathAnswer = null;
+      answered = false; selectedAnswer = null; matchSelected = null; matchAnswers = {}; mathAnswer = null;
       const step = STEPS[currentStep];
       const c = document.getElementById("screen-lesson");
       c.innerHTML = "";
@@ -309,7 +300,6 @@
 
     function renderMatch(s, c) {
       total++;
-      const chips = shuffle(s.pairs.map((p, i) => ({ answer: p.answer, chipId: i })));
       c.innerHTML = `
         <div class="question-block">
           <div class="question-text">${s.question}</div>
@@ -323,8 +313,8 @@
             `).join("")}
           </div>
           <div class="match-bank">
-            ${chips.map((chip) => `
-              <button class="match-chip" data-chip-id="${chip.chipId}" data-answer="${escapeAttr(chip.answer)}" onclick="window._lessonSelectMatch(${chip.chipId}, this)">${chip.answer}</button>
+            ${shuffle(s.pairs.map(p => p.answer)).map((a, ci) => `
+              <button class="match-chip" id="chip-${ci}" data-chip="${ci}" data-answer="${a}" onclick="window._lessonSelectMatch(${ci}, this)">${a}</button>
             `).join("")}
           </div>
         </div>
@@ -376,25 +366,27 @@
       });
       showFeedback(isCorrect, isCorrect ? s.correctMsg : s.wrongMsg);
     };
-    window._lessonSelectMatch = function(chipId, el) {
+    window._lessonSelectMatch = function(chipIdx, el) {
       if (answered || el.classList.contains("used")) return;
       document.querySelectorAll(".match-chip").forEach(c => c.style.outline = "");
       el.style.outline = "3px solid #0ea5e9";
-      matchSelected = { chipId, answer: el.dataset.answer, el };
+      matchSelected = chipIdx;
     };
     window._lessonPlaceMatch = function(dropIdx) {
-      if (answered || !matchSelected) return;
-      if (matchChipByDrop[dropIdx] !== undefined) {
-        const oldChip = document.querySelector(`.match-chip[data-chip-id="${matchChipByDrop[dropIdx]}"]`);
+      if (answered || matchSelected === null) return;
+      // If this drop already had a chip, free that exact chip so it comes back.
+      if (matchAnswers[dropIdx] != null) {
+        const oldChip = document.getElementById(`chip-${matchAnswers[dropIdx]}`);
         if (oldChip) oldChip.classList.remove("used");
       }
-      matchAnswers[dropIdx] = matchSelected.answer;
-      matchChipByDrop[dropIdx] = matchSelected.chipId;
+      const chip = document.getElementById(`chip-${matchSelected}`);
+      matchAnswers[dropIdx] = matchSelected;
       const drop = document.getElementById(`drop-${dropIdx}`);
-      drop.textContent = matchSelected.answer;
+      drop.textContent = chip.getAttribute("data-answer");
       drop.classList.add("has-item");
-      matchSelected.el.classList.add("used");
-      matchSelected.el.style.outline = "";
+      // Only mark THIS chip used — duplicates with the same text stay available.
+      chip.classList.add("used");
+      chip.style.outline = "";
       matchSelected = null;
       if (Object.keys(matchAnswers).length === STEPS[currentStep].pairs.length) document.getElementById("checkBtn").disabled = false;
     };
@@ -405,7 +397,9 @@
       let allCorrect = true;
       s.pairs.forEach((p, i) => {
         const drop = document.getElementById(`drop-${i}`);
-        if (matchAnswers[i] === p.answer) drop.classList.add("correct");
+        const chipIdx = matchAnswers[i];
+        const chosen = chipIdx != null ? document.getElementById(`chip-${chipIdx}`).getAttribute("data-answer") : null;
+        if (chosen === p.answer) drop.classList.add("correct");
         else { drop.classList.add("wrong"); allCorrect = false; }
       });
       showFeedback(allCorrect, allCorrect ? s.correctMsg : s.wrongMsg);
@@ -508,6 +502,12 @@
           if (isFirstCompletion) {
             user.badges = (user.badges || 0) + earnedBadgeCount;
             user.completedLessons.push(lessonId);
+
+            // 20% chance to earn a Streak Extender (a shield that saves your streak if you miss a day)
+            if (Math.random() < 0.2) {
+              user.streakExtenders = (user.streakExtenders || 0) + 1;
+              user.recentExtenderEarned = true; // homepage will show a nice toast
+            }
           }
 
           // Day Streak — increment if it's a new day, reset if a day was skipped

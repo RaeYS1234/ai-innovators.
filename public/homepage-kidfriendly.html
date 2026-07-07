@@ -648,6 +648,32 @@
   footer .logo { color: white; justify-content: center; margin-bottom: 16px; }
   footer p { font-size: 14px; }
 
+  /* Streak Extender toast */
+  .streak-toast {
+    position: fixed;
+    top: 80px;
+    left: 50%;
+    transform: translateX(-50%) translateY(-200%);
+    background: linear-gradient(135deg, #fbbf24, #f59e0b);
+    color: #78350f;
+    padding: 16px 22px;
+    border-radius: 20px;
+    border: 3px solid white;
+    box-shadow: 0 8px 30px rgba(251, 191, 36, 0.5);
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    max-width: 400px;
+    z-index: 200;
+    transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  .streak-toast.show { transform: translateX(-50%) translateY(0); }
+  .streak-toast-icon { font-size: 34px; line-height: 1; }
+  .streak-toast-body { flex: 1; }
+  .streak-toast-title { font-family: "Nunito", sans-serif; font-size: 17px; font-weight: 900; }
+  .streak-toast-sub { font-size: 13px; opacity: 0.85; margin-top: 2px; }
+
   /* Stat counter bounce when stats increase */
   .stat-pop { animation: stat-pop-anim 0.7s cubic-bezier(0.34, 1.56, 0.64, 1); display: inline-block; }
   @keyframes stat-pop-anim {
@@ -1545,6 +1571,68 @@ const novaSVG = `
 </svg>`;
 document.getElementById("novaMascot").innerHTML = novaSVG;
 
+// ============ STREAK TOAST ============
+function showStreakToast(icon, title, sub) {
+  const existing = document.getElementById("streakToast");
+  if (existing) existing.remove();
+  const t = document.createElement("div");
+  t.className = "streak-toast";
+  t.id = "streakToast";
+  t.innerHTML = '<div class="streak-toast-icon">' + icon + '</div>'
+    + '<div class="streak-toast-body">'
+    + '<div class="streak-toast-title">' + title + '</div>'
+    + '<div class="streak-toast-sub">' + sub + '</div></div>';
+  document.body.appendChild(t);
+  setTimeout(() => t.classList.add("show"), 50);
+  setTimeout(() => t.classList.remove("show"), 4500);
+  setTimeout(() => t.remove(), 5200);
+}
+
+// ============ CHECK STREAK IS STILL ALIVE ============
+// If user hasn't done a lesson in 2+ days, their streak is broken.
+// BUT: if they have a Streak Extender, we use one to save the streak!
+// Returns "saved" if extender used, "broken" if reset, "alive" if fine.
+function checkStreakAlive(user) {
+  if (!user || !user.lastActivityDate) return "alive";
+  const today = new Date(); today.setHours(0, 0, 0, 0);
+  const last = new Date(user.lastActivityDate); last.setHours(0, 0, 0, 0);
+  const dayDiff = Math.round((today - last) / 86400000);
+  if (dayDiff < 2) return "alive";
+
+  // Streak would break — use an Extender if available (each covers 1 missed day)
+  const missedDays = dayDiff - 1;
+  const availableExtenders = user.streakExtenders || 0;
+  if (availableExtenders >= missedDays) {
+    // Enough extenders to cover all missed days!
+    user.streakExtenders = availableExtenders - missedDays;
+    // Bump lastActivityDate forward to yesterday so streak logic stays consistent
+    const yesterday = new Date(today);
+    yesterday.setDate(yesterday.getDate() - 1);
+    user.lastActivityDate = yesterday.toDateString();
+    user.recentExtenderUsed = missedDays; // homepage will show a save toast
+    try { localStorage.setItem("aii_user", JSON.stringify(user)); } catch(e) {}
+    return "saved";
+  }
+
+  // Not enough extenders — streak broken
+  user.streak = 0;
+  // Use whatever extenders we have as a partial save (still resets, but drains them)
+  user.streakExtenders = 0;
+  try { localStorage.setItem("aii_user", JSON.stringify(user)); } catch(e) {}
+  return "broken";
+}
+
+// Returns a status string for the streak: "today" | "yesterday" | "broken" | "none"
+function streakStatus(user) {
+  if (!user || !user.lastActivityDate) return "none";
+  const today = new Date(); today.setHours(0, 0, 0, 0);
+  const last = new Date(user.lastActivityDate); last.setHours(0, 0, 0, 0);
+  const dayDiff = Math.round((today - last) / 86400000);
+  if (dayDiff === 0) return "today";
+  if (dayDiff === 1) return "yesterday";
+  return "broken";
+}
+
 // ============ STAT BOUNCE — animates stat counters when they've increased ============
 function fillStatWithBounce(id, newValue, lastSeenKey) {
   const el = document.getElementById(id);
@@ -1607,6 +1695,23 @@ function checkAuth() {
   } catch(e) {}
 
   if (user) {
+    // Check if streak is still alive (auto-uses extenders if you missed a day!)
+    const streakResult = checkStreakAlive(user);
+
+    // Show a nice toast if a Streak Extender was earned or used
+    setTimeout(() => {
+      if (user.recentExtenderEarned) {
+        showStreakToast("🛡️", "Streak Extender earned!", "You now have " + (user.streakExtenders || 0) + ". They save your streak if you miss a day!");
+        user.recentExtenderEarned = false;
+        try { localStorage.setItem("aii_user", JSON.stringify(user)); } catch(e) {}
+      } else if (user.recentExtenderUsed) {
+        const n = user.recentExtenderUsed;
+        showStreakToast("🛡️", "Streak saved!", "Used " + n + " Extender" + (n > 1 ? "s" : "") + " to save your streak.");
+        delete user.recentExtenderUsed;
+        try { localStorage.setItem("aii_user", JSON.stringify(user)); } catch(e) {}
+      }
+    }, 800);
+
     // Logged in - show stats and continue card, hide guest CTA
     document.getElementById("userStatsContainer").style.display = "block";
     document.getElementById("continueSection").style.display = "block";
@@ -1616,6 +1721,20 @@ function checkAuth() {
     document.getElementById("guestIntro").style.display = "none";
     document.getElementById("loggedInIntro").style.display = "block";
     document.getElementById("welcomeBackName").textContent = user.name || "friend";
+
+    // Show streak status hint (today = fine, yesterday = warning, broken = reset)
+    const status = streakStatus(user);
+    const streakEl = document.getElementById("user-streak");
+    const streakLabel = streakEl && streakEl.parentElement && streakEl.parentElement.querySelector(".label");
+    if (streakLabel) {
+      if (status === "yesterday" && (user.streak || 0) > 0) {
+        streakLabel.textContent = "Do a lesson today!";
+        streakLabel.style.color = "#d97706";
+      } else {
+        streakLabel.textContent = "Day Streak";
+        streakLabel.style.color = "";
+      }
+    }
 
     // Fill in user's real stats — with bounce animation if anything changed since last visit
     fillStatWithBounce("user-streak", user.streak || 0, "lastSeen_streak");

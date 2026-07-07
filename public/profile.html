@@ -269,10 +269,15 @@
       <div class="stat-number" id="statBadges">0</div>
       <div class="stat-label">Badges</div>
     </div>
-    <div class="stat-card" style="grid-column: 1 / -1;">
+    <div class="stat-card">
       <div class="stat-icon-wrap book"><svg width="28" height="28" viewBox="0 0 32 32"><path d="M4 6 L 14 4 L 14 26 L 4 28 Z" fill="#22c55e" stroke="#15803d" stroke-width="1.5" stroke-linejoin="round"/><path d="M28 6 L 18 4 L 18 26 L 28 28 Z" fill="#22c55e" stroke="#15803d" stroke-width="1.5" stroke-linejoin="round"/><path d="M14 4 L 18 4" stroke="#15803d" stroke-width="1.5"/></svg></div>
       <div class="stat-number" id="statLessons">0</div>
       <div class="stat-label">Lessons Completed</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon-wrap level"><svg width="28" height="28" viewBox="0 0 32 32"><path d="M16 2 L 5 6 L 5 15 C 5 22 10 27 16 30 C 22 27 27 22 27 15 L 27 6 Z" fill="#0ea5e9" stroke="#0284c7" stroke-width="1.5" stroke-linejoin="round"/><path d="M11 15 L 15 19 L 22 12" stroke="white" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div class="stat-number" id="statExtenders">0</div>
+      <div class="stat-label">Streak Shields</div>
     </div>
   </div>
 
@@ -426,12 +431,25 @@ function renderEmail() {
   else line.style.display = "none";
 }
 
+// Reset streak if 2+ days since last activity (broken streak)
+function checkStreakAlive() {
+  if (!user.lastActivityDate) return;
+  const today = new Date(); today.setHours(0, 0, 0, 0);
+  const last = new Date(user.lastActivityDate); last.setHours(0, 0, 0, 0);
+  if (Math.round((today - last) / 86400000) >= 2) {
+    user.streak = 0;
+    saveUser();
+  }
+}
+
 function renderStats() {
+  checkStreakAlive();
   document.getElementById("statStreak").textContent = user.streak || 0;
   document.getElementById("statXP").textContent = user.xp || 0;
   document.getElementById("statHearts").textContent = user.hearts || 0;
   document.getElementById("statBadges").textContent = user.badges || 0;
   document.getElementById("statLessons").textContent = (user.completedLessons || []).length;
+  document.getElementById("statExtenders").textContent = user.streakExtenders || 0;
 }
 
 function renderLevel() {

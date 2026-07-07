@@ -1912,6 +1912,12 @@ function finishLesson() {
         if (!user.completedLessons.includes("business-101")) {
           user.completedLessons.push("business-101");
         }
+
+        // 20% chance to earn a Streak Extender (shield that saves your streak if you miss a day)
+        if (Math.random() < 0.2) {
+          user.streakExtenders = (user.streakExtenders || 0) + 1;
+          user.recentExtenderEarned = true;
+        }
       }
 
       // Day Streak — bump if new day, reset if a day was skipped
