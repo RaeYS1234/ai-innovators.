@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>AI Basics Challenge — AI Innovators</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
@@ -19,31 +19,31 @@
     </div>
   </div>
   <div class="screen active" id="screen-welcome">
-    <div class="lesson-tag" id="lesson-tag" style="background: linear-gradient(135deg, #fbbf24, #f59e0b); color:white; box-shadow: 0 3px 0 #d97706;">FINAL TEST</div>
+    <div class="lesson-tag" id="lesson-tag">LESSON</div>
     <div class="mascot" id="welcomeMascot"></div>
     <h1 class="welcome-title" id="welcome-title"></h1>
     <p class="welcome-subtitle" id="welcome-subtitle"></p>
-    <button class="btn go" id="startBtn">Take the Challenge!</button>
+    <button class="btn go" id="startBtn">Let's Go!</button>
   </div>
   <div class="screen" id="screen-lesson"></div>
   <div class="screen" id="screen-complete">
     <div class="mascot" id="completeMascot"></div>
-    <h1 class="complete-title">CHALLENGE COMPLETE!</h1>
-    <p class="complete-subtitle">You finished What is AI?! Here's your final score:</p>
+    <h1 class="complete-title">Course Complete!</h1>
+    <p class="complete-subtitle">You're officially AI Smart. Here's what you earned:</p>
     <div class="stats-row">
       <div class="stat-box"><div class="stat-label">XP Earned</div><div class="stat-value xp" id="finalXP">0</div></div>
       <div class="stat-box"><div class="stat-label">Score</div><div class="stat-value score" id="finalScore">0%</div></div>
       <div class="stat-box"><div class="stat-label">Hearts Left</div><div class="stat-value" style="color:#ef4444;" id="finalHearts">3</div></div>
     </div>
-    <h3 style="margin: 28px 0 14px; color: #0c4a6e; font-weight: 900; font-family:'Nunito',sans-serif;">Your Trophies:</h3>
+    <h3 style="margin: 28px 0 14px; color: #0c4a6e; font-weight: 900; font-family:'Nunito',sans-serif;">Badges You Earned:</h3>
     <div class="badge-grid" id="badgeGrid"></div>
     <button class="btn go" id="backToCourseBtn">Back to Course →</button>
-    <button class="btn ghost" style="margin-top:12px;" id="playAgainBtn">Try Again</button>
+    <button class="btn ghost" style="margin-top:12px;" id="playAgainBtn">Play Again</button>
   </div>
   <div class="screen" id="screen-gameover">
     <div class="mascot" id="gameoverMascot"></div>
     <h1 class="complete-title" style="color:#b91c1c;">Out of Hearts!</h1>
-    <p class="complete-subtitle">The challenge is hard — try again!</p>
+    <p class="complete-subtitle">Try again — you got this!</p>
     <button class="btn danger" id="retryBtn">Try Again</button>
   </div>
 </div>
@@ -58,138 +58,81 @@
 runLesson({
   lessonId: "what-is-ai-challenge",
   courseUrl: "course-what-is-ai.html",
-  tag: "COURSE CHALLENGE",
-  title: "What is AI? Challenge!",
-  subtitle: "10 questions covering EVERYTHING. Beat it to earn your AI Innovator trophy!",
+  tag: "🏆 FINAL CHALLENGE",
+  title: "AI Basics Challenge",
+  subtitle: "The boss battle! Prove you know AI.",
   steps: [
-    {
-      type: "mc",
-      question: "What does AI stand for?",
+    { type: "mc", question: "What does AI stand for?", hint: "Two words.",
       options: [
-        { text: "Artificial Intelligence", correct: true },
         { text: "Awesome Internet", correct: false },
-        { text: "Anyone's Idea", correct: false },
-        { text: "Auto Information", correct: false }
+        { text: "Artificial Intelligence", correct: true },
+        { text: "Amazing Idea", correct: false },
+        { text: "Apple iPhone", correct: false }
       ],
-      correctMsg: "Correct!",
-      wrongMsg: "AI = Artificial Intelligence."
-    },
-    {
-      type: "mc",
-      question: "How does AI learn to do things?",
+      correctMsg: "Right! Artificial Intelligence.",
+      wrongMsg: "AI = Artificial Intelligence. Computer brains that learn!" },
+    { type: "mc", question: "Which of these uses AI?", hint: "AI is EVERYWHERE these days.",
       options: [
-        { text: "It's born smart", correct: false },
-        { text: "From studying tons of examples", correct: true },
-        { text: "By magic", correct: false },
-        { text: "It guesses", correct: false }
+        { text: "A regular calculator", correct: false },
+        { text: "Netflix guessing shows you might like", correct: true },
+        { text: "A paper notebook", correct: false },
+        { text: "A basketball", correct: false }
       ],
-      correctMsg: "Right!",
-      wrongMsg: "AI learns from MILLIONS of examples."
-    },
-    {
-      type: "mc",
-      question: "Which of these uses AI?",
+      correctMsg: "Yes! Netflix uses AI to guess what you'll love.",
+      wrongMsg: "Netflix uses AI to learn what you like and suggest more!" },
+    { type: "mc", question: "How does AI learn?", hint: "It's not magic — it's data.",
       options: [
-        { text: "A regular pencil", correct: false },
-        { text: "Snapchat face filters", correct: true },
-        { text: "A book", correct: false },
-        { text: "A door knob", correct: false }
+        { text: "By reading lots of examples", correct: true },
+        { text: "By sleeping", correct: false },
+        { text: "By eating food", correct: false },
+        { text: "It knows everything from birth", correct: false }
       ],
-      correctMsg: "Yes!",
-      wrongMsg: "Snapchat filters use AI to find your face!"
-    },
-    {
-      type: "mc",
-      question: "You want to draw a logo. Which AI?",
+      correctMsg: "Yes! AI learns from tons and tons of examples (called data).",
+      wrongMsg: "AI learns by studying lots of examples — millions of photos or texts." },
+    { type: "mc", question: "Can AI be WRONG sometimes?", hint: "AI isn't perfect.",
       options: [
-        { text: "Chatbot", correct: false },
-        { text: "Voice AI", correct: false },
-        { text: "Image AI", correct: true },
-        { text: "Calculator", correct: false }
-      ],
-      correctMsg: "Right!",
-      wrongMsg: "For pictures = IMAGE AI."
-    },
-    {
-      type: "mc",
-      question: "You want hands-free help. Which AI?",
-      options: [
-        { text: "Image AI", correct: false },
-        { text: "Voice AI", correct: true },
-        { text: "A book", correct: false },
-        { text: "None", correct: false }
-      ],
-      correctMsg: "Yes!",
-      wrongMsg: "Voice AI like Siri lets you ASK out loud."
-    },
-    {
-      type: "mc",
-      question: "Should you share your address with AI?",
-      options: [
-        { text: "Sure, why not", correct: false },
-        { text: "Yes, AI needs it", correct: false },
-        { text: "Never — keep personal info private", correct: true },
-        { text: "Only on weekends", correct: false }
-      ],
-      correctMsg: "Right! Personal info stays private.",
-      wrongMsg: "NEVER share personal info like your address with AI."
-    },
-    {
-      type: "mc",
-      question: "Best way to use AI for homework?",
-      options: [
-        { text: "Have AI do all of it for you", correct: false },
-        { text: "Ask AI to explain tough stuff, then do it yourself", correct: true },
-        { text: "Don't use AI at all", correct: false },
-        { text: "Copy AI's answers word-for-word", correct: false }
-      ],
-      correctMsg: "Yes!",
-      wrongMsg: "Use AI to LEARN. Have it explain, then YOU do the work."
-    },
-    {
-      type: "mc",
-      question: "Can AI be wrong?",
-      options: [
-        { text: "No, AI is always right", correct: false },
-        { text: "Yes — sometimes AI makes stuff up (hallucinations)", correct: true },
+        { text: "Never — AI is always right", correct: false },
+        { text: "Yes — always double-check important stuff", correct: true },
         { text: "Only on Tuesdays", correct: false },
-        { text: "AI never speaks", correct: false }
+        { text: "Only when the wifi is bad", correct: false }
       ],
-      correctMsg: "Right!",
-      wrongMsg: "AI CAN be wrong! Sometimes it confidently makes stuff up — called a hallucination."
-    },
-    {
-      type: "match",
-      question: "Match the AI type to its tool!",
-      pairs: [
-        { prompt: "ChatGPT", answer: "Chatbot AI" },
-        { prompt: "DALL-E", answer: "Image AI" },
-        { prompt: "Siri", answer: "Voice AI" }
-      ],
-      correctMsg: "Perfect matches!",
-      wrongMsg: "Chat = type. Image = pictures. Siri = voice."
-    },
-    {
-      type: "mc",
-      question: "FINAL: How should you think about AI?",
-      hint: "Sum it all up!",
+      correctMsg: "Right! Always double-check important AI answers.",
+      wrongMsg: "AI CAN be wrong. Smart people check AI's answers." },
+    { type: "mc", question: "Using AI for a story — smartest move?", hint: "AI helps YOU, not the other way around.",
       options: [
-        { text: "A smart helper — useful for tons of stuff, but I check important things myself", correct: true },
-        { text: "It's a scary robot", correct: false },
-        { text: "It replaces everyone", correct: false },
-        { text: "Only adults can use it", correct: false }
+        { text: "Copy exactly what AI writes and turn it in", correct: false },
+        { text: "Use AI's ideas but write in your OWN voice and check facts", correct: true },
+        { text: "Believe every word AI says", correct: false },
+        { text: "Don't ever use AI", correct: false }
       ],
-      correctMsg: "🎉 YES! You officially understand AI. Go build something amazing!",
-      wrongMsg: "AI is a HELPFUL TOOL — useful for many things, but you check important stuff yourself."
-    }
+      correctMsg: "🎯 Yes! AI helps, YOU create.",
+      wrongMsg: "Smart use = AI is a helper. YOU still do the thinking." },
+    { type: "mc", question: "Which AI helps make a poster for a lemonade stand?", hint: "Think about what makes posters.",
+      options: [
+        { text: "A weather AI", correct: false },
+        { text: "A picture-making AI (like DALL-E or Canva AI)", correct: true },
+        { text: "A calculator", correct: false },
+        { text: "A cooking AI", correct: false }
+      ],
+      correctMsg: "Perfect! Image AIs are amazing for posters and logos.",
+      wrongMsg: "Picture-making AIs turn your ideas into images!" },
+    { type: "mc", question: "Why be careful with AI?", hint: "AI is powerful, but not perfect.",
+      options: [
+        { text: "It can steal your snacks", correct: false },
+        { text: "It can make up wrong info that sounds real", correct: true },
+        { text: "It might turn into a robot friend", correct: false },
+        { text: "It gets tired", correct: false }
+      ],
+      correctMsg: "🎯 Yes! AI sometimes 'hallucinates' fake info.",
+      wrongMsg: "AI can make up things that sound real but aren't true." }
   ],
   badges: [
-    { icon: "trophy", name: "AI Course Trophy", earned: true },
-    { icon: "brain", name: "AI Expert", earned: ({ correct }) => correct >= 5 },
-    { icon: "star", name: "Top Scholar", earned: ({ correct }) => correct >= 7 },
-    { icon: "perfect", name: "PERFECT!", earned: ({ score }) => score === 100 },
-    { icon: "heart", name: "All Hearts", earned: ({ hearts }) => hearts === 3 },
-    { icon: "crown", name: "AI Innovator Boss", earned: ({ score, hearts }) => score >= 80 && hearts >= 2 }
+    { icon: "star", name: "Course Complete", earned: true },
+    { icon: "brain", name: "AI Learner", earned: ({ correct }) => correct >= 2 },
+    { icon: "starter", name: "AI Smart", earned: ({ correct }) => correct >= 5 },
+    { icon: "perfect", name: "Perfect Champion", earned: ({ score }) => score === 100 },
+    { icon: "heart", name: "Untouchable", earned: ({ hearts }) => hearts === 3 },
+    { icon: "trophy", name: "AI Master", earned: ({ score, hearts }) => score >= 80 && hearts >= 2 }
   ]
 });
 </script>
