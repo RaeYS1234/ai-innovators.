@@ -303,7 +303,7 @@
       c.innerHTML = `
         <div class="question-block">
           <div class="question-text">${s.question}</div>
-          ${s.hint ? `<div class="question-hint">${s.hint}</div>` : ""}
+          <div class="question-hint">${s.hint || "Tap an answer, then tap a box."} Tap a filled box to undo.</div>
           <div class="match-area">
             ${s.pairs.map((p, i) => `
               <div class="match-row">
@@ -373,7 +373,23 @@
       matchSelected = chipIdx;
     };
     window._lessonPlaceMatch = function(dropIdx) {
-      if (answered || matchSelected === null) return;
+      if (answered) return;
+
+      // If tapping a filled slot with NO new chip selected, release the chip back to the bank.
+      // This lets kids change their answers even after all slots are filled.
+      if (matchSelected === null && matchAnswers[dropIdx] != null) {
+        const oldChip = document.getElementById(`chip-${matchAnswers[dropIdx]}`);
+        if (oldChip) oldChip.classList.remove("used");
+        delete matchAnswers[dropIdx];
+        const drop = document.getElementById(`drop-${dropIdx}`);
+        drop.textContent = "Tap an option →";
+        drop.classList.remove("has-item");
+        document.getElementById("checkBtn").disabled = true;
+        return;
+      }
+
+      if (matchSelected === null) return;
+
       // If this drop already had a chip, free that exact chip so it comes back.
       if (matchAnswers[dropIdx] != null) {
         const oldChip = document.getElementById(`chip-${matchAnswers[dropIdx]}`);
