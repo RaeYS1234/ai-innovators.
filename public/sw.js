@@ -5,7 +5,7 @@
 // Cache version — change this string when you want to force everyone
 // to clear their cache. With the network-first strategy below, updates
 // already show up immediately when the user has internet.
-const CACHE_NAME = "ai-innovators-2026-07-05";
+const CACHE_NAME = "ai-innovators-2026-07-28";
 
 // Core files to cache so the app works offline
 const CORE_FILES = [
@@ -75,7 +75,28 @@ const CORE_FILES = [
   "/lesson-mm-2-4-unit2-quiz.html",
   "/lesson-mm-3-1-why-save.html",
   "/lesson-mm-3-2-how-to-save.html",
-  "/lesson-mm-challenge.html"
+  "/lesson-mm-challenge.html",
+  // Writing a Business Plan (Level 3 Builder)
+  "/lesson-bp-1-1-what-is-a-business-plan.html",
+  "/lesson-bp-1-2-executive-summary.html",
+  "/lesson-bp-1-3-unit1-quiz.html",
+  "/lesson-bp-2-1-target-market.html",
+  "/lesson-bp-2-2-competition.html",
+  "/lesson-bp-2-3-money-plan.html",
+  "/lesson-bp-3-1-putting-it-together.html",
+  "/lesson-bp-challenge.html",
+  // AI Tools Workshop (Level 3 Builder)
+  "/lesson-at-1-1-chatgpt-basics.html",
+  "/lesson-at-1-2-canva-ai.html",
+  "/lesson-at-1-3-unit1-quiz.html",
+  "/lesson-at-2-1-choosing-right-tool.html",
+  "/lesson-at-2-2-combining-tools.html",
+  "/lesson-at-2-3-avoiding-mistakes.html",
+  "/lesson-at-3-1-for-your-business.html",
+  "/lesson-at-challenge.html",
+  // Marketing & Branding (6-8 Builder Mission)
+  "/lesson-mb-1-1-what-is-marketing.html",
+  "/lesson-mb-1-2-your-brand.html"
 ];
 
 // Install: cache core files and activate immediately
