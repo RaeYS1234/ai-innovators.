@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>What Makes a Good Idea? — AI Innovators</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="lesson-shared.css">
+</head>
+<body>
+<div class="app">
+  <div class="topbar" id="topbar" style="display:none;">
+    <button class="close-btn" id="closeBtn">×</button>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="hearts">
+      <svg class="heart-svg" viewBox="0 0 32 32"><path d="M16 28 C 6 20 2 14 2 10 C 2 6 5 3 9 3 C 12 3 14 5 16 8 C 18 5 20 3 23 3 C 27 3 30 6 30 10 C 30 14 26 20 16 28 Z" fill="#ec4899" stroke="#be185d" stroke-width="1.5"/></svg>
+      <span id="heartsCount">3</span>
+    </div>
+  </div>
+  <div class="screen active" id="screen-welcome">
+    <div class="lesson-tag" id="lesson-tag">LESSON</div>
+    <div class="mascot" id="welcomeMascot"></div>
+    <h1 class="welcome-title" id="welcome-title"></h1>
+    <p class="welcome-subtitle" id="welcome-subtitle"></p>
+    <button class="btn go" id="startBtn">Check My Ideas!</button>
+  </div>
+  <div class="screen" id="screen-lesson"></div>
+  <div class="screen" id="screen-complete">
+    <div class="mascot" id="completeMascot"></div>
+    <h1 class="complete-title">Idea Judge!</h1>
+    <p class="complete-subtitle">You can now tell a great idea from a shaky one. Here's what you earned:</p>
+    <div class="stats-row">
+      <div class="stat-box"><div class="stat-label">XP Earned</div><div class="stat-value xp" id="finalXP">0</div></div>
+      <div class="stat-box"><div class="stat-label">Score</div><div class="stat-value score" id="finalScore">0%</div></div>
+      <div class="stat-box"><div class="stat-label">Hearts Left</div><div class="stat-value" style="color:#ef4444;" id="finalHearts">3</div></div>
+    </div>
+    <h3 style="margin: 28px 0 14px; color: #0c4a6e; font-weight: 900; font-family:'Nunito',sans-serif;">Badges You Earned:</h3>
+    <div class="badge-grid" id="badgeGrid"></div>
+    <button class="btn go" id="backToCourseBtn">Back to Course →</button>
+    <button class="btn ghost" style="margin-top:12px;" id="playAgainBtn">Play Again</button>
+  </div>
+  <div class="screen" id="screen-gameover">
+    <div class="mascot" id="gameoverMascot"></div>
+    <h1 class="complete-title" style="color:#b91c1c;">Out of Hearts!</h1>
+    <p class="complete-subtitle">Try again — even pro founders test ideas more than once!</p>
+    <button class="btn danger" id="retryBtn">Try Again</button>
+  </div>
+</div>
+<div class="feedback" id="feedback">
+  <div class="feedback-inner">
+    <div><div class="feedback-text" id="feedbackText"></div><div class="feedback-explain" id="feedbackExplain"></div></div>
+    <button class="btn go" onclick="window._lessonNext()">Continue</button>
+  </div>
+</div>
+<script src="lesson-engine.js"></script>
+<script>
+const CHECKLIST_ICON = `<svg viewBox="0 0 64 64"><rect x="10" y="6" width="44" height="52" rx="4" fill="white" stroke="#0284c7" stroke-width="3"/><path d="M18 20 L24 26 L34 14" stroke="#22c55e" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/><line x1="38" y1="20" x2="48" y2="20" stroke="#94a3b8" stroke-width="3"/><path d="M18 36 L24 42 L34 30" stroke="#22c55e" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/><line x1="38" y1="36" x2="48" y2="36" stroke="#94a3b8" stroke-width="3"/></svg>`;
+
+runLesson({
+  lessonId: "business-idea-2-1",
+  courseUrl: "course-business-idea.html",
+  tag: "UNIT 2 · LESSON 2.1",
+  title: "What Makes a Good Idea?",
+  subtitle: "Not every idea is a business. Let's learn the 3-question test!",
+  steps: [
+    {
+      type: "vocab",
+      word: "Feasible",
+      pronounce: "say it: FEE-zuh-bul",
+      definition: "<b>Feasible</b> means realistic and possible to actually do with the time, money, and skills you have.",
+      example: "A lemonade stand is feasible. Building a real rocket ship in your backyard is not (yet)!",
+      icon: CHECKLIST_ICON
+    },
+    {
+      type: "teach",
+      title: "The 3-Question Test",
+      body: "Before you commit to an idea, ask: Does it <b>solve a real problem</b>? Can I <b>actually make or do it</b>? Would people <b>pay for it</b>?",
+      examples: ["Solves a problem?", "Can I actually do it?", "Would people pay?"]
+    },
+    {
+      type: "mc",
+      question: "Idea: \"I'll build a real working airplane in my garage and sell rides.\" Does it pass the test?",
+      hint: "Think about the 'can I actually do it' question.",
+      options: [
+        { text: "Yes, totally feasible for a kid to build alone", correct: false },
+        { text: "No — it solves no clear problem AND isn't realistic to build safely", correct: true },
+        { text: "Yes, because airplanes are cool", correct: false },
+        { text: "Yes, if you just believe in yourself", correct: false }
+      ],
+      correctMsg: "Right! Cool ≠ feasible. It needs to be realistic too.",
+      wrongMsg: "Building a real airplane isn't feasible for a kid-run business — always check feasibility."
+    },
+    {
+      type: "mc",
+      question: "Idea: \"A lemonade stand outside my house on a hot day.\" Does it pass the test?",
+      hint: "Check all three questions.",
+      options: [
+        { text: "Yes! Solves thirst, easy to make, people will pay a little", correct: true },
+        { text: "No, lemonade stands never work", correct: false },
+        { text: "No, it's too expensive to start", correct: false },
+        { text: "No, nobody wants lemonade", correct: false }
+      ],
+      correctMsg: "YES! Simple, doable, and solves a real (thirsty!) problem.",
+      wrongMsg: "A lemonade stand checks all 3 boxes: solves a problem, is doable, and people pay for it."
+    },
+    {
+      type: "teach",
+      title: "Small Start, Big Growth",
+      body: "The BEST kid businesses often start tiny and grow. You don't need a huge idea on day one — you need a feasible one you can actually TEST.",
+      examples: ["Start small", "Test it fast", "Grow from there"]
+    },
+    {
+      type: "mc",
+      question: "FINAL: Why test an idea BEFORE spending lots of time on it?",
+      hint: "Think about saving time and effort.",
+      options: [
+        { text: "Testing wastes time — just go big right away", correct: false },
+        { text: "Testing shows if people actually want it before you invest more", correct: true },
+        { text: "You should never test your own ideas", correct: false },
+        { text: "Only adults are allowed to test ideas", correct: false }
+      ],
+      correctMsg: "PERFECT! Test small, learn fast, avoid wasting time on ideas nobody wants.",
+      wrongMsg: "Testing FIRST saves you time and effort — you find out fast if people actually want it."
+    }
+  ],
+  badges: [
+    { icon: "brain", name: "Idea Judge", earned: true },
+    { icon: "star", name: "Sharp Thinker", earned: ({ correct }) => correct >= 2 },
+    { icon: "target", name: "Feasibility Pro", earned: ({ correct }) => correct >= 3 },
+    { icon: "perfect", name: "Perfect Score", earned: ({ score }) => score === 100 },
+    { icon: "heart", name: "All Hearts", earned: ({ hearts }) => hearts === 3 },
+    { icon: "trophy", name: "Idea Expert", earned: ({ score, hearts }) => score >= 80 && hearts >= 2 }
+  ]
+});
+</script>
+</body>
+</html>

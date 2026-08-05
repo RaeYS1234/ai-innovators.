@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Solving Real Problems — AI Innovators</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="lesson-shared.css">
+</head>
+<body>
+<div class="app">
+  <div class="topbar" id="topbar" style="display:none;">
+    <button class="close-btn" id="closeBtn">×</button>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="hearts">
+      <svg class="heart-svg" viewBox="0 0 32 32"><path d="M16 28 C 6 20 2 14 2 10 C 2 6 5 3 9 3 C 12 3 14 5 16 8 C 18 5 20 3 23 3 C 27 3 30 6 30 10 C 30 14 26 20 16 28 Z" fill="#ec4899" stroke="#be185d" stroke-width="1.5"/></svg>
+      <span id="heartsCount">3</span>
+    </div>
+  </div>
+  <div class="screen active" id="screen-welcome">
+    <div class="lesson-tag" id="lesson-tag">LESSON</div>
+    <div class="mascot" id="welcomeMascot"></div>
+    <h1 class="welcome-title" id="welcome-title"></h1>
+    <p class="welcome-subtitle" id="welcome-subtitle"></p>
+    <button class="btn go" id="startBtn">Spot the Problem!</button>
+  </div>
+  <div class="screen" id="screen-lesson"></div>
+  <div class="screen" id="screen-complete">
+    <div class="mascot" id="completeMascot"></div>
+    <h1 class="complete-title">Problem Solver!</h1>
+    <p class="complete-subtitle">You know how to turn problems into products. Here's what you earned:</p>
+    <div class="stats-row">
+      <div class="stat-box"><div class="stat-label">XP Earned</div><div class="stat-value xp" id="finalXP">0</div></div>
+      <div class="stat-box"><div class="stat-label">Score</div><div class="stat-value score" id="finalScore">0%</div></div>
+      <div class="stat-box"><div class="stat-label">Hearts Left</div><div class="stat-value" style="color:#ef4444;" id="finalHearts">3</div></div>
+    </div>
+    <h3 style="margin: 28px 0 14px; color: #0c4a6e; font-weight: 900; font-family:'Nunito',sans-serif;">Badges You Earned:</h3>
+    <div class="badge-grid" id="badgeGrid"></div>
+    <button class="btn go" id="backToCourseBtn">Back to Course →</button>
+    <button class="btn ghost" style="margin-top:12px;" id="playAgainBtn">Play Again</button>
+  </div>
+  <div class="screen" id="screen-gameover">
+    <div class="mascot" id="gameoverMascot"></div>
+    <h1 class="complete-title" style="color:#b91c1c;">Out of Hearts!</h1>
+    <p class="complete-subtitle">Try again — every great founder spots problems with practice!</p>
+    <button class="btn danger" id="retryBtn">Try Again</button>
+  </div>
+</div>
+<div class="feedback" id="feedback">
+  <div class="feedback-inner">
+    <div><div class="feedback-text" id="feedbackText"></div><div class="feedback-explain" id="feedbackExplain"></div></div>
+    <button class="btn go" onclick="window._lessonNext()">Continue</button>
+  </div>
+</div>
+<script src="lesson-engine.js"></script>
+<script>
+const MAGNIFY_ICON = `<svg viewBox="0 0 64 64"><circle cx="27" cy="27" r="16" fill="#e0f2fe" stroke="#0284c7" stroke-width="3"/><line x1="39" y1="39" x2="54" y2="54" stroke="#0284c7" stroke-width="6" stroke-linecap="round"/></svg>`;
+
+runLesson({
+  lessonId: "business-idea-1-2",
+  courseUrl: "course-business-idea.html",
+  tag: "UNIT 1 · LESSON 1.2",
+  title: "Solving Real Problems",
+  subtitle: "Nova again! Let's learn how everyday problems turn into awesome businesses.",
+  steps: [
+    {
+      type: "vocab",
+      word: "Problem",
+      pronounce: "say it: PRAH-blem",
+      definition: "A <b>problem</b> is anything that's annoying, missing, or hard to do. Businesses exist to fix problems for people.",
+      example: "Problem: kids keep losing water bottles at school. Solution: a bottle with a name tag clip built in!",
+      icon: MAGNIFY_ICON
+    },
+    {
+      type: "teach",
+      title: "Big Problems = Big Opportunities",
+      body: "The MORE people who have a problem, the BIGGER the business opportunity. A problem only YOU have might be a small business. A problem MILLIONS of people have could be huge!",
+      examples: ["Small: my one friend loses pencils", "Big: millions of students lose pencils"]
+    },
+    {
+      type: "mc",
+      question: "Which problem could grow into the BIGGEST business?",
+      hint: "Think about how many people have the problem.",
+      options: [
+        { text: "Only your pet hates its food bowl", correct: false },
+        { text: "Almost every kid forgets their lunch sometimes", correct: true },
+        { text: "One kid in one class dislikes recess", correct: false },
+        { text: "Nobody has this problem", correct: false }
+      ],
+      correctMsg: "Yes! When almost EVERYONE has a problem, that's a big opportunity.",
+      wrongMsg: "Look for problems that affect LOTS of people — that's where big businesses grow."
+    },
+    {
+      type: "teach",
+      title: "How to Spot a Problem",
+      body: "Ask yourself three questions: What's <b>annoying</b> me or others? What takes <b>too long</b>? What do people <b>complain about</b> a lot?",
+      examples: ["What's annoying?", "What takes too long?", "What do people complain about?"]
+    },
+    {
+      type: "mc",
+      question: "Your friend says: \"Recess is only 15 minutes and the line for the swing takes forever!\" Is this a problem you could solve?",
+      hint: "Remember — problems are opportunities.",
+      options: [
+        { text: "No, recess complaints don't count", correct: false },
+        { text: "Yes! Maybe invent a fairer turn-taking system for the swings", correct: true },
+        { text: "Yes, but only if you build a whole new playground", correct: false },
+        { text: "No, only adults have real problems", correct: false }
+      ],
+      correctMsg: "Exactly! Even small daily annoyances can spark a great idea.",
+      wrongMsg: "ANY annoyance can be a problem worth solving — even something as simple as swing turns!"
+    },
+    {
+      type: "mc",
+      question: "Someone says, \"There's no such thing as a bad problem to notice.\" Do you agree?",
+      hint: "Every problem you notice is useful information.",
+      options: [
+        { text: "Agree — noticing problems is always useful, even if you don't solve them all", correct: true },
+        { text: "Disagree — only huge problems matter", correct: false },
+        { text: "Disagree — noticing problems is a waste of time", correct: false },
+        { text: "Agree, but only adults should notice problems", correct: false }
+      ],
+      correctMsg: "Right! Every noticed problem is practice for spotting your next big idea.",
+      wrongMsg: "Every problem you notice — big or small — is useful practice for becoming a great entrepreneur."
+    },
+    {
+      type: "mc",
+      question: "FINAL: What's the entrepreneur's superpower?",
+      hint: "It's about seeing what others miss.",
+      options: [
+        { text: "Having lots of money", correct: false },
+        { text: "Noticing problems other people just complain about — and fixing them", correct: true },
+        { text: "Being famous", correct: false },
+        { text: "Knowing everything already", correct: false }
+      ],
+      correctMsg: "YES! Entrepreneurs turn complaints into solutions. That's the superpower!",
+      wrongMsg: "The real superpower is noticing a problem and actually DOING something about it."
+    }
+  ],
+  badges: [
+    { icon: "bulb", name: "Problem Spotter", earned: true },
+    { icon: "target", name: "Sharp Eye", earned: ({ correct }) => correct >= 2 },
+    { icon: "brain", name: "Solution Thinker", earned: ({ correct }) => correct >= 3 },
+    { icon: "perfect", name: "Perfect Score", earned: ({ score }) => score === 100 },
+    { icon: "heart", name: "All Hearts", earned: ({ hearts }) => hearts === 3 },
+    { icon: "trophy", name: "Problem Champion", earned: ({ score, hearts }) => score >= 80 && hearts >= 2 }
+  ]
+});
+</script>
+</body>
+</html>

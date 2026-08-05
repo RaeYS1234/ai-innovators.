@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Writing Good Prompts — AI Innovators</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="lesson-shared.css">
+</head>
+<body>
+<div class="app">
+  <div class="topbar" id="topbar" style="display:none;">
+    <button class="close-btn" id="closeBtn">×</button>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="hearts">
+      <svg class="heart-svg" viewBox="0 0 32 32"><path d="M16 28 C 6 20 2 14 2 10 C 2 6 5 3 9 3 C 12 3 14 5 16 8 C 18 5 20 3 23 3 C 27 3 30 6 30 10 C 30 14 26 20 16 28 Z" fill="#ec4899" stroke="#be185d" stroke-width="1.5"/></svg>
+      <span id="heartsCount">3</span>
+    </div>
+  </div>
+  <div class="screen active" id="screen-welcome">
+    <div class="lesson-tag" id="lesson-tag">LESSON</div>
+    <div class="mascot" id="welcomeMascot"></div>
+    <h1 class="welcome-title" id="welcome-title"></h1>
+    <p class="welcome-subtitle" id="welcome-subtitle"></p>
+    <button class="btn go" id="startBtn">Make Some Art!</button>
+  </div>
+  <div class="screen" id="screen-lesson"></div>
+  <div class="screen" id="screen-complete">
+    <div class="mascot" id="completeMascot"></div>
+    <h1 class="complete-title">Prompt Pro!</h1>
+    <p class="complete-subtitle">You know how to write prompts that WORK! Here's what you earned:</p>
+    <div class="stats-row">
+      <div class="stat-box"><div class="stat-label">XP Earned</div><div class="stat-value xp" id="finalXP">0</div></div>
+      <div class="stat-box"><div class="stat-label">Score</div><div class="stat-value score" id="finalScore">0%</div></div>
+      <div class="stat-box"><div class="stat-label">Hearts Left</div><div class="stat-value" style="color:#ef4444;" id="finalHearts">3</div></div>
+    </div>
+    <h3 style="margin: 28px 0 14px; color: #0c4a6e; font-weight: 900; font-family:'Nunito',sans-serif;">Badges You Earned:</h3>
+    <div class="badge-grid" id="badgeGrid"></div>
+    <button class="btn go" id="backToCourseBtn">Back to Course →</button>
+    <button class="btn ghost" style="margin-top:12px;" id="playAgainBtn">Play Again</button>
+  </div>
+  <div class="screen" id="screen-gameover">
+    <div class="mascot" id="gameoverMascot"></div>
+    <h1 class="complete-title" style="color:#b91c1c;">Out of Hearts!</h1>
+    <p class="complete-subtitle">Try again — even artists need practice!</p>
+    <button class="btn danger" id="retryBtn">Try Again</button>
+  </div>
+</div>
+<div class="feedback" id="feedback">
+  <div class="feedback-inner">
+    <div><div class="feedback-text" id="feedbackText"></div><div class="feedback-explain" id="feedbackExplain"></div></div>
+    <button class="btn go" onclick="window._lessonNext()">Continue</button>
+  </div>
+</div>
+<script src="lesson-engine.js"></script>
+<script>
+const STYLE_ICON = `<svg viewBox="0 0 64 64"><rect x="6" y="6" width="52" height="40" rx="4" fill="#fef3c7" stroke="#d97706" stroke-width="2.5"/><circle cx="18" cy="18" r="5" fill="#fbbf24"/><path d="M6 40 L 22 26 L 32 34 L 46 20 L 58 32 L 58 46 L 6 46 Z" fill="#22c55e" opacity="0.85"/><rect x="12" y="50" width="40" height="8" rx="2" fill="#a855f7"/></svg>`;
+
+runLesson({
+  lessonId: "ai-pictures-1-2",
+  courseUrl: "course-ai-pictures.html",
+  tag: "UNIT 1 · LESSON 1.2",
+  title: "Writing Good Prompts",
+  subtitle: "Nova again! Let's turn OK prompts into AMAZING ones.",
+  steps: [
+    {
+      type: "vocab",
+      word: "Style",
+      pronounce: "say it: STY-ul",
+      definition: "<b>Style</b> is the LOOK of a picture — like cartoon, realistic, or watercolor. Telling AI a style helps it draw exactly the vibe you want.",
+      example: "\"A lemonade stand poster\" is okay. \"A lemonade stand poster, cartoon style, bright colors\" is way better!",
+      icon: STYLE_ICON
+    },
+    {
+      type: "teach",
+      title: "The Prompt Formula",
+      body: "Great prompts have THREE parts: <b>1) Subject</b> (what it is), <b>2) Details</b> (colors, mood, what's happening), and <b>3) Style</b> (cartoon, realistic, etc). Stack all three and your picture gets way better!",
+      examples: ["Subject: a lemonade stand", "Details: sunny day, bright yellow cups", "Style: cheerful cartoon"]
+    },
+    {
+      type: "teach",
+      title: "Before and After",
+      body: "Watch a prompt level up! Weak: \"a poster.\" Better: \"a bake sale poster with cupcakes.\" BEST: \"a colorful bake sale poster with pink cupcakes, bold text, cartoon style.\" More parts = more control over your picture.",
+      examples: ["Weak: 1 word", "Better: subject + details", "Best: subject + details + style"]
+    },
+    {
+      type: "mc",
+      question: "Which prompt uses ALL THREE parts of the formula?",
+      hint: "Look for subject + details + style together.",
+      options: [
+        { text: "\"a dog\"", correct: false },
+        { text: "\"a fluffy brown dog wearing a bow, watercolor style\"", correct: true },
+        { text: "\"cute\"", correct: false },
+        { text: "\"a picture\"", correct: false }
+      ],
+      correctMsg: "Yes! Subject (dog), details (fluffy, brown, bow), and style (watercolor) — all three!",
+      wrongMsg: "That prompt is missing pieces. A full prompt needs a subject, details, AND a style."
+    },
+    {
+      type: "mc",
+      question: "You're making a logo for your lemonade stand. Which prompt gives AI the MOST to work with?",
+      hint: "More specific details = more useful for AI.",
+      options: [
+        { text: "\"lemonade\"", correct: false },
+        { text: "\"a simple round logo with a lemon and blue swirls, flat cartoon style, for a lemonade stand called Sunny Sips\"", correct: true },
+        { text: "\"yellow thing\"", correct: false },
+        { text: "\"business\"", correct: false }
+      ],
+      correctMsg: "That's it! Naming the business, shape, colors, and style gives AI a clear picture to draw.",
+      wrongMsg: "Vague prompts get vague pictures. Name your business, the shape, colors, and style you want."
+    },
+    {
+      type: "mc",
+      question: "What does adding a STYLE word (like \"cartoon\" or \"watercolor\") do to your prompt?",
+      hint: "Think about how the picture would look different.",
+      options: [
+        { text: "It changes the LOOK of the whole picture", correct: true },
+        { text: "It makes the picture bigger", correct: false },
+        { text: "It deletes the subject", correct: false },
+        { text: "Nothing — style doesn't matter", correct: false }
+      ],
+      correctMsg: "Right! The same subject can look totally different in cartoon vs. realistic vs. watercolor style.",
+      wrongMsg: "Style changes the whole LOOK of a picture — a cartoon dog and a realistic dog look very different!"
+    },
+    {
+      type: "mc",
+      question: "FINAL: Someone typed just \"cake.\" What's the BEST advice to help them?",
+      hint: "What's missing from a one-word prompt?",
+      options: [
+        { text: "Add details AND a style — like \"a chocolate cake with sprinkles, cartoon style\"", correct: true },
+        { text: "Type it again exactly the same", correct: false },
+        { text: "Nothing, one word is perfect", correct: false },
+        { text: "Just add more exclamation points", correct: false }
+      ],
+      correctMsg: "PERFECT! Details + style turn a boring prompt into a great one every time.",
+      wrongMsg: "One word rarely makes a great picture. Add details (what it looks like) and a style."
+    }
+  ],
+  badges: [
+    { icon: "starter", name: "Prompt Writer", earned: true },
+    { icon: "star", name: "Detail Detective", earned: ({ correct }) => correct >= 2 },
+    { icon: "brain", name: "Style Spotter", earned: ({ correct }) => correct >= 4 },
+    { icon: "perfect", name: "Perfect Score", earned: ({ score }) => score === 100 },
+    { icon: "heart", name: "All Hearts", earned: ({ hearts }) => hearts === 3 },
+    { icon: "trophy", name: "Formula Master", earned: ({ score, hearts }) => score >= 80 && hearts >= 2 }
+  ]
+});
+</script>
+</body>
+</html>

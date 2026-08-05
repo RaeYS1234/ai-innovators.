@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Test Your Idea — AI Innovators</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="lesson-shared.css">
+</head>
+<body>
+<div class="app">
+  <div class="topbar" id="topbar" style="display:none;">
+    <button class="close-btn" id="closeBtn">×</button>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="hearts">
+      <svg class="heart-svg" viewBox="0 0 32 32"><path d="M16 28 C 6 20 2 14 2 10 C 2 6 5 3 9 3 C 12 3 14 5 16 8 C 18 5 20 3 23 3 C 27 3 30 6 30 10 C 30 14 26 20 16 28 Z" fill="#ec4899" stroke="#be185d" stroke-width="1.5"/></svg>
+      <span id="heartsCount">3</span>
+    </div>
+  </div>
+  <div class="screen active" id="screen-welcome">
+    <div class="lesson-tag" id="lesson-tag">PRACTICE</div>
+    <div class="mascot" id="welcomeMascot"></div>
+    <h1 class="welcome-title" id="welcome-title"></h1>
+    <p class="welcome-subtitle" id="welcome-subtitle"></p>
+    <button class="btn go" id="startBtn">Test It Out!</button>
+  </div>
+  <div class="screen" id="screen-lesson"></div>
+  <div class="screen" id="screen-complete">
+    <div class="mascot" id="completeMascot"></div>
+    <h1 class="complete-title">Idea Tester!</h1>
+    <p class="complete-subtitle">You know how to test an idea before going big. Here's what you earned:</p>
+    <div class="stats-row">
+      <div class="stat-box"><div class="stat-label">XP Earned</div><div class="stat-value xp" id="finalXP">0</div></div>
+      <div class="stat-box"><div class="stat-label">Score</div><div class="stat-value score" id="finalScore">0%</div></div>
+      <div class="stat-box"><div class="stat-label">Hearts Left</div><div class="stat-value" style="color:#ef4444;" id="finalHearts">3</div></div>
+    </div>
+    <h3 style="margin: 28px 0 14px; color: #0c4a6e; font-weight: 900; font-family:'Nunito',sans-serif;">Badges You Earned:</h3>
+    <div class="badge-grid" id="badgeGrid"></div>
+    <button class="btn go" id="backToCourseBtn">Back to Course →</button>
+    <button class="btn ghost" style="margin-top:12px;" id="playAgainBtn">Play Again</button>
+  </div>
+  <div class="screen" id="screen-gameover">
+    <div class="mascot" id="gameoverMascot"></div>
+    <h1 class="complete-title" style="color:#b91c1c;">Out of Hearts!</h1>
+    <p class="complete-subtitle">Try again — even pro founders test more than once!</p>
+    <button class="btn danger" id="retryBtn">Try Again</button>
+  </div>
+</div>
+<div class="feedback" id="feedback">
+  <div class="feedback-inner">
+    <div><div class="feedback-text" id="feedbackText"></div><div class="feedback-explain" id="feedbackExplain"></div></div>
+    <button class="btn go" onclick="window._lessonNext()">Continue</button>
+  </div>
+</div>
+<script src="lesson-engine.js"></script>
+<script>
+const TEST_ICON = `<svg viewBox="0 0 64 64"><rect x="8" y="14" width="48" height="36" rx="4" fill="#fef3c7" stroke="#d97706" stroke-width="2.5"/><circle cx="20" cy="32" r="6" fill="#22c55e"/><path d="M17 32 L19 35 L24 28" stroke="white" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/><line x1="32" y1="26" x2="50" y2="26" stroke="#94a3b8" stroke-width="3"/><line x1="32" y1="38" x2="50" y2="38" stroke="#94a3b8" stroke-width="3"/></svg>`;
+
+runLesson({
+  lessonId: "business-idea-2-2",
+  courseUrl: "course-business-idea.html",
+  tag: "UNIT 2 · PRACTICE",
+  title: "Test Your Idea",
+  subtitle: "Before you build big, try a tiny test! Let's practice.",
+  steps: [
+    {
+      type: "vocab",
+      word: "Pilot Test",
+      pronounce: "say it: PY-lut test",
+      definition: "A <b>pilot test</b> is a small, quick tryout of your idea — like selling to 5 neighbors before selling to the whole town.",
+      example: "Before opening a whole store, a founder might sell just at one weekend market first to see what happens.",
+      icon: TEST_ICON
+    },
+    {
+      type: "teach",
+      title: "3 Ways to Test Small",
+      body: "You don't need money or a big launch to test an idea. Try: <b>ask 5 people</b> if they'd buy it, <b>make one sample</b> and show it around, or <b>sell at one small event</b> instead of everywhere at once.",
+      examples: ["Ask 5 people", "Make 1 sample", "Try 1 small event"]
+    },
+    {
+      type: "mc",
+      question: "You want to sell friendship bracelets. What's the smartest FIRST test?",
+      hint: "Think tiny and cheap before big.",
+      options: [
+        { text: "Make 200 bracelets and open a store right away", correct: false },
+        { text: "Make 5 bracelets and see if friends want to buy them", correct: true },
+        { text: "Wait a year before trying anything", correct: false },
+        { text: "Buy a warehouse first", correct: false }
+      ],
+      correctMsg: "Yes! Small and cheap first — see if people actually want it.",
+      wrongMsg: "Start tiny: a few samples shown to real people beats a big risky launch."
+    },
+    {
+      type: "mc",
+      question: "Your pilot test with 5 people goes badly — nobody wants to buy. What should you do?",
+      hint: "Testing is about learning, not failing.",
+      options: [
+        { text: "Give up on business forever", correct: false },
+        { text: "Learn why, then tweak the idea and test again", correct: true },
+        { text: "Ignore the feedback and launch big anyway", correct: false },
+        { text: "Get angry at the 5 people", correct: false }
+      ],
+      correctMsg: "Exactly! A test that flops just taught you something FAST — before you lost lots of time or money.",
+      wrongMsg: "A failed test is a lesson, not a disaster. Adjust the idea and try again."
+    },
+    {
+      type: "mc",
+      question: "Why test small BEFORE spending all your savings?",
+      hint: "Think about risk.",
+      options: [
+        { text: "So you risk very little if the idea needs changes", correct: true },
+        { text: "Testing costs more than launching big", correct: false },
+        { text: "It's against the rules to test first", correct: false },
+        { text: "It makes your idea worse", correct: false }
+      ],
+      correctMsg: "Right! Small tests protect your time and money while you learn.",
+      wrongMsg: "Testing small means if something's wrong, you've only risked a little — not everything."
+    },
+    {
+      type: "mc",
+      question: "FINAL: What's the BEST way to test a lemonade recipe before a big stand opening?",
+      hint: "Think real feedback from real tasters.",
+      options: [
+        { text: "Guess that it's good without asking anyone", correct: false },
+        { text: "Give samples to a few neighbors and ask honestly what they think", correct: true },
+        { text: "Only ask your own opinion", correct: false },
+        { text: "Skip tasting completely", correct: false }
+      ],
+      correctMsg: "PERFECT! Real feedback from real people is the whole point of a test.",
+      wrongMsg: "Honest feedback from a few real tasters tells you way more than guessing alone."
+    }
+  ],
+  badges: [
+    { icon: "target", name: "Test Runner", earned: true },
+    { icon: "star", name: "Quick Learner", earned: ({ correct }) => correct >= 2 },
+    { icon: "brain", name: "Smart Tester", earned: ({ correct }) => correct >= 3 },
+    { icon: "perfect", name: "Perfect Score", earned: ({ score }) => score === 100 },
+    { icon: "heart", name: "All Hearts", earned: ({ hearts }) => hearts === 3 },
+    { icon: "trophy", name: "Test Master", earned: ({ score, hearts }) => score >= 80 && hearts >= 2 }
+  ]
+});
+</script>
+</body>
+</html>

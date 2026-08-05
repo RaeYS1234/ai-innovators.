@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>AI Art Challenge — AI Innovators</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="lesson-shared.css">
+</head>
+<body>
+<div class="app">
+  <div class="topbar" id="topbar" style="display:none;">
+    <button class="close-btn" id="closeBtn">×</button>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="hearts">
+      <svg class="heart-svg" viewBox="0 0 32 32"><path d="M16 28 C 6 20 2 14 2 10 C 2 6 5 3 9 3 C 12 3 14 5 16 8 C 18 5 20 3 23 3 C 27 3 30 6 30 10 C 30 14 26 20 16 28 Z" fill="#ec4899" stroke="#be185d" stroke-width="1.5"/></svg>
+      <span id="heartsCount">3</span>
+    </div>
+  </div>
+  <div class="screen active" id="screen-welcome">
+    <div class="lesson-tag" id="lesson-tag">🏆 FINAL CHALLENGE</div>
+    <div class="mascot" id="welcomeMascot"></div>
+    <h1 class="welcome-title" id="welcome-title"></h1>
+    <p class="welcome-subtitle" id="welcome-subtitle"></p>
+    <button class="btn go" id="startBtn">Let's Go!</button>
+  </div>
+  <div class="screen" id="screen-lesson"></div>
+  <div class="screen" id="screen-complete">
+    <div class="mascot" id="completeMascot"></div>
+    <h1 class="complete-title">Course Complete!</h1>
+    <p class="complete-subtitle">You're an AI Art & Brand pro! Here's what you earned:</p>
+    <div class="stats-row">
+      <div class="stat-box"><div class="stat-label">XP Earned</div><div class="stat-value xp" id="finalXP">0</div></div>
+      <div class="stat-box"><div class="stat-label">Score</div><div class="stat-value score" id="finalScore">0%</div></div>
+      <div class="stat-box"><div class="stat-label">Hearts Left</div><div class="stat-value" style="color:#ef4444;" id="finalHearts">3</div></div>
+    </div>
+    <h3 style="margin: 28px 0 14px; color: #0c4a6e; font-weight: 900; font-family:'Nunito',sans-serif;">Badges You Earned:</h3>
+    <div class="badge-grid" id="badgeGrid"></div>
+    <button class="btn go" id="backToCourseBtn">Back to Course →</button>
+    <button class="btn ghost" style="margin-top:12px;" id="playAgainBtn">Play Again</button>
+  </div>
+  <div class="screen" id="screen-gameover">
+    <div class="mascot" id="gameoverMascot"></div>
+    <h1 class="complete-title" style="color:#b91c1c;">Out of Hearts!</h1>
+    <p class="complete-subtitle">Try again — you got this!</p>
+    <button class="btn danger" id="retryBtn">Try Again</button>
+  </div>
+</div>
+<div class="feedback" id="feedback">
+  <div class="feedback-inner">
+    <div><div class="feedback-text" id="feedbackText"></div><div class="feedback-explain" id="feedbackExplain"></div></div>
+    <button class="btn go" onclick="window._lessonNext()">Continue</button>
+  </div>
+</div>
+<script src="lesson-engine.js"></script>
+<script>
+runLesson({
+  lessonId: "ai-pictures-challenge",
+  courseUrl: "course-ai-pictures.html",
+  tag: "🏆 FINAL CHALLENGE",
+  title: "AI Art Challenge",
+  subtitle: "The boss battle! Prove you can prompt, brand, and color like a pro.",
+  steps: [
+    { type: "mc", question: "What are the 3 parts of a great AI image prompt?", hint: "Formula time.",
+      options: [
+        { text: "Subject, details, and style", correct: true },
+        { text: "Price, size, and weight", correct: false },
+        { text: "Just one random word", correct: false },
+        { text: "Only colors", correct: false }
+      ],
+      correctMsg: "Right! Subject + details + style = a strong prompt.",
+      wrongMsg: "Great prompts stack subject, details, and style together." },
+    { type: "mc", question: "What is a logo?", hint: "Think first impressions.",
+      options: [
+        { text: "A simple picture or symbol that represents a business", correct: true },
+        { text: "A long paragraph", correct: false },
+        { text: "A phone number", correct: false },
+        { text: "A receipt", correct: false }
+      ],
+      correctMsg: "Yes! A logo is your business's visual symbol.",
+      wrongMsg: "A logo is a simple picture or symbol, not text or numbers." },
+    { type: "mc", question: "What makes a logo GREAT?", hint: "Think simple, memorable, meaningful.",
+      options: [
+        { text: "Simple, memorable, and connected to the business", correct: true },
+        { text: "As many tiny details as possible", correct: false },
+        { text: "Totally random shapes", correct: false },
+        { text: "Copying someone else's exactly", correct: false }
+      ],
+      correctMsg: "Exactly! Simple, memorable, meaningful.",
+      wrongMsg: "Great logos are simple, memorable, and connect to what the business does." },
+    { type: "mc", question: "Business: \"Bright Ideas Tutoring.\" Best logo symbol?", hint: "Think learning.",
+      options: [
+        { text: "A lightbulb", correct: true },
+        { text: "A pizza slice", correct: false },
+        { text: "A skateboard", correct: false },
+        { text: "A fish", correct: false }
+      ],
+      correctMsg: "Perfect! A lightbulb connects to bright ideas.",
+      wrongMsg: "Pick a symbol connected to the business meaning." },
+    { type: "mc", question: "A calming kids' yoga studio should probably use which colors?", hint: "Think calm feelings.",
+      options: [
+        { text: "Soft blue and green", correct: true },
+        { text: "Neon red and black", correct: false },
+        { text: "Bright orange and hot pink only", correct: false },
+        { text: "All gray, no other colors", correct: false }
+      ],
+      correctMsg: "Right! Soft blue and green feel calm and peaceful.",
+      wrongMsg: "Colors should match the feeling — calm businesses use soft, cool colors." },
+    { type: "mc", question: "Your first AI logo draft looks messy. Best next step?", hint: "Design is a process.",
+      options: [
+        { text: "Tweak the prompt with clearer details and try again", correct: true },
+        { text: "Give up on having a logo", correct: false },
+        { text: "Use it anyway even though it's messy", correct: false },
+        { text: "Never use AI again", correct: false }
+      ],
+      correctMsg: "Yes! Refining your prompt is exactly how great designs happen.",
+      wrongMsg: "Tweak and retry — that's how real designers land on a great logo." },
+    { type: "mc", question: "Why do businesses pick colors carefully instead of using any random color?", hint: "Think about the message sent.",
+      options: [
+        { text: "Because colors send a feeling before anyone reads a word", correct: true },
+        { text: "Colors don't matter at all", correct: false },
+        { text: "Only to match a favorite color", correct: false },
+        { text: "Because rules require only 1 color ever", correct: false }
+      ],
+      correctMsg: "🎯 Yes! Colors instantly communicate a feeling.",
+      wrongMsg: "Colors send an instant feeling — bold, calm, fresh — so pick them with purpose." }
+  ],
+  badges: [
+    { icon: "star", name: "Course Complete", earned: true },
+    { icon: "brain", name: "Prompt Pro", earned: ({ correct }) => correct >= 3 },
+    { icon: "starter", name: "Brand Builder", earned: ({ correct }) => correct >= 5 },
+    { icon: "perfect", name: "Perfect Champion", earned: ({ score }) => score === 100 },
+    { icon: "heart", name: "Untouchable", earned: ({ hearts }) => hearts === 3 },
+    { icon: "trophy", name: "Art Director", earned: ({ score, hearts }) => score >= 80 && hearts >= 2 }
+  ]
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pick Your Colors — AI Innovators</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="lesson-shared.css">
+</head>
+<body>
+<div class="app">
+  <div class="topbar" id="topbar" style="display:none;">
+    <button class="close-btn" id="closeBtn">×</button>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="hearts">
+      <svg class="heart-svg" viewBox="0 0 32 32"><path d="M16 28 C 6 20 2 14 2 10 C 2 6 5 3 9 3 C 12 3 14 5 16 8 C 18 5 20 3 23 3 C 27 3 30 6 30 10 C 30 14 26 20 16 28 Z" fill="#ec4899" stroke="#be185d" stroke-width="1.5"/></svg>
+      <span id="heartsCount">3</span>
+    </div>
+  </div>
+  <div class="screen active" id="screen-welcome">
+    <div class="lesson-tag" id="lesson-tag">PRACTICE</div>
+    <div class="mascot" id="welcomeMascot"></div>
+    <h1 class="welcome-title" id="welcome-title"></h1>
+    <p class="welcome-subtitle" id="welcome-subtitle"></p>
+    <button class="btn go" id="startBtn">Pick Colors!</button>
+  </div>
+  <div class="screen" id="screen-lesson"></div>
+  <div class="screen" id="screen-complete">
+    <div class="mascot" id="completeMascot"></div>
+    <h1 class="complete-title">Color Expert!</h1>
+    <p class="complete-subtitle">You know how colors send a message. Here's what you earned:</p>
+    <div class="stats-row">
+      <div class="stat-box"><div class="stat-label">XP Earned</div><div class="stat-value xp" id="finalXP">0</div></div>
+      <div class="stat-box"><div class="stat-label">Score</div><div class="stat-value score" id="finalScore">0%</div></div>
+      <div class="stat-box"><div class="stat-label">Hearts Left</div><div class="stat-value" style="color:#ef4444;" id="finalHearts">3</div></div>
+    </div>
+    <h3 style="margin: 28px 0 14px; color: #0c4a6e; font-weight: 900; font-family:'Nunito',sans-serif;">Badges You Earned:</h3>
+    <div class="badge-grid" id="badgeGrid"></div>
+    <button class="btn go" id="backToCourseBtn">Back to Course →</button>
+    <button class="btn ghost" style="margin-top:12px;" id="playAgainBtn">Play Again</button>
+  </div>
+  <div class="screen" id="screen-gameover">
+    <div class="mascot" id="gameoverMascot"></div>
+    <h1 class="complete-title" style="color:#b91c1c;">Out of Hearts!</h1>
+    <p class="complete-subtitle">Try again — color picking takes practice!</p>
+    <button class="btn danger" id="retryBtn">Try Again</button>
+  </div>
+</div>
+<div class="feedback" id="feedback">
+  <div class="feedback-inner">
+    <div><div class="feedback-text" id="feedbackText"></div><div class="feedback-explain" id="feedbackExplain"></div></div>
+    <button class="btn go" onclick="window._lessonNext()">Continue</button>
+  </div>
+</div>
+<script src="lesson-engine.js"></script>
+<script>
+runLesson({
+  lessonId: "ai-pictures-2-3",
+  courseUrl: "course-ai-pictures.html",
+  tag: "UNIT 2 · PRACTICE",
+  title: "Pick Your Colors",
+  subtitle: "Colors send messages before anyone reads a word. Let's match feelings to colors!",
+  steps: [
+    {
+      type: "teach",
+      title: "Colors Have Feelings",
+      body: "Colors make people FEEL things instantly. Red feels bold and exciting (like fast food). Blue feels calm and trustworthy (like banks). Green feels fresh and healthy (like nature brands). Pick colors that match your business's vibe!",
+      examples: ["Red = bold, exciting", "Blue = calm, trustworthy", "Green = fresh, healthy"]
+    },
+    {
+      type: "match",
+      question: "Round 1: Match the business to its best color vibe",
+      hint: "Think about the feeling each business wants to give.",
+      pairs: [
+        { prompt: "A calming yoga studio for kids", answer: "Soft blue and green" },
+        { prompt: "An exciting birthday party planning business", answer: "Bright pink and yellow" },
+        { prompt: "A healthy smoothie shop", answer: "Fresh green" }
+      ],
+      correctMsg: "Great matching! You're thinking about color feelings, not just favorites.",
+      wrongMsg: "Match the FEELING the business wants — calm, exciting, or healthy — to the right color."
+    },
+    {
+      type: "mc",
+      question: "Why shouldn't you just pick your favorite color for every business?",
+      hint: "Think about what the CUSTOMER should feel.",
+      options: [
+        { text: "Because the colors should match the business's message, not just your taste", correct: true },
+        { text: "Favorite colors are always wrong", correct: false },
+        { text: "It doesn't matter at all what colors you pick", correct: false },
+        { text: "Only adults are allowed to pick colors", correct: false }
+      ],
+      correctMsg: "Right! Colors should match what the BUSINESS needs to communicate.",
+      wrongMsg: "Colors should fit the business's message and feeling — not just be your personal favorite."
+    },
+    {
+      type: "mc",
+      question: "FINAL: A lemonade stand wants to feel \"fresh, sunny, and fun.\" Best color pick?",
+      hint: "Think sunshine and citrus.",
+      options: [
+        { text: "Bright yellow with a splash of light blue", correct: true },
+        { text: "All black and gray", correct: false },
+        { text: "Dark navy only", correct: false },
+        { text: "All brown", correct: false }
+      ],
+      correctMsg: "PERFECT! Yellow and light blue feel sunny, fresh, and fun.",
+      wrongMsg: "Bright, sunny colors like yellow and light blue match 'fresh, sunny, fun' best."
+    }
+  ],
+  badges: [
+    { icon: "starter", name: "Color Explorer", earned: true },
+    { icon: "star", name: "Mood Matcher", earned: ({ correct }) => correct >= 2 },
+    { icon: "brain", name: "Color Smart", earned: ({ correct }) => correct >= 3 },
+    { icon: "perfect", name: "Perfect Score", earned: ({ score }) => score === 100 },
+    { icon: "heart", name: "All Hearts", earned: ({ hearts }) => hearts === 3 },
+    { icon: "trophy", name: "Color Expert", earned: ({ score, hearts }) => score >= 80 && hearts >= 2 }
+  ]
+});
+</script>
+</body>
+</html>
