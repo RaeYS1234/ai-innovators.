@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Pricing Challenge — AI Innovators</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="lesson-shared.css">
+</head>
+<body>
+<div class="app">
+  <div class="topbar" id="topbar" style="display:none;">
+    <button class="close-btn" id="closeBtn">×</button>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="hearts">
+      <svg class="heart-svg" viewBox="0 0 32 32"><path d="M16 28 C 6 20 2 14 2 10 C 2 6 5 3 9 3 C 12 3 14 5 16 8 C 18 5 20 3 23 3 C 27 3 30 6 30 10 C 30 14 26 20 16 28 Z" fill="#ec4899" stroke="#be185d" stroke-width="1.5"/></svg>
+      <span id="heartsCount">3</span>
+    </div>
+  </div>
+  <div class="screen active" id="screen-welcome">
+    <div class="lesson-tag" id="lesson-tag">FINAL CHALLENGE</div>
+    <div class="mascot" id="welcomeMascot"></div>
+    <h1 class="welcome-title" id="welcome-title"></h1>
+    <p class="welcome-subtitle" id="welcome-subtitle"></p>
+    <button class="btn go" id="startBtn">Start Challenge!</button>
+  </div>
+  <div class="screen" id="screen-lesson"></div>
+  <div class="screen" id="screen-complete">
+    <div class="mascot" id="completeMascot"></div>
+    <h1 class="complete-title">Challenge Complete!</h1>
+    <p class="complete-subtitle">You've mastered pricing and profit strategy! Here's what you earned:</p>
+    <div class="stats-row">
+      <div class="stat-box"><div class="stat-label">XP Earned</div><div class="stat-value xp" id="finalXP">0</div></div>
+      <div class="stat-box"><div class="stat-label">Score</div><div class="stat-value score" id="finalScore">0%</div></div>
+      <div class="stat-box"><div class="stat-label">Hearts Left</div><div class="stat-value" style="color:#ef4444;" id="finalHearts">3</div></div>
+    </div>
+    <h3 style="margin: 28px 0 14px; color: #0c4a6e; font-weight: 900; font-family:'Nunito',sans-serif;">Badges You Earned:</h3>
+    <div class="badge-grid" id="badgeGrid"></div>
+    <button class="btn go" id="backToCourseBtn">Back to Course →</button>
+    <button class="btn ghost" style="margin-top:12px;" id="playAgainBtn">Play Again</button>
+  </div>
+  <div class="screen" id="screen-gameover">
+    <div class="mascot" id="gameoverMascot"></div>
+    <h1 class="complete-title" style="color:#b91c1c;">Out of Hearts!</h1>
+    <p class="complete-subtitle">Try again — you're almost a pricing pro!</p>
+    <button class="btn danger" id="retryBtn">Try Again</button>
+  </div>
+</div>
+<div class="feedback" id="feedback">
+  <div class="feedback-inner">
+    <div><div class="feedback-text" id="feedbackText"></div><div class="feedback-explain" id="feedbackExplain"></div></div>
+    <button class="btn go" onclick="window._lessonNext()">Continue</button>
+  </div>
+</div>
+<script src="lesson-engine.js"></script>
+<script>
+runLesson({
+  lessonId: "pricing-strategy-challenge",
+  courseUrl: "course-pricing-strategy.html",
+  tag: "FINAL CHALLENGE",
+  title: "Pricing Challenge",
+  subtitle: "Prove you've mastered pricing and profit strategy!",
+  steps: [
+    {
+      type: "mc",
+      question: "What does \"price\" represent?",
+      hint: "Who pays it, and for what?",
+      options: [
+        { text: "The amount a customer pays for a product or service", correct: true },
+        { text: "The cost to make a product", correct: false },
+        { text: "Your total profit", correct: false },
+        { text: "A random guess", correct: false }
+      ],
+      correctMsg: "Correct! Price is what the customer pays.",
+      wrongMsg: "Price is the amount a customer pays — not your cost or profit."
+    },
+    {
+      type: "mc",
+      question: "In Cost-Plus pricing, Price = ?",
+      hint: "Add two things together.",
+      options: [
+        { text: "Cost + Markup", correct: true },
+        { text: "Cost − Markup", correct: false },
+        { text: "Just a random guess", correct: false },
+        { text: "A competitor's exact price", correct: false }
+      ],
+      correctMsg: "Right! Cost-Plus = Cost + Markup.",
+      wrongMsg: "Cost-Plus pricing adds your cost and a markup together."
+    },
+    {
+      type: "mc",
+      question: "Value-Based pricing is based mainly on...",
+      hint: "Think from the customer's point of view.",
+      options: [
+        { text: "How much the customer believes it's worth", correct: true },
+        { text: "Only the cost to make it", correct: false },
+        { text: "The weather that day", correct: false },
+        { text: "Random luck", correct: false }
+      ],
+      correctMsg: "Yes! Value-Based pricing follows perceived worth.",
+      wrongMsg: "Value-Based pricing is set by how much the customer believes it's worth to them."
+    },
+    {
+      type: "mc",
+      question: "A limited-time price cut to attract buyers is called a...",
+      hint: "It's temporary, not permanent.",
+      options: [
+        { text: "Discount", correct: true },
+        { text: "Markup", correct: false },
+        { text: "Bundle", correct: false },
+        { text: "Value price", correct: false }
+      ],
+      correctMsg: "Correct! That's a discount.",
+      wrongMsg: "A temporary, limited-time price cut is called a discount."
+    },
+    {
+      type: "mc",
+      question: "Selling two or more products together for one price is called...",
+      hint: "Think of a combo meal.",
+      options: [
+        { text: "Bundling", correct: true },
+        { text: "Discounting", correct: false },
+        { text: "Cost-Plus Pricing", correct: false },
+        { text: "Overpricing", correct: false }
+      ],
+      correctMsg: "Right! That's bundling.",
+      wrongMsg: "Selling multiple products together for one price is bundling."
+    },
+    {
+      type: "mc",
+      question: "A candle costs $4 to make. You add a $5 markup. What's the price?",
+      hint: "Cost + Markup.",
+      options: [
+        { text: "$9", correct: true },
+        { text: "$1", correct: false },
+        { text: "$20", correct: false },
+        { text: "$4", correct: false }
+      ],
+      correctMsg: "Perfect! $4 + $5 = $9.",
+      wrongMsg: "Add the cost ($4) and the markup ($5) together: $4 + $5 = $9."
+    },
+    {
+      type: "mc",
+      question: "Why is it risky to price something too low?",
+      hint: "Think about running a sustainable business.",
+      options: [
+        { text: "You might not earn enough profit to sustain the business", correct: true },
+        { text: "Customers will refuse to ever buy it", correct: false },
+        { text: "It's illegal to price things low", correct: false },
+        { text: "Nothing bad happens at all", correct: false }
+      ],
+      correctMsg: "Exactly! Pricing too low can leave you without enough profit to keep going.",
+      wrongMsg: "Pricing too low risks not earning enough profit to sustain and grow your business."
+    }
+  ],
+  badges: [
+    { icon: "trophy", name: "Pricing Champion", earned: true },
+    { icon: "star", name: "Sharp Thinker", earned: ({ correct }) => correct >= 3 },
+    { icon: "brain", name: "Pricing Master", earned: ({ correct }) => correct >= 6 },
+    { icon: "perfect", name: "Perfect Score", earned: ({ score }) => score === 100 },
+    { icon: "heart", name: "All Hearts", earned: ({ hearts }) => hearts === 3 },
+    { icon: "crown", name: "Profit Strategist", earned: ({ score, hearts }) => score >= 80 && hearts >= 2 }
+  ]
+});
+</script>
+</body>
+</html>

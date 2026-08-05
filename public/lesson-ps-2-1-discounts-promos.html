@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Discounts & Promos — AI Innovators</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="lesson-shared.css">
+</head>
+<body>
+<div class="app">
+  <div class="topbar" id="topbar" style="display:none;">
+    <button class="close-btn" id="closeBtn">×</button>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="hearts">
+      <svg class="heart-svg" viewBox="0 0 32 32"><path d="M16 28 C 6 20 2 14 2 10 C 2 6 5 3 9 3 C 12 3 14 5 16 8 C 18 5 20 3 23 3 C 27 3 30 6 30 10 C 30 14 26 20 16 28 Z" fill="#ec4899" stroke="#be185d" stroke-width="1.5"/></svg>
+      <span id="heartsCount">3</span>
+    </div>
+  </div>
+  <div class="screen active" id="screen-welcome">
+    <div class="lesson-tag" id="lesson-tag">LESSON</div>
+    <div class="mascot" id="welcomeMascot"></div>
+    <h1 class="welcome-title" id="welcome-title"></h1>
+    <p class="welcome-subtitle" id="welcome-subtitle"></p>
+    <button class="btn go" id="startBtn">Let's Go!</button>
+  </div>
+  <div class="screen" id="screen-lesson"></div>
+  <div class="screen" id="screen-complete">
+    <div class="mascot" id="completeMascot"></div>
+    <h1 class="complete-title">Lesson Complete!</h1>
+    <p class="complete-subtitle">Awesome work! Here's what you earned:</p>
+    <div class="stats-row">
+      <div class="stat-box"><div class="stat-label">XP Earned</div><div class="stat-value xp" id="finalXP">0</div></div>
+      <div class="stat-box"><div class="stat-label">Score</div><div class="stat-value score" id="finalScore">0%</div></div>
+      <div class="stat-box"><div class="stat-label">Hearts Left</div><div class="stat-value" style="color:#ef4444;" id="finalHearts">3</div></div>
+    </div>
+    <h3 style="margin: 28px 0 14px; color: #0c4a6e; font-weight: 900; font-family:'Nunito',sans-serif;">Badges You Earned:</h3>
+    <div class="badge-grid" id="badgeGrid"></div>
+    <button class="btn go" id="backToCourseBtn">Back to Course →</button>
+    <button class="btn ghost" style="margin-top:12px;" id="playAgainBtn">Play Again</button>
+  </div>
+  <div class="screen" id="screen-gameover">
+    <div class="mascot" id="gameoverMascot"></div>
+    <h1 class="complete-title" style="color:#b91c1c;">Out of Hearts!</h1>
+    <p class="complete-subtitle">Try again — you got this!</p>
+    <button class="btn danger" id="retryBtn">Try Again</button>
+  </div>
+</div>
+<div class="feedback" id="feedback">
+  <div class="feedback-inner">
+    <div><div class="feedback-text" id="feedbackText"></div><div class="feedback-explain" id="feedbackExplain"></div></div>
+    <button class="btn go" onclick="window._lessonNext()">Continue</button>
+  </div>
+</div>
+<script src="lesson-engine.js"></script>
+<script>
+const PERCENT_ICON = `<svg viewBox="0 0 64 64"><circle cx="32" cy="32" r="26" fill="#f97316" stroke="#c2410c" stroke-width="2.5"/><circle cx="23" cy="23" r="6" fill="white"/><circle cx="41" cy="41" r="6" fill="white"/><line x1="18" y1="46" x2="46" y2="18" stroke="white" stroke-width="4" stroke-linecap="round"/></svg>`;
+
+runLesson({
+  lessonId: "pricing-strategy-2-1",
+  courseUrl: "course-pricing-strategy.html",
+  tag: "UNIT 2 · LESSON 2.1",
+  title: "Discounts & Promos",
+  subtitle: "Why (and when) businesses knock prices down on purpose",
+  steps: [
+    {
+      type: "vocab",
+      word: "Discount",
+      pronounce: "say it: DIS-count",
+      definition: "A <b>discount</b> is a temporary price cut — customers pay less than the usual price, for a limited time or reason.",
+      example: "A shirt normally $20, on sale for $15 — that's a discount.",
+      icon: PERCENT_ICON
+    },
+    {
+      type: "teach",
+      title: "Why Businesses Discount",
+      body: "Discounts aren't random — smart founders use them on purpose: to clear out old inventory, attract new customers to try something for the first time, celebrate a launch or holiday, or reward loyal fans.",
+      examples: ["Clear old stock", "Attract new customers", "Celebrate an event", "Reward loyal fans"]
+    },
+    {
+      type: "mc",
+      question: "What is a discount?",
+      hint: "Think about how long it lasts.",
+      options: [
+        { text: "A temporary price cut", correct: true },
+        { text: "A permanent price increase", correct: false },
+        { text: "A type of product", correct: false },
+        { text: "A customer complaint", correct: false }
+      ],
+      correctMsg: "Right! Discounts are temporary, not forever.",
+      wrongMsg: "A discount is a TEMPORARY price cut, not a permanent change."
+    },
+    {
+      type: "mc",
+      question: "Which is a common REASON businesses run a discount?",
+      hint: "Think about what a founder is trying to achieve.",
+      options: [
+        { text: "To clear out old inventory before new stock arrives", correct: true },
+        { text: "To confuse customers on purpose", correct: false },
+        { text: "Because prices must always go down eventually", correct: false },
+        { text: "To make less money on purpose forever", correct: false }
+      ],
+      correctMsg: "Yes! Clearing old inventory is a classic reason to discount.",
+      wrongMsg: "Businesses discount for real strategic reasons — like clearing old stock, not confusing customers."
+    },
+    {
+      type: "mc",
+      question: "A store posts \"20% OFF everything this weekend only!\" What kind of discount is this?",
+      hint: "Notice the time limit.",
+      options: [
+        { text: "A limited-time promo to bring in customers fast", correct: true },
+        { text: "A permanent price change", correct: false },
+        { text: "A mistake on the sign", correct: false },
+        { text: "A cost-plus price", correct: false }
+      ],
+      correctMsg: "Correct! \"This weekend only\" creates urgency to buy now.",
+      wrongMsg: "The time limit (\"this weekend only\") makes this a limited-time promotional discount."
+    },
+    {
+      type: "mc",
+      question: "What's a smart reason to be CAREFUL with discounts?",
+      hint: "Think about customer habits over time.",
+      options: [
+        { text: "Too many discounts can train customers to never pay full price", correct: true },
+        { text: "Discounts always make more profit no matter what", correct: false },
+        { text: "There's no downside to discounting, ever", correct: false },
+        { text: "Customers hate seeing discounts", correct: false }
+      ],
+      correctMsg: "Exactly! Overusing discounts can hurt your brand's normal pricing long-term.",
+      wrongMsg: "If you discount too often, customers may start waiting for sales instead of paying full price."
+    }
+  ],
+  badges: [
+    { icon: "bulb", name: "Promo Starter", earned: true },
+    { icon: "star", name: "Quick Learner", earned: ({ correct }) => correct >= 2 },
+    { icon: "brain", name: "Discount Smart", earned: ({ correct }) => correct >= 4 },
+    { icon: "perfect", name: "Perfect Score", earned: ({ score }) => score === 100 },
+    { icon: "heart", name: "All Hearts", earned: ({ hearts }) => hearts === 3 },
+    { icon: "trophy", name: "Promo Planner", earned: ({ score, hearts }) => score >= 80 && hearts >= 2 }
+  ]
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Price Test Practice — AI Innovators</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="lesson-shared.css">
+</head>
+<body>
+<div class="app">
+  <div class="topbar" id="topbar" style="display:none;">
+    <button class="close-btn" id="closeBtn">×</button>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="hearts">
+      <svg class="heart-svg" viewBox="0 0 32 32"><path d="M16 28 C 6 20 2 14 2 10 C 2 6 5 3 9 3 C 12 3 14 5 16 8 C 18 5 20 3 23 3 C 27 3 30 6 30 10 C 30 14 26 20 16 28 Z" fill="#ec4899" stroke="#be185d" stroke-width="1.5"/></svg>
+      <span id="heartsCount">3</span>
+    </div>
+  </div>
+  <div class="screen active" id="screen-welcome">
+    <div class="lesson-tag" id="lesson-tag">PRACTICE</div>
+    <div class="mascot" id="welcomeMascot"></div>
+    <h1 class="welcome-title" id="welcome-title"></h1>
+    <p class="welcome-subtitle" id="welcome-subtitle"></p>
+    <button class="btn go" id="startBtn">Let's Calculate!</button>
+  </div>
+  <div class="screen" id="screen-lesson"></div>
+  <div class="screen" id="screen-complete">
+    <div class="mascot" id="completeMascot"></div>
+    <h1 class="complete-title">Price Test Champion!</h1>
+    <p class="complete-subtitle">You can calculate discounts and bundle savings like a real founder. Here's what you earned:</p>
+    <div class="stats-row">
+      <div class="stat-box"><div class="stat-label">XP Earned</div><div class="stat-value xp" id="finalXP">0</div></div>
+      <div class="stat-box"><div class="stat-label">Score</div><div class="stat-value score" id="finalScore">0%</div></div>
+      <div class="stat-box"><div class="stat-label">Hearts Left</div><div class="stat-value" style="color:#ef4444;" id="finalHearts">3</div></div>
+    </div>
+    <h3 style="margin: 28px 0 14px; color: #0c4a6e; font-weight: 900; font-family:'Nunito',sans-serif;">Badges You Earned:</h3>
+    <div class="badge-grid" id="badgeGrid"></div>
+    <button class="btn go" id="backToCourseBtn">Back to Course →</button>
+    <button class="btn ghost" style="margin-top:12px;" id="playAgainBtn">Play Again</button>
+  </div>
+  <div class="screen" id="screen-gameover">
+    <div class="mascot" id="gameoverMascot"></div>
+    <h1 class="complete-title" style="color:#b91c1c;">Out of Hearts!</h1>
+    <p class="complete-subtitle">Try again — great pricing takes practice!</p>
+    <button class="btn danger" id="retryBtn">Try Again</button>
+  </div>
+</div>
+<div class="feedback" id="feedback">
+  <div class="feedback-inner">
+    <div><div class="feedback-text" id="feedbackText"></div><div class="feedback-explain" id="feedbackExplain"></div></div>
+    <button class="btn go" onclick="window._lessonNext()">Continue</button>
+  </div>
+</div>
+<script src="lesson-engine.js"></script>
+<script>
+runLesson({
+  lessonId: "pricing-strategy-2-3",
+  courseUrl: "course-pricing-strategy.html",
+  tag: "UNIT 2 · PRACTICE",
+  title: "Price Test Practice",
+  subtitle: "Calculate discounts and bundle savings like a real founder",
+  steps: [
+    {
+      type: "teach",
+      title: "Testing Prices With Real Math",
+      body: "Let's practice calculating discounts and bundle deals — the exact math real founders use every day.",
+      examples: []
+    },
+    {
+      type: "math",
+      question: "Discount Amount",
+      story: "A backpack normally costs $40. It's on sale for 25% off.",
+      equation: "$40 × 0.25 = ?",
+      hint: "Multiply the price by the discount percent (as a decimal).",
+      answer: 10,
+      correctMsg: "$40 × 0.25 = $10 off!",
+      wrongMsg: "Multiply the original price by the discount percent (written as a decimal) to find the amount off."
+    },
+    {
+      type: "math",
+      question: "Sale Price",
+      story: "That same $40 backpack has $10 off.",
+      equation: "$40 − $10 = ?",
+      hint: "Subtract the discount from the original price.",
+      answer: 30,
+      correctMsg: "$40 − $10 = $30 sale price!",
+      wrongMsg: "Subtract the discount amount from the original price to get the sale price."
+    },
+    {
+      type: "math",
+      question: "Bundle Savings",
+      story: "Buying a shirt ($15) and a hat ($10) separately costs $25 total. As a bundle, they cost $20.",
+      equation: "$25 − $20 = ?",
+      hint: "Subtract the bundle price from buying separately.",
+      answer: 5,
+      correctMsg: "$25 − $20 = $5 saved with the bundle!",
+      wrongMsg: "Subtract the bundle price from the total cost of buying separately to find the savings."
+    },
+    {
+      type: "math",
+      question: "Discount Price",
+      story: "A $50 skateboard is 10% off.",
+      equation: "$50 − ($50 × 0.10) = ?",
+      hint: "Find 10% of $50 first, then subtract it from $50.",
+      answer: 45,
+      correctMsg: "10% of $50 is $5, so $50 − $5 = $45!",
+      wrongMsg: "First find 10% of $50 (that's the discount), then subtract it from $50."
+    },
+    {
+      type: "math",
+      question: "Total Revenue With Discount",
+      story: "You sell 8 candles at a discounted price of $6 each (normally $8).",
+      equation: "8 × $6 = ?",
+      hint: "Multiply how many sold by the discounted price.",
+      answer: 48,
+      correctMsg: "8 × $6 = $48 total revenue!",
+      wrongMsg: "Multiply the number of candles sold by the discounted price to find total revenue."
+    }
+  ],
+  badges: [
+    { icon: "money", name: "Discount Detective", earned: true },
+    { icon: "star", name: "Quick Learner", earned: ({ correct }) => correct >= 2 },
+    { icon: "brain", name: "Math Whiz", earned: ({ correct }) => correct >= 4 },
+    { icon: "perfect", name: "Perfect Score", earned: ({ score }) => score === 100 },
+    { icon: "heart", name: "All Hearts", earned: ({ hearts }) => hearts === 3 },
+    { icon: "trophy", name: "Price Test Champion", earned: ({ score, hearts }) => score >= 80 && hearts >= 2 }
+  ]
+});
+</script>
+</body>
+</html>

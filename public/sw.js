@@ -5,7 +5,7 @@
 // Cache version — change this string when you want to force everyone
 // to clear their cache. With the network-first strategy below, updates
 // already show up immediately when the user has internet.
-const CACHE_NAME = "ai-innovators-2026-07-28";
+const CACHE_NAME = "ai-innovators-2026-08-05";
 
 // Core files to cache so the app works offline
 const CORE_FILES = [
@@ -65,7 +65,18 @@ const CORE_FILES = [
   // Other K-5 starter lessons
   "/lesson-mm-1-1-what-is-money.html",
   "/lesson-bi-1-1-where-ideas-come-from.html",
+  "/lesson-bi-1-2-solving-problems.html",
+  "/lesson-bi-1-3-brainstorm.html",
+  "/lesson-bi-2-1-good-idea.html",
+  "/lesson-bi-2-2-test-your-idea.html",
+  "/lesson-bi-challenge.html",
   "/lesson-ap-1-1-how-ai-makes-pictures.html",
+  "/lesson-ap-1-2-good-prompts.html",
+  "/lesson-ap-1-3-first-prompt.html",
+  "/lesson-ap-2-1-what-is-a-logo.html",
+  "/lesson-ap-2-2-make-your-logo.html",
+  "/lesson-ap-2-3-pick-colors.html",
+  "/lesson-ap-challenge.html",
   // Money Math full course
   "/lesson-mm-1-2-adding-dollars.html",
   "/lesson-mm-1-3-unit1-quiz.html",
@@ -96,7 +107,30 @@ const CORE_FILES = [
   "/lesson-at-challenge.html",
   // Marketing & Branding (6-8 Builder Mission)
   "/lesson-mb-1-1-what-is-marketing.html",
-  "/lesson-mb-1-2-your-brand.html"
+  "/lesson-mb-1-2-your-brand.html",
+  "/lesson-mb-1-3-name-and-voice.html",
+  "/lesson-mb-1-4-logo-visual-identity.html",
+  "/lesson-mb-2-1-social-media.html",
+  "/lesson-mb-2-2-email-newsletters.html",
+  "/lesson-mb-2-3-word-of-mouth.html",
+  "/lesson-mb-3-1-content-that-works.html",
+  "/lesson-mb-3-2-plan-campaign.html",
+  "/lesson-mb-challenge.html",
+  // Building Your First Pitch (Level 4 Pro)
+  "/lesson-fp-1-1-what-makes-a-pitch.html",
+  "/lesson-fp-1-2-problem-solution.html",
+  "/lesson-fp-1-3-unit1-quiz.html",
+  "/lesson-fp-2-1-slide-deck-structure.html",
+  "/lesson-fp-2-2-delivery-and-nerves.html",
+  "/lesson-fp-challenge.html",
+  // Pricing & Profit Strategy
+  "/lesson-ps-1-1-what-determines-price.html",
+  "/lesson-ps-1-2-cost-plus-value-based.html",
+  "/lesson-ps-1-3-pricing-practice.html",
+  "/lesson-ps-2-1-discounts-promos.html",
+  "/lesson-ps-2-2-bundling-products.html",
+  "/lesson-ps-2-3-price-test-practice.html",
+  "/lesson-ps-challenge.html"
 ];
 
 // Install: cache core files and activate immediately

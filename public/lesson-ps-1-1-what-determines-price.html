@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>What Determines Price? — AI Innovators</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="lesson-shared.css">
+</head>
+<body>
+<div class="app">
+  <div class="topbar" id="topbar" style="display:none;">
+    <button class="close-btn" id="closeBtn">×</button>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="hearts">
+      <svg class="heart-svg" viewBox="0 0 32 32"><path d="M16 28 C 6 20 2 14 2 10 C 2 6 5 3 9 3 C 12 3 14 5 16 8 C 18 5 20 3 23 3 C 27 3 30 6 30 10 C 30 14 26 20 16 28 Z" fill="#ec4899" stroke="#be185d" stroke-width="1.5"/></svg>
+      <span id="heartsCount">3</span>
+    </div>
+  </div>
+  <div class="screen active" id="screen-welcome">
+    <div class="lesson-tag" id="lesson-tag">LESSON</div>
+    <div class="mascot" id="welcomeMascot"></div>
+    <h1 class="welcome-title" id="welcome-title"></h1>
+    <p class="welcome-subtitle" id="welcome-subtitle"></p>
+    <button class="btn go" id="startBtn">Let's Go!</button>
+  </div>
+  <div class="screen" id="screen-lesson"></div>
+  <div class="screen" id="screen-complete">
+    <div class="mascot" id="completeMascot"></div>
+    <h1 class="complete-title">Lesson Complete!</h1>
+    <p class="complete-subtitle">Awesome work! Here's what you earned:</p>
+    <div class="stats-row">
+      <div class="stat-box"><div class="stat-label">XP Earned</div><div class="stat-value xp" id="finalXP">0</div></div>
+      <div class="stat-box"><div class="stat-label">Score</div><div class="stat-value score" id="finalScore">0%</div></div>
+      <div class="stat-box"><div class="stat-label">Hearts Left</div><div class="stat-value" style="color:#ef4444;" id="finalHearts">3</div></div>
+    </div>
+    <h3 style="margin: 28px 0 14px; color: #0c4a6e; font-weight: 900; font-family:'Nunito',sans-serif;">Badges You Earned:</h3>
+    <div class="badge-grid" id="badgeGrid"></div>
+    <button class="btn go" id="backToCourseBtn">Back to Course →</button>
+    <button class="btn ghost" style="margin-top:12px;" id="playAgainBtn">Play Again</button>
+  </div>
+  <div class="screen" id="screen-gameover">
+    <div class="mascot" id="gameoverMascot"></div>
+    <h1 class="complete-title" style="color:#b91c1c;">Out of Hearts!</h1>
+    <p class="complete-subtitle">Try again — you got this!</p>
+    <button class="btn danger" id="retryBtn">Try Again</button>
+  </div>
+</div>
+<div class="feedback" id="feedback">
+  <div class="feedback-inner">
+    <div><div class="feedback-text" id="feedbackText"></div><div class="feedback-explain" id="feedbackExplain"></div></div>
+    <button class="btn go" onclick="window._lessonNext()">Continue</button>
+  </div>
+</div>
+<script src="lesson-engine.js"></script>
+<script>
+const PRICE_TAG_ICON = `<svg viewBox="0 0 64 64"><path d="M28 6 L54 6 C 57 6 58 7 58 10 L58 30 L34 58 L6 30 L6 16 Z" fill="#10b981" stroke="#047857" stroke-width="2.5" stroke-linejoin="round"/><circle cx="46" cy="18" r="5" fill="white" stroke="#047857" stroke-width="2"/></svg>`;
+
+runLesson({
+  lessonId: "pricing-strategy-1-1",
+  courseUrl: "course-pricing-strategy.html",
+  tag: "UNIT 1 · LESSON 1.1",
+  title: "What Determines Price?",
+  subtitle: "Why does one t-shirt cost $5 and another cost $50?",
+  steps: [
+    {
+      type: "vocab",
+      word: "Price",
+      pronounce: "say it: PRYSS",
+      definition: "<b>Price</b> is the amount of money a customer pays to get your product or service.",
+      example: "If your candle costs $8, that's the price customers pay to take it home.",
+      icon: PRICE_TAG_ICON
+    },
+    {
+      type: "teach",
+      title: "What Goes Into a Price?",
+      body: "Founders don't just pick a random number! A smart price considers what it costs YOU to make it, what competitors charge for similar things, how much customers value it, and even your brand's reputation.",
+      examples: ["Cost to make it", "Competitor prices", "Customer value", "Your brand"]
+    },
+    {
+      type: "mc",
+      question: "What is \"price\"?",
+      hint: "Think about who pays and for what.",
+      options: [
+        { text: "The amount a customer pays for your product", correct: true },
+        { text: "The cost to make the product", correct: false },
+        { text: "Your profit only", correct: false },
+        { text: "A random number with no meaning", correct: false }
+      ],
+      correctMsg: "Right! Price is what the customer actually pays you.",
+      wrongMsg: "Price is the amount a customer pays — not the same as your cost or your profit."
+    },
+    {
+      type: "mc",
+      question: "Which of these should affect what price you charge?",
+      hint: "Good pricing looks at more than one thing.",
+      options: [
+        { text: "Your costs, competitor prices, AND how much customers value it", correct: true },
+        { text: "Only your mood that day", correct: false },
+        { text: "Just copying a friend's business exactly", correct: false },
+        { text: "Nothing — pick any number for fun", correct: false }
+      ],
+      correctMsg: "Exactly! Smart pricing weighs several factors together.",
+      wrongMsg: "Price should be based on real factors like cost, competitors, and customer value — not guesswork."
+    },
+    {
+      type: "mc",
+      question: "Two bakeries sell almost the same cookie. Bakery A charges $2. Bakery B charges $5 because their cookies are famous online. Why can Bakery B charge more?",
+      hint: "Think about how customers FEEL about each bakery.",
+      options: [
+        { text: "Customers value Bakery B's cookies more (it feels worth more to them)", correct: true },
+        { text: "Bakery B's cookies must cost way more to make", correct: false },
+        { text: "It's illegal for Bakery A to charge more", correct: false },
+        { text: "Price never affects what customers think", correct: false }
+      ],
+      correctMsg: "Yes! When customers perceive higher value, they'll pay a higher price.",
+      wrongMsg: "It's about perceived value — customers believe Bakery B's cookies are worth more, so they'll pay more."
+    },
+    {
+      type: "mc",
+      question: "What's the risk of pricing something too LOW?",
+      hint: "Think about what a business needs to survive.",
+      options: [
+        { text: "You might not make enough profit to keep the business running", correct: true },
+        { text: "Customers will never buy it", correct: false },
+        { text: "You'll accidentally make too much profit", correct: false },
+        { text: "Nothing bad happens at all", correct: false }
+      ],
+      correctMsg: "Correct! Pricing too low can mean you're not covering your costs or earning enough to grow.",
+      wrongMsg: "If you price too low, you risk not covering your costs or earning enough profit to sustain your business."
+    }
+  ],
+  badges: [
+    { icon: "bulb", name: "Price Starter", earned: true },
+    { icon: "star", name: "Quick Learner", earned: ({ correct }) => correct >= 2 },
+    { icon: "brain", name: "Pricing Smart", earned: ({ correct }) => correct >= 4 },
+    { icon: "perfect", name: "Perfect Score", earned: ({ score }) => score === 100 },
+    { icon: "heart", name: "All Hearts", earned: ({ hearts }) => hearts === 3 },
+    { icon: "trophy", name: "Price Detective", earned: ({ score, hearts }) => score >= 80 && hearts >= 2 }
+  ]
+});
+</script>
+</body>
+</html>

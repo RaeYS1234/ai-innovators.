@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Pricing Practice — AI Innovators</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="lesson-shared.css">
+</head>
+<body>
+<div class="app">
+  <div class="topbar" id="topbar" style="display:none;">
+    <button class="close-btn" id="closeBtn">×</button>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="hearts">
+      <svg class="heart-svg" viewBox="0 0 32 32"><path d="M16 28 C 6 20 2 14 2 10 C 2 6 5 3 9 3 C 12 3 14 5 16 8 C 18 5 20 3 23 3 C 27 3 30 6 30 10 C 30 14 26 20 16 28 Z" fill="#ec4899" stroke="#be185d" stroke-width="1.5"/></svg>
+      <span id="heartsCount">3</span>
+    </div>
+  </div>
+  <div class="screen active" id="screen-welcome">
+    <div class="lesson-tag" id="lesson-tag">PRACTICE</div>
+    <div class="mascot" id="welcomeMascot"></div>
+    <h1 class="welcome-title" id="welcome-title"></h1>
+    <p class="welcome-subtitle" id="welcome-subtitle"></p>
+    <button class="btn go" id="startBtn">Let's Calculate!</button>
+  </div>
+  <div class="screen" id="screen-lesson"></div>
+  <div class="screen" id="screen-complete">
+    <div class="mascot" id="completeMascot"></div>
+    <h1 class="complete-title">Pricing Pro!</h1>
+    <p class="complete-subtitle">You can calculate real prices like a founder. Here's what you earned:</p>
+    <div class="stats-row">
+      <div class="stat-box"><div class="stat-label">XP Earned</div><div class="stat-value xp" id="finalXP">0</div></div>
+      <div class="stat-box"><div class="stat-label">Score</div><div class="stat-value score" id="finalScore">0%</div></div>
+      <div class="stat-box"><div class="stat-label">Hearts Left</div><div class="stat-value" style="color:#ef4444;" id="finalHearts">3</div></div>
+    </div>
+    <h3 style="margin: 28px 0 14px; color: #0c4a6e; font-weight: 900; font-family:'Nunito',sans-serif;">Badges You Earned:</h3>
+    <div class="badge-grid" id="badgeGrid"></div>
+    <button class="btn go" id="backToCourseBtn">Back to Course →</button>
+    <button class="btn ghost" style="margin-top:12px;" id="playAgainBtn">Play Again</button>
+  </div>
+  <div class="screen" id="screen-gameover">
+    <div class="mascot" id="gameoverMascot"></div>
+    <h1 class="complete-title" style="color:#b91c1c;">Out of Hearts!</h1>
+    <p class="complete-subtitle">Try again — the math gets easier with practice!</p>
+    <button class="btn danger" id="retryBtn">Try Again</button>
+  </div>
+</div>
+<div class="feedback" id="feedback">
+  <div class="feedback-inner">
+    <div><div class="feedback-text" id="feedbackText"></div><div class="feedback-explain" id="feedbackExplain"></div></div>
+    <button class="btn go" onclick="window._lessonNext()">Continue</button>
+  </div>
+</div>
+<script src="lesson-engine.js"></script>
+<script>
+runLesson({
+  lessonId: "pricing-strategy-1-3",
+  courseUrl: "course-pricing-strategy.html",
+  tag: "UNIT 1 · PRACTICE",
+  title: "Pricing Practice",
+  subtitle: "Do the real math — calculate cost-plus prices like a pro",
+  steps: [
+    {
+      type: "teach",
+      title: "Let's Calculate Some Prices",
+      body: "Time to practice! Remember: <b>Cost-Plus Price = Cost + Markup</b>. Let's work through some real examples.",
+      examples: []
+    },
+    {
+      type: "math",
+      question: "Cost-Plus Price",
+      story: "It costs you $5 to make a friendship bracelet. You want a $3 markup.",
+      equation: "$5 + $3 = ?",
+      hint: "Add the cost and the markup together.",
+      answer: 8,
+      correctMsg: "$5 + $3 = $8! That's your selling price.",
+      wrongMsg: "Add the cost and the markup together to find the price."
+    },
+    {
+      type: "math",
+      question: "Cost-Plus Price",
+      story: "A keychain costs you $2 to make. You want to add a $1 markup.",
+      equation: "$2 + $1 = ?",
+      hint: "Add cost + markup amount.",
+      answer: 3,
+      correctMsg: "$2 + $1 = $3! Nice work.",
+      wrongMsg: "Add the cost and the markup together to find the price."
+    },
+    {
+      type: "math",
+      question: "Finding the Markup",
+      story: "You buy a plain shirt for $10 and sell it decorated for $15. What's your markup in dollars?",
+      equation: "$15 − $10 = ?",
+      hint: "Subtract the cost from the selling price.",
+      answer: 5,
+      correctMsg: "$15 − $10 = $5 markup!",
+      wrongMsg: "Subtract the cost from the price to find your markup."
+    },
+    {
+      type: "math",
+      question: "Total Profit",
+      story: "A candle costs $4 to make. You sell 12 candles at $9 each.",
+      equation: "12 × ($9 − $4) = ?",
+      hint: "First find profit per candle, then multiply by how many sold.",
+      answer: 60,
+      correctMsg: "Profit per candle is $5, and 12 × $5 = $60 total profit!",
+      wrongMsg: "Find the profit for ONE candle first (price − cost), then multiply by the number sold."
+    },
+    {
+      type: "math",
+      question: "Total Profit",
+      story: "You made 20 bracelets that cost $2 each to make. You sell them all at $7 each.",
+      equation: "20 × ($7 − $2) = ?",
+      hint: "Profit per bracelet × number sold.",
+      answer: 100,
+      correctMsg: "Profit per bracelet is $5, and 20 × $5 = $100 total profit!",
+      wrongMsg: "Find the profit for ONE bracelet first (price − cost), then multiply by the number sold."
+    }
+  ],
+  badges: [
+    { icon: "money", name: "Price Calculator", earned: true },
+    { icon: "star", name: "Quick Learner", earned: ({ correct }) => correct >= 2 },
+    { icon: "brain", name: "Math Whiz", earned: ({ correct }) => correct >= 4 },
+    { icon: "perfect", name: "Perfect Score", earned: ({ score }) => score === 100 },
+    { icon: "heart", name: "All Hearts", earned: ({ hearts }) => hearts === 3 },
+    { icon: "trophy", name: "Pricing Pro", earned: ({ score, hearts }) => score >= 80 && hearts >= 2 }
+  ]
+});
+</script>
+</body>
+</html>
