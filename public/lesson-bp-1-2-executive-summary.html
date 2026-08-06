@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>The Executive Summary — AI Innovators</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="lesson-shared.css">
+</head>
+<body>
+<div class="app">
+  <div class="topbar" id="topbar" style="display:none;">
+    <button class="close-btn" id="closeBtn">×</button>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="hearts">
+      <svg class="heart-svg" viewBox="0 0 32 32"><path d="M16 28 C 6 20 2 14 2 10 C 2 6 5 3 9 3 C 12 3 14 5 16 8 C 18 5 20 3 23 3 C 27 3 30 6 30 10 C 30 14 26 20 16 28 Z" fill="#ec4899" stroke="#be185d" stroke-width="1.5"/></svg>
+      <span id="heartsCount">3</span>
+    </div>
+  </div>
+  <div class="screen active" id="screen-welcome">
+    <div class="lesson-tag" id="lesson-tag">LESSON</div>
+    <div class="mascot" id="welcomeMascot"></div>
+    <h1 class="welcome-title" id="welcome-title"></h1>
+    <p class="welcome-subtitle" id="welcome-subtitle"></p>
+    <button class="btn go" id="startBtn">Let's Go!</button>
+  </div>
+  <div class="screen" id="screen-lesson"></div>
+  <div class="screen" id="screen-complete">
+    <div class="mascot" id="completeMascot"></div>
+    <h1 class="complete-title">Lesson Complete!</h1>
+    <p class="complete-subtitle">Awesome work! Here's what you earned:</p>
+    <div class="stats-row">
+      <div class="stat-box"><div class="stat-label">XP Earned</div><div class="stat-value xp" id="finalXP">0</div></div>
+      <div class="stat-box"><div class="stat-label">Score</div><div class="stat-value score" id="finalScore">0%</div></div>
+      <div class="stat-box"><div class="stat-label">Hearts Left</div><div class="stat-value" style="color:#ef4444;" id="finalHearts">3</div></div>
+    </div>
+    <h3 style="margin: 28px 0 14px; color: #0c4a6e; font-weight: 900; font-family:'Nunito',sans-serif;">Badges You Earned:</h3>
+    <div class="badge-grid" id="badgeGrid"></div>
+    <button class="btn go" id="backToCourseBtn">Back to Course →</button>
+    <button class="btn ghost" style="margin-top:12px;" id="playAgainBtn">Play Again</button>
+  </div>
+  <div class="screen" id="screen-gameover">
+    <div class="mascot" id="gameoverMascot"></div>
+    <h1 class="complete-title" style="color:#b91c1c;">Out of Hearts!</h1>
+    <p class="complete-subtitle">Try again — you got this!</p>
+    <button class="btn danger" id="retryBtn">Try Again</button>
+  </div>
+</div>
+<div class="feedback" id="feedback">
+  <div class="feedback-inner">
+    <div><div class="feedback-text" id="feedbackText"></div><div class="feedback-explain" id="feedbackExplain"></div></div>
+    <button class="btn go" onclick="window._lessonNext()">Continue</button>
+  </div>
+</div>
+<script src="lesson-engine.js"></script>
+<script>
+runLesson({
+  lessonId: "business-plan-1-2",
+  courseUrl: "course-business-plan.html",
+  tag: "UNIT 1 · LESSON 1.2",
+  title: "The Executive Summary",
+  subtitle: "One page that has to make someone say yes.",
+  steps: [
+    {
+      type: "teach",
+      title: "What's an Executive Summary?",
+      body: "The <b>executive summary</b> is the first page of your business plan — and often the ONLY page busy people read. It's a short snapshot that answers: What's your business? What problem does it solve? Who's it for? How will it make money? Think of it like a movie trailer: it has to hook people fast.",
+      examples: ["Business name & idea", "Problem it solves", "Who it's for", "How it earns money"]
+    },
+    {
+      type: "teach",
+      title: "Keep It Short and Clear",
+      body: "A great executive summary is usually just a few sentences to one paragraph — not pages and pages. Isabella Rose Taylor started designing clothes by age 8 and launched her first fashion collection at 11. When she pitched her brand to stores and buyers, she didn't ramble — she explained it clearly and fast: teen fashion, made for real girls, sold online and in boutiques. That clarity is exactly what an executive summary needs.",
+      examples: ["Short — a paragraph, not pages", "Clear, simple words", "Hooks the reader fast", "Written LAST, read FIRST"]
+    },
+    {
+      type: "teach",
+      title: "Written Last, Read First",
+      body: "Here's a trick real founders use: even though the executive summary sits at the very front of the plan, it's usually written LAST — after you've already figured out your target market, competition, and money plan. That way you're summarizing a plan you've already built, not guessing at one you haven't.",
+      examples: []
+    },
+    {
+      type: "mc",
+      question: "What is an executive summary?",
+      hint: "It's the first page — think 'snapshot.'",
+      options: [
+        { text: "A short snapshot that explains your business, problem, customer, and how it makes money", correct: true },
+        { text: "A summary of everyone's chores at home", correct: false },
+        { text: "The most complicated part of the plan, full of technical charts", correct: false },
+        { text: "A summary written only for the government", correct: false }
+      ],
+      correctMsg: "Yes! It's the quick snapshot of your whole business.",
+      wrongMsg: "An executive summary is a short snapshot of your business — what it is, what problem it solves, who it's for, and how it earns money."
+    },
+    {
+      type: "mc",
+      question: "Why should an executive summary be SHORT?",
+      hint: "Think about who's reading it and how much time they have.",
+      options: [
+        { text: "Because busy readers often only read that one page", correct: true },
+        { text: "Because long writing is against the rules", correct: false },
+        { text: "Because business plans can only be one page total", correct: false },
+        { text: "Because short is always better no matter what", correct: false }
+      ],
+      correctMsg: "Right! Busy investors and partners may only read that first page, so it needs to hook them fast.",
+      wrongMsg: "It should be short because busy readers — investors, partners, even customers — may only read that first page before deciding if they care."
+    },
+    {
+      type: "mc",
+      question: "When do most founders actually WRITE their executive summary?",
+      hint: "It sits at the front, but that's not when it gets written.",
+      options: [
+        { text: "First, before anything else", correct: false },
+        { text: "Last, after the rest of the plan is done", correct: true },
+        { text: "Never — they skip it", correct: false },
+        { text: "Only if a teacher requires it", correct: false }
+      ],
+      correctMsg: "Exactly! It goes at the front but gets written last, once you actually know your plan.",
+      wrongMsg: "Even though it's the first page readers see, most founders WRITE it last — after they've figured out the rest of the plan."
+    },
+    {
+      type: "mc",
+      question: "Isabella Rose Taylor launched her first fashion collection at what age?",
+      hint: "Check the teach step above.",
+      options: [
+        { text: "Age 11", correct: true },
+        { text: "Age 20", correct: false },
+        { text: "Age 5", correct: false },
+        { text: "Age 18", correct: false }
+      ],
+      correctMsg: "Yes! She launched her first collection at 11 and was showing at New York Fashion Week by 13.",
+      wrongMsg: "Isabella Rose Taylor launched her first fashion collection at age 11."
+    },
+    {
+      type: "mc",
+      question: "Which of these belongs in an executive summary?",
+      hint: "Think 'big picture,' not every tiny detail.",
+      options: [
+        { text: "Your business name, the problem you solve, and how you make money", correct: true },
+        { text: "Every single expense you've ever had, listed line by line", correct: false },
+        { text: "A list of your friends' phone numbers", correct: false },
+        { text: "Nothing — the page should be left blank", correct: false }
+      ],
+      correctMsg: "Right! Keep it to the big picture: name, problem, customer, and money.",
+      wrongMsg: "An executive summary covers the big picture — your business name, the problem you solve, your customer, and how you make money. Save detailed lists for later sections."
+    }
+  ],
+  badges: [
+    { icon: "starter", name: "Summary Starter", earned: true },
+    { icon: "star", name: "Sharp Writer", earned: ({ correct }) => correct >= 2 },
+    { icon: "brain", name: "Clarity Expert", earned: ({ correct }) => correct >= 4 },
+    { icon: "perfect", name: "Perfect Score", earned: ({ score }) => score === 100 },
+    { icon: "heart", name: "All Hearts", earned: ({ hearts }) => hearts === 3 },
+    { icon: "trophy", name: "Pitch Ready", earned: ({ score, hearts }) => score >= 80 && hearts >= 2 }
+  ]
+});
+</script>
+</body>
+</html>

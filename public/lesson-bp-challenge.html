@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Business Plan Challenge — AI Innovators</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="lesson-shared.css">
+</head>
+<body>
+<div class="app">
+  <div class="topbar" id="topbar" style="display:none;">
+    <button class="close-btn" id="closeBtn">×</button>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="hearts">
+      <svg class="heart-svg" viewBox="0 0 32 32"><path d="M16 28 C 6 20 2 14 2 10 C 2 6 5 3 9 3 C 12 3 14 5 16 8 C 18 5 20 3 23 3 C 27 3 30 6 30 10 C 30 14 26 20 16 28 Z" fill="#ec4899" stroke="#be185d" stroke-width="1.5"/></svg>
+      <span id="heartsCount">3</span>
+    </div>
+  </div>
+  <div class="screen active" id="screen-welcome">
+    <div class="lesson-tag" id="lesson-tag">LESSON</div>
+    <div class="mascot" id="welcomeMascot"></div>
+    <h1 class="welcome-title" id="welcome-title"></h1>
+    <p class="welcome-subtitle" id="welcome-subtitle"></p>
+    <button class="btn go" id="startBtn">Let's Go!</button>
+  </div>
+  <div class="screen" id="screen-lesson"></div>
+  <div class="screen" id="screen-complete">
+    <div class="mascot" id="completeMascot"></div>
+    <h1 class="complete-title">Lesson Complete!</h1>
+    <p class="complete-subtitle">Awesome work! Here's what you earned:</p>
+    <div class="stats-row">
+      <div class="stat-box"><div class="stat-label">XP Earned</div><div class="stat-value xp" id="finalXP">0</div></div>
+      <div class="stat-box"><div class="stat-label">Score</div><div class="stat-value score" id="finalScore">0%</div></div>
+      <div class="stat-box"><div class="stat-label">Hearts Left</div><div class="stat-value" style="color:#ef4444;" id="finalHearts">3</div></div>
+    </div>
+    <h3 style="margin: 28px 0 14px; color: #0c4a6e; font-weight: 900; font-family:'Nunito',sans-serif;">Badges You Earned:</h3>
+    <div class="badge-grid" id="badgeGrid"></div>
+    <button class="btn go" id="backToCourseBtn">Back to Course →</button>
+    <button class="btn ghost" style="margin-top:12px;" id="playAgainBtn">Play Again</button>
+  </div>
+  <div class="screen" id="screen-gameover">
+    <div class="mascot" id="gameoverMascot"></div>
+    <h1 class="complete-title" style="color:#b91c1c;">Out of Hearts!</h1>
+    <p class="complete-subtitle">Try again — you got this!</p>
+    <button class="btn danger" id="retryBtn">Try Again</button>
+  </div>
+</div>
+<div class="feedback" id="feedback">
+  <div class="feedback-inner">
+    <div><div class="feedback-text" id="feedbackText"></div><div class="feedback-explain" id="feedbackExplain"></div></div>
+    <button class="btn go" onclick="window._lessonNext()">Continue</button>
+  </div>
+</div>
+<script src="lesson-engine.js"></script>
+<script>
+runLesson({
+  lessonId: "business-plan-challenge",
+  courseUrl: "course-business-plan.html",
+  tag: "FINAL CHALLENGE",
+  title: "Business Plan Challenge",
+  subtitle: "Show off everything you've learned about writing a real business plan!",
+  steps: [
+    {
+      type: "mc",
+      question: "What is a business plan?",
+      hint: "It's a written document.",
+      options: [
+        { text: "A written document explaining what a business does, who it helps, and how it makes money", correct: true },
+        { text: "A drawing of your dream house", correct: false },
+        { text: "A grocery list", correct: false },
+        { text: "A video game strategy guide", correct: false }
+      ],
+      correctMsg: "Right! It's the written map for the whole business.",
+      wrongMsg: "A business plan is a written document explaining what a business does, who it helps, and how it makes money."
+    },
+    {
+      type: "mc",
+      question: "What belongs in an executive summary?",
+      hint: "Think big picture, not tiny detail.",
+      options: [
+        { text: "The business name, the problem it solves, the customer, and how it earns money", correct: true },
+        { text: "Every receipt the business has ever collected", correct: false },
+        { text: "A list of unrelated hobbies", correct: false },
+        { text: "Nothing — it should stay blank", correct: false }
+      ],
+      correctMsg: "Yes! The executive summary is the big-picture snapshot.",
+      wrongMsg: "The executive summary covers the big picture: business name, the problem it solves, the customer, and how it earns money."
+    },
+    {
+      type: "mc",
+      question: "What is a target market?",
+      hint: "It's specific, not 'everyone.'",
+      options: [
+        { text: "The specific group of people most likely to buy what you sell", correct: true },
+        { text: "Every person on the planet", correct: false },
+        { text: "A place where targets are sold", correct: false },
+        { text: "Only your closest friends", correct: false }
+      ],
+      correctMsg: "Correct! A target market is a specific, well-defined group.",
+      wrongMsg: "A target market is the SPECIFIC group of people most likely to buy what you sell — not everyone."
+    },
+    {
+      type: "mc",
+      question: "Which is an example of INDIRECT competition for a lemonade stand?",
+      hint: "Indirect means solving the same need a different way.",
+      options: [
+        { text: "A neighbor selling lemonade too", correct: false },
+        { text: "A kid who just drinks water from home instead", correct: true },
+        { text: "A random unrelated toy store", correct: false },
+        { text: "None — lemonade stands have no competition", correct: false }
+      ],
+      correctMsg: "Right! Drinking free water at home solves the 'I'm thirsty' need differently — that's indirect competition.",
+      wrongMsg: "A neighbor selling lemonade is DIRECT competition. Someone solving the same need differently, like drinking water at home, is INDIRECT competition."
+    },
+    {
+      type: "mc",
+      question: "You sell 12 keychains at $4 each. They cost you $1.50 each to make. What's your profit?",
+      hint: "Find revenue, find costs, then subtract.",
+      options: [
+        { text: "$48", correct: false },
+        { text: "$18", correct: false },
+        { text: "$30", correct: true },
+        { text: "$66", correct: false }
+      ],
+      correctMsg: "Yes! $48 revenue − $18 costs = $30 profit.",
+      wrongMsg: "Revenue is 12 × $4 = $48. Costs are 12 × $1.50 = $18. Profit = $48 − $18 = $30."
+    },
+    {
+      type: "mc",
+      question: "Moziah Bridges' mentor from Shark Tank, who chose to mentor him instead of just investing money, was:",
+      hint: "He's known for his own clothing and accessories brand.",
+      options: [
+        { text: "Daymond John", correct: true },
+        { text: "Mark Cuban", correct: false },
+        { text: "His teacher", correct: false },
+        { text: "Isabella Rose Taylor", correct: false }
+      ],
+      correctMsg: "Right! Daymond John was so impressed he offered mentorship instead of a straight investment.",
+      wrongMsg: "It was Daymond John — he mentored Moziah instead of just handing over investment money."
+    },
+    {
+      type: "mc",
+      question: "Which order matches how real founders usually build a plan?",
+      hint: "The executive summary comes LAST, not first.",
+      options: [
+        { text: "Figure out target market, competition, and money first, THEN write the executive summary last", correct: true },
+        { text: "Write the executive summary first with zero research, then never look at it again", correct: false },
+        { text: "Skip planning completely and just start selling", correct: false },
+        { text: "Copy a competitor's plan word for word", correct: false }
+      ],
+      correctMsg: "Exactly! Research your market, competition, and money first — THEN summarize it all up front.",
+      wrongMsg: "Real founders usually research target market, competition, and money FIRST, then write the executive summary last to summarize what they found."
+    }
+  ],
+  badges: [
+    { icon: "trophy", name: "Challenge Complete", earned: true },
+    { icon: "star", name: "Sharp Founder", earned: ({ correct }) => correct >= 3 },
+    { icon: "brain", name: "Plan Genius", earned: ({ correct }) => correct >= 5 },
+    { icon: "perfect", name: "Perfect Score", earned: ({ score }) => score === 100 },
+    { icon: "heart", name: "All Hearts", earned: ({ hearts }) => hearts === 3 },
+    { icon: "crown", name: "Business Plan Master", earned: ({ score, hearts }) => score >= 80 && hearts >= 2 }
+  ]
+});
+</script>
+</body>
+</html>

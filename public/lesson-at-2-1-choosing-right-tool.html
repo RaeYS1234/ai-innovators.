@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Choosing the Right AI Tool — AI Innovators</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="lesson-shared.css">
+</head>
+<body>
+<div class="app">
+  <div class="topbar" id="topbar" style="display:none;">
+    <button class="close-btn" id="closeBtn">×</button>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="hearts">
+      <svg class="heart-svg" viewBox="0 0 32 32"><path d="M16 28 C 6 20 2 14 2 10 C 2 6 5 3 9 3 C 12 3 14 5 16 8 C 18 5 20 3 23 3 C 27 3 30 6 30 10 C 30 14 26 20 16 28 Z" fill="#ec4899" stroke="#be185d" stroke-width="1.5"/></svg>
+      <span id="heartsCount">3</span>
+    </div>
+  </div>
+  <div class="screen active" id="screen-welcome">
+    <div class="lesson-tag" id="lesson-tag">LESSON</div>
+    <div class="mascot" id="welcomeMascot"></div>
+    <h1 class="welcome-title" id="welcome-title"></h1>
+    <p class="welcome-subtitle" id="welcome-subtitle"></p>
+    <button class="btn go" id="startBtn">Let's Go!</button>
+  </div>
+  <div class="screen" id="screen-lesson"></div>
+  <div class="screen" id="screen-complete">
+    <div class="mascot" id="completeMascot"></div>
+    <h1 class="complete-title">Lesson Complete!</h1>
+    <p class="complete-subtitle">Awesome work! Here's what you earned:</p>
+    <div class="stats-row">
+      <div class="stat-box"><div class="stat-label">XP Earned</div><div class="stat-value xp" id="finalXP">0</div></div>
+      <div class="stat-box"><div class="stat-label">Score</div><div class="stat-value score" id="finalScore">0%</div></div>
+      <div class="stat-box"><div class="stat-label">Hearts Left</div><div class="stat-value" style="color:#ef4444;" id="finalHearts">3</div></div>
+    </div>
+    <h3 style="margin: 28px 0 14px; color: #0c4a6e; font-weight: 900; font-family:'Nunito',sans-serif;">Badges You Earned:</h3>
+    <div class="badge-grid" id="badgeGrid"></div>
+    <button class="btn go" id="backToCourseBtn">Back to Course →</button>
+    <button class="btn ghost" style="margin-top:12px;" id="playAgainBtn">Play Again</button>
+  </div>
+  <div class="screen" id="screen-gameover">
+    <div class="mascot" id="gameoverMascot"></div>
+    <h1 class="complete-title" style="color:#b91c1c;">Out of Hearts!</h1>
+    <p class="complete-subtitle">Try again — you got this!</p>
+    <button class="btn danger" id="retryBtn">Try Again</button>
+  </div>
+</div>
+<div class="feedback" id="feedback">
+  <div class="feedback-inner">
+    <div><div class="feedback-text" id="feedbackText"></div><div class="feedback-explain" id="feedbackExplain"></div></div>
+    <button class="btn go" onclick="window._lessonNext()">Continue</button>
+  </div>
+</div>
+<script src="lesson-engine.js"></script>
+<script>
+const TOOLBOX_ICON = `<svg viewBox="0 0 64 64"><rect x="8" y="26" width="48" height="28" rx="4" fill="#38bdf8" stroke="#0284c7" stroke-width="2.5"/><path d="M 20 26 L 20 18 C 20 14 23 12 26 12 L 38 12 C 41 12 44 14 44 18 L 44 26" fill="none" stroke="#0284c7" stroke-width="2.5"/><rect x="4" y="34" width="56" height="8" fill="#0ea5e9"/><circle cx="32" cy="38" r="3" fill="#fde68a"/></svg>`;
+
+runLesson({
+  lessonId: "ai-tools-2-1",
+  courseUrl: "course-ai-tools-workshop.html",
+  tag: "UNIT 2 · LESSON 2.1",
+  title: "Choosing the Right AI Tool",
+  subtitle: "Every AI tool is good at something different — pick the right one for the job!",
+  steps: [
+    {
+      type: "vocab",
+      word: "Toolbox",
+      pronounce: "say it: TOOL-box",
+      definition: "Your <b>AI toolbox</b> is the set of different AI apps you know how to use. Just like a real toolbox has a hammer AND a screwdriver, your AI toolbox has different tools for different jobs.",
+      example: "Need words? Grab ChatGPT. Need a picture? Grab Canva. Need music? Grab Suno.",
+      icon: TOOLBOX_ICON
+    },
+    {
+      type: "teach",
+      title: "Meet Your AI Toolbox",
+      body: "Different AI tools do different jobs. <b>ChatGPT</b> writes and brainstorms text — names, descriptions, emails. <b>Canva Magic Studio</b> makes visual designs — logos, posters, social posts. <b>Suno</b> creates original music and jingles from a text prompt. <b>ElevenLabs</b> turns written words into a realistic voice for ads or videos. <b>Notion AI</b> helps you organize notes, plans, and to-do lists.",
+      examples: ["ChatGPT = words", "Canva = design", "Suno = music", "ElevenLabs = voice"]
+    },
+    {
+      type: "teach",
+      title: "Picking the Right Tool",
+      body: "Before you open an AI tool, ask: 'What am I actually trying to make?' Words and ideas → ChatGPT. A logo or poster → Canva. A jingle for your ad → Suno. A voiceover → ElevenLabs. Organizing your business notes → Notion AI. Using the wrong tool wastes time — using the RIGHT one gets you a great result fast.",
+      examples: ["Ask: what am I making?", "Match the job to the tool", "Don't force one tool to do everything"]
+    },
+    {
+      type: "mc",
+      question: "You need 5 catchy names for your new business. Which tool fits BEST?",
+      hint: "Names are words, not pictures.",
+      options: [
+        { text: "Canva Magic Studio", correct: false },
+        { text: "ChatGPT", correct: true },
+        { text: "Suno", correct: false },
+        { text: "None — just guess", correct: false }
+      ],
+      correctMsg: "Right! ChatGPT is built for brainstorming words and ideas.",
+      wrongMsg: "For brainstorming NAMES (words), ChatGPT is the best fit — Canva is for visuals, and Suno is for music."
+    },
+    {
+      type: "mc",
+      question: "You need a colorful logo for your slime business. Which tool fits BEST?",
+      hint: "Logos are visual designs.",
+      options: [
+        { text: "ChatGPT", correct: false },
+        { text: "Canva Magic Studio", correct: true },
+        { text: "ElevenLabs", correct: false },
+        { text: "Suno", correct: false }
+      ],
+      correctMsg: "Yes! Canva Magic Studio is built for visual designs like logos.",
+      wrongMsg: "A logo is a visual design — Canva Magic Studio is the right tool. ChatGPT writes words, not images."
+    },
+    {
+      type: "mc",
+      question: "You want a short, upbeat jingle to play in your business's video ad. Which tool fits BEST?",
+      hint: "Think about which tool makes MUSIC.",
+      options: [
+        { text: "Notion AI", correct: false },
+        { text: "Suno", correct: true },
+        { text: "Canva Magic Studio", correct: false },
+        { text: "ChatGPT", correct: false }
+      ],
+      correctMsg: "Right! Suno is built to generate original music and jingles.",
+      wrongMsg: "For music and jingles, Suno is the tool for the job — Canva is for visuals, not sound."
+    },
+    {
+      type: "mc",
+      question: "You wrote a script for a video ad and now want a realistic voice to read it out loud. Which tool fits BEST?",
+      hint: "Think 'text to spoken voice.'",
+      options: [
+        { text: "ElevenLabs", correct: true },
+        { text: "Canva Magic Studio", correct: false },
+        { text: "Notion AI", correct: false },
+        { text: "None of these can do voices", correct: false }
+      ],
+      correctMsg: "Exactly! ElevenLabs turns written text into a realistic spoken voice.",
+      wrongMsg: "ElevenLabs is made for text-to-voice — it turns your written script into realistic spoken audio."
+    },
+    {
+      type: "mc",
+      question: "Why is it smart to match the AI tool to the job instead of using just one tool for everything?",
+      hint: "Think about what each tool is actually GOOD at.",
+      options: [
+        { text: "Because each tool is specialized and gives better results for its job", correct: true },
+        { text: "It doesn't matter — every AI tool does the exact same thing", correct: false },
+        { text: "Because using more tools is always slower", correct: false },
+        { text: "Because only one AI tool exists", correct: false }
+      ],
+      correctMsg: "Yes! Specialized tools give you sharper, better results for each job.",
+      wrongMsg: "Each AI tool is specialized. Matching the right tool to the right job gets you MUCH better results than forcing one tool to do everything."
+    }
+  ],
+  badges: [
+    { icon: "bulb", name: "Toolbox Starter", earned: true },
+    { icon: "star", name: "Tool Matcher", earned: ({ correct }) => correct >= 3 },
+    { icon: "brain", name: "Toolbox Smart", earned: ({ correct }) => correct >= 4 },
+    { icon: "perfect", name: "Perfect Score", earned: ({ score }) => score === 100 },
+    { icon: "heart", name: "All Hearts", earned: ({ hearts }) => hearts === 3 },
+    { icon: "trophy", name: "Tool Picker Pro", earned: ({ score, hearts }) => score >= 80 && hearts >= 2 }
+  ]
+});
+</script>
+</body>
+</html>

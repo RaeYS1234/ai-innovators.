@@ -14,40 +14,38 @@
 <script>
 renderCourse({
   courseId: "ai-tools-workshop",
-  theme: "green",
-  tag: "6-8 BUILDER MISSION",
-  gradeAnchor: "middle",
-  gradeLabel: "6-8",
+  theme: "blue",
+  tag: "LEVEL 3 · BUILDER",
+  gradeAnchor: "level-3",
+  gradeLabel: "Builder",
   title: "AI Tools Workshop",
-  description: "Hands-on with the AI tools real entrepreneurs use — ChatGPT, Canva, image generators, and more.",
-  duration: 60,
+  description: "Hands-on with the AI tools real entrepreneurs use — ChatGPT, Canva, Suno, ElevenLabs, and more.",
+  duration: 50,
   units: [
     {
       title: "Meet the Tools",
       lessons: [
-        { title: "AI Chatbots Explained", type: "read", time: "6 min", xp: 5 },
-        { title: "Image Generators 101", type: "read", time: "6 min", xp: 5 },
-        { title: "Canva & AI Design", type: "read", time: "6 min", xp: 5 }
+        { title: "ChatGPT Basics", type: "read", time: "6 min", xp: 5, file: "lesson-at-1-1-chatgpt-basics.html" },
+        { title: "Designing with Canva AI", type: "read", time: "7 min", xp: 5, file: "lesson-at-1-2-canva-ai.html" },
+        { title: "Unit 1 Check", type: "quiz", time: "4 min", xp: 5, file: "lesson-at-1-3-unit1-quiz.html" }
       ]
     },
     {
-      title: "Writing Great Prompts",
+      title: "Using Tools Wisely",
       lessons: [
-        { title: "What Makes a Good Prompt?", type: "read", time: "8 min", xp: 5 },
-        { title: "Prompt Patterns That Work", type: "read", time: "8 min", xp: 5 },
-        { title: "Practice: Better Prompts", type: "practice", time: "10 min", xp: 5 }
+        { title: "Choosing the Right AI Tool", type: "read", time: "7 min", xp: 5, file: "lesson-at-2-1-choosing-right-tool.html" },
+        { title: "Combining AI Tools", type: "read", time: "7 min", xp: 5, file: "lesson-at-2-2-combining-tools.html" },
+        { title: "Avoiding AI Mistakes", type: "read", time: "7 min", xp: 5, file: "lesson-at-2-3-avoiding-mistakes.html" }
       ]
     },
     {
-      title: "Build Real Things",
+      title: "Build Your Business",
       lessons: [
-        { title: "Make a Logo with AI", type: "practice", time: "10 min", xp: 5 },
-        { title: "Write Marketing Copy", type: "practice", time: "10 min", xp: 5 },
-        { title: "Build a Mini Website", type: "practice", time: "12 min", xp: 5 }
+        { title: "AI Tools For Your Business", type: "practice", time: "8 min", xp: 5, file: "lesson-at-3-1-for-your-business.html" }
       ]
     }
   ],
-  finalTest: { title: "AI Toolkit Challenge", xp: 15, time: "10 min" }
+  finalTest: { title: "AI Tools Challenge", xp: 15, time: "10 min", file: "lesson-at-challenge.html" }
 });
 </script>
 </body>

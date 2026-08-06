@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Who's Your Customer? — AI Innovators</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="lesson-shared.css">
+</head>
+<body>
+<div class="app">
+  <div class="topbar" id="topbar" style="display:none;">
+    <button class="close-btn" id="closeBtn">×</button>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="hearts">
+      <svg class="heart-svg" viewBox="0 0 32 32"><path d="M16 28 C 6 20 2 14 2 10 C 2 6 5 3 9 3 C 12 3 14 5 16 8 C 18 5 20 3 23 3 C 27 3 30 6 30 10 C 30 14 26 20 16 28 Z" fill="#ec4899" stroke="#be185d" stroke-width="1.5"/></svg>
+      <span id="heartsCount">3</span>
+    </div>
+  </div>
+  <div class="screen active" id="screen-welcome">
+    <div class="lesson-tag" id="lesson-tag">LESSON</div>
+    <div class="mascot" id="welcomeMascot"></div>
+    <h1 class="welcome-title" id="welcome-title"></h1>
+    <p class="welcome-subtitle" id="welcome-subtitle"></p>
+    <button class="btn go" id="startBtn">Let's Go!</button>
+  </div>
+  <div class="screen" id="screen-lesson"></div>
+  <div class="screen" id="screen-complete">
+    <div class="mascot" id="completeMascot"></div>
+    <h1 class="complete-title">Lesson Complete!</h1>
+    <p class="complete-subtitle">Awesome work! Here's what you earned:</p>
+    <div class="stats-row">
+      <div class="stat-box"><div class="stat-label">XP Earned</div><div class="stat-value xp" id="finalXP">0</div></div>
+      <div class="stat-box"><div class="stat-label">Score</div><div class="stat-value score" id="finalScore">0%</div></div>
+      <div class="stat-box"><div class="stat-label">Hearts Left</div><div class="stat-value" style="color:#ef4444;" id="finalHearts">3</div></div>
+    </div>
+    <h3 style="margin: 28px 0 14px; color: #0c4a6e; font-weight: 900; font-family:'Nunito',sans-serif;">Badges You Earned:</h3>
+    <div class="badge-grid" id="badgeGrid"></div>
+    <button class="btn go" id="backToCourseBtn">Back to Course →</button>
+    <button class="btn ghost" style="margin-top:12px;" id="playAgainBtn">Play Again</button>
+  </div>
+  <div class="screen" id="screen-gameover">
+    <div class="mascot" id="gameoverMascot"></div>
+    <h1 class="complete-title" style="color:#b91c1c;">Out of Hearts!</h1>
+    <p class="complete-subtitle">Try again — you got this!</p>
+    <button class="btn danger" id="retryBtn">Try Again</button>
+  </div>
+</div>
+<div class="feedback" id="feedback">
+  <div class="feedback-inner">
+    <div><div class="feedback-text" id="feedbackText"></div><div class="feedback-explain" id="feedbackExplain"></div></div>
+    <button class="btn go" onclick="window._lessonNext()">Continue</button>
+  </div>
+</div>
+<script src="lesson-engine.js"></script>
+<script>
+const TARGET_MARKET_ICON = `<svg viewBox="0 0 64 64"><circle cx="26" cy="32" r="24" fill="white" stroke="#ef4444" stroke-width="3"/><circle cx="26" cy="32" r="16" fill="#fecaca"/><circle cx="26" cy="32" r="8" fill="#ef4444"/><circle cx="26" cy="32" r="3" fill="white"/><circle cx="48" cy="18" r="9" fill="#fde68a" stroke="#92400e" stroke-width="1.5"/><path d="M 40 44 C 40 36 44 32 48 32 C 52 32 56 36 56 44 Z" fill="#0ea5e9" stroke="#0284c7" stroke-width="2"/></svg>`;
+
+runLesson({
+  lessonId: "business-plan-2-1",
+  courseUrl: "course-business-plan.html",
+  tag: "UNIT 2 · LESSON 2.1",
+  title: "Who's Your Customer?",
+  subtitle: "You can't sell to 'everyone' — find your real target market.",
+  steps: [
+    {
+      type: "vocab",
+      word: "Target Market",
+      pronounce: "say it: TAR-get MAR-ket",
+      definition: "Your <b>target market</b> is the specific group of people most likely to buy what you're selling. Not 'everyone' — a real group with things in common, like age, interests, or needs.",
+      example: "If you start a tutoring business for 3rd graders struggling with math, your target market isn't 'all students' — it's specifically parents of 3rd graders who need extra math help.",
+      icon: TARGET_MARKET_ICON
+    },
+    {
+      type: "teach",
+      title: "Why 'Everyone' Is the Wrong Answer",
+      body: "New founders often say their customer is 'everyone' — but that's actually a warning sign, not a strength. When you try to sell to everyone, your marketing gets vague, and vague marketing doesn't grab anyone's attention. The most successful businesses know EXACTLY who they're for.",
+      examples: ["'Everyone' = unclear message", "A specific group = clear message", "Clear message = more customers"]
+    },
+    {
+      type: "teach",
+      title: "Building a Customer Profile",
+      body: "To find your target market, ask: How old are they? What do they need or want? Where do they spend time — online or in person? How much can they spend? An Etsy shop selling friendship bracelets might target kids ages 8-13 who follow craft trends on social media and have a few dollars of allowance money to spend.",
+      examples: ["Age range", "Needs & wants", "Where they hang out", "What they can spend"]
+    },
+    {
+      type: "mc",
+      question: "What is a target market?",
+      hint: "It's specific, not everyone.",
+      options: [
+        { text: "The specific group of people most likely to buy what you sell", correct: true },
+        { text: "Every single person in the world", correct: false },
+        { text: "Only your family members", correct: false },
+        { text: "A store where you buy targets", correct: false }
+      ],
+      correctMsg: "Yes! It's the specific group most likely to want what you sell.",
+      wrongMsg: "Your target market is the SPECIFIC group of people most likely to buy your product — not 'everyone.'"
+    },
+    {
+      type: "mc",
+      question: "Why is saying your customer is 'everyone' a problem?",
+      hint: "Think about how clear your marketing message can be.",
+      options: [
+        { text: "It makes your marketing message vague and hard to aim", correct: true },
+        { text: "It's actually the best strategy", correct: false },
+        { text: "It means you'll make more money automatically", correct: false },
+        { text: "It's against the law", correct: false }
+      ],
+      correctMsg: "Right! When you try to reach everyone, your message gets so general it reaches no one clearly.",
+      wrongMsg: "'Everyone' makes your marketing vague — it's much stronger to speak directly to one specific group."
+    },
+    {
+      type: "mc",
+      question: "Which question helps you build a customer profile?",
+      hint: "Look for a question about the customer, not random trivia.",
+      options: [
+        { text: "How old are they and what do they need?", correct: true },
+        { text: "What's my favorite color?", correct: false },
+        { text: "How many books are in the library?", correct: false },
+        { text: "What day of the week is it?", correct: false }
+      ],
+      correctMsg: "Exactly! Age and needs are core parts of a customer profile.",
+      wrongMsg: "A customer profile is built from questions like age, needs, where they spend time, and what they can spend — not random facts."
+    },
+    {
+      type: "mc",
+      question: "A dog-walking business for busy office workers in your neighborhood — what's the BEST target market description?",
+      hint: "Look for the option that's specific, not vague.",
+      options: [
+        { text: "Everyone who has ever seen a dog", correct: false },
+        { text: "Busy neighborhood adults who own dogs and work full-time", correct: true },
+        { text: "People who don't like animals", correct: false },
+        { text: "Kids under age 5", correct: false }
+      ],
+      correctMsg: "Yes! That's specific — busy dog-owning adults nearby who need help during work hours.",
+      wrongMsg: "The best target market is specific: busy neighborhood adults who own dogs and work full-time — not a vague or unrelated group."
+    }
+  ],
+  badges: [
+    { icon: "target", name: "Market Finder", earned: true },
+    { icon: "star", name: "Sharp Focus", earned: ({ correct }) => correct >= 2 },
+    { icon: "brain", name: "Customer Expert", earned: ({ correct }) => correct >= 3 },
+    { icon: "perfect", name: "Perfect Score", earned: ({ score }) => score === 100 },
+    { icon: "heart", name: "All Hearts", earned: ({ hearts }) => hearts === 3 },
+    { icon: "trophy", name: "Market Master", earned: ({ score, hearts }) => score >= 80 && hearts >= 2 }
+  ]
+});
+</script>
+</body>
+</html>

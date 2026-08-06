@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>ChatGPT Basics — AI Innovators</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="lesson-shared.css">
+</head>
+<body>
+<div class="app">
+  <div class="topbar" id="topbar" style="display:none;">
+    <button class="close-btn" id="closeBtn">×</button>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="hearts">
+      <svg class="heart-svg" viewBox="0 0 32 32"><path d="M16 28 C 6 20 2 14 2 10 C 2 6 5 3 9 3 C 12 3 14 5 16 8 C 18 5 20 3 23 3 C 27 3 30 6 30 10 C 30 14 26 20 16 28 Z" fill="#ec4899" stroke="#be185d" stroke-width="1.5"/></svg>
+      <span id="heartsCount">3</span>
+    </div>
+  </div>
+  <div class="screen active" id="screen-welcome">
+    <div class="lesson-tag" id="lesson-tag">LESSON</div>
+    <div class="mascot" id="welcomeMascot"></div>
+    <h1 class="welcome-title" id="welcome-title"></h1>
+    <p class="welcome-subtitle" id="welcome-subtitle"></p>
+    <button class="btn go" id="startBtn">Let's Go!</button>
+  </div>
+  <div class="screen" id="screen-lesson"></div>
+  <div class="screen" id="screen-complete">
+    <div class="mascot" id="completeMascot"></div>
+    <h1 class="complete-title">Lesson Complete!</h1>
+    <p class="complete-subtitle">Awesome work! Here's what you earned:</p>
+    <div class="stats-row">
+      <div class="stat-box"><div class="stat-label">XP Earned</div><div class="stat-value xp" id="finalXP">0</div></div>
+      <div class="stat-box"><div class="stat-label">Score</div><div class="stat-value score" id="finalScore">0%</div></div>
+      <div class="stat-box"><div class="stat-label">Hearts Left</div><div class="stat-value" style="color:#ef4444;" id="finalHearts">3</div></div>
+    </div>
+    <h3 style="margin: 28px 0 14px; color: #0c4a6e; font-weight: 900; font-family:'Nunito',sans-serif;">Badges You Earned:</h3>
+    <div class="badge-grid" id="badgeGrid"></div>
+    <button class="btn go" id="backToCourseBtn">Back to Course →</button>
+    <button class="btn ghost" style="margin-top:12px;" id="playAgainBtn">Play Again</button>
+  </div>
+  <div class="screen" id="screen-gameover">
+    <div class="mascot" id="gameoverMascot"></div>
+    <h1 class="complete-title" style="color:#b91c1c;">Out of Hearts!</h1>
+    <p class="complete-subtitle">Try again — you got this!</p>
+    <button class="btn danger" id="retryBtn">Try Again</button>
+  </div>
+</div>
+<div class="feedback" id="feedback">
+  <div class="feedback-inner">
+    <div><div class="feedback-text" id="feedbackText"></div><div class="feedback-explain" id="feedbackExplain"></div></div>
+    <button class="btn go" onclick="window._lessonNext()">Continue</button>
+  </div>
+</div>
+<script src="lesson-engine.js"></script>
+<script>
+const PROMPT_ICON = `<svg viewBox="0 0 64 64"><path d="M8 12 C 8 8 11 5 15 5 L 49 5 C 53 5 56 8 56 12 L 56 36 C 56 40 53 43 49 43 L 24 43 L 12 54 L 14 43 L 15 43 C 11 43 8 40 8 36 Z" fill="#38bdf8" stroke="#0284c7" stroke-width="2.5"/><circle cx="22" cy="24" r="3" fill="white"/><circle cx="32" cy="24" r="3" fill="white"/><circle cx="42" cy="24" r="3" fill="white"/></svg>`;
+
+runLesson({
+  lessonId: "ai-tools-1-1",
+  courseUrl: "course-ai-tools-workshop.html",
+  tag: "UNIT 1 · LESSON 1.1",
+  title: "ChatGPT Basics",
+  subtitle: "Meet the AI chatbot that helps you write, brainstorm, and think!",
+  steps: [
+    {
+      type: "vocab",
+      word: "Prompt",
+      pronounce: "say it: PRAHMPT",
+      definition: "A <b>prompt</b> is the instructions or question you type to an AI tool. The better your prompt, the better the AI's answer!",
+      example: "Instead of typing 'write something,' a great prompt is: 'Write 3 fun names for a dog-walking business for kids.'",
+      icon: PROMPT_ICON
+    },
+    {
+      type: "teach",
+      title: "What is ChatGPT?",
+      body: "ChatGPT is an AI chatbot made by a company called OpenAI. You type a message (a prompt), and it writes back an answer instantly. It can write stories, explain ideas, brainstorm business names, fix your grammar, and way more. It doesn't know everything, and it isn't always right — but it's an awesome thinking partner!",
+      examples: ["Brainstorm ideas", "Write drafts", "Explain things", "Fix grammar"]
+    },
+    {
+      type: "teach",
+      title: "How to Write a Great Prompt",
+      body: "The magic trick to ChatGPT is being <b>specific</b>. Tell it who you are, what you want, and any details that matter. 'Write a name' gets a boring answer. 'Write 5 catchy names for a kids' slime business, ages 8-12' gets a GREAT answer. Try it — the more details, the better the results!",
+      examples: ["Be specific", "Give details", "Ask for options", "Say who it's for"]
+    },
+    {
+      type: "mc",
+      question: "What is a 'prompt'?",
+      hint: "Think about what YOU do first.",
+      options: [
+        { text: "The AI's answer", correct: false },
+        { text: "The instructions or question you give the AI", correct: true },
+        { text: "A type of computer", correct: false },
+        { text: "A kind of robot", correct: false }
+      ],
+      correctMsg: "Yes! Your prompt tells the AI exactly what you need.",
+      wrongMsg: "A prompt is what YOU type — the question or instructions you give the AI. Its answer comes AFTER your prompt."
+    },
+    {
+      type: "mc",
+      question: "Which prompt is BEST for getting good ideas from ChatGPT?",
+      hint: "The best prompt gives lots of useful details.",
+      options: [
+        { text: "\"help me\"", correct: false },
+        { text: "\"Give me 5 fun, short names for a kids' lemonade stand — something catchy and easy to remember\"", correct: true },
+        { text: "\"names\"", correct: false },
+        { text: "\"business\"", correct: false }
+      ],
+      correctMsg: "Exactly! Specific + detailed prompts get way better answers.",
+      wrongMsg: "Vague prompts like 'help me' or single words confuse the AI. Be specific — say what you want, how many, and any details that matter."
+    },
+    {
+      type: "mc",
+      question: "ChatGPT gives you an answer that doesn't quite work. What should you do?",
+      hint: "Great AI users never stop after one try.",
+      options: [
+        { text: "Give up on AI forever", correct: false },
+        { text: "Rewrite your prompt with more details and try again", correct: true },
+        { text: "Use the wrong answer anyway", correct: false },
+        { text: "Yell at the computer", correct: false }
+      ],
+      correctMsg: "Right! Trying again with a better prompt is called 'iterating' — it's how pros use AI.",
+      wrongMsg: "Don't give up! Add more details to your prompt and ask again. This is called 'iterating,' and it's how real AI users get great results."
+    },
+    {
+      type: "mc",
+      question: "True or False: ChatGPT is always 100% correct.",
+      hint: "Even AI can make mistakes.",
+      options: [
+        { text: "True — never check its answers", correct: false },
+        { text: "False — always double-check important facts", correct: true },
+        { text: "True — it can read minds", correct: false },
+        { text: "False — but only on Tuesdays", correct: false }
+      ],
+      correctMsg: "Right! AI can make mistakes, so smart users always double-check important facts.",
+      wrongMsg: "AI CAN be wrong sometimes! Always double-check facts, especially for a school project or your business."
+    }
+  ],
+  badges: [
+    { icon: "bulb", name: "Prompt Starter", earned: true },
+    { icon: "star", name: "Chat Curious", earned: ({ correct }) => correct >= 2 },
+    { icon: "brain", name: "ChatGPT Smart", earned: ({ correct }) => correct >= 3 },
+    { icon: "perfect", name: "Perfect Score", earned: ({ score }) => score === 100 },
+    { icon: "heart", name: "All Hearts", earned: ({ hearts }) => hearts === 3 },
+    { icon: "trophy", name: "AI Builder", earned: ({ score, hearts }) => score >= 80 && hearts >= 2 }
+  ]
+});
+</script>
+</body>
+</html>

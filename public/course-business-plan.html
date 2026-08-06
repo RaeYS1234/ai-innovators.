@@ -14,40 +14,38 @@
 <script>
 renderCourse({
   courseId: "business-plan",
-  theme: "green",
-  tag: "6-8 BUILDER MISSION",
-  gradeAnchor: "middle",
-  gradeLabel: "6-8",
+  theme: "blue",
+  tag: "LEVEL 3 · BUILDER",
+  gradeAnchor: "level-3",
+  gradeLabel: "Builder",
   title: "Writing a Business Plan",
-  description: "Turn your business idea into a real plan with goals, target customers, pricing, and projections.",
+  description: "Turn your business idea into a real plan with an executive summary, target market, competitor analysis, and financial projections.",
   duration: 45,
   units: [
     {
       title: "Plan Basics",
       lessons: [
-        { title: "Why Every Business Needs a Plan", type: "read", time: "6 min", xp: 5 },
-        { title: "Anatomy of a Business Plan", type: "read", time: "6 min", xp: 5 },
-        { title: "Mission & Vision Statements", type: "practice", time: "8 min", xp: 5 }
+        { title: "What Is a Business Plan?", type: "read", time: "6 min", xp: 5, file: "lesson-bp-1-1-what-is-a-business-plan.html" },
+        { title: "The Executive Summary", type: "read", time: "7 min", xp: 5, file: "lesson-bp-1-2-executive-summary.html" },
+        { title: "Unit 1 Check", type: "quiz", time: "4 min", xp: 5, file: "lesson-bp-1-3-unit1-quiz.html" }
       ]
     },
     {
       title: "Knowing Your Market",
       lessons: [
-        { title: "Defining Your Target Customer", type: "read", time: "8 min", xp: 5 },
-        { title: "Sizing Up Competition", type: "read", time: "8 min", xp: 5 },
-        { title: "Market Research Practice", type: "practice", time: "10 min", xp: 5 }
+        { title: "Who's Your Customer?", type: "read", time: "6 min", xp: 5, file: "lesson-bp-2-1-target-market.html" },
+        { title: "Sizing Up the Competition", type: "read", time: "7 min", xp: 5, file: "lesson-bp-2-2-competition.html" },
+        { title: "The Simple Money Plan", type: "practice", time: "8 min", xp: 5, file: "lesson-bp-2-3-money-plan.html" }
       ]
     },
     {
-      title: "Money & Goals",
+      title: "Write Your Plan",
       lessons: [
-        { title: "Setting Real Goals", type: "read", time: "6 min", xp: 5 },
-        { title: "Pricing Your Product", type: "read", time: "8 min", xp: 5 },
-        { title: "Sales Forecasts", type: "practice", time: "10 min", xp: 5 }
+        { title: "Putting It All Together", type: "read", time: "7 min", xp: 5, file: "lesson-bp-3-1-putting-it-together.html" }
       ]
     }
   ],
-  finalTest: { title: "Business Plan Showcase", xp: 15, time: "10 min" }
+  finalTest: { title: "Business Plan Challenge", xp: 15, time: "10 min", file: "lesson-bp-challenge.html" }
 });
 </script>
 </body>

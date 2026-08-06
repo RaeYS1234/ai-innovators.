@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Putting It All Together — AI Innovators</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="lesson-shared.css">
+</head>
+<body>
+<div class="app">
+  <div class="topbar" id="topbar" style="display:none;">
+    <button class="close-btn" id="closeBtn">×</button>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="hearts">
+      <svg class="heart-svg" viewBox="0 0 32 32"><path d="M16 28 C 6 20 2 14 2 10 C 2 6 5 3 9 3 C 12 3 14 5 16 8 C 18 5 20 3 23 3 C 27 3 30 6 30 10 C 30 14 26 20 16 28 Z" fill="#ec4899" stroke="#be185d" stroke-width="1.5"/></svg>
+      <span id="heartsCount">3</span>
+    </div>
+  </div>
+  <div class="screen active" id="screen-welcome">
+    <div class="lesson-tag" id="lesson-tag">LESSON</div>
+    <div class="mascot" id="welcomeMascot"></div>
+    <h1 class="welcome-title" id="welcome-title"></h1>
+    <p class="welcome-subtitle" id="welcome-subtitle"></p>
+    <button class="btn go" id="startBtn">Let's Go!</button>
+  </div>
+  <div class="screen" id="screen-lesson"></div>
+  <div class="screen" id="screen-complete">
+    <div class="mascot" id="completeMascot"></div>
+    <h1 class="complete-title">Lesson Complete!</h1>
+    <p class="complete-subtitle">Awesome work! Here's what you earned:</p>
+    <div class="stats-row">
+      <div class="stat-box"><div class="stat-label">XP Earned</div><div class="stat-value xp" id="finalXP">0</div></div>
+      <div class="stat-box"><div class="stat-label">Score</div><div class="stat-value score" id="finalScore">0%</div></div>
+      <div class="stat-box"><div class="stat-label">Hearts Left</div><div class="stat-value" style="color:#ef4444;" id="finalHearts">3</div></div>
+    </div>
+    <h3 style="margin: 28px 0 14px; color: #0c4a6e; font-weight: 900; font-family:'Nunito',sans-serif;">Badges You Earned:</h3>
+    <div class="badge-grid" id="badgeGrid"></div>
+    <button class="btn go" id="backToCourseBtn">Back to Course →</button>
+    <button class="btn ghost" style="margin-top:12px;" id="playAgainBtn">Play Again</button>
+  </div>
+  <div class="screen" id="screen-gameover">
+    <div class="mascot" id="gameoverMascot"></div>
+    <h1 class="complete-title" style="color:#b91c1c;">Out of Hearts!</h1>
+    <p class="complete-subtitle">Try again — you got this!</p>
+    <button class="btn danger" id="retryBtn">Try Again</button>
+  </div>
+</div>
+<div class="feedback" id="feedback">
+  <div class="feedback-inner">
+    <div><div class="feedback-text" id="feedbackText"></div><div class="feedback-explain" id="feedbackExplain"></div></div>
+    <button class="btn go" onclick="window._lessonNext()">Continue</button>
+  </div>
+</div>
+<script src="lesson-engine.js"></script>
+<script>
+runLesson({
+  lessonId: "business-plan-3-1",
+  courseUrl: "course-business-plan.html",
+  tag: "UNIT 3 · LESSON 3.1",
+  title: "Putting It All Together",
+  subtitle: "Time to write your first real one-page business plan.",
+  steps: [
+    {
+      type: "teach",
+      title: "Your One-Page Plan",
+      body: "You don't need 40 pages to start — you need one clear page that covers all four parts: Executive Summary, Target Market, Competition, and Money Plan. Real founders often start exactly this way, then expand the plan as the business grows.",
+      examples: ["Executive Summary", "Target Market", "Competition", "Money Plan"]
+    },
+    {
+      type: "teach",
+      title: "From Idea to Plan: An Example",
+      body: "Imagine Jasmine wants to start a weekend pet-sitting business. Her plan: <b>Summary</b> — 'Jasmine's Critter Care' watches pets for neighbors who travel, $15 a day. <b>Target Market</b> — busy neighborhood families with dogs or cats. <b>Competition</b> — big pet-sitting apps charge more and feel less personal; Jasmine is local and known. <b>Money Plan</b> — 8 pet-sitting days a month × $15 = $120 revenue, minus $10 in treats and supplies = $110 profit. That's a complete plan on one page.",
+      examples: []
+    },
+    {
+      type: "mc",
+      question: "How many main parts does a solid one-page business plan need?",
+      hint: "Count the sections from the lesson.",
+      options: [
+        { text: "Four: Executive Summary, Target Market, Competition, Money Plan", correct: true },
+        { text: "One — just the idea", correct: false },
+        { text: "Twenty — the more pages the better", correct: false },
+        { text: "Zero — plans aren't needed", correct: false }
+      ],
+      correctMsg: "Right! Four solid parts make a complete plan, even on one page.",
+      wrongMsg: "A solid plan needs all four parts: Executive Summary, Target Market, Competition, and Money Plan."
+    },
+    {
+      type: "mc",
+      question: "In Jasmine's pet-sitting plan, who is her target market?",
+      hint: "Look at who she's aiming for, not everyone in the city.",
+      options: [
+        { text: "Busy neighborhood families with dogs or cats", correct: true },
+        { text: "Everyone in the entire city", correct: false },
+        { text: "Only people without pets", correct: false },
+        { text: "Big pet-sitting apps", correct: false }
+      ],
+      correctMsg: "Yes! That's her specific target market.",
+      wrongMsg: "Jasmine's target market is busy neighborhood families with dogs or cats — a specific, clear group."
+    },
+    {
+      type: "mc",
+      question: "What did Jasmine identify as her advantage over the competition (big pet-sitting apps)?",
+      hint: "Think about what apps often lack.",
+      options: [
+        { text: "She charges way more money", correct: false },
+        { text: "She's local and known personally, unlike a big impersonal app", correct: true },
+        { text: "She has zero competition", correct: false },
+        { text: "She doesn't like pets", correct: false }
+      ],
+      correctMsg: "Exactly! Being local and known personally is her edge over the bigger, less personal apps.",
+      wrongMsg: "Jasmine's edge is being local and personally known — the big apps are more expensive and less personal."
+    },
+    {
+      type: "mc",
+      question: "Jasmine sits 8 days a month at $15 a day, with $10 in supply costs. What's her monthly profit?",
+      hint: "Find revenue first, then subtract costs.",
+      options: [
+        { text: "$120", correct: false },
+        { text: "$110", correct: true },
+        { text: "$10", correct: false },
+        { text: "$130", correct: false }
+      ],
+      correctMsg: "Right! $120 revenue − $10 costs = $110 profit.",
+      wrongMsg: "Revenue is 8 × $15 = $120. Subtract the $10 in costs: $120 − $10 = $110 profit."
+    },
+    {
+      type: "mc",
+      question: "Why is it smart to start with a ONE-PAGE plan instead of waiting to write 40 pages?",
+      hint: "Think about which plan actually gets finished.",
+      options: [
+        { text: "Because one page is easier to actually finish and use", correct: true },
+        { text: "Because business plans are illegal if too long", correct: false },
+        { text: "Because investors never read anything", correct: false },
+        { text: "Because one page guarantees success", correct: false }
+      ],
+      correctMsg: "Yes! A finished one-page plan beats an unfinished 40-page plan every time.",
+      wrongMsg: "A one-page plan is smart because it's realistic to finish and actually use — you can always expand it later."
+    }
+  ],
+  badges: [
+    { icon: "starter", name: "Plan Builder", earned: true },
+    { icon: "star", name: "Idea Connector", earned: ({ correct }) => correct >= 3 },
+    { icon: "brain", name: "Full Picture Thinker", earned: ({ correct }) => correct >= 4 },
+    { icon: "perfect", name: "Perfect Score", earned: ({ score }) => score === 100 },
+    { icon: "heart", name: "All Hearts", earned: ({ hearts }) => hearts === 3 },
+    { icon: "trophy", name: "One-Page Pro", earned: ({ score, hearts }) => score >= 80 && hearts >= 2 }
+  ]
+});
+</script>
+</body>
+</html>

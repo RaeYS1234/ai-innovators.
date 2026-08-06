@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Avoiding AI Mistakes — AI Innovators</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="lesson-shared.css">
+</head>
+<body>
+<div class="app">
+  <div class="topbar" id="topbar" style="display:none;">
+    <button class="close-btn" id="closeBtn">×</button>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="hearts">
+      <svg class="heart-svg" viewBox="0 0 32 32"><path d="M16 28 C 6 20 2 14 2 10 C 2 6 5 3 9 3 C 12 3 14 5 16 8 C 18 5 20 3 23 3 C 27 3 30 6 30 10 C 30 14 26 20 16 28 Z" fill="#ec4899" stroke="#be185d" stroke-width="1.5"/></svg>
+      <span id="heartsCount">3</span>
+    </div>
+  </div>
+  <div class="screen active" id="screen-welcome">
+    <div class="lesson-tag" id="lesson-tag">LESSON</div>
+    <div class="mascot" id="welcomeMascot"></div>
+    <h1 class="welcome-title" id="welcome-title"></h1>
+    <p class="welcome-subtitle" id="welcome-subtitle"></p>
+    <button class="btn go" id="startBtn">Let's Go!</button>
+  </div>
+  <div class="screen" id="screen-lesson"></div>
+  <div class="screen" id="screen-complete">
+    <div class="mascot" id="completeMascot"></div>
+    <h1 class="complete-title">Lesson Complete!</h1>
+    <p class="complete-subtitle">Awesome work! Here's what you earned:</p>
+    <div class="stats-row">
+      <div class="stat-box"><div class="stat-label">XP Earned</div><div class="stat-value xp" id="finalXP">0</div></div>
+      <div class="stat-box"><div class="stat-label">Score</div><div class="stat-value score" id="finalScore">0%</div></div>
+      <div class="stat-box"><div class="stat-label">Hearts Left</div><div class="stat-value" style="color:#ef4444;" id="finalHearts">3</div></div>
+    </div>
+    <h3 style="margin: 28px 0 14px; color: #0c4a6e; font-weight: 900; font-family:'Nunito',sans-serif;">Badges You Earned:</h3>
+    <div class="badge-grid" id="badgeGrid"></div>
+    <button class="btn go" id="backToCourseBtn">Back to Course →</button>
+    <button class="btn ghost" style="margin-top:12px;" id="playAgainBtn">Play Again</button>
+  </div>
+  <div class="screen" id="screen-gameover">
+    <div class="mascot" id="gameoverMascot"></div>
+    <h1 class="complete-title" style="color:#b91c1c;">Out of Hearts!</h1>
+    <p class="complete-subtitle">Try again — you got this!</p>
+    <button class="btn danger" id="retryBtn">Try Again</button>
+  </div>
+</div>
+<div class="feedback" id="feedback">
+  <div class="feedback-inner">
+    <div><div class="feedback-text" id="feedbackText"></div><div class="feedback-explain" id="feedbackExplain"></div></div>
+    <button class="btn go" onclick="window._lessonNext()">Continue</button>
+  </div>
+</div>
+<script src="lesson-engine.js"></script>
+<script>
+const CHECK_ICON = `<svg viewBox="0 0 64 64"><circle cx="32" cy="32" r="26" fill="#fef08a" stroke="#ca8a04" stroke-width="2.5"/><path d="M 20 33 L 28 41 L 44 23" stroke="#15803d" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+
+runLesson({
+  lessonId: "ai-tools-2-3",
+  courseUrl: "course-ai-tools-workshop.html",
+  tag: "UNIT 2 · LESSON 2.3",
+  title: "Avoiding AI Mistakes",
+  subtitle: "Smart AI users always double-check — let's learn how!",
+  steps: [
+    {
+      type: "vocab",
+      word: "Fact-Check",
+      pronounce: "say it: FAKT-chek",
+      definition: "To <b>fact-check</b> means to double-check that something is actually TRUE before you trust or share it — instead of just believing it right away.",
+      example: "ChatGPT says a fact you're not sure about? Search it online or ask a trusted adult before using it.",
+      icon: CHECK_ICON
+    },
+    {
+      type: "teach",
+      title: "AI Can Be Wrong",
+      body: "AI tools are powerful, but they can still make mistakes — this is sometimes called a 'hallucination,' when AI confidently states something false. It might get a fact wrong, invent a statistic, or misspell your business name. Never copy-paste AI output straight into your real business materials without checking it first.",
+      examples: ["AI can be wrong", "Always double-check facts", "Never blindly copy-paste"]
+    },
+    {
+      type: "teach",
+      title: "Smart, Safe AI Habits",
+      body: "Great AI users follow simple safety habits: never type your full name, address, or school into a prompt. Always read the WHOLE answer before using it — don't just skim. Fact-check any numbers or claims. And remember: AI can help you build your business, but the ideas and effort should still be truly yours.",
+      examples: ["Protect personal info", "Read the whole answer", "Fact-check claims", "Make it truly yours"]
+    },
+    {
+      type: "mc",
+      question: "What does it mean when AI 'hallucinates'?",
+      hint: "Think about AI being confidently... wrong.",
+      options: [
+        { text: "The AI sees real ghosts", correct: false },
+        { text: "The AI confidently states something that is actually false", correct: true },
+        { text: "The AI shuts down completely", correct: false },
+        { text: "The AI asks you a question", correct: false }
+      ],
+      correctMsg: "Right! Hallucinating means the AI sounds sure but is actually wrong.",
+      wrongMsg: "'Hallucinating' means the AI states something FALSE very confidently — which is exactly why fact-checking matters."
+    },
+    {
+      type: "mc",
+      question: "ChatGPT gives you a fact for your business report that you're not sure is true. What should you do?",
+      hint: "Trust, but verify.",
+      options: [
+        { text: "Use it right away without checking", correct: false },
+        { text: "Double-check it with a search or a trusted adult before using it", correct: true },
+        { text: "Delete your whole report", correct: false },
+        { text: "Assume all AI facts are always correct", correct: false }
+      ],
+      correctMsg: "Yes! Fact-checking before you use a claim keeps your work honest and accurate.",
+      wrongMsg: "Never assume an AI fact is correct. Double-check it with a search or a trusted adult before using it."
+    },
+    {
+      type: "mc",
+      question: "Which is a SAFE thing to type into an AI prompt?",
+      hint: "Think business idea vs. personal details.",
+      options: [
+        { text: "Your home address and phone number", correct: false },
+        { text: "Details about your business idea, like the name and what it sells", correct: true },
+        { text: "Your school's exact name and grade", correct: false },
+        { text: "A parent's bank account number", correct: false }
+      ],
+      correctMsg: "Right! Business details are safe — personal info like your address is not.",
+      wrongMsg: "Keep personal info like your address, school, or phone number out of prompts. Business details like your idea's name are safe."
+    },
+    {
+      type: "mc",
+      question: "AI helps you write a product description in seconds. What should you do BEFORE using it?",
+      hint: "Don't just copy-paste blindly.",
+      options: [
+        { text: "Read it all the way through and check it sounds right", correct: true },
+        { text: "Publish it immediately without reading it", correct: false },
+        { text: "Assume it's perfect since AI wrote it", correct: false },
+        { text: "Never use AI-written text at all", correct: false }
+      ],
+      correctMsg: "Exactly! Always read the whole thing and make sure it actually fits your business.",
+      wrongMsg: "Always read AI output fully before using it — don't just skim or assume it's automatically perfect."
+    },
+    {
+      type: "mc",
+      question: "Which is the healthiest way to think about using AI for your business?",
+      hint: "AI is a helper, not a replacement for YOU.",
+      options: [
+        { text: "AI does 100% of the work — I don't need to think at all", correct: false },
+        { text: "AI helps me move faster, but the ideas and final decisions are still mine", correct: true },
+        { text: "I should never use AI for anything", correct: false },
+        { text: "I should copy AI's answers exactly, word for word, always", correct: false }
+      ],
+      correctMsg: "Yes! AI is a helper — the ideas, judgment, and final product should still be truly yours.",
+      wrongMsg: "AI should help you move faster and think bigger — but the real ideas, decisions, and effort should still come from YOU."
+    }
+  ],
+  badges: [
+    { icon: "target", name: "Safety Starter", earned: true },
+    { icon: "star", name: "Fact-Checker", earned: ({ correct }) => correct >= 3 },
+    { icon: "brain", name: "AI Safety Smart", earned: ({ correct }) => correct >= 4 },
+    { icon: "perfect", name: "Perfect Score", earned: ({ score }) => score === 100 },
+    { icon: "heart", name: "All Hearts", earned: ({ hearts }) => hearts === 3 },
+    { icon: "trophy", name: "Trusted AI User", earned: ({ score, hearts }) => score >= 80 && hearts >= 2 }
+  ]
+});
+</script>
+</body>
+</html>

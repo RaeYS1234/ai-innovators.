@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>AI Tools Challenge — AI Innovators</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="lesson-shared.css">
+</head>
+<body>
+<div class="app">
+  <div class="topbar" id="topbar" style="display:none;">
+    <button class="close-btn" id="closeBtn">×</button>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="hearts">
+      <svg class="heart-svg" viewBox="0 0 32 32"><path d="M16 28 C 6 20 2 14 2 10 C 2 6 5 3 9 3 C 12 3 14 5 16 8 C 18 5 20 3 23 3 C 27 3 30 6 30 10 C 30 14 26 20 16 28 Z" fill="#ec4899" stroke="#be185d" stroke-width="1.5"/></svg>
+      <span id="heartsCount">3</span>
+    </div>
+  </div>
+  <div class="screen active" id="screen-welcome">
+    <div class="lesson-tag" id="lesson-tag">LESSON</div>
+    <div class="mascot" id="welcomeMascot"></div>
+    <h1 class="welcome-title" id="welcome-title"></h1>
+    <p class="welcome-subtitle" id="welcome-subtitle"></p>
+    <button class="btn go" id="startBtn">Let's Go!</button>
+  </div>
+  <div class="screen" id="screen-lesson"></div>
+  <div class="screen" id="screen-complete">
+    <div class="mascot" id="completeMascot"></div>
+    <h1 class="complete-title">Lesson Complete!</h1>
+    <p class="complete-subtitle">Awesome work! Here's what you earned:</p>
+    <div class="stats-row">
+      <div class="stat-box"><div class="stat-label">XP Earned</div><div class="stat-value xp" id="finalXP">0</div></div>
+      <div class="stat-box"><div class="stat-label">Score</div><div class="stat-value score" id="finalScore">0%</div></div>
+      <div class="stat-box"><div class="stat-label">Hearts Left</div><div class="stat-value" style="color:#ef4444;" id="finalHearts">3</div></div>
+    </div>
+    <h3 style="margin: 28px 0 14px; color: #0c4a6e; font-weight: 900; font-family:'Nunito',sans-serif;">Badges You Earned:</h3>
+    <div class="badge-grid" id="badgeGrid"></div>
+    <button class="btn go" id="backToCourseBtn">Back to Course →</button>
+    <button class="btn ghost" style="margin-top:12px;" id="playAgainBtn">Play Again</button>
+  </div>
+  <div class="screen" id="screen-gameover">
+    <div class="mascot" id="gameoverMascot"></div>
+    <h1 class="complete-title" style="color:#b91c1c;">Out of Hearts!</h1>
+    <p class="complete-subtitle">Try again — you got this!</p>
+    <button class="btn danger" id="retryBtn">Try Again</button>
+  </div>
+</div>
+<div class="feedback" id="feedback">
+  <div class="feedback-inner">
+    <div><div class="feedback-text" id="feedbackText"></div><div class="feedback-explain" id="feedbackExplain"></div></div>
+    <button class="btn go" onclick="window._lessonNext()">Continue</button>
+  </div>
+</div>
+<script src="lesson-engine.js"></script>
+<script>
+runLesson({
+  lessonId: "ai-tools-challenge",
+  courseUrl: "course-ai-tools-workshop.html",
+  tag: "FINAL CHALLENGE",
+  title: "AI Tools Challenge",
+  subtitle: "Show off everything you've learned about using AI tools like a pro!",
+  steps: [
+    {
+      type: "mc",
+      question: "What is a 'prompt'?",
+      hint: "Think about what YOU type first.",
+      options: [
+        { text: "The instructions or question you give an AI tool", correct: true },
+        { text: "The AI's finished answer", correct: false },
+        { text: "A kind of computer chip", correct: false },
+        { text: "A robot's nickname", correct: false }
+      ],
+      correctMsg: "Right! A prompt is your instructions to the AI.",
+      wrongMsg: "A prompt is what YOU type — the instructions or question you give the AI before it answers."
+    },
+    {
+      type: "mc",
+      question: "You need a poster designed with colors and images. Which tool fits BEST?",
+      hint: "Visual design, not words.",
+      options: [
+        { text: "ChatGPT", correct: false },
+        { text: "Canva Magic Studio", correct: true },
+        { text: "ElevenLabs", correct: false },
+        { text: "Notion AI", correct: false }
+      ],
+      correctMsg: "Yes! Canva Magic Studio is built for visual designs.",
+      wrongMsg: "Canva Magic Studio is the tool for visual designs like posters — ChatGPT is for words, not images."
+    },
+    {
+      type: "mc",
+      question: "You need a short jingle for your ad. Which tool fits BEST?",
+      hint: "Think music.",
+      options: [
+        { text: "Suno", correct: true },
+        { text: "Canva Magic Studio", correct: false },
+        { text: "Notion AI", correct: false },
+        { text: "ChatGPT", correct: false }
+      ],
+      correctMsg: "Right! Suno creates original music and jingles.",
+      wrongMsg: "Suno is built for music and jingles — the other tools handle words, design, or organizing, not sound."
+    },
+    {
+      type: "mc",
+      question: "ChatGPT gives you a fact you're not sure is true. What's the smart move?",
+      hint: "Trust, but verify.",
+      options: [
+        { text: "Use it immediately without checking", correct: false },
+        { text: "Double-check it with a search or trusted adult before using it", correct: true },
+        { text: "Assume every AI fact is always correct", correct: false },
+        { text: "Delete your whole project", correct: false }
+      ],
+      correctMsg: "Exactly! Fact-checking keeps your work accurate.",
+      wrongMsg: "Never assume an AI fact is true. Always double-check it with a search or a trusted adult first."
+    },
+    {
+      type: "mc",
+      question: "You want a poster with a tagline built into the design. What's the smart tool order?",
+      hint: "Words come before the visual built around them.",
+      options: [
+        { text: "Design first, then think of random words that don't match", correct: false },
+        { text: "Write the tagline in ChatGPT first, then design the poster around it in Canva", correct: true },
+        { text: "Skip the words entirely", correct: false },
+        { text: "Use Suno to write the tagline", correct: false }
+      ],
+      correctMsg: "Right! Words first, then design built around them — that's a smart chain.",
+      wrongMsg: "Chain it: write the tagline in ChatGPT FIRST, then paste it into Canva so the poster is designed around real words."
+    },
+    {
+      type: "mc",
+      question: "Which is a SAFE thing to type into an AI prompt?",
+      hint: "Business details vs. personal details.",
+      options: [
+        { text: "Your home address and phone number", correct: false },
+        { text: "Your business name and what it sells", correct: true },
+        { text: "A parent's bank account number", correct: false },
+        { text: "Your exact school and grade", correct: false }
+      ],
+      correctMsg: "Yes! Business details are safe to share — personal info is not.",
+      wrongMsg: "Keep personal info like your address or school out of prompts. Business details, like your idea's name, are safe."
+    },
+    {
+      type: "mc",
+      question: "What is the healthiest way to think about using AI to build your business?",
+      hint: "AI is a helper, not a replacement for YOU.",
+      options: [
+        { text: "AI does 100% of the work — I don't need to think at all", correct: false },
+        { text: "AI helps me move faster, but the ideas and final decisions are still mine", correct: true },
+        { text: "I should copy AI's exact words always, without reading them", correct: false },
+        { text: "I should never use AI for my business", correct: false }
+      ],
+      correctMsg: "Right! AI is a helper — the ideas, judgment, and real effort should still be yours.",
+      wrongMsg: "AI should help you move faster and think bigger, but the real ideas, decisions, and effort should still come from YOU."
+    }
+  ],
+  badges: [
+    { icon: "trophy", name: "Challenge Complete", earned: true },
+    { icon: "star", name: "Sharp Toolmaker", earned: ({ correct }) => correct >= 4 },
+    { icon: "brain", name: "AI Tools Genius", earned: ({ correct }) => correct >= 6 },
+    { icon: "perfect", name: "Perfect Score", earned: ({ score }) => score === 100 },
+    { icon: "heart", name: "All Hearts", earned: ({ hearts }) => hearts === 3 },
+    { icon: "crown", name: "AI Tools Master", earned: ({ score, hearts }) => score >= 80 && hearts >= 2 }
+  ]
+});
+</script>
+</body>
+</html>

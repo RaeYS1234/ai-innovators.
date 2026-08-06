@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>AI Tools For Your Business — AI Innovators</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="lesson-shared.css">
+</head>
+<body>
+<div class="app">
+  <div class="topbar" id="topbar" style="display:none;">
+    <button class="close-btn" id="closeBtn">×</button>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="hearts">
+      <svg class="heart-svg" viewBox="0 0 32 32"><path d="M16 28 C 6 20 2 14 2 10 C 2 6 5 3 9 3 C 12 3 14 5 16 8 C 18 5 20 3 23 3 C 27 3 30 6 30 10 C 30 14 26 20 16 28 Z" fill="#ec4899" stroke="#be185d" stroke-width="1.5"/></svg>
+      <span id="heartsCount">3</span>
+    </div>
+  </div>
+  <div class="screen active" id="screen-welcome">
+    <div class="lesson-tag" id="lesson-tag">LESSON</div>
+    <div class="mascot" id="welcomeMascot"></div>
+    <h1 class="welcome-title" id="welcome-title"></h1>
+    <p class="welcome-subtitle" id="welcome-subtitle"></p>
+    <button class="btn go" id="startBtn">Let's Go!</button>
+  </div>
+  <div class="screen" id="screen-lesson"></div>
+  <div class="screen" id="screen-complete">
+    <div class="mascot" id="completeMascot"></div>
+    <h1 class="complete-title">Lesson Complete!</h1>
+    <p class="complete-subtitle">Awesome work! Here's what you earned:</p>
+    <div class="stats-row">
+      <div class="stat-box"><div class="stat-label">XP Earned</div><div class="stat-value xp" id="finalXP">0</div></div>
+      <div class="stat-box"><div class="stat-label">Score</div><div class="stat-value score" id="finalScore">0%</div></div>
+      <div class="stat-box"><div class="stat-label">Hearts Left</div><div class="stat-value" style="color:#ef4444;" id="finalHearts">3</div></div>
+    </div>
+    <h3 style="margin: 28px 0 14px; color: #0c4a6e; font-weight: 900; font-family:'Nunito',sans-serif;">Badges You Earned:</h3>
+    <div class="badge-grid" id="badgeGrid"></div>
+    <button class="btn go" id="backToCourseBtn">Back to Course →</button>
+    <button class="btn ghost" style="margin-top:12px;" id="playAgainBtn">Play Again</button>
+  </div>
+  <div class="screen" id="screen-gameover">
+    <div class="mascot" id="gameoverMascot"></div>
+    <h1 class="complete-title" style="color:#b91c1c;">Out of Hearts!</h1>
+    <p class="complete-subtitle">Try again — you got this!</p>
+    <button class="btn danger" id="retryBtn">Try Again</button>
+  </div>
+</div>
+<div class="feedback" id="feedback">
+  <div class="feedback-inner">
+    <div><div class="feedback-text" id="feedbackText"></div><div class="feedback-explain" id="feedbackExplain"></div></div>
+    <button class="btn go" onclick="window._lessonNext()">Continue</button>
+  </div>
+</div>
+<script src="lesson-engine.js"></script>
+<script>
+runLesson({
+  lessonId: "ai-tools-3-1",
+  courseUrl: "course-ai-tools-workshop.html",
+  tag: "UNIT 3 · LESSON 3.1",
+  title: "AI Tools For Your Business",
+  subtitle: "From idea to launch — build your whole business toolkit!",
+  steps: [
+    {
+      type: "teach",
+      title: "The Full Workflow: Idea to Launch",
+      body: "Real entrepreneurs use AI at EVERY stage of launching a business. Idea stage: ChatGPT helps brainstorm names and taglines. Brand stage: Canva Magic Studio designs your logo and colors. Marketing stage: ChatGPT writes your product description, Canva designs your poster, Suno makes a jingle, and ElevenLabs records your ad voiceover. Organizing stage: Notion AI keeps your notes, tasks, and plans in one place. That's a complete AI-powered toolkit!",
+      examples: ["Idea: ChatGPT", "Brand: Canva", "Marketing: Canva+Suno+ElevenLabs", "Organize: Notion AI"]
+    },
+    {
+      type: "teach",
+      title: "Try This: Jordan's Bracelet Business",
+      body: "Jordan wants to sell friendship bracelets. Step 1: Jordan asks ChatGPT, 'Give me 5 catchy names for a kids' friendship bracelet business, colorful and fun.' Picks 'Knot Squad.' Step 2: Jordan uses Canva Magic Studio to design a logo, describing 'Knot Squad, colorful bracelets, rainbow colors, fun and playful.' Step 3: Jordan asks ChatGPT to write a short, exciting product description for the poster. Step 4: Jordan pastes it into Canva to finish the poster design. One clear idea, four AI tools, one finished launch kit!",
+      examples: ["Name it (ChatGPT)", "Brand it (Canva)", "Describe it (ChatGPT)", "Design it (Canva)"]
+    },
+    {
+      type: "mc",
+      question: "In Jordan's bracelet business, which tool did Jordan use FIRST?",
+      hint: "What has to exist before you can design a logo around it?",
+      options: [
+        { text: "Canva, to design a logo with no name yet", correct: false },
+        { text: "ChatGPT, to brainstorm the business name first", correct: true },
+        { text: "Suno, to write a jingle first", correct: false },
+        { text: "ElevenLabs, to record a voiceover first", correct: false }
+      ],
+      correctMsg: "Right! Jordan needed a name before designing a logo around it.",
+      wrongMsg: "Jordan used ChatGPT FIRST to brainstorm the business name — you need a name before you can design a logo for it."
+    },
+    {
+      type: "mc",
+      question: "Which AI tool matches the 'Organizing stage' of running a business?",
+      hint: "Think notes, tasks, and plans.",
+      options: [
+        { text: "Notion AI", correct: true },
+        { text: "Suno", correct: false },
+        { text: "ElevenLabs", correct: false },
+        { text: "Canva Magic Studio", correct: false }
+      ],
+      correctMsg: "Yes! Notion AI helps organize your notes, tasks, and plans.",
+      wrongMsg: "Notion AI is built for organizing — notes, to-do lists, and plans all in one place."
+    },
+    {
+      type: "mc",
+      question: "You've picked your business name and logo. What's the smart NEXT step for marketing materials?",
+      hint: "Think: what needs to happen before you design the poster's words?",
+      options: [
+        { text: "Write the product description in ChatGPT, then design the poster around it in Canva", correct: true },
+        { text: "Design a random poster with no words planned", correct: false },
+        { text: "Skip marketing completely", correct: false },
+        { text: "Record a voiceover with no script written yet", correct: false }
+      ],
+      correctMsg: "Exactly! Write the words first, then build the visual design around them.",
+      wrongMsg: "Write your product description in ChatGPT FIRST, then design the poster around it in Canva — words before visuals."
+    },
+    {
+      type: "mc",
+      question: "Why does Jordan's 4-step AI workflow work so well?",
+      hint: "Think about how each step builds on the one before it.",
+      options: [
+        { text: "Because each step builds on the last, using the right tool for each job", correct: true },
+        { text: "Because Jordan used only one AI tool for everything", correct: false },
+        { text: "Because Jordan skipped fact-checking to save time", correct: false },
+        { text: "Because the steps have no connection to each other", correct: false }
+      ],
+      correctMsg: "Right! Each step builds on the last, and each tool handles the job it's best at.",
+      wrongMsg: "Jordan's workflow works because each step builds on the last one, and each AI tool is used for the job it does best."
+    },
+    {
+      type: "mc",
+      question: "You're about to launch your own business idea using AI tools. What should you do FIRST?",
+      hint: "Every workflow starts with a clear idea.",
+      options: [
+        { text: "Get super clear on your business idea, then match tools to each step", correct: true },
+        { text: "Open every AI tool at once with no plan", correct: false },
+        { text: "Skip planning and just start typing random prompts", correct: false },
+        { text: "Wait for AI to invent your whole business for you", correct: false }
+      ],
+      correctMsg: "Yes! A clear idea first means every AI tool you use afterward actually helps build the right thing.",
+      wrongMsg: "Always start with a clear business idea. Once you know what you're building, you can match the right AI tool to each step."
+    }
+  ],
+  badges: [
+    { icon: "starter", name: "Workflow Starter", earned: true },
+    { icon: "star", name: "Launch Ready", earned: ({ correct }) => correct >= 3 },
+    { icon: "brain", name: "Full Toolkit Thinker", earned: ({ correct }) => correct >= 4 },
+    { icon: "perfect", name: "Perfect Score", earned: ({ score }) => score === 100 },
+    { icon: "heart", name: "All Hearts", earned: ({ hearts }) => hearts === 3 },
+    { icon: "trophy", name: "AI Business Builder", earned: ({ score, hearts }) => score >= 80 && hearts >= 2 }
+  ]
+});
+</script>
+</body>
+</html>

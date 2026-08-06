@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Unit 1 Check — AI Innovators</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="lesson-shared.css">
+</head>
+<body>
+<div class="app">
+  <div class="topbar" id="topbar" style="display:none;">
+    <button class="close-btn" id="closeBtn">×</button>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="hearts">
+      <svg class="heart-svg" viewBox="0 0 32 32"><path d="M16 28 C 6 20 2 14 2 10 C 2 6 5 3 9 3 C 12 3 14 5 16 8 C 18 5 20 3 23 3 C 27 3 30 6 30 10 C 30 14 26 20 16 28 Z" fill="#ec4899" stroke="#be185d" stroke-width="1.5"/></svg>
+      <span id="heartsCount">3</span>
+    </div>
+  </div>
+  <div class="screen active" id="screen-welcome">
+    <div class="lesson-tag" id="lesson-tag">LESSON</div>
+    <div class="mascot" id="welcomeMascot"></div>
+    <h1 class="welcome-title" id="welcome-title"></h1>
+    <p class="welcome-subtitle" id="welcome-subtitle"></p>
+    <button class="btn go" id="startBtn">Let's Go!</button>
+  </div>
+  <div class="screen" id="screen-lesson"></div>
+  <div class="screen" id="screen-complete">
+    <div class="mascot" id="completeMascot"></div>
+    <h1 class="complete-title">Lesson Complete!</h1>
+    <p class="complete-subtitle">Awesome work! Here's what you earned:</p>
+    <div class="stats-row">
+      <div class="stat-box"><div class="stat-label">XP Earned</div><div class="stat-value xp" id="finalXP">0</div></div>
+      <div class="stat-box"><div class="stat-label">Score</div><div class="stat-value score" id="finalScore">0%</div></div>
+      <div class="stat-box"><div class="stat-label">Hearts Left</div><div class="stat-value" style="color:#ef4444;" id="finalHearts">3</div></div>
+    </div>
+    <h3 style="margin: 28px 0 14px; color: #0c4a6e; font-weight: 900; font-family:'Nunito',sans-serif;">Badges You Earned:</h3>
+    <div class="badge-grid" id="badgeGrid"></div>
+    <button class="btn go" id="backToCourseBtn">Back to Course →</button>
+    <button class="btn ghost" style="margin-top:12px;" id="playAgainBtn">Play Again</button>
+  </div>
+  <div class="screen" id="screen-gameover">
+    <div class="mascot" id="gameoverMascot"></div>
+    <h1 class="complete-title" style="color:#b91c1c;">Out of Hearts!</h1>
+    <p class="complete-subtitle">Try again — you got this!</p>
+    <button class="btn danger" id="retryBtn">Try Again</button>
+  </div>
+</div>
+<div class="feedback" id="feedback">
+  <div class="feedback-inner">
+    <div><div class="feedback-text" id="feedbackText"></div><div class="feedback-explain" id="feedbackExplain"></div></div>
+    <button class="btn go" onclick="window._lessonNext()">Continue</button>
+  </div>
+</div>
+<script src="lesson-engine.js"></script>
+<script>
+runLesson({
+  lessonId: "business-plan-1-3",
+  courseUrl: "course-business-plan.html",
+  tag: "UNIT 1 CHECK",
+  title: "Unit 1 Quiz",
+  subtitle: "Prove you know what a business plan is — and why the summary matters.",
+  steps: [
+    {
+      type: "mc",
+      question: "What is a business plan?",
+      hint: "It's a written document.",
+      options: [
+        { text: "A written document explaining what a business does, who it helps, and how it makes money", correct: true },
+        { text: "A logo design", correct: false },
+        { text: "A receipt from a store", correct: false },
+        { text: "A birthday card", correct: false }
+      ],
+      correctMsg: "Right! It's the written map for the whole business.",
+      wrongMsg: "A business plan is a written document explaining what a business does, who it helps, and how it makes money."
+    },
+    {
+      type: "mc",
+      question: "Why plan BEFORE spending money?",
+      hint: "What does planning first help you avoid?",
+      options: [
+        { text: "So you build on facts instead of guesses", correct: true },
+        { text: "So you can spend faster", correct: false },
+        { text: "Because it's the law", correct: false },
+        { text: "It doesn't matter when you plan", correct: false }
+      ],
+      correctMsg: "Yes! Planning first means facts, not guesses.",
+      wrongMsg: "Planning before spending means you're building your business on facts instead of guesses."
+    },
+    {
+      type: "mc",
+      question: "What is the executive summary?",
+      hint: "Think 'snapshot,' not 'every detail.'",
+      options: [
+        { text: "A short snapshot of your business, problem, customer, and money plan", correct: true },
+        { text: "A long list of every expense", correct: false },
+        { text: "A picture of your logo", correct: false },
+        { text: "The last page nobody reads", correct: false }
+      ],
+      correctMsg: "Correct! It's the quick snapshot at the front of the plan.",
+      wrongMsg: "The executive summary is a short snapshot — your business, the problem it solves, your customer, and how it earns money."
+    },
+    {
+      type: "mc",
+      question: "When is the executive summary usually WRITTEN?",
+      hint: "It's read first, but written...",
+      options: [
+        { text: "Last, after the rest of the plan is figured out", correct: true },
+        { text: "First, before any research", correct: false },
+        { text: "It's never actually written down", correct: false },
+        { text: "Only after the business closes", correct: false }
+      ],
+      correctMsg: "Yes! Written last, even though it's read first.",
+      wrongMsg: "The executive summary is usually WRITTEN last — after target market, competition, and money are figured out — even though it's read first."
+    },
+    {
+      type: "mc",
+      question: "You're starting a dog-walking business. Which is the BEST one-sentence executive summary?",
+      hint: "Look for one that names the business, service, customer, and price.",
+      options: [
+        { text: "I like dogs.", correct: false },
+        { text: "Paws & Go walks neighborhood dogs after school so busy pet owners don't have to worry, priced at $10 per walk.", correct: true },
+        { text: "Dogs are animals that bark.", correct: false },
+        { text: "My business will make a lot of money someday, I hope.", correct: false }
+      ],
+      correctMsg: "Yes! That sentence names the business, the service, the customer, and the price — a real executive summary in one line.",
+      wrongMsg: "The best executive summary names the business, what it does, who it's for, and how it earns money — like 'Paws & Go walks neighborhood dogs after school... for $10 per walk.'"
+    }
+  ],
+  badges: [
+    { icon: "starter", name: "Unit 1 Complete", earned: true },
+    { icon: "star", name: "Quiz Sharp", earned: ({ correct }) => correct >= 2 },
+    { icon: "brain", name: "Plan Wise", earned: ({ correct }) => correct >= 4 },
+    { icon: "perfect", name: "Perfect Score", earned: ({ score }) => score === 100 },
+    { icon: "heart", name: "All Hearts", earned: ({ hearts }) => hearts === 3 },
+    { icon: "trophy", name: "Unit 1 Champion", earned: ({ score, hearts }) => score >= 80 && hearts >= 2 }
+  ]
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Sizing Up the Competition — AI Innovators</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="lesson-shared.css">
+</head>
+<body>
+<div class="app">
+  <div class="topbar" id="topbar" style="display:none;">
+    <button class="close-btn" id="closeBtn">×</button>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="hearts">
+      <svg class="heart-svg" viewBox="0 0 32 32"><path d="M16 28 C 6 20 2 14 2 10 C 2 6 5 3 9 3 C 12 3 14 5 16 8 C 18 5 20 3 23 3 C 27 3 30 6 30 10 C 30 14 26 20 16 28 Z" fill="#ec4899" stroke="#be185d" stroke-width="1.5"/></svg>
+      <span id="heartsCount">3</span>
+    </div>
+  </div>
+  <div class="screen active" id="screen-welcome">
+    <div class="lesson-tag" id="lesson-tag">LESSON</div>
+    <div class="mascot" id="welcomeMascot"></div>
+    <h1 class="welcome-title" id="welcome-title"></h1>
+    <p class="welcome-subtitle" id="welcome-subtitle"></p>
+    <button class="btn go" id="startBtn">Let's Go!</button>
+  </div>
+  <div class="screen" id="screen-lesson"></div>
+  <div class="screen" id="screen-complete">
+    <div class="mascot" id="completeMascot"></div>
+    <h1 class="complete-title">Lesson Complete!</h1>
+    <p class="complete-subtitle">Awesome work! Here's what you earned:</p>
+    <div class="stats-row">
+      <div class="stat-box"><div class="stat-label">XP Earned</div><div class="stat-value xp" id="finalXP">0</div></div>
+      <div class="stat-box"><div class="stat-label">Score</div><div class="stat-value score" id="finalScore">0%</div></div>
+      <div class="stat-box"><div class="stat-label">Hearts Left</div><div class="stat-value" style="color:#ef4444;" id="finalHearts">3</div></div>
+    </div>
+    <h3 style="margin: 28px 0 14px; color: #0c4a6e; font-weight: 900; font-family:'Nunito',sans-serif;">Badges You Earned:</h3>
+    <div class="badge-grid" id="badgeGrid"></div>
+    <button class="btn go" id="backToCourseBtn">Back to Course →</button>
+    <button class="btn ghost" style="margin-top:12px;" id="playAgainBtn">Play Again</button>
+  </div>
+  <div class="screen" id="screen-gameover">
+    <div class="mascot" id="gameoverMascot"></div>
+    <h1 class="complete-title" style="color:#b91c1c;">Out of Hearts!</h1>
+    <p class="complete-subtitle">Try again — you got this!</p>
+    <button class="btn danger" id="retryBtn">Try Again</button>
+  </div>
+</div>
+<div class="feedback" id="feedback">
+  <div class="feedback-inner">
+    <div><div class="feedback-text" id="feedbackText"></div><div class="feedback-explain" id="feedbackExplain"></div></div>
+    <button class="btn go" onclick="window._lessonNext()">Continue</button>
+  </div>
+</div>
+<script src="lesson-engine.js"></script>
+<script>
+runLesson({
+  lessonId: "business-plan-2-2",
+  courseUrl: "course-business-plan.html",
+  tag: "UNIT 2 · LESSON 2.2",
+  title: "Sizing Up the Competition",
+  subtitle: "Every business has rivals — smart founders study them first.",
+  steps: [
+    {
+      type: "teach",
+      title: "You Always Have Competition",
+      body: "Competition isn't just other businesses selling the exact same thing — it's anyone your customer could choose INSTEAD of you. If you sell handmade phone cases on Etsy, your competition isn't only other Etsy sellers — it's also big stores like Amazon, and even kids who just use a case-free phone. Every business has competition, even if it's not obvious at first.",
+      examples: ["Direct competitors — sell the same thing", "Indirect competitors — solve it differently", "'No competition' is almost never true"]
+    },
+    {
+      type: "teach",
+      title: "What to Study About Competitors",
+      body: "A smart competitor analysis looks at what they sell, what they charge, what they're good at, and — most importantly — where they fall short. That last part is your opportunity. If every competitor is slow to ship or ignores customer questions, you can win by being fast and friendly.",
+      examples: ["What do they sell?", "What do they charge?", "What are they good at?", "Where do they fall short?"]
+    },
+    {
+      type: "mc",
+      question: "What counts as your competition?",
+      hint: "Think bigger than just 'the exact same product.'",
+      options: [
+        { text: "Only businesses that sell the exact identical product", correct: false },
+        { text: "Anyone your customer could choose instead of you", correct: true },
+        { text: "Nobody — new businesses never have competition", correct: false },
+        { text: "Only businesses in a different country", correct: false }
+      ],
+      correctMsg: "Right! Competition is anyone your customer might pick instead of you — direct or indirect.",
+      wrongMsg: "Competition includes anyone your customer could choose instead of you, not just businesses selling the exact same thing."
+    },
+    {
+      type: "mc",
+      question: "What's the MOST useful thing to learn when studying a competitor?",
+      hint: "What turns into YOUR opportunity?",
+      options: [
+        { text: "Their favorite color", correct: false },
+        { text: "Where they fall short — that's your opportunity", correct: true },
+        { text: "What their pet's name is", correct: false },
+        { text: "Nothing — competitors don't matter", correct: false }
+      ],
+      correctMsg: "Exactly! Their weak spots show you exactly where you can win.",
+      wrongMsg: "The most useful thing to find is where a competitor falls short — that gap is your opportunity to do better."
+    },
+    {
+      type: "mc",
+      question: "You sell friendship bracelets. A local gift shop also sells bracelets. What kind of competitor is this?",
+      hint: "Same product, similar customer.",
+      options: [
+        { text: "Direct competitor — sells the same kind of product", correct: true },
+        { text: "Not a competitor at all", correct: false },
+        { text: "A customer", correct: false },
+        { text: "An employee", correct: false }
+      ],
+      correctMsg: "Yes! Same product, same kind of customer — that's a direct competitor.",
+      wrongMsg: "Since the gift shop sells the same kind of product to a similar customer, it's a DIRECT competitor."
+    },
+    {
+      type: "mc",
+      question: "A kid who just uses a free case-free phone instead of buying your phone case — what's that?",
+      hint: "They're still solving the same problem, just differently.",
+      options: [
+        { text: "A direct competitor", correct: false },
+        { text: "An indirect competitor — solving the need a different way", correct: true },
+        { text: "Your business partner", correct: false },
+        { text: "Not related to your business at all", correct: false }
+      ],
+      correctMsg: "Right! They're solving the same need (protecting a phone) in a different way — that's indirect competition.",
+      wrongMsg: "Choosing not to buy a case still solves the same need differently — that makes it INDIRECT competition, not 'no competition.'"
+    },
+    {
+      type: "mc",
+      question: "Why do smart founders study their competitors?",
+      hint: "It's not about copying them exactly.",
+      options: [
+        { text: "To copy them exactly, word for word", correct: false },
+        { text: "To find gaps and weaknesses they can do better", correct: true },
+        { text: "Because it's required by law", correct: false },
+        { text: "To become friends and stop competing", correct: false }
+      ],
+      correctMsg: "Yes! Studying competitors reveals gaps you can fill better than they do.",
+      wrongMsg: "Founders study competitors to find gaps and weak spots they can do BETTER — not to copy them."
+    }
+  ],
+  badges: [
+    { icon: "target", name: "Scout Starter", earned: true },
+    { icon: "star", name: "Gap Finder", earned: ({ correct }) => correct >= 3 },
+    { icon: "brain", name: "Strategy Mind", earned: ({ correct }) => correct >= 4 },
+    { icon: "perfect", name: "Perfect Score", earned: ({ score }) => score === 100 },
+    { icon: "heart", name: "All Hearts", earned: ({ hearts }) => hearts === 3 },
+    { icon: "trophy", name: "Competitive Edge", earned: ({ score, hearts }) => score >= 80 && hearts >= 2 }
+  ]
+});
+</script>
+</body>
+</html>
