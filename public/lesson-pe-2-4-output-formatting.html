@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Output Formatting — AI Innovators</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="lesson-shared.css">
+</head>
+<body>
+<div class="app">
+  <div class="topbar" id="topbar" style="display:none;">
+    <button class="close-btn" id="closeBtn">×</button>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="hearts">
+      <svg class="heart-svg" viewBox="0 0 32 32"><path d="M16 28 C 6 20 2 14 2 10 C 2 6 5 3 9 3 C 12 3 14 5 16 8 C 18 5 20 3 23 3 C 27 3 30 6 30 10 C 30 14 26 20 16 28 Z" fill="#ec4899" stroke="#be185d" stroke-width="1.5"/></svg>
+      <span id="heartsCount">3</span>
+    </div>
+  </div>
+  <div class="screen active" id="screen-welcome">
+    <div class="lesson-tag" id="lesson-tag">PRACTICE</div>
+    <div class="mascot" id="welcomeMascot"></div>
+    <h1 class="welcome-title" id="welcome-title"></h1>
+    <p class="welcome-subtitle" id="welcome-subtitle"></p>
+    <button class="btn go" id="startBtn">Start Practicing!</button>
+  </div>
+  <div class="screen" id="screen-lesson"></div>
+  <div class="screen" id="screen-complete">
+    <div class="mascot" id="completeMascot"></div>
+    <h1 class="complete-title">Formatting Pro!</h1>
+    <p class="complete-subtitle">You know how to get exactly the output structure you need. Here's what you earned:</p>
+    <div class="stats-row">
+      <div class="stat-box"><div class="stat-label">XP Earned</div><div class="stat-value xp" id="finalXP">0</div></div>
+      <div class="stat-box"><div class="stat-label">Score</div><div class="stat-value score" id="finalScore">0%</div></div>
+      <div class="stat-box"><div class="stat-label">Hearts Left</div><div class="stat-value" style="color:#ef4444;" id="finalHearts">3</div></div>
+    </div>
+    <h3 style="margin: 28px 0 14px; color: #0c4a6e; font-weight: 900; font-family:'Nunito',sans-serif;">Badges You Earned:</h3>
+    <div class="badge-grid" id="badgeGrid"></div>
+    <button class="btn go" id="backToCourseBtn">Back to Course →</button>
+    <button class="btn ghost" style="margin-top:12px;" id="playAgainBtn">Play Again</button>
+  </div>
+  <div class="screen" id="screen-gameover">
+    <div class="mascot" id="gameoverMascot"></div>
+    <h1 class="complete-title" style="color:#b91c1c;">Out of Hearts!</h1>
+    <p class="complete-subtitle">Try again — you got this!</p>
+    <button class="btn danger" id="retryBtn">Try Again</button>
+  </div>
+</div>
+<div class="feedback" id="feedback">
+  <div class="feedback-inner">
+    <div><div class="feedback-text" id="feedbackText"></div><div class="feedback-explain" id="feedbackExplain"></div></div>
+    <button class="btn go" onclick="window._lessonNext()">Continue</button>
+  </div>
+</div>
+<script src="lesson-engine.js"></script>
+<script>
+runLesson({
+  lessonId: "prompt-engineering-2-4",
+  courseUrl: "course-prompt-engineering.html",
+  tag: "UNIT 2 · PRACTICE",
+  title: "Output Formatting",
+  subtitle: "Practice telling the AI exactly HOW to structure its answer",
+  steps: [
+    {
+      type: "teach",
+      title: "Ask for the Shape You Need",
+      body: "AI can output plain paragraphs, bullet lists, numbered steps, tables, or even structured data like JSON — but only if you ask. Specifying the format upfront (\"give me a table with columns for Name, Price, and Rating\") saves you from having to manually reformat a wall of text afterward.",
+      examples: []
+    },
+    {
+      type: "mc",
+      question: "Which prompt best requests a specific OUTPUT FORMAT?",
+      hint: "Look for structure instructions.",
+      options: [
+        { text: "\"List 5 marketing ideas as a numbered list, one sentence each.\"", correct: true },
+        { text: "\"Give me marketing ideas.\"", correct: false },
+        { text: "\"Marketing please.\"", correct: false },
+        { text: "\"Help.\"", correct: false }
+      ],
+      correctMsg: "Yes! Specifying \"numbered list, one sentence each\" is a clear format request.",
+      wrongMsg: "Asking for a numbered list with a sentence limit clearly specifies the desired output format."
+    },
+    {
+      type: "mc",
+      question: "A founder needs to compare 3 competitors side by side. What output format should they request?",
+      hint: "Think about side-by-side comparisons.",
+      options: [
+        { text: "A table with rows for each competitor and columns for key details", correct: true },
+        { text: "A single run-on sentence combining everything", correct: false },
+        { text: "A single emoji", correct: false },
+        { text: "No format at all — just guess randomly", correct: false }
+      ],
+      correctMsg: "Correct! A table is ideal for clear, side-by-side comparisons.",
+      wrongMsg: "A table with rows and columns makes side-by-side comparisons much easier to read."
+    },
+    {
+      type: "mc",
+      question: "Why is it helpful to specify output format UPFRONT in your prompt, rather than reformatting the answer yourself afterward?",
+      hint: "Think about saving effort.",
+      options: [
+        { text: "It saves time and gets you a usable result immediately", correct: true },
+        { text: "It has zero effect on the final result", correct: false },
+        { text: "AI is incapable of following format instructions", correct: false },
+        { text: "It always makes responses factually incorrect", correct: false }
+      ],
+      correctMsg: "Exactly! Asking upfront saves you from manually restructuring the response later.",
+      wrongMsg: "Specifying format upfront saves time by getting a usable, structured result right away."
+    },
+    {
+      type: "mc",
+      question: "Which phrase would help you get a response formatted as clean, structured data (like for a spreadsheet)?",
+      hint: "Think about data formats.",
+      options: [
+        { text: "\"Format the response as JSON with fields for name, price, and category.\"", correct: true },
+        { text: "\"Write me a poem about spreadsheets.\"", correct: false },
+        { text: "\"Just say yes or no.\"", correct: false },
+        { text: "\"Respond only in emojis.\"", correct: false }
+      ],
+      correctMsg: "Right! Explicitly requesting a structured format like JSON gets clean, usable data.",
+      wrongMsg: "Explicitly asking for a structured format like JSON with named fields produces clean, usable data."
+    }
+  ],
+  badges: [
+    { icon: "bulb", name: "Formatting Starter", earned: true },
+    { icon: "star", name: "Quick Learner", earned: ({ correct }) => correct >= 2 },
+    { icon: "brain", name: "Structure Smart", earned: ({ correct }) => correct >= 3 },
+    { icon: "perfect", name: "Perfect Score", earned: ({ score }) => score === 100 },
+    { icon: "heart", name: "All Hearts", earned: ({ hearts }) => hearts === 3 },
+    { icon: "trophy", name: "Formatting Pro", earned: ({ score, hearts }) => score >= 80 && hearts >= 2 }
+  ]
+});
+</script>
+</body>
+</html>

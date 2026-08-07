@@ -5,7 +5,7 @@
 // Cache version — change this string when you want to force everyone
 // to clear their cache. With the network-first strategy below, updates
 // already show up immediately when the user has internet.
-const CACHE_NAME = "ai-innovators-2026-08-05";
+const CACHE_NAME = "ai-innovators-2026-08-06c";
 
 // Core files to cache so the app works offline
 const CORE_FILES = [
@@ -130,7 +130,40 @@ const CORE_FILES = [
   "/lesson-ps-2-1-discounts-promos.html",
   "/lesson-ps-2-2-bundling-products.html",
   "/lesson-ps-2-3-price-test-practice.html",
-  "/lesson-ps-challenge.html"
+  "/lesson-ps-challenge.html",
+  // Financial Modeling (Level 5 Master)
+  "/lesson-fm-1-1-what-is-a-financial-model.html",
+  "/lesson-fm-1-2-revenue-forecast.html",
+  "/lesson-fm-1-3-unit1-quiz.html",
+  "/lesson-fm-2-1-expenses-and-costs.html",
+  "/lesson-fm-2-2-break-even.html",
+  "/lesson-fm-challenge.html",
+  // Startup Fundamentals (Level 4 Pro)
+  "/lesson-sf-1-1-founders-and-equity.html",
+  "/lesson-sf-1-2-startup-vs-small-business.html",
+  "/lesson-sf-1-3-mission-vision-values.html",
+  "/lesson-sf-2-1-finding-the-problem.html",
+  "/lesson-sf-2-2-building-an-mvp.html",
+  "/lesson-sf-2-3-customer-discovery.html",
+  "/lesson-sf-2-4-iteration-and-pivots.html",
+  "/lesson-sf-3-1-bootstrapping-vs-investors.html",
+  "/lesson-sf-3-2-angels-and-vcs.html",
+  "/lesson-sf-3-3-convertible-notes-safes.html",
+  "/lesson-sf-4-1-acquisition-channels.html",
+  "/lesson-sf-4-2-unit-economics.html",
+  "/lesson-sf-challenge.html",
+  // Prompt Engineering (Level 4 Pro)
+  "/lesson-pe-1-1-how-language-models-think.html",
+  "/lesson-pe-1-2-anatomy-of-a-prompt.html",
+  "/lesson-pe-1-3-specificity-and-context.html",
+  "/lesson-pe-2-1-chain-of-thought.html",
+  "/lesson-pe-2-2-few-shot-examples.html",
+  "/lesson-pe-2-3-role-playing-personas.html",
+  "/lesson-pe-2-4-output-formatting.html",
+  "/lesson-pe-3-1-prompts-for-writing.html",
+  "/lesson-pe-3-2-prompts-for-analysis.html",
+  "/lesson-pe-3-3-prompts-for-coding.html",
+  "/lesson-pe-challenge.html"
 ];
 
 // Install: cache core files and activate immediately

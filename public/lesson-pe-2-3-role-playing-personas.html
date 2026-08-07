@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Role Playing & Personas — AI Innovators</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="lesson-shared.css">
+</head>
+<body>
+<div class="app">
+  <div class="topbar" id="topbar" style="display:none;">
+    <button class="close-btn" id="closeBtn">×</button>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="hearts">
+      <svg class="heart-svg" viewBox="0 0 32 32"><path d="M16 28 C 6 20 2 14 2 10 C 2 6 5 3 9 3 C 12 3 14 5 16 8 C 18 5 20 3 23 3 C 27 3 30 6 30 10 C 30 14 26 20 16 28 Z" fill="#ec4899" stroke="#be185d" stroke-width="1.5"/></svg>
+      <span id="heartsCount">3</span>
+    </div>
+  </div>
+  <div class="screen active" id="screen-welcome">
+    <div class="lesson-tag" id="lesson-tag">LESSON</div>
+    <div class="mascot" id="welcomeMascot"></div>
+    <h1 class="welcome-title" id="welcome-title"></h1>
+    <p class="welcome-subtitle" id="welcome-subtitle"></p>
+    <button class="btn go" id="startBtn">Let's Go!</button>
+  </div>
+  <div class="screen" id="screen-lesson"></div>
+  <div class="screen" id="screen-complete">
+    <div class="mascot" id="completeMascot"></div>
+    <h1 class="complete-title">Lesson Complete!</h1>
+    <p class="complete-subtitle">Awesome work! Here's what you earned:</p>
+    <div class="stats-row">
+      <div class="stat-box"><div class="stat-label">XP Earned</div><div class="stat-value xp" id="finalXP">0</div></div>
+      <div class="stat-box"><div class="stat-label">Score</div><div class="stat-value score" id="finalScore">0%</div></div>
+      <div class="stat-box"><div class="stat-label">Hearts Left</div><div class="stat-value" style="color:#ef4444;" id="finalHearts">3</div></div>
+    </div>
+    <h3 style="margin: 28px 0 14px; color: #0c4a6e; font-weight: 900; font-family:'Nunito',sans-serif;">Badges You Earned:</h3>
+    <div class="badge-grid" id="badgeGrid"></div>
+    <button class="btn go" id="backToCourseBtn">Back to Course →</button>
+    <button class="btn ghost" style="margin-top:12px;" id="playAgainBtn">Play Again</button>
+  </div>
+  <div class="screen" id="screen-gameover">
+    <div class="mascot" id="gameoverMascot"></div>
+    <h1 class="complete-title" style="color:#b91c1c;">Out of Hearts!</h1>
+    <p class="complete-subtitle">Try again — you got this!</p>
+    <button class="btn danger" id="retryBtn">Try Again</button>
+  </div>
+</div>
+<div class="feedback" id="feedback">
+  <div class="feedback-inner">
+    <div><div class="feedback-text" id="feedbackText"></div><div class="feedback-explain" id="feedbackExplain"></div></div>
+    <button class="btn go" onclick="window._lessonNext()">Continue</button>
+  </div>
+</div>
+<script src="lesson-engine.js"></script>
+<script>
+const PERSONA_ICON = `<svg viewBox="0 0 64 64"><circle cx="32" cy="24" r="12" fill="#fbcfe8" stroke="#db2777" stroke-width="2.5"/><path d="M12 54 C 12 40 20 34 32 34 C 44 34 52 40 52 54 Z" fill="#f472b6" stroke="#db2777" stroke-width="2.5"/><rect x="20" y="14" width="24" height="8" rx="4" fill="#db2777"/></svg>`;
+
+runLesson({
+  lessonId: "prompt-engineering-2-3",
+  courseUrl: "course-prompt-engineering.html",
+  tag: "UNIT 2 · LESSON 2.3",
+  title: "Role Playing & Personas",
+  subtitle: "Giving the AI a role to shape its tone, expertise, and perspective",
+  steps: [
+    {
+      type: "vocab",
+      word: "Persona",
+      pronounce: "say it: per-SOH-nah",
+      definition: "A <b>persona</b> is a role or character you assign to the AI at the start of a prompt, which shapes its tone, expertise, and point of view.",
+      example: "Starting a prompt with \"You are an expert pastry chef\" gives the AI a persona that shapes how it answers baking questions.",
+      icon: PERSONA_ICON
+    },
+    {
+      type: "teach",
+      title: "\"You Are a...\"",
+      body: "Assigning a persona — like \"You are a friendly financial advisor\" or \"You are a strict grammar teacher\" — shifts the vocabulary, tone, and depth of the AI's response toward that role. This is a simple but powerful trick: the same question can get a very different, more useful answer depending on which expert persona you ask.",
+      examples: ["\"You are a marketing expert\" → business-focused tone", "\"You are explaining to a 5-year-old\" → simple, playful tone", "Same question, different persona = different useful answer"]
+    },
+    {
+      type: "mc",
+      question: "What is a \"persona\" in prompting?",
+      hint: "Think about assigning a role.",
+      options: [
+        { text: "A role or character assigned to the AI that shapes its tone and expertise", correct: true },
+        { text: "A password needed to use any AI tool", correct: false },
+        { text: "The exact number of words allowed in a response", correct: false },
+        { text: "A type of image file", correct: false }
+      ],
+      correctMsg: "Right! A persona is a role you assign the AI to shape how it responds.",
+      wrongMsg: "A persona is a role or character assigned to the AI that shapes its tone, expertise, and perspective."
+    },
+    {
+      type: "mc",
+      question: "A student wants an answer explained VERY simply. What persona instruction could help?",
+      hint: "Think about a simple explainer role.",
+      options: [
+        { text: "\"You are explaining this to a curious 8-year-old — use simple words.\"", correct: true },
+        { text: "\"You are a PhD researcher writing for other PhDs.\"", correct: false },
+        { text: "\"You are a legal contract generator.\"", correct: false },
+        { text: "\"You only respond in numbers.\"", correct: false }
+      ],
+      correctMsg: "Yes! That persona pushes the AI toward simple, accessible language.",
+      wrongMsg: "Assigning a persona aimed at a young audience pushes the response toward simpler, more accessible language."
+    },
+    {
+      type: "mc",
+      question: "Why can the SAME question get very different useful answers with different personas?",
+      hint: "Think about how expertise shapes the answer.",
+      options: [
+        { text: "Each persona shifts the vocabulary, depth, and focus toward that role's expertise", correct: true },
+        { text: "The AI secretly ignores personas and always answers identically", correct: false },
+        { text: "Personas only change the color of the text, not the content", correct: false },
+        { text: "Personas are purely decorative and change nothing", correct: false }
+      ],
+      correctMsg: "Correct! Different personas genuinely shift tone, vocabulary, and focus in the response.",
+      wrongMsg: "A persona shifts the vocabulary, depth, and focus of the response toward that role's expertise and style."
+    }
+  ],
+  badges: [
+    { icon: "bulb", name: "Persona Starter", earned: true },
+    { icon: "star", name: "Quick Learner", earned: ({ correct }) => correct >= 2 },
+    { icon: "brain", name: "Role-Play Smart", earned: ({ correct }) => correct >= 3 },
+    { icon: "perfect", name: "Perfect Score", earned: ({ score }) => score === 100 },
+    { icon: "heart", name: "All Hearts", earned: ({ hearts }) => hearts === 3 },
+    { icon: "trophy", name: "Persona Pro", earned: ({ score, hearts }) => score >= 80 && hearts >= 2 }
+  ]
+});
+</script>
+</body>
+</html>

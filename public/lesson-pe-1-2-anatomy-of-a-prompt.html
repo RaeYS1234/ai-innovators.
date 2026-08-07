@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>The Anatomy of a Prompt — AI Innovators</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="lesson-shared.css">
+</head>
+<body>
+<div class="app">
+  <div class="topbar" id="topbar" style="display:none;">
+    <button class="close-btn" id="closeBtn">×</button>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="hearts">
+      <svg class="heart-svg" viewBox="0 0 32 32"><path d="M16 28 C 6 20 2 14 2 10 C 2 6 5 3 9 3 C 12 3 14 5 16 8 C 18 5 20 3 23 3 C 27 3 30 6 30 10 C 30 14 26 20 16 28 Z" fill="#ec4899" stroke="#be185d" stroke-width="1.5"/></svg>
+      <span id="heartsCount">3</span>
+    </div>
+  </div>
+  <div class="screen active" id="screen-welcome">
+    <div class="lesson-tag" id="lesson-tag">LESSON</div>
+    <div class="mascot" id="welcomeMascot"></div>
+    <h1 class="welcome-title" id="welcome-title"></h1>
+    <p class="welcome-subtitle" id="welcome-subtitle"></p>
+    <button class="btn go" id="startBtn">Let's Go!</button>
+  </div>
+  <div class="screen" id="screen-lesson"></div>
+  <div class="screen" id="screen-complete">
+    <div class="mascot" id="completeMascot"></div>
+    <h1 class="complete-title">Lesson Complete!</h1>
+    <p class="complete-subtitle">Awesome work! Here's what you earned:</p>
+    <div class="stats-row">
+      <div class="stat-box"><div class="stat-label">XP Earned</div><div class="stat-value xp" id="finalXP">0</div></div>
+      <div class="stat-box"><div class="stat-label">Score</div><div class="stat-value score" id="finalScore">0%</div></div>
+      <div class="stat-box"><div class="stat-label">Hearts Left</div><div class="stat-value" style="color:#ef4444;" id="finalHearts">3</div></div>
+    </div>
+    <h3 style="margin: 28px 0 14px; color: #0c4a6e; font-weight: 900; font-family:'Nunito',sans-serif;">Badges You Earned:</h3>
+    <div class="badge-grid" id="badgeGrid"></div>
+    <button class="btn go" id="backToCourseBtn">Back to Course →</button>
+    <button class="btn ghost" style="margin-top:12px;" id="playAgainBtn">Play Again</button>
+  </div>
+  <div class="screen" id="screen-gameover">
+    <div class="mascot" id="gameoverMascot"></div>
+    <h1 class="complete-title" style="color:#b91c1c;">Out of Hearts!</h1>
+    <p class="complete-subtitle">Try again — you got this!</p>
+    <button class="btn danger" id="retryBtn">Try Again</button>
+  </div>
+</div>
+<div class="feedback" id="feedback">
+  <div class="feedback-inner">
+    <div><div class="feedback-text" id="feedbackText"></div><div class="feedback-explain" id="feedbackExplain"></div></div>
+    <button class="btn go" onclick="window._lessonNext()">Continue</button>
+  </div>
+</div>
+<script src="lesson-engine.js"></script>
+<script>
+const BLUEPRINT_ICON = `<svg viewBox="0 0 64 64"><rect x="8" y="8" width="48" height="48" rx="3" fill="#1e3a8a" stroke="#1e40af" stroke-width="2"/><line x1="16" y1="20" x2="48" y2="20" stroke="#93c5fd" stroke-width="2.5" stroke-linecap="round"/><line x1="16" y1="30" x2="40" y2="30" stroke="#93c5fd" stroke-width="2.5" stroke-linecap="round"/><line x1="16" y1="40" x2="44" y2="40" stroke="#93c5fd" stroke-width="2.5" stroke-linecap="round"/><line x1="16" y1="50" x2="32" y2="50" stroke="#93c5fd" stroke-width="2.5" stroke-linecap="round"/></svg>`;
+
+runLesson({
+  lessonId: "prompt-engineering-1-2",
+  courseUrl: "course-prompt-engineering.html",
+  tag: "UNIT 1 · LESSON 1.2",
+  title: "The Anatomy of a Prompt",
+  subtitle: "The building blocks every great prompt is made of",
+  steps: [
+    {
+      type: "vocab",
+      word: "Prompt",
+      pronounce: "say it: PRAHMT",
+      definition: "A <b>prompt</b> is the input text you give an AI to get a response — it can include a task, context, examples, and format instructions.",
+      example: "\"Write a 3-sentence product description for a reusable water bottle, in a fun and playful tone\" is a well-built prompt.",
+      icon: BLUEPRINT_ICON
+    },
+    {
+      type: "teach",
+      title: "Four Parts of a Strong Prompt",
+      body: "Great prompts often include: <b>Task</b> (what exactly you want done), <b>Context</b> (background info the AI needs), <b>Format</b> (how you want the answer structured — list, paragraph, table), and <b>Constraints</b> (length, tone, or rules to follow). You don't need all four every time, but the more of these you include clearly, the more precise your result will be.",
+      examples: ["Task: what to do", "Context: background info", "Format: how to structure the output", "Constraints: length, tone, rules"]
+    },
+    {
+      type: "mc",
+      question: "What is a \"prompt\"?",
+      hint: "Think about what you type in.",
+      options: [
+        { text: "The input text you give an AI to get a response", correct: true },
+        { text: "The AI's final answer only", correct: false },
+        { text: "A type of computer chip", correct: false },
+        { text: "A setting found only in image-generating AI", correct: false }
+      ],
+      correctMsg: "Right! A prompt is the input you give to guide the AI's response.",
+      wrongMsg: "A prompt is the input text you give an AI to get a response."
+    },
+    {
+      type: "mc",
+      question: "Which of these is an example of adding \"constraints\" to a prompt?",
+      hint: "Think about limits or rules.",
+      options: [
+        { text: "\"Keep it under 50 words and use a friendly tone\"", correct: true },
+        { text: "\"Write about dogs\"", correct: false },
+        { text: "\"Here is some background information about my business\"", correct: false },
+        { text: "\"Format this as a bulleted list\"", correct: false }
+      ],
+      correctMsg: "Yes! Constraints set limits like length, tone, or rules to follow.",
+      wrongMsg: "Constraints are limits like word count or tone — \"keep it under 50 words\" is a constraint."
+    },
+    {
+      type: "mc",
+      question: "Why does including \"context\" often improve a prompt's result?",
+      hint: "Think about background information.",
+      options: [
+        { text: "It gives the AI important background it needs to give a relevant, tailored answer", correct: true },
+        { text: "Context always makes the prompt shorter", correct: false },
+        { text: "It guarantees a perfect answer every single time", correct: false },
+        { text: "AI ignores context completely", correct: false }
+      ],
+      correctMsg: "Correct! Context helps the AI tailor its answer to your specific situation.",
+      wrongMsg: "Context gives the AI background info it needs to produce a more relevant, tailored answer."
+    }
+  ],
+  badges: [
+    { icon: "bulb", name: "Prompt Starter", earned: true },
+    { icon: "star", name: "Quick Learner", earned: ({ correct }) => correct >= 2 },
+    { icon: "brain", name: "Prompt Smart", earned: ({ correct }) => correct >= 3 },
+    { icon: "perfect", name: "Perfect Score", earned: ({ score }) => score === 100 },
+    { icon: "heart", name: "All Hearts", earned: ({ hearts }) => hearts === 3 },
+    { icon: "trophy", name: "Prompt Builder Pro", earned: ({ score, hearts }) => score >= 80 && hearts >= 2 }
+  ]
+});
+</script>
+</body>
+</html>

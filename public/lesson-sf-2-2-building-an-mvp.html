@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Building an MVP — AI Innovators</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="lesson-shared.css">
+</head>
+<body>
+<div class="app">
+  <div class="topbar" id="topbar" style="display:none;">
+    <button class="close-btn" id="closeBtn">×</button>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="hearts">
+      <svg class="heart-svg" viewBox="0 0 32 32"><path d="M16 28 C 6 20 2 14 2 10 C 2 6 5 3 9 3 C 12 3 14 5 16 8 C 18 5 20 3 23 3 C 27 3 30 6 30 10 C 30 14 26 20 16 28 Z" fill="#ec4899" stroke="#be185d" stroke-width="1.5"/></svg>
+      <span id="heartsCount">3</span>
+    </div>
+  </div>
+  <div class="screen active" id="screen-welcome">
+    <div class="lesson-tag" id="lesson-tag">LESSON</div>
+    <div class="mascot" id="welcomeMascot"></div>
+    <h1 class="welcome-title" id="welcome-title"></h1>
+    <p class="welcome-subtitle" id="welcome-subtitle"></p>
+    <button class="btn go" id="startBtn">Let's Go!</button>
+  </div>
+  <div class="screen" id="screen-lesson"></div>
+  <div class="screen" id="screen-complete">
+    <div class="mascot" id="completeMascot"></div>
+    <h1 class="complete-title">Lesson Complete!</h1>
+    <p class="complete-subtitle">Awesome work! Here's what you earned:</p>
+    <div class="stats-row">
+      <div class="stat-box"><div class="stat-label">XP Earned</div><div class="stat-value xp" id="finalXP">0</div></div>
+      <div class="stat-box"><div class="stat-label">Score</div><div class="stat-value score" id="finalScore">0%</div></div>
+      <div class="stat-box"><div class="stat-label">Hearts Left</div><div class="stat-value" style="color:#ef4444;" id="finalHearts">3</div></div>
+    </div>
+    <h3 style="margin: 28px 0 14px; color: #0c4a6e; font-weight: 900; font-family:'Nunito',sans-serif;">Badges You Earned:</h3>
+    <div class="badge-grid" id="badgeGrid"></div>
+    <button class="btn go" id="backToCourseBtn">Back to Course →</button>
+    <button class="btn ghost" style="margin-top:12px;" id="playAgainBtn">Play Again</button>
+  </div>
+  <div class="screen" id="screen-gameover">
+    <div class="mascot" id="gameoverMascot"></div>
+    <h1 class="complete-title" style="color:#b91c1c;">Out of Hearts!</h1>
+    <p class="complete-subtitle">Try again — you got this!</p>
+    <button class="btn danger" id="retryBtn">Try Again</button>
+  </div>
+</div>
+<div class="feedback" id="feedback">
+  <div class="feedback-inner">
+    <div><div class="feedback-text" id="feedbackText"></div><div class="feedback-explain" id="feedbackExplain"></div></div>
+    <button class="btn go" onclick="window._lessonNext()">Continue</button>
+  </div>
+</div>
+<script src="lesson-engine.js"></script>
+<script>
+const MVP_ICON = `<svg viewBox="0 0 64 64"><rect x="10" y="30" width="12" height="24" fill="#94a3b8" stroke="#475569" stroke-width="2"/><rect x="26" y="20" width="12" height="34" fill="#64748b" stroke="#334155" stroke-width="2"/><rect x="42" y="8" width="12" height="46" fill="#0ea5e9" stroke="#0369a1" stroke-width="2"/><path d="M42 8 L48 2 L54 8 Z" fill="#fbbf24"/></svg>`;
+
+runLesson({
+  lessonId: "startup-fundamentals-2-2",
+  courseUrl: "course-startup-fundamentals.html",
+  tag: "UNIT 2 · LESSON 2.2",
+  title: "Building an MVP",
+  subtitle: "The smallest version of your idea that still teaches you something real",
+  steps: [
+    {
+      type: "vocab",
+      word: "MVP (Minimum Viable Product)",
+      pronounce: "say it: MIN-i-mum VY-uh-bul PRAH-duct",
+      definition: "An <b>MVP</b> is the simplest version of a product that still solves the core problem — built fast, to test if people actually want it.",
+      example: "Instead of building a full app, a founder might start with a simple webpage and a sign-up form to test interest.",
+      icon: MVP_ICON
+    },
+    {
+      type: "teach",
+      title: "Why Build the SMALLEST Version First",
+      body: "Building a full, polished product takes months or years — and might turn out nobody wants it. An MVP lets you test your core idea FAST and CHEAP, learn from real users, and improve before investing huge time and money. It's not about being incomplete — it's about testing the most important part first.",
+      examples: ["Fast to build", "Cheap to build", "Tests the core idea with real users"]
+    },
+    {
+      type: "mc",
+      question: "What does MVP stand for?",
+      hint: "Three words, each starting with M, V, P.",
+      options: [
+        { text: "Minimum Viable Product", correct: true },
+        { text: "Most Valuable Player", correct: false },
+        { text: "Maximum Value Plan", correct: false },
+        { text: "Major Vision Proposal", correct: false }
+      ],
+      correctMsg: "Right! MVP = Minimum Viable Product.",
+      wrongMsg: "MVP stands for Minimum Viable Product — the simplest testable version."
+    },
+    {
+      type: "mc",
+      question: "Why build an MVP instead of a full polished product right away?",
+      hint: "Think about speed, cost, and learning.",
+      options: [
+        { text: "It's faster and cheaper, and lets you learn if people actually want it before investing more", correct: true },
+        { text: "It guarantees the product will be perfect", correct: false },
+        { text: "It's required by law for all new companies", correct: false },
+        { text: "It means you never have to improve the product later", correct: false }
+      ],
+      correctMsg: "Exactly! MVPs let you learn fast before over-investing.",
+      wrongMsg: "MVPs are faster/cheaper to build and let you test real demand before investing more time and money."
+    },
+    {
+      type: "mc",
+      question: "A founder wants to test if people want a meal-planning app. What's a smart MVP?",
+      hint: "Think smallest possible test.",
+      options: [
+        { text: "A simple form where people request meal plans manually created by the founder at first", correct: true },
+        { text: "A fully coded app with AI, payments, and 50 features launched instantly", correct: false },
+        { text: "Nothing — skip testing and just build the full thing", correct: false },
+        { text: "A 100-page business plan with no product at all", correct: false }
+      ],
+      correctMsg: "Yes! Starting manual/simple tests real demand before building the full tech.",
+      wrongMsg: "A smart MVP tests the core idea in the simplest way possible — even manually, before building everything."
+    },
+    {
+      type: "mc",
+      question: "What's the main GOAL of an MVP?",
+      hint: "It's not about looking impressive.",
+      options: [
+        { text: "To learn whether people really want the core solution", correct: true },
+        { text: "To impress investors with fancy design", correct: false },
+        { text: "To include every feature you can think of", correct: false },
+        { text: "To avoid ever talking to real customers", correct: false }
+      ],
+      correctMsg: "Correct! The MVP's job is learning, not looking finished.",
+      wrongMsg: "The main goal of an MVP is learning whether real people want your core solution."
+    }
+  ],
+  badges: [
+    { icon: "bulb", name: "MVP Starter", earned: true },
+    { icon: "star", name: "Quick Learner", earned: ({ correct }) => correct >= 2 },
+    { icon: "brain", name: "Build Smart", earned: ({ correct }) => correct >= 4 },
+    { icon: "perfect", name: "Perfect Score", earned: ({ score }) => score === 100 },
+    { icon: "heart", name: "All Hearts", earned: ({ hearts }) => hearts === 3 },
+    { icon: "trophy", name: "MVP Builder", earned: ({ score, hearts }) => score >= 80 && hearts >= 2 }
+  ]
+});
+</script>
+</body>
+</html>

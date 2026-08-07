@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Mission, Vision, and Values — AI Innovators</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="lesson-shared.css">
+</head>
+<body>
+<div class="app">
+  <div class="topbar" id="topbar" style="display:none;">
+    <button class="close-btn" id="closeBtn">×</button>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="hearts">
+      <svg class="heart-svg" viewBox="0 0 32 32"><path d="M16 28 C 6 20 2 14 2 10 C 2 6 5 3 9 3 C 12 3 14 5 16 8 C 18 5 20 3 23 3 C 27 3 30 6 30 10 C 30 14 26 20 16 28 Z" fill="#ec4899" stroke="#be185d" stroke-width="1.5"/></svg>
+      <span id="heartsCount">3</span>
+    </div>
+  </div>
+  <div class="screen active" id="screen-welcome">
+    <div class="lesson-tag" id="lesson-tag">LESSON</div>
+    <div class="mascot" id="welcomeMascot"></div>
+    <h1 class="welcome-title" id="welcome-title"></h1>
+    <p class="welcome-subtitle" id="welcome-subtitle"></p>
+    <button class="btn go" id="startBtn">Let's Go!</button>
+  </div>
+  <div class="screen" id="screen-lesson"></div>
+  <div class="screen" id="screen-complete">
+    <div class="mascot" id="completeMascot"></div>
+    <h1 class="complete-title">Lesson Complete!</h1>
+    <p class="complete-subtitle">Awesome work! Here's what you earned:</p>
+    <div class="stats-row">
+      <div class="stat-box"><div class="stat-label">XP Earned</div><div class="stat-value xp" id="finalXP">0</div></div>
+      <div class="stat-box"><div class="stat-label">Score</div><div class="stat-value score" id="finalScore">0%</div></div>
+      <div class="stat-box"><div class="stat-label">Hearts Left</div><div class="stat-value" style="color:#ef4444;" id="finalHearts">3</div></div>
+    </div>
+    <h3 style="margin: 28px 0 14px; color: #0c4a6e; font-weight: 900; font-family:'Nunito',sans-serif;">Badges You Earned:</h3>
+    <div class="badge-grid" id="badgeGrid"></div>
+    <button class="btn go" id="backToCourseBtn">Back to Course →</button>
+    <button class="btn ghost" style="margin-top:12px;" id="playAgainBtn">Play Again</button>
+  </div>
+  <div class="screen" id="screen-gameover">
+    <div class="mascot" id="gameoverMascot"></div>
+    <h1 class="complete-title" style="color:#b91c1c;">Out of Hearts!</h1>
+    <p class="complete-subtitle">Try again — you got this!</p>
+    <button class="btn danger" id="retryBtn">Try Again</button>
+  </div>
+</div>
+<div class="feedback" id="feedback">
+  <div class="feedback-inner">
+    <div><div class="feedback-text" id="feedbackText"></div><div class="feedback-explain" id="feedbackExplain"></div></div>
+    <button class="btn go" onclick="window._lessonNext()">Continue</button>
+  </div>
+</div>
+<script src="lesson-engine.js"></script>
+<script>
+const COMPASS_ICON = `<svg viewBox="0 0 64 64"><circle cx="32" cy="32" r="26" fill="#0ea5e9" stroke="#0369a1" stroke-width="2.5"/><circle cx="32" cy="32" r="20" fill="white"/><path d="M32 18 L38 32 L32 46 L26 32 Z" fill="#ef4444"/></svg>`;
+
+runLesson({
+  lessonId: "startup-fundamentals-1-3",
+  courseUrl: "course-startup-fundamentals.html",
+  tag: "UNIT 1 · LESSON 1.3",
+  title: "Mission, Vision, and Values",
+  subtitle: "The compass that guides every decision a company makes",
+  steps: [
+    {
+      type: "vocab",
+      word: "Mission Statement",
+      pronounce: "say it: MISH-uhn STATE-ment",
+      definition: "A <b>mission statement</b> explains WHY your company exists right now — the problem you solve today.",
+      example: "Tesla's mission: \"to accelerate the world's transition to sustainable energy.\"",
+      icon: COMPASS_ICON
+    },
+    {
+      type: "teach",
+      title: "Mission, Vision, and Values",
+      body: "<b>Mission</b> = why you exist today. <b>Vision</b> = the big future you're working toward. <b>Values</b> = the principles that guide HOW you operate along the way. Together they act like a compass, keeping every decision pointed in the same direction.",
+      examples: ["Mission: why you exist now", "Vision: the future you're building toward", "Values: how you behave getting there"]
+    },
+    {
+      type: "mc",
+      question: "What does a MISSION statement describe?",
+      hint: "Present tense — right now.",
+      options: [
+        { text: "Why the company exists and what problem it solves today", correct: true },
+        { text: "A prediction of stock prices", correct: false },
+        { text: "The founder's personal hobbies", correct: false },
+        { text: "The company's tax filings", correct: false }
+      ],
+      correctMsg: "Right! A mission is about the present-day purpose.",
+      wrongMsg: "A mission statement explains why the company exists NOW and what problem it solves."
+    },
+    {
+      type: "mc",
+      question: "What does a VISION statement describe?",
+      hint: "Think future, not present.",
+      options: [
+        { text: "The big future the company is working toward", correct: true },
+        { text: "Last year's sales numbers", correct: false },
+        { text: "A list of employees", correct: false },
+        { text: "The company's current mission only", correct: false }
+      ],
+      correctMsg: "Yes! Vision paints the long-term future goal.",
+      wrongMsg: "A vision statement describes the big future the company is aiming for."
+    },
+    {
+      type: "mc",
+      question: "A company's VALUES are best described as...",
+      hint: "Think behavior, not goals.",
+      options: [
+        { text: "The principles that guide how the company behaves", correct: true },
+        { text: "The exact price of every product", correct: false },
+        { text: "A random slogan with no real meaning", correct: false },
+        { text: "Only something investors care about", correct: false }
+      ],
+      correctMsg: "Correct! Values are the behavioral principles guiding decisions.",
+      wrongMsg: "Values are the guiding principles for HOW a company operates and treats people."
+    },
+    {
+      type: "mc",
+      question: "Why do mission, vision, and values matter for a startup?",
+      hint: "Think about consistency over time.",
+      options: [
+        { text: "They keep decisions consistent as the company grows and faces new choices", correct: true },
+        { text: "They're just for marketing and mean nothing internally", correct: false },
+        { text: "Only huge companies need them", correct: false },
+        { text: "They replace the need for a business plan entirely", correct: false }
+      ],
+      correctMsg: "Exactly! They act like a compass, keeping the whole team aligned.",
+      wrongMsg: "Mission, vision, and values keep decisions consistent and aligned as a company grows."
+    }
+  ],
+  badges: [
+    { icon: "bulb", name: "Compass Starter", earned: true },
+    { icon: "star", name: "Quick Learner", earned: ({ correct }) => correct >= 2 },
+    { icon: "brain", name: "Vision Smart", earned: ({ correct }) => correct >= 4 },
+    { icon: "perfect", name: "Perfect Score", earned: ({ score }) => score === 100 },
+    { icon: "heart", name: "All Hearts", earned: ({ hearts }) => hearts === 3 },
+    { icon: "trophy", name: "Values Voyager", earned: ({ score, hearts }) => score >= 80 && hearts >= 2 }
+  ]
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Startup Founder Challenge — AI Innovators</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="lesson-shared.css">
+</head>
+<body>
+<div class="app">
+  <div class="topbar" id="topbar" style="display:none;">
+    <button class="close-btn" id="closeBtn">×</button>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="hearts">
+      <svg class="heart-svg" viewBox="0 0 32 32"><path d="M16 28 C 6 20 2 14 2 10 C 2 6 5 3 9 3 C 12 3 14 5 16 8 C 18 5 20 3 23 3 C 27 3 30 6 30 10 C 30 14 26 20 16 28 Z" fill="#ec4899" stroke="#be185d" stroke-width="1.5"/></svg>
+      <span id="heartsCount">3</span>
+    </div>
+  </div>
+  <div class="screen active" id="screen-welcome">
+    <div class="lesson-tag" id="lesson-tag">FINAL CHALLENGE</div>
+    <div class="mascot" id="welcomeMascot"></div>
+    <h1 class="welcome-title" id="welcome-title"></h1>
+    <p class="welcome-subtitle" id="welcome-subtitle"></p>
+    <button class="btn go" id="startBtn">Start Challenge!</button>
+  </div>
+  <div class="screen" id="screen-lesson"></div>
+  <div class="screen" id="screen-complete">
+    <div class="mascot" id="completeMascot"></div>
+    <h1 class="complete-title">Startup Founder!</h1>
+    <p class="complete-subtitle">You crushed the final challenge! Here's what you earned:</p>
+    <div class="stats-row">
+      <div class="stat-box"><div class="stat-label">XP Earned</div><div class="stat-value xp" id="finalXP">0</div></div>
+      <div class="stat-box"><div class="stat-label">Score</div><div class="stat-value score" id="finalScore">0%</div></div>
+      <div class="stat-box"><div class="stat-label">Hearts Left</div><div class="stat-value" style="color:#ef4444;" id="finalHearts">3</div></div>
+    </div>
+    <h3 style="margin: 28px 0 14px; color: #0c4a6e; font-weight: 900; font-family:'Nunito',sans-serif;">Badges You Earned:</h3>
+    <div class="badge-grid" id="badgeGrid"></div>
+    <button class="btn go" id="backToCourseBtn">Back to Course →</button>
+    <button class="btn ghost" style="margin-top:12px;" id="playAgainBtn">Play Again</button>
+  </div>
+  <div class="screen" id="screen-gameover">
+    <div class="mascot" id="gameoverMascot"></div>
+    <h1 class="complete-title" style="color:#b91c1c;">Out of Hearts!</h1>
+    <p class="complete-subtitle">Try again — every great founder faces setbacks!</p>
+    <button class="btn danger" id="retryBtn">Try Again</button>
+  </div>
+</div>
+<div class="feedback" id="feedback">
+  <div class="feedback-inner">
+    <div><div class="feedback-text" id="feedbackText"></div><div class="feedback-explain" id="feedbackExplain"></div></div>
+    <button class="btn go" onclick="window._lessonNext()">Continue</button>
+  </div>
+</div>
+<script src="lesson-engine.js"></script>
+<script>
+runLesson({
+  lessonId: "startup-fundamentals-challenge",
+  courseUrl: "course-startup-fundamentals.html",
+  tag: "FINAL CHALLENGE",
+  title: "Startup Founder Challenge",
+  subtitle: "Prove you've mastered founders, funding, product-market fit, and growth",
+  steps: [
+    {
+      type: "mc",
+      question: "What's the KEY difference between a startup and a small business?",
+      hint: "Think about growth intentions.",
+      options: [
+        { text: "A startup is designed to grow very fast and scale big; a small business often stays a stable size", correct: true },
+        { text: "There is no difference at all", correct: false },
+        { text: "A startup always has more than 100 employees", correct: false },
+        { text: "A small business can never use technology", correct: false }
+      ],
+      correctMsg: "Right! Startups are built for rapid, scalable growth.",
+      wrongMsg: "Startups aim for rapid, scalable growth, while small businesses often stay a stable size."
+    },
+    {
+      type: "mc",
+      question: "What does \"equity\" represent?",
+      hint: "Think about ownership.",
+      options: [
+        { text: "A percentage of ownership in a company", correct: true },
+        { text: "A type of business loan", correct: false },
+        { text: "A government tax on startups", correct: false },
+        { text: "An employee's salary", correct: false }
+      ],
+      correctMsg: "Correct! Equity is ownership percentage.",
+      wrongMsg: "Equity represents a percentage of ownership in a company."
+    },
+    {
+      type: "mc",
+      question: "What is \"product-market fit\"?",
+      hint: "Think about a product truly satisfying real demand.",
+      options: [
+        { text: "When a product satisfies strong real market demand", correct: true },
+        { text: "When a product has the most features possible", correct: false },
+        { text: "When a founder personally loves their own product", correct: false },
+        { text: "When a product costs the least to build", correct: false }
+      ],
+      correctMsg: "Yes! Product-market fit means real demand matches what you built.",
+      wrongMsg: "Product-market fit is when a product satisfies strong, real demand in the market."
+    },
+    {
+      type: "mc",
+      question: "What is an MVP (Minimum Viable Product)?",
+      hint: "Think about the simplest testable version.",
+      options: [
+        { text: "The simplest version of a product that still lets you test the core idea", correct: true },
+        { text: "The most expensive, fully-loaded version of a product", correct: false },
+        { text: "A product with zero features at all", correct: false },
+        { text: "The final, polished version released after years of work", correct: false }
+      ],
+      correctMsg: "Exactly! An MVP tests the core idea with minimum effort.",
+      wrongMsg: "An MVP is the simplest version of a product that still lets founders test the core idea."
+    },
+    {
+      type: "mc",
+      question: "In customer discovery, why is asking about someone's PAST behavior better than asking about hypothetical future behavior?",
+      hint: "Think about honesty and reliability.",
+      options: [
+        { text: "People are more honest and accurate describing what they've actually done than predicting the future", correct: true },
+        { text: "Past questions are always shorter to ask", correct: false },
+        { text: "Future questions are illegal to ask customers", correct: false },
+        { text: "There's no real difference between the two", correct: false }
+      ],
+      correctMsg: "Right! Past behavior gives more reliable, honest signal than hypothetical guesses.",
+      wrongMsg: "People give more accurate answers about real past behavior than about hypothetical future choices."
+    },
+    {
+      type: "mc",
+      question: "What's the difference between bootstrapping and taking investor money?",
+      hint: "Think about control vs. speed.",
+      options: [
+        { text: "Bootstrapping keeps full control but grows slower; investors bring speed but cost some equity", correct: true },
+        { text: "They are exactly the same thing", correct: false },
+        { text: "Bootstrapping is illegal in most places", correct: false },
+        { text: "Investor money never requires giving up any ownership", correct: false }
+      ],
+      correctMsg: "Correct! It's a trade-off between control/ownership and growth speed.",
+      wrongMsg: "Bootstrapping preserves full control but limits speed; investor money accelerates growth but costs equity."
+    },
+    {
+      type: "mc",
+      question: "A startup's CAC is $30 and its LTV is $150. Is this a healthy ratio?",
+      hint: "Compare to the 3x CAC rule of thumb.",
+      options: [
+        { text: "Yes — LTV is 5x CAC, well above the healthy 3x benchmark", correct: true },
+        { text: "No — LTV should always be smaller than CAC", correct: false },
+        { text: "It's impossible to know without more information", correct: false },
+        { text: "No — a ratio of 5x is far too risky", correct: false }
+      ],
+      correctMsg: "Awesome! LTV at 5x CAC is a strong, healthy ratio for a startup.",
+      wrongMsg: "LTV of $150 vs CAC of $30 is a 5x ratio — well above the healthy 3x benchmark most founders target."
+    }
+  ],
+  badges: [
+    { icon: "trophy", name: "Startup Founder", earned: true },
+    { icon: "star", name: "Sharp Thinker", earned: ({ correct }) => correct >= 4 },
+    { icon: "brain", name: "Founder Smart", earned: ({ correct }) => correct >= 6 },
+    { icon: "perfect", name: "Perfect Score", earned: ({ score }) => score === 100 },
+    { icon: "heart", name: "All Hearts", earned: ({ hearts }) => hearts === 3 },
+    { icon: "crown", name: "Startup Master", earned: ({ score, hearts }) => score >= 85 && hearts >= 2 }
+  ]
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Specificity & Context — AI Innovators</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="lesson-shared.css">
+</head>
+<body>
+<div class="app">
+  <div class="topbar" id="topbar" style="display:none;">
+    <button class="close-btn" id="closeBtn">×</button>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="hearts">
+      <svg class="heart-svg" viewBox="0 0 32 32"><path d="M16 28 C 6 20 2 14 2 10 C 2 6 5 3 9 3 C 12 3 14 5 16 8 C 18 5 20 3 23 3 C 27 3 30 6 30 10 C 30 14 26 20 16 28 Z" fill="#ec4899" stroke="#be185d" stroke-width="1.5"/></svg>
+      <span id="heartsCount">3</span>
+    </div>
+  </div>
+  <div class="screen active" id="screen-welcome">
+    <div class="lesson-tag" id="lesson-tag">PRACTICE</div>
+    <div class="mascot" id="welcomeMascot"></div>
+    <h1 class="welcome-title" id="welcome-title"></h1>
+    <p class="welcome-subtitle" id="welcome-subtitle"></p>
+    <button class="btn go" id="startBtn">Start Practicing!</button>
+  </div>
+  <div class="screen" id="screen-lesson"></div>
+  <div class="screen" id="screen-complete">
+    <div class="mascot" id="completeMascot"></div>
+    <h1 class="complete-title">Specificity Pro!</h1>
+    <p class="complete-subtitle">You know how to sharpen a vague prompt. Here's what you earned:</p>
+    <div class="stats-row">
+      <div class="stat-box"><div class="stat-label">XP Earned</div><div class="stat-value xp" id="finalXP">0</div></div>
+      <div class="stat-box"><div class="stat-label">Score</div><div class="stat-value score" id="finalScore">0%</div></div>
+      <div class="stat-box"><div class="stat-label">Hearts Left</div><div class="stat-value" style="color:#ef4444;" id="finalHearts">3</div></div>
+    </div>
+    <h3 style="margin: 28px 0 14px; color: #0c4a6e; font-weight: 900; font-family:'Nunito',sans-serif;">Badges You Earned:</h3>
+    <div class="badge-grid" id="badgeGrid"></div>
+    <button class="btn go" id="backToCourseBtn">Back to Course →</button>
+    <button class="btn ghost" style="margin-top:12px;" id="playAgainBtn">Play Again</button>
+  </div>
+  <div class="screen" id="screen-gameover">
+    <div class="mascot" id="gameoverMascot"></div>
+    <h1 class="complete-title" style="color:#b91c1c;">Out of Hearts!</h1>
+    <p class="complete-subtitle">Try again — be more specific!</p>
+    <button class="btn danger" id="retryBtn">Try Again</button>
+  </div>
+</div>
+<div class="feedback" id="feedback">
+  <div class="feedback-inner">
+    <div><div class="feedback-text" id="feedbackText"></div><div class="feedback-explain" id="feedbackExplain"></div></div>
+    <button class="btn go" onclick="window._lessonNext()">Continue</button>
+  </div>
+</div>
+<script src="lesson-engine.js"></script>
+<script>
+runLesson({
+  lessonId: "prompt-engineering-1-3",
+  courseUrl: "course-prompt-engineering.html",
+  tag: "UNIT 1 · PRACTICE",
+  title: "Specificity & Context",
+  subtitle: "Practice turning vague prompts into sharp, specific ones",
+  steps: [
+    {
+      type: "teach",
+      title: "Vague In, Vague Out",
+      body: "The single biggest lever you have as a prompt writer is specificity. Instead of \"write a story,\" try \"write a 200-word sci-fi story about a robot who learns to paint, for a 10-year-old audience.\" The more specific details you provide — audience, length, topic, tone — the more the AI's prediction narrows in on exactly what you want.",
+      examples: []
+    },
+    {
+      type: "mc",
+      question: "Which prompt is more likely to get a great result?",
+      hint: "Look for specific details.",
+      options: [
+        { text: "\"Write a 100-word email to a customer apologizing for a late shipment, in a warm and professional tone.\"", correct: true },
+        { text: "\"Write an email.\"", correct: false },
+        { text: "\"Help me with a business thing.\"", correct: false },
+        { text: "\"Say something nice.\"", correct: false }
+      ],
+      correctMsg: "Yes! Specific details about length, topic, and tone lead to a much better result.",
+      wrongMsg: "The prompt with specific length, topic, and tone details will produce a far more useful result."
+    },
+    {
+      type: "mc",
+      question: "A prompt says: \"Give me marketing ideas.\" What's missing that would make it much stronger?",
+      hint: "Think about what business, audience, or budget.",
+      options: [
+        { text: "Context like what the business is, who the audience is, and any budget or constraints", correct: true },
+        { text: "Nothing — this prompt is already perfect", correct: false },
+        { text: "It needs to be written in all capital letters", correct: false },
+        { text: "It needs to be exactly one word long", correct: false }
+      ],
+      correctMsg: "Correct! Adding context about the business, audience, and constraints sharpens the result.",
+      wrongMsg: "This prompt is missing context — what the business is, who it's for, and any limits — which weakens the result."
+    },
+    {
+      type: "mc",
+      question: "Someone rewrites \"write about dogs\" into \"write a 3-paragraph article comparing the energy levels of Border Collies vs Bulldogs for new dog owners.\" What did they improve?",
+      hint: "Think about how much clearer the goal became.",
+      options: [
+        { text: "They added specific topic, structure, and audience — giving the AI a much clearer target", correct: true },
+        { text: "They made the prompt confusing and harder to understand", correct: false },
+        { text: "They removed all useful information", correct: false },
+        { text: "Nothing changed — both prompts are equally vague", correct: false }
+      ],
+      correctMsg: "Exactly! Specific topic, structure, and audience make prompts far more effective.",
+      wrongMsg: "Adding a specific topic, structure, and target audience gives the AI a much clearer goal to aim for."
+    },
+    {
+      type: "mc",
+      question: "Why might TOO MUCH irrelevant detail in a prompt sometimes hurt the result?",
+      hint: "Think about signal vs. noise.",
+      options: [
+        { text: "It can bury the important information in noise, making the real goal less clear", correct: true },
+        { text: "AI can only read prompts under 5 words total", correct: false },
+        { text: "Extra detail always improves results with no downside", correct: false },
+        { text: "It's technically impossible for a prompt to be too long", correct: false }
+      ],
+      correctMsg: "Right! Relevant specificity helps, but irrelevant clutter can bury the real goal.",
+      wrongMsg: "Irrelevant details can bury the actual goal in noise — specificity should stay relevant, not just long."
+    }
+  ],
+  badges: [
+    { icon: "bulb", name: "Specificity Starter", earned: true },
+    { icon: "star", name: "Quick Learner", earned: ({ correct }) => correct >= 2 },
+    { icon: "brain", name: "Context Smart", earned: ({ correct }) => correct >= 3 },
+    { icon: "perfect", name: "Perfect Score", earned: ({ score }) => score === 100 },
+    { icon: "heart", name: "All Hearts", earned: ({ hearts }) => hearts === 3 },
+    { icon: "trophy", name: "Specificity Pro", earned: ({ score, hearts }) => score >= 80 && hearts >= 2 }
+  ]
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Prompt Master Challenge — AI Innovators</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="lesson-shared.css">
+</head>
+<body>
+<div class="app">
+  <div class="topbar" id="topbar" style="display:none;">
+    <button class="close-btn" id="closeBtn">×</button>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="hearts">
+      <svg class="heart-svg" viewBox="0 0 32 32"><path d="M16 28 C 6 20 2 14 2 10 C 2 6 5 3 9 3 C 12 3 14 5 16 8 C 18 5 20 3 23 3 C 27 3 30 6 30 10 C 30 14 26 20 16 28 Z" fill="#ec4899" stroke="#be185d" stroke-width="1.5"/></svg>
+      <span id="heartsCount">3</span>
+    </div>
+  </div>
+  <div class="screen active" id="screen-welcome">
+    <div class="lesson-tag" id="lesson-tag">FINAL CHALLENGE</div>
+    <div class="mascot" id="welcomeMascot"></div>
+    <h1 class="welcome-title" id="welcome-title"></h1>
+    <p class="welcome-subtitle" id="welcome-subtitle"></p>
+    <button class="btn go" id="startBtn">Start Challenge!</button>
+  </div>
+  <div class="screen" id="screen-lesson"></div>
+  <div class="screen" id="screen-complete">
+    <div class="mascot" id="completeMascot"></div>
+    <h1 class="complete-title">Prompt Master!</h1>
+    <p class="complete-subtitle">You crushed the final challenge! Here's what you earned:</p>
+    <div class="stats-row">
+      <div class="stat-box"><div class="stat-label">XP Earned</div><div class="stat-value xp" id="finalXP">0</div></div>
+      <div class="stat-box"><div class="stat-label">Score</div><div class="stat-value score" id="finalScore">0%</div></div>
+      <div class="stat-box"><div class="stat-label">Hearts Left</div><div class="stat-value" style="color:#ef4444;" id="finalHearts">3</div></div>
+    </div>
+    <h3 style="margin: 28px 0 14px; color: #0c4a6e; font-weight: 900; font-family:'Nunito',sans-serif;">Badges You Earned:</h3>
+    <div class="badge-grid" id="badgeGrid"></div>
+    <button class="btn go" id="backToCourseBtn">Back to Course →</button>
+    <button class="btn ghost" style="margin-top:12px;" id="playAgainBtn">Play Again</button>
+  </div>
+  <div class="screen" id="screen-gameover">
+    <div class="mascot" id="gameoverMascot"></div>
+    <h1 class="complete-title" style="color:#b91c1c;">Out of Hearts!</h1>
+    <p class="complete-subtitle">Try again — every great prompt engineer iterates!</p>
+    <button class="btn danger" id="retryBtn">Try Again</button>
+  </div>
+</div>
+<div class="feedback" id="feedback">
+  <div class="feedback-inner">
+    <div><div class="feedback-text" id="feedbackText"></div><div class="feedback-explain" id="feedbackExplain"></div></div>
+    <button class="btn go" onclick="window._lessonNext()">Continue</button>
+  </div>
+</div>
+<script src="lesson-engine.js"></script>
+<script>
+runLesson({
+  lessonId: "prompt-engineering-challenge",
+  courseUrl: "course-prompt-engineering.html",
+  tag: "FINAL CHALLENGE",
+  title: "Prompt Master Challenge",
+  subtitle: "Prove you've mastered prompting fundamentals, advanced techniques, and real-world use",
+  steps: [
+    {
+      type: "mc",
+      question: "What does an LLM do when generating a response?",
+      hint: "Think about prediction.",
+      options: [
+        { text: "Predicts the most likely next word repeatedly, based on learned patterns", correct: true },
+        { text: "Looks up answers in a fixed database of facts", correct: false },
+        { text: "Randomly generates text with no pattern", correct: false },
+        { text: "Copies text exactly from one single source", correct: false }
+      ],
+      correctMsg: "Right! LLMs generate text through repeated next-word prediction.",
+      wrongMsg: "An LLM predicts the most likely next word repeatedly, based on patterns learned from training."
+    },
+    {
+      type: "mc",
+      question: "What are the four common parts of a strong prompt?",
+      hint: "Think Task, Context, Format, Constraints.",
+      options: [
+        { text: "Task, Context, Format, and Constraints", correct: true },
+        { text: "Color, Size, Shape, and Weight", correct: false },
+        { text: "Just the task — nothing else ever matters", correct: false },
+        { text: "Only constraints, never anything else", correct: false }
+      ],
+      correctMsg: "Correct! Task, Context, Format, and Constraints make up a strong prompt.",
+      wrongMsg: "A strong prompt often includes Task, Context, Format, and Constraints."
+    },
+    {
+      type: "mc",
+      question: "What is chain-of-thought prompting best used for?",
+      hint: "Think about multi-step problems.",
+      options: [
+        { text: "Tricky multi-step math or logic problems", correct: true },
+        { text: "Saying hello to the AI", correct: false },
+        { text: "Asking for the current date", correct: false },
+        { text: "One-word answers only", correct: false }
+      ],
+      correctMsg: "Yes! Chain-of-thought helps most with multi-step reasoning.",
+      wrongMsg: "Chain-of-thought prompting is most helpful for tricky multi-step math or logic problems."
+    },
+    {
+      type: "mc",
+      question: "What is \"few-shot prompting\"?",
+      hint: "Think about showing examples.",
+      options: [
+        { text: "Including a few examples of the desired pattern directly in the prompt", correct: true },
+        { text: "Asking a question with absolutely no context at all", correct: false },
+        { text: "Sending five identical prompts in a row", correct: false },
+        { text: "A limit on how many words the AI can use", correct: false }
+      ],
+      correctMsg: "Correct! Few-shot means showing examples right in the prompt.",
+      wrongMsg: "Few-shot prompting means including a few examples of the pattern you want directly in the prompt."
+    },
+    {
+      type: "mc",
+      question: "How does assigning a \"persona\" (like \"You are a marketing expert\") change the AI's response?",
+      hint: "Think about tone and expertise.",
+      options: [
+        { text: "It shifts vocabulary, depth, and focus toward that role's expertise and style", correct: true },
+        { text: "It has absolutely no effect on the response", correct: false },
+        { text: "It only changes the font of the response", correct: false },
+        { text: "It makes the AI refuse to answer", correct: false }
+      ],
+      correctMsg: "Right! A persona genuinely shapes tone, vocabulary, and focus.",
+      wrongMsg: "Assigning a persona shifts the vocabulary, depth, and focus of the response toward that role."
+    },
+    {
+      type: "mc",
+      question: "Why should you specify output FORMAT (like a table or numbered list) upfront in your prompt?",
+      hint: "Think about saving time.",
+      options: [
+        { text: "It gets you a usable, structured result immediately, saving time reformatting later", correct: true },
+        { text: "Format instructions always make the AI refuse to answer", correct: false },
+        { text: "AI can only ever output plain paragraphs", correct: false },
+        { text: "It has no impact on the response at all", correct: false }
+      ],
+      correctMsg: "Exactly! Specifying format upfront saves time and gets a usable structure right away.",
+      wrongMsg: "Specifying format upfront gets you a usable, structured result immediately, saving reformatting time later."
+    },
+    {
+      type: "mc",
+      question: "For a coding prompt, why is it important to specify the programming LANGUAGE and exact expected behavior?",
+      hint: "Think about ambiguity and precision.",
+      options: [
+        { text: "Coding requires precision — vague requests often produce code that runs but does the wrong thing", correct: true },
+        { text: "AI can only write code in one language no matter what you ask", correct: false },
+        { text: "Specifying language makes code run slower", correct: false },
+        { text: "It's purely optional and changes nothing about the result", correct: false }
+      ],
+      correctMsg: "Correct! Precision in coding prompts prevents code that runs but doesn't do what you actually needed.",
+      wrongMsg: "Coding needs precision — vague prompts risk producing code that runs but doesn't match your real intent."
+    }
+  ],
+  badges: [
+    { icon: "trophy", name: "Prompt Master", earned: true },
+    { icon: "star", name: "Sharp Thinker", earned: ({ correct }) => correct >= 4 },
+    { icon: "brain", name: "Prompt Engineer Smart", earned: ({ correct }) => correct >= 6 },
+    { icon: "perfect", name: "Perfect Score", earned: ({ score }) => score === 100 },
+    { icon: "heart", name: "All Hearts", earned: ({ hearts }) => hearts === 3 },
+    { icon: "crown", name: "Prompt Engineering Master", earned: ({ score, hearts }) => score >= 85 && hearts >= 2 }
+  ]
+});
+</script>
+</body>
+</html>

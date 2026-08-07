@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Convertible Notes & SAFEs — AI Innovators</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="lesson-shared.css">
+</head>
+<body>
+<div class="app">
+  <div class="topbar" id="topbar" style="display:none;">
+    <button class="close-btn" id="closeBtn">×</button>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="hearts">
+      <svg class="heart-svg" viewBox="0 0 32 32"><path d="M16 28 C 6 20 2 14 2 10 C 2 6 5 3 9 3 C 12 3 14 5 16 8 C 18 5 20 3 23 3 C 27 3 30 6 30 10 C 30 14 26 20 16 28 Z" fill="#ec4899" stroke="#be185d" stroke-width="1.5"/></svg>
+      <span id="heartsCount">3</span>
+    </div>
+  </div>
+  <div class="screen active" id="screen-welcome">
+    <div class="lesson-tag" id="lesson-tag">LESSON</div>
+    <div class="mascot" id="welcomeMascot"></div>
+    <h1 class="welcome-title" id="welcome-title"></h1>
+    <p class="welcome-subtitle" id="welcome-subtitle"></p>
+    <button class="btn go" id="startBtn">Let's Go!</button>
+  </div>
+  <div class="screen" id="screen-lesson"></div>
+  <div class="screen" id="screen-complete">
+    <div class="mascot" id="completeMascot"></div>
+    <h1 class="complete-title">Lesson Complete!</h1>
+    <p class="complete-subtitle">Awesome work! Here's what you earned:</p>
+    <div class="stats-row">
+      <div class="stat-box"><div class="stat-label">XP Earned</div><div class="stat-value xp" id="finalXP">0</div></div>
+      <div class="stat-box"><div class="stat-label">Score</div><div class="stat-value score" id="finalScore">0%</div></div>
+      <div class="stat-box"><div class="stat-label">Hearts Left</div><div class="stat-value" style="color:#ef4444;" id="finalHearts">3</div></div>
+    </div>
+    <h3 style="margin: 28px 0 14px; color: #0c4a6e; font-weight: 900; font-family:'Nunito',sans-serif;">Badges You Earned:</h3>
+    <div class="badge-grid" id="badgeGrid"></div>
+    <button class="btn go" id="backToCourseBtn">Back to Course →</button>
+    <button class="btn ghost" style="margin-top:12px;" id="playAgainBtn">Play Again</button>
+  </div>
+  <div class="screen" id="screen-gameover">
+    <div class="mascot" id="gameoverMascot"></div>
+    <h1 class="complete-title" style="color:#b91c1c;">Out of Hearts!</h1>
+    <p class="complete-subtitle">Try again — you got this!</p>
+    <button class="btn danger" id="retryBtn">Try Again</button>
+  </div>
+</div>
+<div class="feedback" id="feedback">
+  <div class="feedback-inner">
+    <div><div class="feedback-text" id="feedbackText"></div><div class="feedback-explain" id="feedbackExplain"></div></div>
+    <button class="btn go" onclick="window._lessonNext()">Continue</button>
+  </div>
+</div>
+<script src="lesson-engine.js"></script>
+<script>
+const NOTE_ICON = `<svg viewBox="0 0 64 64"><rect x="12" y="8" width="40" height="48" rx="3" fill="white" stroke="#7c3aed" stroke-width="2.5"/><line x1="20" y1="20" x2="44" y2="20" stroke="#a78bfa" stroke-width="3" stroke-linecap="round"/><line x1="20" y1="28" x2="44" y2="28" stroke="#a78bfa" stroke-width="3" stroke-linecap="round"/><line x1="20" y1="36" x2="34" y2="36" stroke="#a78bfa" stroke-width="3" stroke-linecap="round"/><circle cx="44" cy="46" r="8" fill="#7c3aed"/><text x="44" y="50" font-size="10" fill="white" text-anchor="middle" font-weight="900">%</text></svg>`;
+
+runLesson({
+  lessonId: "startup-fundamentals-3-3",
+  courseUrl: "course-startup-fundamentals.html",
+  tag: "UNIT 3 · LESSON 3.3",
+  title: "Convertible Notes & SAFEs",
+  subtitle: "How early startups raise money before anyone agrees what the company is worth",
+  steps: [
+    {
+      type: "vocab",
+      word: "SAFE",
+      pronounce: "say it: SAYF (Simple Agreement for Future Equity)",
+      definition: "A <b>SAFE</b> is an agreement where an investor gives money now in exchange for the RIGHT to get equity later, once the company's value is set.",
+      example: "An investor gives $50,000 via a SAFE, and later converts that into company shares during the startup's next official funding round.",
+      icon: NOTE_ICON
+    },
+    {
+      type: "teach",
+      title: "Why Not Just Set a Price Right Away?",
+      body: "Very early startups are hard to value — there's no revenue history yet. A <b>convertible note</b> or <b>SAFE</b> solves this: investors give money now, and it converts into equity LATER, once a proper valuation happens (usually at the next bigger funding round). This lets founders raise money fast without a stressful early price negotiation.",
+      examples: ["Money now, equity decided later", "Converts at the next funding round", "Avoids early valuation arguments"]
+    },
+    {
+      type: "mc",
+      question: "What does SAFE stand for?",
+      hint: "Think about the word \"future.\"",
+      options: [
+        { text: "Simple Agreement for Future Equity", correct: true },
+        { text: "Startup Approval For Everyone", correct: false },
+        { text: "Standard Annual Financial Estimate", correct: false },
+        { text: "Secure Automated Funding Exchange", correct: false }
+      ],
+      correctMsg: "Right! SAFE = Simple Agreement for Future Equity.",
+      wrongMsg: "SAFE stands for Simple Agreement for Future Equity."
+    },
+    {
+      type: "mc",
+      question: "Why do early startups often use SAFEs or convertible notes instead of setting an exact price right away?",
+      hint: "Think about how hard it is to value a brand-new company.",
+      options: [
+        { text: "It's very hard to fairly value a company with no track record yet", correct: true },
+        { text: "It's required by law for every company", correct: false },
+        { text: "It guarantees the founder never gives up any equity", correct: false },
+        { text: "Investors are not allowed to negotiate price ever", correct: false }
+      ],
+      correctMsg: "Yes! It's tough to value a very early company, so pricing gets deferred.",
+      wrongMsg: "Very early startups are hard to value fairly, so SAFEs delay setting an exact price."
+    },
+    {
+      type: "mc",
+      question: "When does a SAFE typically \"convert\" into actual equity?",
+      hint: "Think about a future milestone.",
+      options: [
+        { text: "At the startup's next official funding round, once a valuation is set", correct: true },
+        { text: "It never converts into anything", correct: false },
+        { text: "The moment it's signed, before any value is set", correct: false },
+        { text: "Only if the founder personally chooses to cancel it", correct: false }
+      ],
+      correctMsg: "Correct! SAFEs convert at the next round once there's a real valuation.",
+      wrongMsg: "A SAFE converts into equity at the next funding round, once a valuation exists."
+    },
+    {
+      type: "mc",
+      question: "What's a key BENEFIT of a SAFE for a founder raising an early round?",
+      hint: "Think about speed and simplicity.",
+      options: [
+        { text: "It's faster and simpler than negotiating an exact valuation right away", correct: true },
+        { text: "It means the founder gets to keep 100% of the company forever", correct: false },
+        { text: "The investor gets no rights at all, ever", correct: false },
+        { text: "It eliminates the need for any future funding rounds", correct: false }
+      ],
+      correctMsg: "Exactly! SAFEs let founders raise money quickly without a full valuation negotiation.",
+      wrongMsg: "SAFEs are popular because they're fast and simple, avoiding an early valuation negotiation."
+    }
+  ],
+  badges: [
+    { icon: "bulb", name: "SAFE Starter", earned: true },
+    { icon: "star", name: "Quick Learner", earned: ({ correct }) => correct >= 2 },
+    { icon: "brain", name: "Funding Docs Smart", earned: ({ correct }) => correct >= 4 },
+    { icon: "perfect", name: "Perfect Score", earned: ({ score }) => score === 100 },
+    { icon: "heart", name: "All Hearts", earned: ({ hearts }) => hearts === 3 },
+    { icon: "trophy", name: "SAFE Expert", earned: ({ score, hearts }) => score >= 80 && hearts >= 2 }
+  ]
+});
+</script>
+</body>
+</html>

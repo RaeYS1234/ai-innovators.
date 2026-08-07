@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Finding the Problem — AI Innovators</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="lesson-shared.css">
+</head>
+<body>
+<div class="app">
+  <div class="topbar" id="topbar" style="display:none;">
+    <button class="close-btn" id="closeBtn">×</button>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="hearts">
+      <svg class="heart-svg" viewBox="0 0 32 32"><path d="M16 28 C 6 20 2 14 2 10 C 2 6 5 3 9 3 C 12 3 14 5 16 8 C 18 5 20 3 23 3 C 27 3 30 6 30 10 C 30 14 26 20 16 28 Z" fill="#ec4899" stroke="#be185d" stroke-width="1.5"/></svg>
+      <span id="heartsCount">3</span>
+    </div>
+  </div>
+  <div class="screen active" id="screen-welcome">
+    <div class="lesson-tag" id="lesson-tag">LESSON</div>
+    <div class="mascot" id="welcomeMascot"></div>
+    <h1 class="welcome-title" id="welcome-title"></h1>
+    <p class="welcome-subtitle" id="welcome-subtitle"></p>
+    <button class="btn go" id="startBtn">Let's Go!</button>
+  </div>
+  <div class="screen" id="screen-lesson"></div>
+  <div class="screen" id="screen-complete">
+    <div class="mascot" id="completeMascot"></div>
+    <h1 class="complete-title">Lesson Complete!</h1>
+    <p class="complete-subtitle">Awesome work! Here's what you earned:</p>
+    <div class="stats-row">
+      <div class="stat-box"><div class="stat-label">XP Earned</div><div class="stat-value xp" id="finalXP">0</div></div>
+      <div class="stat-box"><div class="stat-label">Score</div><div class="stat-value score" id="finalScore">0%</div></div>
+      <div class="stat-box"><div class="stat-label">Hearts Left</div><div class="stat-value" style="color:#ef4444;" id="finalHearts">3</div></div>
+    </div>
+    <h3 style="margin: 28px 0 14px; color: #0c4a6e; font-weight: 900; font-family:'Nunito',sans-serif;">Badges You Earned:</h3>
+    <div class="badge-grid" id="badgeGrid"></div>
+    <button class="btn go" id="backToCourseBtn">Back to Course →</button>
+    <button class="btn ghost" style="margin-top:12px;" id="playAgainBtn">Play Again</button>
+  </div>
+  <div class="screen" id="screen-gameover">
+    <div class="mascot" id="gameoverMascot"></div>
+    <h1 class="complete-title" style="color:#b91c1c;">Out of Hearts!</h1>
+    <p class="complete-subtitle">Try again — you got this!</p>
+    <button class="btn danger" id="retryBtn">Try Again</button>
+  </div>
+</div>
+<div class="feedback" id="feedback">
+  <div class="feedback-inner">
+    <div><div class="feedback-text" id="feedbackText"></div><div class="feedback-explain" id="feedbackExplain"></div></div>
+    <button class="btn go" onclick="window._lessonNext()">Continue</button>
+  </div>
+</div>
+<script src="lesson-engine.js"></script>
+<script>
+const MAGNIFY_ICON = `<svg viewBox="0 0 64 64"><circle cx="26" cy="26" r="18" fill="white" stroke="#0369a1" stroke-width="4"/><line x1="39" y1="39" x2="56" y2="56" stroke="#0369a1" stroke-width="6" stroke-linecap="round"/><path d="M18 26 A8 8 0 0 1 26 18" stroke="#0ea5e9" stroke-width="3" fill="none" stroke-linecap="round"/></svg>`;
+
+runLesson({
+  lessonId: "startup-fundamentals-2-1",
+  courseUrl: "course-startup-fundamentals.html",
+  tag: "UNIT 2 · LESSON 2.1",
+  title: "Finding the Problem",
+  subtitle: "Every great startup starts with a real problem, not just a cool idea",
+  steps: [
+    {
+      type: "vocab",
+      word: "Product-Market Fit",
+      pronounce: "say it: PRAH-duct MAR-ket FIT",
+      definition: "<b>Product-market fit</b> is when your product solves a real problem so well that customers want it and keep coming back.",
+      example: "Before product-market fit, customers barely notice you. After it, customers pull the product from you faster than you can supply it.",
+      icon: MAGNIFY_ICON
+    },
+    {
+      type: "teach",
+      title: "Start With the Problem, Not the Idea",
+      body: "Founders often fall in love with a cool IDEA first, then struggle to find people who need it. The stronger path: find a real, painful PROBLEM people already have, then build the smallest solution that fixes it. Problems that are frequent, painful, and expensive to leave unsolved make the best starting points.",
+      examples: ["Is the problem frequent?", "Is it painful?", "Are people already trying (and failing) to solve it?"]
+    },
+    {
+      type: "mc",
+      question: "What is \"product-market fit\"?",
+      hint: "Think about customers wanting your product.",
+      options: [
+        { text: "When your product solves a real problem well enough that customers want and keep using it", correct: true },
+        { text: "When your logo matches your website colors", correct: false },
+        { text: "When you have more employees than competitors", correct: false },
+        { text: "When your product costs the least in the market", correct: false }
+      ],
+      correctMsg: "Right! Product-market fit means real demand for what you built.",
+      wrongMsg: "Product-market fit is about customers genuinely wanting and using your solution."
+    },
+    {
+      type: "mc",
+      question: "Which is the SMARTER way to start a startup?",
+      hint: "Problem first, or idea first?",
+      options: [
+        { text: "Find a real, painful problem first, then build a solution", correct: true },
+        { text: "Build a cool idea first, then hope someone needs it", correct: false },
+        { text: "Copy a random product with no research", correct: false },
+        { text: "Skip research and guess what people want", correct: false }
+      ],
+      correctMsg: "Yes! Starting from a real problem gives you a much better shot at product-market fit.",
+      wrongMsg: "Starting from a real, validated problem is smarter than starting from just a cool idea."
+    },
+    {
+      type: "mc",
+      question: "What makes a problem a GOOD one to build a startup around?",
+      hint: "Three qualities matter most.",
+      options: [
+        { text: "It's frequent, painful, and hard for people to solve on their own", correct: true },
+        { text: "It only affects one person in the world", correct: false },
+        { text: "Nobody has ever noticed the problem before", correct: false },
+        { text: "It's mildly annoying but nobody minds it", correct: false }
+      ],
+      correctMsg: "Exactly! Frequent + painful + hard-to-solve problems make the strongest starting points.",
+      wrongMsg: "The best startup problems are frequent, painful, and difficult for people to solve alone."
+    },
+    {
+      type: "mc",
+      question: "How can a founder check if a problem is REAL before building anything?",
+      hint: "Think about talking to people.",
+      options: [
+        { text: "Talk to potential customers and see if they already struggle with it", correct: true },
+        { text: "Just assume it's real and start building immediately", correct: false },
+        { text: "Ask only friends and family who won't ever use the product", correct: false },
+        { text: "Never talk to anyone until launch day", correct: false }
+      ],
+      correctMsg: "Correct! Talking to real potential customers is the best way to validate a problem.",
+      wrongMsg: "Talking directly to potential customers is the best way to confirm a problem is real."
+    }
+  ],
+  badges: [
+    { icon: "bulb", name: "Problem Finder", earned: true },
+    { icon: "star", name: "Quick Learner", earned: ({ correct }) => correct >= 2 },
+    { icon: "brain", name: "Fit Smart", earned: ({ correct }) => correct >= 4 },
+    { icon: "perfect", name: "Perfect Score", earned: ({ score }) => score === 100 },
+    { icon: "heart", name: "All Hearts", earned: ({ hearts }) => hearts === 3 },
+    { icon: "trophy", name: "Problem Detective", earned: ({ score, hearts }) => score >= 80 && hearts >= 2 }
+  ]
+});
+</script>
+</body>
+</html>

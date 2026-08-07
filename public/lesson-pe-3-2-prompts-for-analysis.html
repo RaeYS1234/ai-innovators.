@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Prompts for Analysis — AI Innovators</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="lesson-shared.css">
+</head>
+<body>
+<div class="app">
+  <div class="topbar" id="topbar" style="display:none;">
+    <button class="close-btn" id="closeBtn">×</button>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="hearts">
+      <svg class="heart-svg" viewBox="0 0 32 32"><path d="M16 28 C 6 20 2 14 2 10 C 2 6 5 3 9 3 C 12 3 14 5 16 8 C 18 5 20 3 23 3 C 27 3 30 6 30 10 C 30 14 26 20 16 28 Z" fill="#ec4899" stroke="#be185d" stroke-width="1.5"/></svg>
+      <span id="heartsCount">3</span>
+    </div>
+  </div>
+  <div class="screen active" id="screen-welcome">
+    <div class="lesson-tag" id="lesson-tag">PRACTICE</div>
+    <div class="mascot" id="welcomeMascot"></div>
+    <h1 class="welcome-title" id="welcome-title"></h1>
+    <p class="welcome-subtitle" id="welcome-subtitle"></p>
+    <button class="btn go" id="startBtn">Start Practicing!</button>
+  </div>
+  <div class="screen" id="screen-lesson"></div>
+  <div class="screen" id="screen-complete">
+    <div class="mascot" id="completeMascot"></div>
+    <h1 class="complete-title">Analysis Pro!</h1>
+    <p class="complete-subtitle">You know how to prompt AI for sharp analysis. Here's what you earned:</p>
+    <div class="stats-row">
+      <div class="stat-box"><div class="stat-label">XP Earned</div><div class="stat-value xp" id="finalXP">0</div></div>
+      <div class="stat-box"><div class="stat-label">Score</div><div class="stat-value score" id="finalScore">0%</div></div>
+      <div class="stat-box"><div class="stat-label">Hearts Left</div><div class="stat-value" style="color:#ef4444;" id="finalHearts">3</div></div>
+    </div>
+    <h3 style="margin: 28px 0 14px; color: #0c4a6e; font-weight: 900; font-family:'Nunito',sans-serif;">Badges You Earned:</h3>
+    <div class="badge-grid" id="badgeGrid"></div>
+    <button class="btn go" id="backToCourseBtn">Back to Course →</button>
+    <button class="btn ghost" style="margin-top:12px;" id="playAgainBtn">Play Again</button>
+  </div>
+  <div class="screen" id="screen-gameover">
+    <div class="mascot" id="gameoverMascot"></div>
+    <h1 class="complete-title" style="color:#b91c1c;">Out of Hearts!</h1>
+    <p class="complete-subtitle">Try again — you got this!</p>
+    <button class="btn danger" id="retryBtn">Try Again</button>
+  </div>
+</div>
+<div class="feedback" id="feedback">
+  <div class="feedback-inner">
+    <div><div class="feedback-text" id="feedbackText"></div><div class="feedback-explain" id="feedbackExplain"></div></div>
+    <button class="btn go" onclick="window._lessonNext()">Continue</button>
+  </div>
+</div>
+<script src="lesson-engine.js"></script>
+<script>
+runLesson({
+  lessonId: "prompt-engineering-3-2",
+  courseUrl: "course-prompt-engineering.html",
+  tag: "UNIT 3 · PRACTICE",
+  title: "Prompts for Analysis",
+  subtitle: "Practice prompting AI to analyze data, compare options, and spot patterns",
+  steps: [
+    {
+      type: "teach",
+      title: "Tell It WHAT to Look For",
+      body: "When asking AI to analyze something — sales numbers, customer feedback, competitor info — vague requests like \"analyze this\" get vague results. Instead, tell it exactly what angle to analyze from: trends over time, strengths vs weaknesses, or specific comparisons. The sharper your analytical question, the sharper the insight.",
+      examples: []
+    },
+    {
+      type: "mc",
+      question: "Which prompt gives the SHARPEST analytical request?",
+      hint: "Look for a specific analytical angle.",
+      options: [
+        { text: "\"Analyze this sales data and identify the 3 months with the biggest drop, and possible reasons why.\"", correct: true },
+        { text: "\"Analyze this.\"", correct: false },
+        { text: "\"Numbers, thoughts?\"", correct: false },
+        { text: "\"Tell me stuff about this data.\"", correct: false }
+      ],
+      correctMsg: "Yes! It specifies exactly what pattern to find and asks for reasoning.",
+      wrongMsg: "The strongest analytical prompt names a specific pattern to look for and asks for reasoning."
+    },
+    {
+      type: "mc",
+      question: "A founder shares customer feedback and just says \"thoughts?\" What's the risk of this vague prompt?",
+      hint: "Think about unfocused results.",
+      options: [
+        { text: "The response may be too broad and miss the specific insight the founder actually needs", correct: true },
+        { text: "The AI will always find the exact same answer no matter what", correct: false },
+        { text: "It's technically impossible for AI to read feedback", correct: false },
+        { text: "There's no risk at all — vague prompts are just as effective", correct: false }
+      ],
+      correctMsg: "Correct! Vague analytical prompts risk missing the actual insight needed.",
+      wrongMsg: "A vague prompt like \"thoughts?\" risks a broad, unfocused answer that misses the real insight needed."
+    },
+    {
+      type: "mc",
+      question: "What's a good way to get AI to compare two pricing plans?",
+      hint: "Think about naming clear comparison points.",
+      options: [
+        { text: "\"Compare Plan A and Plan B on price, features, and target customer — list pros and cons of each.\"", correct: true },
+        { text: "\"Which plan is better, I guess?\"", correct: false },
+        { text: "\"Plans.\"", correct: false },
+        { text: "\"Say something about pricing.\"", correct: false }
+      ],
+      correctMsg: "Exactly! Naming specific comparison points (price, features, audience) sharpens the analysis.",
+      wrongMsg: "Naming specific comparison criteria like price, features, and audience produces a much clearer analysis."
+    },
+    {
+      type: "mc",
+      question: "Why is it helpful to ask AI to explain its REASONING when analyzing data, not just give a conclusion?",
+      hint: "Think about trust and double-checking.",
+      options: [
+        { text: "It lets you check the logic and catch mistakes, rather than blindly trusting a conclusion", correct: true },
+        { text: "Reasoning makes the AI's answer factually impossible to be wrong", correct: false },
+        { text: "It has no benefit and just wastes time", correct: false },
+        { text: "Reasoning is only useful for math homework", correct: false }
+      ],
+      correctMsg: "Right! Seeing the reasoning lets you verify the logic yourself.",
+      wrongMsg: "Asking for reasoning lets you check the logic behind a conclusion instead of blindly trusting it."
+    }
+  ],
+  badges: [
+    { icon: "bulb", name: "Analysis Starter", earned: true },
+    { icon: "star", name: "Quick Learner", earned: ({ correct }) => correct >= 2 },
+    { icon: "brain", name: "Insight Smart", earned: ({ correct }) => correct >= 3 },
+    { icon: "perfect", name: "Perfect Score", earned: ({ score }) => score === 100 },
+    { icon: "heart", name: "All Hearts", earned: ({ hearts }) => hearts === 3 },
+    { icon: "trophy", name: "Analysis Pro", earned: ({ score, hearts }) => score >= 80 && hearts >= 2 }
+  ]
+});
+</script>
+</body>
+</html>

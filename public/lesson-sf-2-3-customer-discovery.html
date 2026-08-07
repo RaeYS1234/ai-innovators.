@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Customer Discovery — AI Innovators</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="lesson-shared.css">
+</head>
+<body>
+<div class="app">
+  <div class="topbar" id="topbar" style="display:none;">
+    <button class="close-btn" id="closeBtn">×</button>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="hearts">
+      <svg class="heart-svg" viewBox="0 0 32 32"><path d="M16 28 C 6 20 2 14 2 10 C 2 6 5 3 9 3 C 12 3 14 5 16 8 C 18 5 20 3 23 3 C 27 3 30 6 30 10 C 30 14 26 20 16 28 Z" fill="#ec4899" stroke="#be185d" stroke-width="1.5"/></svg>
+      <span id="heartsCount">3</span>
+    </div>
+  </div>
+  <div class="screen active" id="screen-welcome">
+    <div class="lesson-tag" id="lesson-tag">PRACTICE</div>
+    <div class="mascot" id="welcomeMascot"></div>
+    <h1 class="welcome-title" id="welcome-title"></h1>
+    <p class="welcome-subtitle" id="welcome-subtitle"></p>
+    <button class="btn go" id="startBtn">Start Practicing!</button>
+  </div>
+  <div class="screen" id="screen-lesson"></div>
+  <div class="screen" id="screen-complete">
+    <div class="mascot" id="completeMascot"></div>
+    <h1 class="complete-title">Discovery Pro!</h1>
+    <p class="complete-subtitle">You know how to talk to real customers. Here's what you earned:</p>
+    <div class="stats-row">
+      <div class="stat-box"><div class="stat-label">XP Earned</div><div class="stat-value xp" id="finalXP">0</div></div>
+      <div class="stat-box"><div class="stat-label">Score</div><div class="stat-value score" id="finalScore">0%</div></div>
+      <div class="stat-box"><div class="stat-label">Hearts Left</div><div class="stat-value" style="color:#ef4444;" id="finalHearts">3</div></div>
+    </div>
+    <h3 style="margin: 28px 0 14px; color: #0c4a6e; font-weight: 900; font-family:'Nunito',sans-serif;">Badges You Earned:</h3>
+    <div class="badge-grid" id="badgeGrid"></div>
+    <button class="btn go" id="backToCourseBtn">Back to Course →</button>
+    <button class="btn ghost" style="margin-top:12px;" id="playAgainBtn">Play Again</button>
+  </div>
+  <div class="screen" id="screen-gameover">
+    <div class="mascot" id="gameoverMascot"></div>
+    <h1 class="complete-title" style="color:#b91c1c;">Out of Hearts!</h1>
+    <p class="complete-subtitle">Try again — great founders ask great questions!</p>
+    <button class="btn danger" id="retryBtn">Try Again</button>
+  </div>
+</div>
+<div class="feedback" id="feedback">
+  <div class="feedback-inner">
+    <div><div class="feedback-text" id="feedbackText"></div><div class="feedback-explain" id="feedbackExplain"></div></div>
+    <button class="btn go" onclick="window._lessonNext()">Continue</button>
+  </div>
+</div>
+<script src="lesson-engine.js"></script>
+<script>
+runLesson({
+  lessonId: "startup-fundamentals-2-3",
+  courseUrl: "course-startup-fundamentals.html",
+  tag: "UNIT 2 · PRACTICE",
+  title: "Customer Discovery",
+  subtitle: "Practice asking the RIGHT questions to learn what customers really need",
+  steps: [
+    {
+      type: "teach",
+      title: "Ask About the Past, Not the Future",
+      body: "The #1 rule of customer discovery: ask about what people HAVE done, not what they THINK they'd do. People are bad at predicting their own future behavior but great at describing real past problems. \"Have you ever struggled with X?\" beats \"Would you use a product that does X?\" every time.",
+      examples: []
+    },
+    {
+      type: "mc",
+      question: "Which question is a BETTER customer discovery question?",
+      hint: "Past behavior beats future guesses.",
+      options: [
+        { text: "\"Tell me about the last time you tried to solve this problem.\"", correct: true },
+        { text: "\"Would you maybe use an app like this someday?\"", correct: false },
+        { text: "\"Do you like cool new apps?\"", correct: false },
+        { text: "\"Isn't this a great idea?\"", correct: false }
+      ],
+      correctMsg: "Yes! Asking about a real past experience gets honest, useful answers.",
+      wrongMsg: "Questions about real past experiences give much more honest, useful answers than hypotheticals."
+    },
+    {
+      type: "mc",
+      question: "Why is \"Would you use this?\" a WEAK discovery question?",
+      hint: "Think about how people answer politely.",
+      options: [
+        { text: "People often say yes to be nice, even if they'd never actually use it", correct: true },
+        { text: "It's too hard for people to understand", correct: false },
+        { text: "It's illegal to ask that question", correct: false },
+        { text: "Nobody has ever answered that question before", correct: false }
+      ],
+      correctMsg: "Exactly! People are often overly polite, so hypothetical questions get unreliable answers.",
+      wrongMsg: "People tend to give overly polite \"yes\" answers to hypothetical questions, even if untrue."
+    },
+    {
+      type: "mc",
+      question: "A founder interviews 10 people and 9 say \"I've never really had this problem.\" What should they do?",
+      hint: "Listen to the data, even if it's disappointing.",
+      options: [
+        { text: "Seriously reconsider whether this problem is worth building a solution for", correct: true },
+        { text: "Ignore the feedback and build it anyway", correct: false },
+        { text: "Only interview people who will agree with them", correct: false },
+        { text: "Assume the 10 people are all lying", correct: false }
+      ],
+      correctMsg: "Correct! Real feedback — even disappointing feedback — should shape your next move.",
+      wrongMsg: "If most people say the problem isn't real for them, that's important signal to listen to."
+    },
+    {
+      type: "mc",
+      question: "What's a good customer discovery follow-up after someone describes a problem?",
+      hint: "Dig deeper into the pain.",
+      options: [
+        { text: "\"How are you dealing with that problem right now?\"", correct: true },
+        { text: "\"So you'll definitely buy my product, right?\"", correct: false },
+        { text: "\"Do you want to invest in my company?\"", correct: false },
+        { text: "Nothing — end the conversation immediately", correct: false }
+      ],
+      correctMsg: "Yes! Learning their CURRENT workaround reveals how painful the problem really is.",
+      wrongMsg: "Asking how they currently handle the problem reveals how painful (or not) it really is."
+    }
+  ],
+  badges: [
+    { icon: "bulb", name: "Discovery Starter", earned: true },
+    { icon: "star", name: "Quick Learner", earned: ({ correct }) => correct >= 2 },
+    { icon: "brain", name: "Interview Smart", earned: ({ correct }) => correct >= 4 },
+    { icon: "perfect", name: "Perfect Score", earned: ({ score }) => score === 100 },
+    { icon: "heart", name: "All Hearts", earned: ({ hearts }) => hearts === 3 },
+    { icon: "trophy", name: "Discovery Pro", earned: ({ score, hearts }) => score >= 80 && hearts >= 2 }
+  ]
+});
+</script>
+</body>
+</html>

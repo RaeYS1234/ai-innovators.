@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Bootstrapping vs Investors — AI Innovators</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="lesson-shared.css">
+</head>
+<body>
+<div class="app">
+  <div class="topbar" id="topbar" style="display:none;">
+    <button class="close-btn" id="closeBtn">×</button>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="hearts">
+      <svg class="heart-svg" viewBox="0 0 32 32"><path d="M16 28 C 6 20 2 14 2 10 C 2 6 5 3 9 3 C 12 3 14 5 16 8 C 18 5 20 3 23 3 C 27 3 30 6 30 10 C 30 14 26 20 16 28 Z" fill="#ec4899" stroke="#be185d" stroke-width="1.5"/></svg>
+      <span id="heartsCount">3</span>
+    </div>
+  </div>
+  <div class="screen active" id="screen-welcome">
+    <div class="lesson-tag" id="lesson-tag">LESSON</div>
+    <div class="mascot" id="welcomeMascot"></div>
+    <h1 class="welcome-title" id="welcome-title"></h1>
+    <p class="welcome-subtitle" id="welcome-subtitle"></p>
+    <button class="btn go" id="startBtn">Let's Go!</button>
+  </div>
+  <div class="screen" id="screen-lesson"></div>
+  <div class="screen" id="screen-complete">
+    <div class="mascot" id="completeMascot"></div>
+    <h1 class="complete-title">Lesson Complete!</h1>
+    <p class="complete-subtitle">Awesome work! Here's what you earned:</p>
+    <div class="stats-row">
+      <div class="stat-box"><div class="stat-label">XP Earned</div><div class="stat-value xp" id="finalXP">0</div></div>
+      <div class="stat-box"><div class="stat-label">Score</div><div class="stat-value score" id="finalScore">0%</div></div>
+      <div class="stat-box"><div class="stat-label">Hearts Left</div><div class="stat-value" style="color:#ef4444;" id="finalHearts">3</div></div>
+    </div>
+    <h3 style="margin: 28px 0 14px; color: #0c4a6e; font-weight: 900; font-family:'Nunito',sans-serif;">Badges You Earned:</h3>
+    <div class="badge-grid" id="badgeGrid"></div>
+    <button class="btn go" id="backToCourseBtn">Back to Course →</button>
+    <button class="btn ghost" style="margin-top:12px;" id="playAgainBtn">Play Again</button>
+  </div>
+  <div class="screen" id="screen-gameover">
+    <div class="mascot" id="gameoverMascot"></div>
+    <h1 class="complete-title" style="color:#b91c1c;">Out of Hearts!</h1>
+    <p class="complete-subtitle">Try again — you got this!</p>
+    <button class="btn danger" id="retryBtn">Try Again</button>
+  </div>
+</div>
+<div class="feedback" id="feedback">
+  <div class="feedback-inner">
+    <div><div class="feedback-text" id="feedbackText"></div><div class="feedback-explain" id="feedbackExplain"></div></div>
+    <button class="btn go" onclick="window._lessonNext()">Continue</button>
+  </div>
+</div>
+<script src="lesson-engine.js"></script>
+<script>
+const BOOTSTRAP_ICON = `<svg viewBox="0 0 64 64"><path d="M18 54 L18 30 L28 24 L28 54 Z" fill="#78350f" stroke="#451a03" stroke-width="2"/><path d="M36 54 L36 14 L46 8 L46 54 Z" fill="#f59e0b" stroke="#b45309" stroke-width="2"/><rect x="12" y="54" width="40" height="6" rx="2" fill="#78350f"/></svg>`;
+
+runLesson({
+  lessonId: "startup-fundamentals-3-1",
+  courseUrl: "course-startup-fundamentals.html",
+  tag: "UNIT 3 · LESSON 3.1",
+  title: "Bootstrapping vs Investors",
+  subtitle: "Two very different ways to pay the bills while you build",
+  steps: [
+    {
+      type: "vocab",
+      word: "Bootstrapping",
+      pronounce: "say it: BOOT-strap-ing",
+      definition: "<b>Bootstrapping</b> means funding your startup yourself — using your own savings and revenue, without outside investors.",
+      example: "A founder who saves up money from a part-time job to buy supplies for their small business is bootstrapping.",
+      icon: BOOTSTRAP_ICON
+    },
+    {
+      type: "teach",
+      title: "Two Paths to Funding",
+      body: "<b>Bootstrapping</b> means you keep 100% ownership and full control, but growth is limited by your own money. Taking <b>investor money</b> gives you cash to grow faster, but you give up some ownership (equity) and often some control over decisions. Neither is \"better\" — it depends on the founder's goals.",
+      examples: ["Bootstrapping: full control, slower growth", "Investors: faster growth, less ownership"]
+    },
+    {
+      type: "mc",
+      question: "What does \"bootstrapping\" mean?",
+      hint: "No outside help.",
+      options: [
+        { text: "Funding your company yourself, without outside investors", correct: true },
+        { text: "Borrowing money exclusively from a bank", correct: false },
+        { text: "Getting money only from the government", correct: false },
+        { text: "A type of marketing campaign", correct: false }
+      ],
+      correctMsg: "Right! Bootstrapping means self-funding.",
+      wrongMsg: "Bootstrapping means funding the company yourself, without outside investors."
+    },
+    {
+      type: "mc",
+      question: "What's a MAIN benefit of bootstrapping?",
+      hint: "Think about who's in charge.",
+      options: [
+        { text: "You keep full ownership and control of the company", correct: true },
+        { text: "You automatically grow faster than any investor-funded startup", correct: false },
+        { text: "You never need to make any sales", correct: false },
+        { text: "It guarantees the company will never fail", correct: false }
+      ],
+      correctMsg: "Yes! Bootstrapping keeps 100% of the ownership and decisions in your hands.",
+      wrongMsg: "The main benefit of bootstrapping is keeping full ownership and control."
+    },
+    {
+      type: "mc",
+      question: "What's a trade-off of taking investor money?",
+      hint: "You give something up in exchange for cash.",
+      options: [
+        { text: "You give up some equity (ownership) and often some control", correct: true },
+        { text: "You're required to shut the company down within a year", correct: false },
+        { text: "You can never hire employees", correct: false },
+        { text: "There's no trade-off at all — it's completely free money", correct: false }
+      ],
+      correctMsg: "Correct! Investor money comes with giving up some ownership and control.",
+      wrongMsg: "Taking investor money means giving up some equity and often some control over decisions."
+    },
+    {
+      type: "mc",
+      question: "A founder wants to grow VERY fast to beat competitors to a huge market. Which funding path fits better?",
+      hint: "Speed usually needs fuel.",
+      options: [
+        { text: "Raising investor money, since it provides cash to grow quickly", correct: true },
+        { text: "Bootstrapping only, since it's always the fastest path to scale", correct: false },
+        { text: "Neither — fast growth never needs funding", correct: false },
+        { text: "It doesn't matter which path they choose", correct: false }
+      ],
+      correctMsg: "Exactly! Investor funding is often chosen specifically to fuel fast growth.",
+      wrongMsg: "When speed matters most, investor funding often provides the cash needed to grow quickly."
+    }
+  ],
+  badges: [
+    { icon: "bulb", name: "Funding Starter", earned: true },
+    { icon: "star", name: "Quick Learner", earned: ({ correct }) => correct >= 2 },
+    { icon: "brain", name: "Funding Smart", earned: ({ correct }) => correct >= 4 },
+    { icon: "perfect", name: "Perfect Score", earned: ({ score }) => score === 100 },
+    { icon: "heart", name: "All Hearts", earned: ({ hearts }) => hearts === 3 },
+    { icon: "trophy", name: "Funding Path Pro", earned: ({ score, hearts }) => score >= 80 && hearts >= 2 }
+  ]
+});
+</script>
+</body>
+</html>

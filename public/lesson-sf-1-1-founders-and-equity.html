@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Founders, Co-founders, and Equity — AI Innovators</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="lesson-shared.css">
+</head>
+<body>
+<div class="app">
+  <div class="topbar" id="topbar" style="display:none;">
+    <button class="close-btn" id="closeBtn">×</button>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="hearts">
+      <svg class="heart-svg" viewBox="0 0 32 32"><path d="M16 28 C 6 20 2 14 2 10 C 2 6 5 3 9 3 C 12 3 14 5 16 8 C 18 5 20 3 23 3 C 27 3 30 6 30 10 C 30 14 26 20 16 28 Z" fill="#ec4899" stroke="#be185d" stroke-width="1.5"/></svg>
+      <span id="heartsCount">3</span>
+    </div>
+  </div>
+  <div class="screen active" id="screen-welcome">
+    <div class="lesson-tag" id="lesson-tag">LESSON</div>
+    <div class="mascot" id="welcomeMascot"></div>
+    <h1 class="welcome-title" id="welcome-title"></h1>
+    <p class="welcome-subtitle" id="welcome-subtitle"></p>
+    <button class="btn go" id="startBtn">Let's Go!</button>
+  </div>
+  <div class="screen" id="screen-lesson"></div>
+  <div class="screen" id="screen-complete">
+    <div class="mascot" id="completeMascot"></div>
+    <h1 class="complete-title">Lesson Complete!</h1>
+    <p class="complete-subtitle">Awesome work! Here's what you earned:</p>
+    <div class="stats-row">
+      <div class="stat-box"><div class="stat-label">XP Earned</div><div class="stat-value xp" id="finalXP">0</div></div>
+      <div class="stat-box"><div class="stat-label">Score</div><div class="stat-value score" id="finalScore">0%</div></div>
+      <div class="stat-box"><div class="stat-label">Hearts Left</div><div class="stat-value" style="color:#ef4444;" id="finalHearts">3</div></div>
+    </div>
+    <h3 style="margin: 28px 0 14px; color: #0c4a6e; font-weight: 900; font-family:'Nunito',sans-serif;">Badges You Earned:</h3>
+    <div class="badge-grid" id="badgeGrid"></div>
+    <button class="btn go" id="backToCourseBtn">Back to Course →</button>
+    <button class="btn ghost" style="margin-top:12px;" id="playAgainBtn">Play Again</button>
+  </div>
+  <div class="screen" id="screen-gameover">
+    <div class="mascot" id="gameoverMascot"></div>
+    <h1 class="complete-title" style="color:#b91c1c;">Out of Hearts!</h1>
+    <p class="complete-subtitle">Try again — you got this!</p>
+    <button class="btn danger" id="retryBtn">Try Again</button>
+  </div>
+</div>
+<div class="feedback" id="feedback">
+  <div class="feedback-inner">
+    <div><div class="feedback-text" id="feedbackText"></div><div class="feedback-explain" id="feedbackExplain"></div></div>
+    <button class="btn go" onclick="window._lessonNext()">Continue</button>
+  </div>
+</div>
+<script src="lesson-engine.js"></script>
+<script>
+const FOUNDER_ICON = `<svg viewBox="0 0 64 64"><circle cx="32" cy="22" r="14" fill="#8b5cf6" stroke="#6d28d9" stroke-width="2.5"/><path d="M12 56 C 12 42 20 36 32 36 C 44 36 52 42 52 56 Z" fill="#8b5cf6" stroke="#6d28d9" stroke-width="2.5"/><path d="M32 12 L36 20 L28 20 Z" fill="#fbbf24"/></svg>`;
+
+runLesson({
+  lessonId: "startup-fundamentals-1-1",
+  courseUrl: "course-startup-fundamentals.html",
+  tag: "UNIT 1 · LESSON 1.1",
+  title: "Founders, Co-founders, and Equity",
+  subtitle: "Who owns a startup, and how is that decided?",
+  steps: [
+    {
+      type: "vocab",
+      word: "Equity",
+      pronounce: "say it: EH-kwi-tee",
+      definition: "<b>Equity</b> is ownership in a company, usually measured as a percentage. If you own 20% equity, you own 20% of the business.",
+      example: "Two co-founders might split equity 50/50 — each owns half the company.",
+      icon: FOUNDER_ICON
+    },
+    {
+      type: "teach",
+      title: "Founders vs Co-founders",
+      body: "A <b>founder</b> starts a company. A <b>co-founder</b> is one of two or more people who start it together. Splitting equity between co-founders isn't automatically equal — it depends on who contributes what: the original idea, money invested, skills, and time.",
+      examples: ["Founder = starts it alone", "Co-founder = starts it with others", "Equity = your % of ownership"]
+    },
+    {
+      type: "mc",
+      question: "What does \"equity\" mean?",
+      hint: "Think percentages, not paychecks.",
+      options: [
+        { text: "Percentage ownership of a company", correct: true },
+        { text: "A type of loan", correct: false },
+        { text: "A company's total sales", correct: false },
+        { text: "An employee's salary", correct: false }
+      ],
+      correctMsg: "Right! Equity is your ownership stake, measured in percent.",
+      wrongMsg: "Equity is ownership — a percentage of the company you hold."
+    },
+    {
+      type: "mc",
+      question: "Two co-founders split equity 60/40. What does that mean?",
+      hint: "Add the two numbers together.",
+      options: [
+        { text: "One owns 60% of the company, the other owns 40%", correct: true },
+        { text: "One gets paid 60% more salary", correct: false },
+        { text: "They split all future profits evenly no matter what", correct: false },
+        { text: "It has nothing to do with ownership", correct: false }
+      ],
+      correctMsg: "Exactly! 60/40 equity is an ownership split, not a salary split.",
+      wrongMsg: "An equity split like 60/40 refers to ownership percentages, not pay."
+    },
+    {
+      type: "mc",
+      question: "Why might equity NOT be split 50/50 between two co-founders?",
+      hint: "Think about who brought what to the table.",
+      options: [
+        { text: "Contributions can differ — like who had the original idea or invested more money", correct: true },
+        { text: "It's illegal to split equity evenly", correct: false },
+        { text: "50/50 splits are always required by law", correct: false },
+        { text: "Equity can only be split among family members", correct: false }
+      ],
+      correctMsg: "Correct! Splits often reflect each founder's contribution, not just a default 50/50.",
+      wrongMsg: "Equity splits often reflect real differences in contribution — idea, money, time, or skills."
+    },
+    {
+      type: "mc",
+      question: "Why does deciding equity splits EARLY (before the company grows) matter?",
+      hint: "Think about what happens if the company becomes valuable.",
+      options: [
+        { text: "It avoids painful disputes later once the company is worth more", correct: true },
+        { text: "It doesn't matter when you decide", correct: false },
+        { text: "Equity can always be changed for free anytime", correct: false },
+        { text: "Only investors care about equity, not founders", correct: false }
+      ],
+      correctMsg: "Yes! Deciding early avoids conflict once real money and value are on the line.",
+      wrongMsg: "Deciding equity splits early helps avoid disputes once the company becomes valuable."
+    }
+  ],
+  badges: [
+    { icon: "bulb", name: "Founder Starter", earned: true },
+    { icon: "star", name: "Quick Learner", earned: ({ correct }) => correct >= 2 },
+    { icon: "brain", name: "Equity Smart", earned: ({ correct }) => correct >= 4 },
+    { icon: "perfect", name: "Perfect Score", earned: ({ score }) => score === 100 },
+    { icon: "heart", name: "All Hearts", earned: ({ hearts }) => hearts === 3 },
+    { icon: "trophy", name: "Co-founder Ready", earned: ({ score, hearts }) => score >= 80 && hearts >= 2 }
+  ]
+});
+</script>
+</body>
+</html>
