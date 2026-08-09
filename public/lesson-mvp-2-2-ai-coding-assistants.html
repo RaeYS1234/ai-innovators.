@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>AI Coding Assistants — AI Innovators</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="lesson-shared.css">
+</head>
+<body>
+<div class="app">
+  <div class="topbar" id="topbar" style="display:none;">
+    <button class="close-btn" id="closeBtn">×</button>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="hearts">
+      <svg class="heart-svg" viewBox="0 0 32 32"><path d="M16 28 C 6 20 2 14 2 10 C 2 6 5 3 9 3 C 12 3 14 5 16 8 C 18 5 20 3 23 3 C 27 3 30 6 30 10 C 30 14 26 20 16 28 Z" fill="#ec4899" stroke="#be185d" stroke-width="1.5"/></svg>
+      <span id="heartsCount">3</span>
+    </div>
+  </div>
+  <div class="screen active" id="screen-welcome">
+    <div class="lesson-tag" id="lesson-tag">LESSON</div>
+    <div class="mascot" id="welcomeMascot"></div>
+    <h1 class="welcome-title" id="welcome-title"></h1>
+    <p class="welcome-subtitle" id="welcome-subtitle"></p>
+    <button class="btn go" id="startBtn">Let's Go!</button>
+  </div>
+  <div class="screen" id="screen-lesson"></div>
+  <div class="screen" id="screen-complete">
+    <div class="mascot" id="completeMascot"></div>
+    <h1 class="complete-title">Lesson Complete!</h1>
+    <p class="complete-subtitle">Awesome work! Here's what you earned:</p>
+    <div class="stats-row">
+      <div class="stat-box"><div class="stat-label">XP Earned</div><div class="stat-value xp" id="finalXP">0</div></div>
+      <div class="stat-box"><div class="stat-label">Score</div><div class="stat-value score" id="finalScore">0%</div></div>
+      <div class="stat-box"><div class="stat-label">Hearts Left</div><div class="stat-value" style="color:#ef4444;" id="finalHearts">3</div></div>
+    </div>
+    <h3 style="margin: 28px 0 14px; color: #0c4a6e; font-weight: 900; font-family:'Nunito',sans-serif;">Badges You Earned:</h3>
+    <div class="badge-grid" id="badgeGrid"></div>
+    <button class="btn go" id="backToCourseBtn">Back to Course →</button>
+    <button class="btn ghost" style="margin-top:12px;" id="playAgainBtn">Play Again</button>
+  </div>
+  <div class="screen" id="screen-gameover">
+    <div class="mascot" id="gameoverMascot"></div>
+    <h1 class="complete-title" style="color:#b91c1c;">Out of Hearts!</h1>
+    <p class="complete-subtitle">Try again — you got this!</p>
+    <button class="btn danger" id="retryBtn">Try Again</button>
+  </div>
+</div>
+<div class="feedback" id="feedback">
+  <div class="feedback-inner">
+    <div><div class="feedback-text" id="feedbackText"></div><div class="feedback-explain" id="feedbackExplain"></div></div>
+    <button class="btn go" onclick="window._lessonNext()">Continue</button>
+  </div>
+</div>
+<script src="lesson-engine.js"></script>
+<script>
+const CODING_ICON = `<svg viewBox="0 0 64 64"><rect x="8" y="12" width="48" height="34" rx="3" fill="#1e293b" stroke="#0f172a" stroke-width="2"/><path d="M18 24 L12 29 L18 34" stroke="#4ade80" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M28 22 L24 36" stroke="#facc15" stroke-width="3" stroke-linecap="round"/><path d="M38 24 L44 29 L38 34" stroke="#4ade80" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/><rect x="22" y="50" width="20" height="4" rx="2" fill="#1e293b"/></svg>`;
+
+runLesson({
+  lessonId: "build-mvps-2-2",
+  courseUrl: "course-build-mvps.html",
+  tag: "UNIT 2 · LESSON 2.2",
+  title: "AI Coding Assistants",
+  subtitle: "Letting AI write and explain code alongside you",
+  steps: [
+    {
+      type: "vocab",
+      word: "AI Coding Assistant",
+      pronounce: "say it: AY-EYE KOH-ding uh-SIS-tent",
+      definition: "An <b>AI coding assistant</b> is a tool that helps write, explain, fix, and improve code based on plain-English instructions.",
+      example: "Typing \"write a function that sorts a list of prices from low to high\" and getting working code back from an AI coding assistant.",
+      icon: CODING_ICON
+    },
+    {
+      type: "teach",
+      title: "A Coding Partner, Not a Replacement for Thinking",
+      body: "AI coding assistants can dramatically speed up building an MVP — generating boilerplate code, fixing bugs, and explaining unfamiliar code. But they work best when YOU understand the goal clearly and review what they produce, rather than blindly accepting everything. Think of it as a fast, tireless coding partner that still needs your judgment and direction.",
+      examples: ["Speeds up writing boilerplate and fixing bugs", "Explains unfamiliar code in plain English", "Still needs your review and judgment — not blind trust"]
+    },
+    {
+      type: "mc",
+      question: "What is an \"AI coding assistant\"?",
+      hint: "Think about a helper that writes code.",
+      options: [
+        { text: "A tool that helps write, explain, fix, and improve code from plain-English instructions", correct: true },
+        { text: "A tool only used by professional software companies", correct: false },
+        { text: "A robot that physically types on a keyboard", correct: false },
+        { text: "A legal requirement for launching any app", correct: false }
+      ],
+      correctMsg: "Right! An AI coding assistant writes and explains code from plain-English prompts.",
+      wrongMsg: "An AI coding assistant helps write, explain, fix, and improve code based on plain-English instructions."
+    },
+    {
+      type: "mc",
+      question: "Why is it important to REVIEW code an AI assistant generates, rather than blindly accepting it?",
+      hint: "Think about accuracy and understanding.",
+      options: [
+        { text: "AI-generated code can still contain mistakes, so review ensures it actually does what's needed", correct: true },
+        { text: "AI-generated code is always 100% perfect with zero errors", correct: false },
+        { text: "Reviewing code is illegal in most places", correct: false },
+        { text: "There's no benefit to reviewing generated code", correct: false }
+      ],
+      correctMsg: "Correct! AI can make mistakes, so reviewing ensures the code truly does what you need.",
+      wrongMsg: "AI-generated code can still contain mistakes, so reviewing it ensures it actually does what's needed."
+    },
+    {
+      type: "mc",
+      question: "What's a good way to think about the role of an AI coding assistant?",
+      hint: "Think partner, not replacement.",
+      options: [
+        { text: "A fast coding partner that still needs your judgment and direction", correct: true },
+        { text: "A total replacement for understanding your own project", correct: false },
+        { text: "Something that removes all need for planning", correct: false },
+        { text: "A tool that only works once per day", correct: false }
+      ],
+      correctMsg: "Exactly! It's a fast partner, not a replacement for your own understanding and judgment.",
+      wrongMsg: "An AI coding assistant works best as a fast partner — you still need to provide judgment and direction."
+    }
+  ],
+  badges: [
+    { icon: "bulb", name: "Coding Assistant Starter", earned: true },
+    { icon: "star", name: "Quick Learner", earned: ({ correct }) => correct >= 2 },
+    { icon: "brain", name: "AI Coder Smart", earned: ({ correct }) => correct >= 3 },
+    { icon: "perfect", name: "Perfect Score", earned: ({ score }) => score === 100 },
+    { icon: "heart", name: "All Hearts", earned: ({ hearts }) => hearts === 3 },
+    { icon: "trophy", name: "Coding Assistant Pro", earned: ({ score, hearts }) => score >= 80 && hearts >= 2 }
+  ]
+});
+</script>
+</body>
+</html>

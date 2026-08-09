@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Test and Iterate — AI Innovators</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="lesson-shared.css">
+</head>
+<body>
+<div class="app">
+  <div class="topbar" id="topbar" style="display:none;">
+    <button class="close-btn" id="closeBtn">×</button>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="hearts">
+      <svg class="heart-svg" viewBox="0 0 32 32"><path d="M16 28 C 6 20 2 14 2 10 C 2 6 5 3 9 3 C 12 3 14 5 16 8 C 18 5 20 3 23 3 C 27 3 30 6 30 10 C 30 14 26 20 16 28 Z" fill="#ec4899" stroke="#be185d" stroke-width="1.5"/></svg>
+      <span id="heartsCount">3</span>
+    </div>
+  </div>
+  <div class="screen active" id="screen-welcome">
+    <div class="lesson-tag" id="lesson-tag">PRACTICE</div>
+    <div class="mascot" id="welcomeMascot"></div>
+    <h1 class="welcome-title" id="welcome-title"></h1>
+    <p class="welcome-subtitle" id="welcome-subtitle"></p>
+    <button class="btn go" id="startBtn">Start Practicing!</button>
+  </div>
+  <div class="screen" id="screen-lesson"></div>
+  <div class="screen" id="screen-complete">
+    <div class="mascot" id="completeMascot"></div>
+    <h1 class="complete-title">Iteration Pro!</h1>
+    <p class="complete-subtitle">You know how to turn real feedback into a better product. Here's what you earned:</p>
+    <div class="stats-row">
+      <div class="stat-box"><div class="stat-label">XP Earned</div><div class="stat-value xp" id="finalXP">0</div></div>
+      <div class="stat-box"><div class="stat-label">Score</div><div class="stat-value score" id="finalScore">0%</div></div>
+      <div class="stat-box"><div class="stat-label">Hearts Left</div><div class="stat-value" style="color:#ef4444;" id="finalHearts">3</div></div>
+    </div>
+    <h3 style="margin: 28px 0 14px; color: #0c4a6e; font-weight: 900; font-family:'Nunito',sans-serif;">Badges You Earned:</h3>
+    <div class="badge-grid" id="badgeGrid"></div>
+    <button class="btn go" id="backToCourseBtn">Back to Course →</button>
+    <button class="btn ghost" style="margin-top:12px;" id="playAgainBtn">Play Again</button>
+  </div>
+  <div class="screen" id="screen-gameover">
+    <div class="mascot" id="gameoverMascot"></div>
+    <h1 class="complete-title" style="color:#b91c1c;">Out of Hearts!</h1>
+    <p class="complete-subtitle">Try again — you got this!</p>
+    <button class="btn danger" id="retryBtn">Try Again</button>
+  </div>
+</div>
+<div class="feedback" id="feedback">
+  <div class="feedback-inner">
+    <div><div class="feedback-text" id="feedbackText"></div><div class="feedback-explain" id="feedbackExplain"></div></div>
+    <button class="btn go" onclick="window._lessonNext()">Continue</button>
+  </div>
+</div>
+<script src="lesson-engine.js"></script>
+<script>
+runLesson({
+  lessonId: "build-mvps-3-4",
+  courseUrl: "course-build-mvps.html",
+  tag: "UNIT 3 · PRACTICE",
+  title: "Test and Iterate",
+  subtitle: "Practice turning real user feedback into your next, better version",
+  steps: [
+    {
+      type: "teach",
+      title: "Launch Is the Beginning, Not the End",
+      body: "Getting your MVP in front of real users is just the start. Watch what they actually DO (not just what they say), collect specific feedback, then make focused changes based on real signals — not just your own opinions. Repeat this loop: build, test, learn, adjust. Each cycle should make the product a little better aligned with what users truly need.",
+      examples: []
+    },
+    {
+      type: "mc",
+      question: "Why is watching what users ACTUALLY DO often more valuable than just what they SAY?",
+      hint: "Think about behavior vs. politeness.",
+      options: [
+        { text: "People sometimes say polite things that don't match their real actions or preferences", correct: true },
+        { text: "What users say is always 100% accurate and reliable", correct: false },
+        { text: "Watching behavior is illegal without special permission", correct: false },
+        { text: "There's no difference between what people say and do", correct: false }
+      ],
+      correctMsg: "Right! Real behavior often reveals more truth than polite verbal feedback.",
+      wrongMsg: "People sometimes say polite things that don't match their real actions — behavior often reveals more truth."
+    },
+    {
+      type: "mc",
+      question: "What's the ideal loop for improving an MVP after launch?",
+      hint: "Think about a repeating cycle.",
+      options: [
+        { text: "Build, test, learn, adjust — then repeat", correct: true },
+        { text: "Build once and never change anything again", correct: false },
+        { text: "Only build, with no testing or learning at all", correct: false },
+        { text: "Test without ever building or adjusting anything", correct: false }
+      ],
+      correctMsg: "Correct! Build, test, learn, adjust — repeated — is the ideal improvement loop.",
+      wrongMsg: "The ideal loop is build, test, learn, adjust — then repeat the cycle again."
+    },
+    {
+      type: "mc",
+      question: "Should changes to an MVP be based mainly on the founder's personal opinion, or on real user signals?",
+      hint: "Think about evidence over instinct alone.",
+      options: [
+        { text: "Real user signals — actual behavior and feedback from real testing", correct: true },
+        { text: "Only the founder's personal opinion, ignoring all user feedback", correct: false },
+        { text: "Random guessing with no evidence at all", correct: false },
+        { text: "Whatever a competitor happens to be doing, regardless of your users", correct: false }
+      ],
+      correctMsg: "Exactly! Real user signals should guide the changes you make.",
+      wrongMsg: "Changes should be based mainly on real user signals — actual behavior and feedback from testing."
+    }
+  ],
+  badges: [
+    { icon: "bulb", name: "Iteration Starter", earned: true },
+    { icon: "star", name: "Quick Learner", earned: ({ correct }) => correct >= 2 },
+    { icon: "brain", name: "Feedback Smart", earned: ({ correct }) => correct >= 3 },
+    { icon: "perfect", name: "Perfect Score", earned: ({ score }) => score === 100 },
+    { icon: "heart", name: "All Hearts", earned: ({ hearts }) => hearts === 3 },
+    { icon: "trophy", name: "Iteration Pro", earned: ({ score, hearts }) => score >= 80 && hearts >= 2 }
+  ]
+});
+</script>
+</body>
+</html>

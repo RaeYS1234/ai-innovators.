@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Q&A Strategies — AI Innovators</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="lesson-shared.css">
+</head>
+<body>
+<div class="app">
+  <div class="topbar" id="topbar" style="display:none;">
+    <button class="close-btn" id="closeBtn">×</button>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="hearts">
+      <svg class="heart-svg" viewBox="0 0 32 32"><path d="M16 28 C 6 20 2 14 2 10 C 2 6 5 3 9 3 C 12 3 14 5 16 8 C 18 5 20 3 23 3 C 27 3 30 6 30 10 C 30 14 26 20 16 28 Z" fill="#ec4899" stroke="#be185d" stroke-width="1.5"/></svg>
+      <span id="heartsCount">3</span>
+    </div>
+  </div>
+  <div class="screen active" id="screen-welcome">
+    <div class="lesson-tag" id="lesson-tag">LESSON</div>
+    <div class="mascot" id="welcomeMascot"></div>
+    <h1 class="welcome-title" id="welcome-title"></h1>
+    <p class="welcome-subtitle" id="welcome-subtitle"></p>
+    <button class="btn go" id="startBtn">Let's Go!</button>
+  </div>
+  <div class="screen" id="screen-lesson"></div>
+  <div class="screen" id="screen-complete">
+    <div class="mascot" id="completeMascot"></div>
+    <h1 class="complete-title">Lesson Complete!</h1>
+    <p class="complete-subtitle">Awesome work! Here's what you earned:</p>
+    <div class="stats-row">
+      <div class="stat-box"><div class="stat-label">XP Earned</div><div class="stat-value xp" id="finalXP">0</div></div>
+      <div class="stat-box"><div class="stat-label">Score</div><div class="stat-value score" id="finalScore">0%</div></div>
+      <div class="stat-box"><div class="stat-label">Hearts Left</div><div class="stat-value" style="color:#ef4444;" id="finalHearts">3</div></div>
+    </div>
+    <h3 style="margin: 28px 0 14px; color: #0c4a6e; font-weight: 900; font-family:'Nunito',sans-serif;">Badges You Earned:</h3>
+    <div class="badge-grid" id="badgeGrid"></div>
+    <button class="btn go" id="backToCourseBtn">Back to Course →</button>
+    <button class="btn ghost" style="margin-top:12px;" id="playAgainBtn">Play Again</button>
+  </div>
+  <div class="screen" id="screen-gameover">
+    <div class="mascot" id="gameoverMascot"></div>
+    <h1 class="complete-title" style="color:#b91c1c;">Out of Hearts!</h1>
+    <p class="complete-subtitle">Try again — you got this!</p>
+    <button class="btn danger" id="retryBtn">Try Again</button>
+  </div>
+</div>
+<div class="feedback" id="feedback">
+  <div class="feedback-inner">
+    <div><div class="feedback-text" id="feedbackText"></div><div class="feedback-explain" id="feedbackExplain"></div></div>
+    <button class="btn go" onclick="window._lessonNext()">Continue</button>
+  </div>
+</div>
+<script src="lesson-engine.js"></script>
+<script>
+const QA_ICON = `<svg viewBox="0 0 64 64"><circle cx="22" cy="28" r="14" fill="#fef3c7" stroke="#d97706" stroke-width="2.5"/><text x="22" y="34" font-size="16" fill="#78350f" text-anchor="middle" font-weight="900">Q</text><circle cx="44" cy="42" r="14" fill="#dbeafe" stroke="#2563eb" stroke-width="2.5"/><text x="44" y="48" font-size="16" fill="#1e3a8a" text-anchor="middle" font-weight="900">A</text></svg>`;
+
+runLesson({
+  lessonId: "pitching-investors-3-2",
+  courseUrl: "course-pitching-investors.html",
+  tag: "UNIT 3 · LESSON 3.2",
+  title: "Q&A Strategies",
+  subtitle: "Handling tough investor questions without losing your cool",
+  steps: [
+    {
+      type: "teach",
+      title: "Tough Questions Are a Good Sign",
+      body: "Investors ask hard questions because they're genuinely evaluating the business — not to be mean. Good strategies: pause and think before answering (rushing signals panic), it's okay to say \"I don't know, but I'll find out,\" and never get defensive — treat challenges as a chance to show you've thought it through. Being honest about weaknesses often builds MORE trust than pretending everything is perfect.",
+      examples: ["Pause before answering — don't rush", "\"I don't know, but I'll find out\" is a valid answer", "Stay calm, don't get defensive", "Honesty about weaknesses builds trust"]
+    },
+    {
+      type: "mc",
+      question: "Why do investors ask tough, challenging questions during a pitch?",
+      hint: "Think about their real motivation.",
+      options: [
+        { text: "They're genuinely evaluating the business, not trying to be mean", correct: true },
+        { text: "They enjoy making founders feel bad for no reason", correct: false },
+        { text: "It's a random requirement with no real purpose", correct: false },
+        { text: "They already decided not to invest before asking anything", correct: false }
+      ],
+      correctMsg: "Right! Tough questions usually mean genuine evaluation, not hostility.",
+      wrongMsg: "Investors ask tough questions because they're genuinely evaluating the business, not trying to be unkind."
+    },
+    {
+      type: "mc",
+      question: "What's a good response if a founder genuinely doesn't know the answer to a question?",
+      hint: "Think about honesty over bluffing.",
+      options: [
+        { text: "\"I don't know, but I'll find out and follow up.\"", correct: true },
+        { text: "Making up a confident-sounding but false answer", correct: false },
+        { text: "Refusing to respond at all", correct: false },
+        { text: "Changing the subject completely without acknowledging the question", correct: false }
+      ],
+      correctMsg: "Correct! Honestly admitting you don't know (and following up) builds more trust than bluffing.",
+      wrongMsg: "Saying \"I don't know, but I'll find out\" is honest and often builds more trust than a made-up answer."
+    },
+    {
+      type: "mc",
+      question: "Why might being HONEST about a business weakness actually build MORE trust with investors?",
+      hint: "Think about credibility.",
+      options: [
+        { text: "It shows self-awareness and honesty, which investors value over a fake \"perfect\" pitch", correct: true },
+        { text: "Investors always prefer founders who hide every weakness", correct: false },
+        { text: "Weaknesses are illegal to mention in any pitch", correct: false },
+        { text: "It has no effect on how investors perceive the founder", correct: false }
+      ],
+      correctMsg: "Exactly! Honest self-awareness often builds more credibility than pretending everything is flawless.",
+      wrongMsg: "Being honest about weaknesses shows self-awareness, which often builds more trust than a falsely perfect pitch."
+    }
+  ],
+  badges: [
+    { icon: "bulb", name: "Q&A Starter", earned: true },
+    { icon: "star", name: "Quick Learner", earned: ({ correct }) => correct >= 2 },
+    { icon: "brain", name: "Composure Smart", earned: ({ correct }) => correct >= 3 },
+    { icon: "perfect", name: "Perfect Score", earned: ({ score }) => score === 100 },
+    { icon: "heart", name: "All Hearts", earned: ({ hearts }) => hearts === 3 },
+    { icon: "trophy", name: "Q&A Pro", earned: ({ score, hearts }) => score >= 80 && hearts >= 2 }
+  ]
+});
+</script>
+</body>
+</html>

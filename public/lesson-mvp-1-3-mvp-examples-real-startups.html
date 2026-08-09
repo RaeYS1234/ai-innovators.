@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>MVP Examples From Real Startups — AI Innovators</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="lesson-shared.css">
+</head>
+<body>
+<div class="app">
+  <div class="topbar" id="topbar" style="display:none;">
+    <button class="close-btn" id="closeBtn">×</button>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="hearts">
+      <svg class="heart-svg" viewBox="0 0 32 32"><path d="M16 28 C 6 20 2 14 2 10 C 2 6 5 3 9 3 C 12 3 14 5 16 8 C 18 5 20 3 23 3 C 27 3 30 6 30 10 C 30 14 26 20 16 28 Z" fill="#ec4899" stroke="#be185d" stroke-width="1.5"/></svg>
+      <span id="heartsCount">3</span>
+    </div>
+  </div>
+  <div class="screen active" id="screen-welcome">
+    <div class="lesson-tag" id="lesson-tag">LESSON</div>
+    <div class="mascot" id="welcomeMascot"></div>
+    <h1 class="welcome-title" id="welcome-title"></h1>
+    <p class="welcome-subtitle" id="welcome-subtitle"></p>
+    <button class="btn go" id="startBtn">Let's Go!</button>
+  </div>
+  <div class="screen" id="screen-lesson"></div>
+  <div class="screen" id="screen-complete">
+    <div class="mascot" id="completeMascot"></div>
+    <h1 class="complete-title">Lesson Complete!</h1>
+    <p class="complete-subtitle">Awesome work! Here's what you earned:</p>
+    <div class="stats-row">
+      <div class="stat-box"><div class="stat-label">XP Earned</div><div class="stat-value xp" id="finalXP">0</div></div>
+      <div class="stat-box"><div class="stat-label">Score</div><div class="stat-value score" id="finalScore">0%</div></div>
+      <div class="stat-box"><div class="stat-label">Hearts Left</div><div class="stat-value" style="color:#ef4444;" id="finalHearts">3</div></div>
+    </div>
+    <h3 style="margin: 28px 0 14px; color: #0c4a6e; font-weight: 900; font-family:'Nunito',sans-serif;">Badges You Earned:</h3>
+    <div class="badge-grid" id="badgeGrid"></div>
+    <button class="btn go" id="backToCourseBtn">Back to Course →</button>
+    <button class="btn ghost" style="margin-top:12px;" id="playAgainBtn">Play Again</button>
+  </div>
+  <div class="screen" id="screen-gameover">
+    <div class="mascot" id="gameoverMascot"></div>
+    <h1 class="complete-title" style="color:#b91c1c;">Out of Hearts!</h1>
+    <p class="complete-subtitle">Try again — you got this!</p>
+    <button class="btn danger" id="retryBtn">Try Again</button>
+  </div>
+</div>
+<div class="feedback" id="feedback">
+  <div class="feedback-inner">
+    <div><div class="feedback-text" id="feedbackText"></div><div class="feedback-explain" id="feedbackExplain"></div></div>
+    <button class="btn go" onclick="window._lessonNext()">Continue</button>
+  </div>
+</div>
+<script src="lesson-engine.js"></script>
+<script>
+const STARTUP_ICON = `<svg viewBox="0 0 64 64"><path d="M32 6 L40 26 L60 26 L44 38 L50 58 L32 46 L14 58 L20 38 L4 26 L24 26 Z" fill="#fbbf24" stroke="#b45309" stroke-width="2"/></svg>`;
+
+runLesson({
+  lessonId: "build-mvps-1-3",
+  courseUrl: "course-build-mvps.html",
+  tag: "UNIT 1 · LESSON 1.3",
+  title: "MVP Examples From Real Startups",
+  subtitle: "How famous companies started with surprisingly simple first versions",
+  steps: [
+    {
+      type: "vocab",
+      word: "Concierge MVP",
+      pronounce: "say it: KON-see-erj em-vee-pee",
+      definition: "A <b>concierge MVP</b> is when the founder manually does the work by hand at first, instead of building automated software right away.",
+      example: "Before automating anything, a meal-planning startup founder personally emailed handwritten meal plans to the first 20 customers.",
+      icon: STARTUP_ICON
+    },
+    {
+      type: "teach",
+      title: "Famous MVPs Were Often Tiny",
+      body: "Many well-known companies started far smaller than people expect. Some early MVPs were just a simple landing page to gauge interest before building anything. Others used a \"concierge\" approach — doing the service manually by hand for early customers before ever writing complex software. The lesson: test the DEMAND first, automate LATER once you know it's worth building.",
+      examples: ["Landing page MVPs: test interest before building", "Concierge MVPs: do it manually before automating", "Test demand first, automate later"]
+    },
+    {
+      type: "mc",
+      question: "What is a \"concierge MVP\"?",
+      hint: "Think about doing things by hand.",
+      options: [
+        { text: "When the founder manually does the work by hand instead of automating right away", correct: true },
+        { text: "A fully automated app with no human involvement", correct: false },
+        { text: "A legal document required before launching", correct: false },
+        { text: "A type of hotel service unrelated to startups", correct: false }
+      ],
+      correctMsg: "Right! A concierge MVP means doing the work manually before automating.",
+      wrongMsg: "A concierge MVP is when the founder manually does the work by hand, instead of automating right away."
+    },
+    {
+      type: "mc",
+      question: "Why might a founder use a simple LANDING PAGE as their very first MVP?",
+      hint: "Think about testing interest cheaply.",
+      options: [
+        { text: "To test whether people are interested, before spending time building the actual product", correct: true },
+        { text: "Because landing pages are illegal to skip", correct: false },
+        { text: "It guarantees the business will succeed", correct: false },
+        { text: "It replaces the need for any product at all, forever", correct: false }
+      ],
+      correctMsg: "Correct! A landing page tests real interest cheaply, before building anything complex.",
+      wrongMsg: "A landing page MVP tests whether people are interested before spending time building the full product."
+    },
+    {
+      type: "mc",
+      question: "What's the shared lesson behind concierge MVPs and landing page MVPs?",
+      hint: "Think about testing before automating.",
+      options: [
+        { text: "Test real demand first, then automate or build fully once you know it's worth it", correct: true },
+        { text: "Always automate everything before testing anything", correct: false },
+        { text: "Never talk to real customers at any point", correct: false },
+        { text: "Skip testing and go straight to a massive launch", correct: false }
+      ],
+      correctMsg: "Exactly! Testing demand first, then building fully once proven, is the shared lesson.",
+      wrongMsg: "Both approaches share the same lesson: test real demand first, then build or automate once it's proven worth it."
+    }
+  ],
+  badges: [
+    { icon: "bulb", name: "Examples Starter", earned: true },
+    { icon: "star", name: "Quick Learner", earned: ({ correct }) => correct >= 2 },
+    { icon: "brain", name: "MVP History Smart", earned: ({ correct }) => correct >= 3 },
+    { icon: "perfect", name: "Perfect Score", earned: ({ score }) => score === 100 },
+    { icon: "heart", name: "All Hearts", earned: ({ hearts }) => hearts === 3 },
+    { icon: "trophy", name: "MVP Examples Pro", earned: ({ score, hearts }) => score >= 80 && hearts >= 2 }
+  ]
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>What Investors Look For — AI Innovators</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="lesson-shared.css">
+</head>
+<body>
+<div class="app">
+  <div class="topbar" id="topbar" style="display:none;">
+    <button class="close-btn" id="closeBtn">×</button>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="hearts">
+      <svg class="heart-svg" viewBox="0 0 32 32"><path d="M16 28 C 6 20 2 14 2 10 C 2 6 5 3 9 3 C 12 3 14 5 16 8 C 18 5 20 3 23 3 C 27 3 30 6 30 10 C 30 14 26 20 16 28 Z" fill="#ec4899" stroke="#be185d" stroke-width="1.5"/></svg>
+      <span id="heartsCount">3</span>
+    </div>
+  </div>
+  <div class="screen active" id="screen-welcome">
+    <div class="lesson-tag" id="lesson-tag">LESSON</div>
+    <div class="mascot" id="welcomeMascot"></div>
+    <h1 class="welcome-title" id="welcome-title"></h1>
+    <p class="welcome-subtitle" id="welcome-subtitle"></p>
+    <button class="btn go" id="startBtn">Let's Go!</button>
+  </div>
+  <div class="screen" id="screen-lesson"></div>
+  <div class="screen" id="screen-complete">
+    <div class="mascot" id="completeMascot"></div>
+    <h1 class="complete-title">Lesson Complete!</h1>
+    <p class="complete-subtitle">Awesome work! Here's what you earned:</p>
+    <div class="stats-row">
+      <div class="stat-box"><div class="stat-label">XP Earned</div><div class="stat-value xp" id="finalXP">0</div></div>
+      <div class="stat-box"><div class="stat-label">Score</div><div class="stat-value score" id="finalScore">0%</div></div>
+      <div class="stat-box"><div class="stat-label">Hearts Left</div><div class="stat-value" style="color:#ef4444;" id="finalHearts">3</div></div>
+    </div>
+    <h3 style="margin: 28px 0 14px; color: #0c4a6e; font-weight: 900; font-family:'Nunito',sans-serif;">Badges You Earned:</h3>
+    <div class="badge-grid" id="badgeGrid"></div>
+    <button class="btn go" id="backToCourseBtn">Back to Course →</button>
+    <button class="btn ghost" style="margin-top:12px;" id="playAgainBtn">Play Again</button>
+  </div>
+  <div class="screen" id="screen-gameover">
+    <div class="mascot" id="gameoverMascot"></div>
+    <h1 class="complete-title" style="color:#b91c1c;">Out of Hearts!</h1>
+    <p class="complete-subtitle">Try again — you got this!</p>
+    <button class="btn danger" id="retryBtn">Try Again</button>
+  </div>
+</div>
+<div class="feedback" id="feedback">
+  <div class="feedback-inner">
+    <div><div class="feedback-text" id="feedbackText"></div><div class="feedback-explain" id="feedbackExplain"></div></div>
+    <button class="btn go" onclick="window._lessonNext()">Continue</button>
+  </div>
+</div>
+<script src="lesson-engine.js"></script>
+<script>
+const CHECKLIST_ICON = `<svg viewBox="0 0 64 64"><rect x="12" y="8" width="40" height="48" rx="3" fill="white" stroke="#059669" stroke-width="2.5"/><path d="M18 20 L22 24 L30 16" stroke="#059669" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/><line x1="34" y1="20" x2="46" y2="20" stroke="#a7f3d0" stroke-width="3" stroke-linecap="round"/><path d="M18 34 L22 38 L30 30" stroke="#059669" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/><line x1="34" y1="34" x2="46" y2="34" stroke="#a7f3d0" stroke-width="3" stroke-linecap="round"/><path d="M18 48 L22 52 L30 44" stroke="#059669" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/><line x1="34" y1="48" x2="46" y2="48" stroke="#a7f3d0" stroke-width="3" stroke-linecap="round"/></svg>`;
+
+runLesson({
+  lessonId: "pitching-investors-1-2",
+  courseUrl: "course-pitching-investors.html",
+  tag: "UNIT 1 · LESSON 1.2",
+  title: "What Investors Look For",
+  subtitle: "The handful of things every investor is secretly checking for",
+  steps: [
+    {
+      type: "teach",
+      title: "The Big Things Investors Check",
+      body: "Investors generally look for: a real, painful PROBLEM, a big enough MARKET opportunity, a capable and coachable TEAM, early signs of TRACTION (users, revenue, growth), and a believable PLAN for how the money will be used. Missing even one of these can make investors hesitate — but a strong team can often make up for early weaknesses elsewhere.",
+      examples: ["Real problem worth solving", "Big enough market", "Capable, coachable team", "Early traction", "Believable plan for the funds"]
+    },
+    {
+      type: "mc",
+      question: "Which of these is something investors typically look for?",
+      hint: "Think about the fundamentals.",
+      options: [
+        { text: "Evidence of a real problem and a capable team", correct: true },
+        { text: "A logo they personally find pretty", correct: false },
+        { text: "A promise the founder will never sleep", correct: false },
+        { text: "The founder's exact birthday", correct: false }
+      ],
+      correctMsg: "Right! Real problem and capable team are core things investors check for.",
+      wrongMsg: "Investors look for things like a real problem worth solving and a capable, coachable team."
+    },
+    {
+      type: "mc",
+      question: "What is \"traction\" in the context of pitching investors?",
+      hint: "Think about early proof it's working.",
+      options: [
+        { text: "Early signs of progress, like users, revenue, or growth", correct: true },
+        { text: "The exact tires on a founder's car", correct: false },
+        { text: "A legal document signed before any pitch", correct: false },
+        { text: "The number of employees a company has hired", correct: false }
+      ],
+      correctMsg: "Correct! Traction means early evidence of real progress and momentum.",
+      wrongMsg: "Traction refers to early signs of progress — like users, revenue, or growth — proving the idea is working."
+    },
+    {
+      type: "mc",
+      question: "A startup has a weak early product but an extremely capable, experienced team. How might investors react?",
+      hint: "Think about betting on people.",
+      options: [
+        { text: "They might still invest, since a strong team can often overcome early product weaknesses", correct: true },
+        { text: "They will automatically reject every startup with any weakness at all", correct: false },
+        { text: "Team quality never matters to any investor", correct: false },
+        { text: "They'll only care about the exact font used on the website", correct: false }
+      ],
+      correctMsg: "Exactly! A strong team is often seen as capable of fixing early product weaknesses.",
+      wrongMsg: "Investors often bet heavily on a strong team's ability to improve weak spots over time."
+    }
+  ],
+  badges: [
+    { icon: "bulb", name: "Investor Checklist Starter", earned: true },
+    { icon: "star", name: "Quick Learner", earned: ({ correct }) => correct >= 2 },
+    { icon: "brain", name: "Pitch Reader Smart", earned: ({ correct }) => correct >= 3 },
+    { icon: "perfect", name: "Perfect Score", earned: ({ score }) => score === 100 },
+    { icon: "heart", name: "All Hearts", earned: ({ hearts }) => hearts === 3 },
+    { icon: "trophy", name: "Investor Insight Pro", earned: ({ score, hearts }) => score >= 80 && hearts >= 2 }
+  ]
+});
+</script>
+</body>
+</html>

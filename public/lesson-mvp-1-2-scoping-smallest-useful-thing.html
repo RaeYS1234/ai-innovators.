@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Scoping the Smallest Useful Thing — AI Innovators</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="lesson-shared.css">
+</head>
+<body>
+<div class="app">
+  <div class="topbar" id="topbar" style="display:none;">
+    <button class="close-btn" id="closeBtn">×</button>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="hearts">
+      <svg class="heart-svg" viewBox="0 0 32 32"><path d="M16 28 C 6 20 2 14 2 10 C 2 6 5 3 9 3 C 12 3 14 5 16 8 C 18 5 20 3 23 3 C 27 3 30 6 30 10 C 30 14 26 20 16 28 Z" fill="#ec4899" stroke="#be185d" stroke-width="1.5"/></svg>
+      <span id="heartsCount">3</span>
+    </div>
+  </div>
+  <div class="screen active" id="screen-welcome">
+    <div class="lesson-tag" id="lesson-tag">LESSON</div>
+    <div class="mascot" id="welcomeMascot"></div>
+    <h1 class="welcome-title" id="welcome-title"></h1>
+    <p class="welcome-subtitle" id="welcome-subtitle"></p>
+    <button class="btn go" id="startBtn">Let's Go!</button>
+  </div>
+  <div class="screen" id="screen-lesson"></div>
+  <div class="screen" id="screen-complete">
+    <div class="mascot" id="completeMascot"></div>
+    <h1 class="complete-title">Lesson Complete!</h1>
+    <p class="complete-subtitle">Awesome work! Here's what you earned:</p>
+    <div class="stats-row">
+      <div class="stat-box"><div class="stat-label">XP Earned</div><div class="stat-value xp" id="finalXP">0</div></div>
+      <div class="stat-box"><div class="stat-label">Score</div><div class="stat-value score" id="finalScore">0%</div></div>
+      <div class="stat-box"><div class="stat-label">Hearts Left</div><div class="stat-value" style="color:#ef4444;" id="finalHearts">3</div></div>
+    </div>
+    <h3 style="margin: 28px 0 14px; color: #0c4a6e; font-weight: 900; font-family:'Nunito',sans-serif;">Badges You Earned:</h3>
+    <div class="badge-grid" id="badgeGrid"></div>
+    <button class="btn go" id="backToCourseBtn">Back to Course →</button>
+    <button class="btn ghost" style="margin-top:12px;" id="playAgainBtn">Play Again</button>
+  </div>
+  <div class="screen" id="screen-gameover">
+    <div class="mascot" id="gameoverMascot"></div>
+    <h1 class="complete-title" style="color:#b91c1c;">Out of Hearts!</h1>
+    <p class="complete-subtitle">Try again — you got this!</p>
+    <button class="btn danger" id="retryBtn">Try Again</button>
+  </div>
+</div>
+<div class="feedback" id="feedback">
+  <div class="feedback-inner">
+    <div><div class="feedback-text" id="feedbackText"></div><div class="feedback-explain" id="feedbackExplain"></div></div>
+    <button class="btn go" onclick="window._lessonNext()">Continue</button>
+  </div>
+</div>
+<script src="lesson-engine.js"></script>
+<script>
+const SCOPE_ICON = `<svg viewBox="0 0 64 64"><circle cx="32" cy="32" r="24" fill="none" stroke="#0ea5e9" stroke-width="3"/><circle cx="32" cy="32" r="14" fill="none" stroke="#0ea5e9" stroke-width="3"/><circle cx="32" cy="32" r="4" fill="#0ea5e9"/></svg>`;
+
+runLesson({
+  lessonId: "build-mvps-1-2",
+  courseUrl: "course-build-mvps.html",
+  tag: "UNIT 1 · LESSON 1.2",
+  title: "Scoping the Smallest Useful Thing",
+  subtitle: "The hardest skill in MVP building: knowing what to leave OUT",
+  steps: [
+    {
+      type: "teach",
+      title: "Cut Until It Hurts (Then Cut Once More)",
+      body: "Founders often want to include every feature they can imagine. Good scoping means asking: \"What's the ONE thing this MVP must prove?\" Then cut everything that doesn't directly test that. A helpful trick: list every feature you want, then ask \"could I test my core idea WITHOUT this?\" If yes, cut it for now.",
+      examples: ["Ask: what's the ONE thing this MVP must prove?", "List features, then cut anything not essential", "\"Could I test this without that feature?\" → if yes, cut it"]
+    },
+    {
+      type: "mc",
+      question: "What's the key question to ask when scoping an MVP?",
+      hint: "Think about the core thing to prove.",
+      options: [
+        { text: "\"What's the ONE thing this MVP must prove?\"", correct: true },
+        { text: "\"How many features can I possibly cram in?\"", correct: false },
+        { text: "\"What color should the logo be?\"", correct: false },
+        { text: "\"How can I make this as complicated as possible?\"", correct: false }
+      ],
+      correctMsg: "Right! Scoping starts with identifying the ONE core thing to test.",
+      wrongMsg: "Good scoping starts by asking \"What's the ONE thing this MVP must prove?\""
+    },
+    {
+      type: "mc",
+      question: "A founder wants to add a complex referral rewards system to their very first MVP. What's a smart question to ask?",
+      hint: "Think about testing without it.",
+      options: [
+        { text: "\"Could I test my core idea WITHOUT this feature?\" — if yes, cut it for now", correct: true },
+        { text: "\"How can I add even MORE complex features?\"", correct: false },
+        { text: "\"Should I skip testing the core idea entirely?\"", correct: false },
+        { text: "\"What's the most expensive way to build this?\"", correct: false }
+      ],
+      correctMsg: "Correct! If the core idea can be tested without a feature, it's a strong candidate to cut for now.",
+      wrongMsg: "Asking \"could I test this without that feature?\" helps identify what to cut from an early MVP."
+    },
+    {
+      type: "mc",
+      question: "Why is scoping an MVP down to the essentials often described as the HARDEST skill?",
+      hint: "Think about founder attachment to features.",
+      options: [
+        { text: "Founders often feel attached to many features and find it hard to cut any of them", correct: true },
+        { text: "It's technically impossible to remove any feature ever", correct: false },
+        { text: "Scoping has no real difficulty at all", correct: false },
+        { text: "It requires expensive software that most founders can't access", correct: false }
+      ],
+      correctMsg: "Exactly! Emotional attachment to features makes cutting them genuinely hard.",
+      wrongMsg: "Scoping is hard because founders often feel attached to features and find it difficult to cut any of them."
+    }
+  ],
+  badges: [
+    { icon: "bulb", name: "Scoping Starter", earned: true },
+    { icon: "star", name: "Quick Learner", earned: ({ correct }) => correct >= 2 },
+    { icon: "brain", name: "Focus Smart", earned: ({ correct }) => correct >= 3 },
+    { icon: "perfect", name: "Perfect Score", earned: ({ score }) => score === 100 },
+    { icon: "heart", name: "All Hearts", earned: ({ hearts }) => hearts === 3 },
+    { icon: "trophy", name: "Scoping Pro", earned: ({ score, hearts }) => score >= 80 && hearts >= 2 }
+  ]
+});
+</script>
+</body>
+</html>

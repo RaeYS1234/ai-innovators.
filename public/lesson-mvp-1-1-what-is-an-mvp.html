@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>What is an MVP? — AI Innovators</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="lesson-shared.css">
+</head>
+<body>
+<div class="app">
+  <div class="topbar" id="topbar" style="display:none;">
+    <button class="close-btn" id="closeBtn">×</button>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="hearts">
+      <svg class="heart-svg" viewBox="0 0 32 32"><path d="M16 28 C 6 20 2 14 2 10 C 2 6 5 3 9 3 C 12 3 14 5 16 8 C 18 5 20 3 23 3 C 27 3 30 6 30 10 C 30 14 26 20 16 28 Z" fill="#ec4899" stroke="#be185d" stroke-width="1.5"/></svg>
+      <span id="heartsCount">3</span>
+    </div>
+  </div>
+  <div class="screen active" id="screen-welcome">
+    <div class="lesson-tag" id="lesson-tag">LESSON</div>
+    <div class="mascot" id="welcomeMascot"></div>
+    <h1 class="welcome-title" id="welcome-title"></h1>
+    <p class="welcome-subtitle" id="welcome-subtitle"></p>
+    <button class="btn go" id="startBtn">Let's Go!</button>
+  </div>
+  <div class="screen" id="screen-lesson"></div>
+  <div class="screen" id="screen-complete">
+    <div class="mascot" id="completeMascot"></div>
+    <h1 class="complete-title">Lesson Complete!</h1>
+    <p class="complete-subtitle">Awesome work! Here's what you earned:</p>
+    <div class="stats-row">
+      <div class="stat-box"><div class="stat-label">XP Earned</div><div class="stat-value xp" id="finalXP">0</div></div>
+      <div class="stat-box"><div class="stat-label">Score</div><div class="stat-value score" id="finalScore">0%</div></div>
+      <div class="stat-box"><div class="stat-label">Hearts Left</div><div class="stat-value" style="color:#ef4444;" id="finalHearts">3</div></div>
+    </div>
+    <h3 style="margin: 28px 0 14px; color: #0c4a6e; font-weight: 900; font-family:'Nunito',sans-serif;">Badges You Earned:</h3>
+    <div class="badge-grid" id="badgeGrid"></div>
+    <button class="btn go" id="backToCourseBtn">Back to Course →</button>
+    <button class="btn ghost" style="margin-top:12px;" id="playAgainBtn">Play Again</button>
+  </div>
+  <div class="screen" id="screen-gameover">
+    <div class="mascot" id="gameoverMascot"></div>
+    <h1 class="complete-title" style="color:#b91c1c;">Out of Hearts!</h1>
+    <p class="complete-subtitle">Try again — you got this!</p>
+    <button class="btn danger" id="retryBtn">Try Again</button>
+  </div>
+</div>
+<div class="feedback" id="feedback">
+  <div class="feedback-inner">
+    <div><div class="feedback-text" id="feedbackText"></div><div class="feedback-explain" id="feedbackExplain"></div></div>
+    <button class="btn go" onclick="window._lessonNext()">Continue</button>
+  </div>
+</div>
+<script src="lesson-engine.js"></script>
+<script>
+const MVP_ICON = `<svg viewBox="0 0 64 64"><rect x="14" y="30" width="36" height="24" rx="3" fill="#fef3c7" stroke="#d97706" stroke-width="2.5"/><rect x="14" y="30" width="12" height="24" fill="#fbbf24"/><path d="M20 10 L44 10 L50 30 L14 30 Z" fill="none" stroke="#d97706" stroke-width="2.5" stroke-linejoin="round"/></svg>`;
+
+runLesson({
+  lessonId: "build-mvps-1-1",
+  courseUrl: "course-build-mvps.html",
+  tag: "UNIT 1 · LESSON 1.1",
+  title: "What is an MVP?",
+  subtitle: "The smallest thing you can build to start learning if your idea works",
+  steps: [
+    {
+      type: "vocab",
+      word: "MVP (Minimum Viable Product)",
+      pronounce: "say it: MIN-ih-mum VY-uh-bul PRAH-duct",
+      definition: "An <b>MVP</b> is the simplest version of a product that still lets you test your core idea with real users.",
+      example: "Instead of building a full ride-sharing app, an early MVP might just be a simple form plus a founder personally driving the first few rides to test demand.",
+      icon: MVP_ICON
+    },
+    {
+      type: "teach",
+      title: "Learn Fast, Build Less",
+      body: "An MVP isn't a low-quality product — it's a FOCUSED product. It includes only what's needed to test your most important assumption, and skips everything else for now. This saves months of wasted work and gets you real feedback fast, which you then use to guide what to build next.",
+      examples: ["MVP = smallest testable version, not a bad version", "Focuses only on the core assumption to test", "Gets real feedback fast, before big investment"]
+    },
+    {
+      type: "mc",
+      question: "What is an MVP?",
+      hint: "Think about the simplest testable version.",
+      options: [
+        { text: "The simplest version of a product that still lets you test your core idea", correct: true },
+        { text: "The most expensive, fully-featured version of a product", correct: false },
+        { text: "A product with zero users or feedback", correct: false },
+        { text: "The final, polished version released after years of work", correct: false }
+      ],
+      correctMsg: "Right! An MVP is the simplest version that still tests the core idea.",
+      wrongMsg: "An MVP is the simplest version of a product that still lets you test your core idea with real users."
+    },
+    {
+      type: "mc",
+      question: "Is an MVP the same thing as a \"low-quality\" product?",
+      hint: "Think about focus vs. quality.",
+      options: [
+        { text: "No — an MVP is focused, not necessarily low-quality", correct: true },
+        { text: "Yes, MVPs are always sloppy and poorly made", correct: false },
+        { text: "MVP means the product has no purpose at all", correct: false },
+        { text: "MVPs never include any real features", correct: false }
+      ],
+      correctMsg: "Correct! An MVP is focused on testing the core idea, not necessarily low quality.",
+      wrongMsg: "An MVP isn't low-quality — it's focused, including only what's needed to test the core assumption."
+    },
+    {
+      type: "mc",
+      question: "Why do founders build an MVP instead of the full, complete product right away?",
+      hint: "Think about learning before investing heavily.",
+      options: [
+        { text: "To get real feedback fast and avoid wasting months building the wrong thing", correct: true },
+        { text: "Because it's illegal to build a full product first", correct: false },
+        { text: "MVPs are always more expensive than the full product", correct: false },
+        { text: "There's no real reason — it's just tradition", correct: false }
+      ],
+      correctMsg: "Exactly! MVPs get fast feedback and reduce the risk of wasted effort.",
+      wrongMsg: "Building an MVP first gets real feedback fast, avoiding months of wasted work on the wrong thing."
+    }
+  ],
+  badges: [
+    { icon: "bulb", name: "MVP Starter", earned: true },
+    { icon: "star", name: "Quick Learner", earned: ({ correct }) => correct >= 2 },
+    { icon: "brain", name: "MVP Smart", earned: ({ correct }) => correct >= 3 },
+    { icon: "perfect", name: "Perfect Score", earned: ({ score }) => score === 100 },
+    { icon: "heart", name: "All Hearts", earned: ({ hearts }) => hearts === 3 },
+    { icon: "trophy", name: "MVP Pro", earned: ({ score, hearts }) => score >= 80 && hearts >= 2 }
+  ]
+});
+</script>
+</body>
+</html>

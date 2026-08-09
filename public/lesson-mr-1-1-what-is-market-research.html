@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>What Is Market Research? — AI Innovators</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="lesson-shared.css">
+</head>
+<body>
+<div class="app">
+  <div class="topbar" id="topbar" style="display:none;">
+    <button class="close-btn" id="closeBtn">×</button>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="hearts">
+      <svg class="heart-svg" viewBox="0 0 32 32"><path d="M16 28 C 6 20 2 14 2 10 C 2 6 5 3 9 3 C 12 3 14 5 16 8 C 18 5 20 3 23 3 C 27 3 30 6 30 10 C 30 14 26 20 16 28 Z" fill="#ec4899" stroke="#be185d" stroke-width="1.5"/></svg>
+      <span id="heartsCount">3</span>
+    </div>
+  </div>
+  <div class="screen active" id="screen-welcome">
+    <div class="lesson-tag" id="lesson-tag">LESSON</div>
+    <div class="mascot" id="welcomeMascot"></div>
+    <h1 class="welcome-title" id="welcome-title"></h1>
+    <p class="welcome-subtitle" id="welcome-subtitle"></p>
+    <button class="btn go" id="startBtn">Let's Go!</button>
+  </div>
+  <div class="screen" id="screen-lesson"></div>
+  <div class="screen" id="screen-complete">
+    <div class="mascot" id="completeMascot"></div>
+    <h1 class="complete-title">Lesson Complete!</h1>
+    <p class="complete-subtitle">Awesome work! Here's what you earned:</p>
+    <div class="stats-row">
+      <div class="stat-box"><div class="stat-label">XP Earned</div><div class="stat-value xp" id="finalXP">0</div></div>
+      <div class="stat-box"><div class="stat-label">Score</div><div class="stat-value score" id="finalScore">0%</div></div>
+      <div class="stat-box"><div class="stat-label">Hearts Left</div><div class="stat-value" style="color:#ef4444;" id="finalHearts">3</div></div>
+    </div>
+    <h3 style="margin: 28px 0 14px; color: #0c4a6e; font-weight: 900; font-family:'Nunito',sans-serif;">Badges You Earned:</h3>
+    <div class="badge-grid" id="badgeGrid"></div>
+    <button class="btn go" id="backToCourseBtn">Back to Course →</button>
+    <button class="btn ghost" style="margin-top:12px;" id="playAgainBtn">Play Again</button>
+  </div>
+  <div class="screen" id="screen-gameover">
+    <div class="mascot" id="gameoverMascot"></div>
+    <h1 class="complete-title" style="color:#b91c1c;">Out of Hearts!</h1>
+    <p class="complete-subtitle">Try again — you got this!</p>
+    <button class="btn danger" id="retryBtn">Try Again</button>
+  </div>
+</div>
+<div class="feedback" id="feedback">
+  <div class="feedback-inner">
+    <div><div class="feedback-text" id="feedbackText"></div><div class="feedback-explain" id="feedbackExplain"></div></div>
+    <button class="btn go" onclick="window._lessonNext()">Continue</button>
+  </div>
+</div>
+<script src="lesson-engine.js"></script>
+<script>
+const RESEARCH_ICON = `<svg viewBox="0 0 64 64"><rect x="8" y="30" width="8" height="22" fill="#f472b6" stroke="#be185d" stroke-width="1.5"/><rect x="20" y="20" width="8" height="32" fill="#ec4899" stroke="#be185d" stroke-width="1.5"/><rect x="32" y="10" width="8" height="42" fill="#db2777" stroke="#831843" stroke-width="1.5"/><circle cx="48" cy="20" r="12" fill="none" stroke="#1e293b" stroke-width="3"/><line x1="57" y1="29" x2="64" y2="36" stroke="#1e293b" stroke-width="4" stroke-linecap="round"/></svg>`;
+
+runLesson({
+  lessonId: "market-research-1-1",
+  courseUrl: "course-market-research.html",
+  tag: "UNIT 1 · LESSON 1.1",
+  title: "What Is Market Research?",
+  subtitle: "Before you build anything, find out if anyone actually wants it.",
+  steps: [
+    {
+      type: "vocab",
+      word: "Market Research",
+      pronounce: "say it: MAR-ket REE-surch",
+      definition: "<b>Market research</b> is the systematic process of gathering and analyzing data about your customers, competitors, and industry to make decisions with evidence instead of guesswork.",
+      example: "Before spending $50,000 building an app, a founder spends 2 weeks and $500 interviewing 30 potential customers to see if the problem is real. That's market research — it de-risks the big bet.",
+      icon: RESEARCH_ICON
+    },
+    {
+      type: "teach",
+      title: "Why Founders Skip This — and Regret It",
+      body: "The #1 reason startups fail isn't a bad product — it's building something <b>nobody needed</b> in the first place (CB Insights found this is the top cause, cited in ~35% of startup post-mortems). Market research is how you find out if a need is real, how big it is, and who else is already serving it, <b>before</b> you spend months and your savings building it.",
+      examples: ["Is the problem real and painful?", "Who else already solves it?", "Is the market big enough to matter?"]
+    },
+    {
+      type: "teach",
+      title: "Sizing the Opportunity: TAM, SAM, SOM",
+      body: "Investors and serious founders size a market in three nested circles. <b>TAM</b> (Total Addressable Market) = everyone in the world who could ever want this. <b>SAM</b> (Serviceable Addressable Market) = the slice of TAM you can actually reach with your business model, language, or region. <b>SOM</b> (Serviceable Obtainable Market) = the realistic slice you can capture in the next 1-3 years given competition and resources.",
+      examples: ["TAM: All pet owners worldwide ($260B)", "SAM: US dog owners who buy online ($18B)", "SOM: What you can realistically win in year 1-2 (~$2M)"]
+    },
+    {
+      type: "teach",
+      title: "TAM/SAM/SOM in Practice",
+      body: "Say you're building a tutoring app for K-12 math. TAM might be 'all K-12 students globally who could use math help' — huge, but meaningless for planning. SAM narrows to 'English-speaking students with smartphones whose parents pay for after-school tools.' SOM is the number you'll actually chase this year: maybe 'students at 50 partner schools in your state.' A good SOM is specific enough that you could name the first 100 customers.",
+      examples: ["Bottom-up SOM beats top-down guessing", "'1% of the world' is not a real estimate", "Investors distrust TAM-only pitches"]
+    },
+    {
+      type: "mc",
+      question: "A founder pitches: 'The global food market is $9 trillion, so if we get just 0.01% we'll be huge.' What's wrong with this reasoning?",
+      hint: "Think about what makes a market size estimate credible vs. lazy.",
+      options: [
+        { text: "It's a top-down guess with no path to how they'll actually win those customers", correct: true },
+        { text: "$9 trillion is too small a number to matter", correct: false },
+        { text: "Nothing — bigger TAM always means a better business", correct: false },
+        { text: "Food companies never use market sizing", correct: false }
+      ],
+      correctMsg: "Exactly. 'X% of a huge market' isn't a strategy — investors call this the 'if we just get 1%' fallacy because it skips SAM and SOM entirely.",
+      wrongMsg: "The problem is the logic, not the number. 'If we just get 0.01% of a giant market' skips the real question: through what channel, against which competitors, will you actually win real customers? That's what SAM and SOM force you to answer."
+    },
+    {
+      type: "mc",
+      question: "Which of these is the best example of a SOM (Serviceable Obtainable Market)?",
+      hint: "SOM should be specific and winnable in the near term.",
+      options: [
+        { text: "'Everyone on Earth who eats food'", correct: false },
+        { text: "'All English-speaking online shoppers'", correct: false },
+        { text: "'500 small bakeries in our metro area we can sign up in year 1 through direct sales'", correct: true },
+        { text: "'The entire $9 trillion global food industry'", correct: false }
+      ],
+      correctMsg: "Right! SOM is specific, near-term, and tied to a real go-to-market plan — you could literally list the first customers.",
+      wrongMsg: "SOM is the realistic slice you can win soon, through a specific channel. 'Everyone on Earth' or 'all online shoppers' is TAM or SAM territory — too broad to plan around."
+    },
+    {
+      type: "mc",
+      question: "Why does market research happen BEFORE building, not after?",
+      hint: "Think about what's expensive to change late.",
+      options: [
+        { text: "It doesn't matter when you do it", correct: false },
+        { text: "To find out if the problem and demand are real before you spend money and time you can't get back", correct: true },
+        { text: "Because investors require a PDF before any meeting", correct: false },
+        { text: "Research is only useful after you already have customers", correct: false }
+      ],
+      correctMsg: "Yes — research is cheap insurance. A few weeks of interviews costs far less than months of building the wrong thing.",
+      wrongMsg: "The whole point is timing: research is meant to catch a bad idea while it's still cheap to change course — before code, inventory, or rent are sunk costs."
+    },
+    {
+      type: "mc",
+      question: "A tutoring startup's TAM is 'all students in the world' ($ trillions). What should their NEXT step be?",
+      hint: "Move from the biggest circle to the smallest.",
+      options: [
+        { text: "Start spending on global ads immediately", correct: false },
+        { text: "Narrow to SAM (who they can actually reach with their model/language/region), then SOM (who they'll realistically win in year 1)", correct: true },
+        { text: "Ignore TAM since it's already calculated", correct: false },
+        { text: "Pitch investors using only the TAM number", correct: false }
+      ],
+      correctMsg: "Correct! TAM sets the ceiling on ambition, but SAM and SOM are what make the business plan credible and actionable.",
+      wrongMsg: "After TAM, the next move is always narrowing — SAM asks 'who can I actually reach,' SOM asks 'who can I actually win soon.' Skipping straight to spending or pitching on TAM alone is a classic rookie mistake."
+    },
+    {
+      type: "mc",
+      question: "What is the PRIMARY purpose of market research for a founder?",
+      hint: "It's not about looking impressive to investors.",
+      options: [
+        { text: "To fill out a required section of a business plan template", correct: false },
+        { text: "To replace intuition entirely with data", correct: false },
+        { text: "To reduce the risk of building something the market doesn't actually want", correct: true },
+        { text: "To make the pitch deck longer", correct: false }
+      ],
+      correctMsg: "Exactly. Research doesn't replace judgment — it de-risks it by grounding decisions in real customer evidence.",
+      wrongMsg: "Market research exists to lower risk: it tells you, with evidence, whether a real problem and a real customer exist before you commit resources. It's a decision-making tool, not paperwork."
+    }
+  ],
+  badges: [
+    { icon: "target", name: "Market Sizer", earned: true },
+    { icon: "star", name: "Sharp Analyst", earned: ({ correct }) => correct >= 3 },
+    { icon: "brain", name: "TAM/SAM/SOM Pro", earned: ({ correct }) => correct >= 5 },
+    { icon: "perfect", name: "Perfect Score", earned: ({ score }) => score === 100 },
+    { icon: "heart", name: "All Hearts", earned: ({ hearts }) => hearts === 3 },
+    { icon: "trophy", name: "Future Founder", earned: ({ score, hearts }) => score >= 80 && hearts >= 2 }
+  ]
+});
+</script>
+</body>
+</html>

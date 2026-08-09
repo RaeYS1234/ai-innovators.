@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Competitive Intelligence with AI — AI Innovators</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="lesson-shared.css">
+</head>
+<body>
+<div class="app">
+  <div class="topbar" id="topbar" style="display:none;">
+    <button class="close-btn" id="closeBtn">×</button>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="hearts">
+      <svg class="heart-svg" viewBox="0 0 32 32"><path d="M16 28 C 6 20 2 14 2 10 C 2 6 5 3 9 3 C 12 3 14 5 16 8 C 18 5 20 3 23 3 C 27 3 30 6 30 10 C 30 14 26 20 16 28 Z" fill="#ec4899" stroke="#be185d" stroke-width="1.5"/></svg>
+      <span id="heartsCount">3</span>
+    </div>
+  </div>
+  <div class="screen active" id="screen-welcome">
+    <div class="lesson-tag" id="lesson-tag">PRACTICE</div>
+    <div class="mascot" id="welcomeMascot"></div>
+    <h1 class="welcome-title" id="welcome-title"></h1>
+    <p class="welcome-subtitle" id="welcome-subtitle"></p>
+    <button class="btn go" id="startBtn">Start Practicing!</button>
+  </div>
+  <div class="screen" id="screen-lesson"></div>
+  <div class="screen" id="screen-complete">
+    <div class="mascot" id="completeMascot"></div>
+    <h1 class="complete-title">Intel Pro!</h1>
+    <p class="complete-subtitle">You know how to size up the competition fast. Here's what you earned:</p>
+    <div class="stats-row">
+      <div class="stat-box"><div class="stat-label">XP Earned</div><div class="stat-value xp" id="finalXP">0</div></div>
+      <div class="stat-box"><div class="stat-label">Score</div><div class="stat-value score" id="finalScore">0%</div></div>
+      <div class="stat-box"><div class="stat-label">Hearts Left</div><div class="stat-value" style="color:#ef4444;" id="finalHearts">3</div></div>
+    </div>
+    <h3 style="margin: 28px 0 14px; color: #0c4a6e; font-weight: 900; font-family:'Nunito',sans-serif;">Badges You Earned:</h3>
+    <div class="badge-grid" id="badgeGrid"></div>
+    <button class="btn go" id="backToCourseBtn">Back to Course →</button>
+    <button class="btn ghost" style="margin-top:12px;" id="playAgainBtn">Play Again</button>
+  </div>
+  <div class="screen" id="screen-gameover">
+    <div class="mascot" id="gameoverMascot"></div>
+    <h1 class="complete-title" style="color:#b91c1c;">Out of Hearts!</h1>
+    <p class="complete-subtitle">Try again — you got this!</p>
+    <button class="btn danger" id="retryBtn">Try Again</button>
+  </div>
+</div>
+<div class="feedback" id="feedback">
+  <div class="feedback-inner">
+    <div><div class="feedback-text" id="feedbackText"></div><div class="feedback-explain" id="feedbackExplain"></div></div>
+    <button class="btn go" onclick="window._lessonNext()">Continue</button>
+  </div>
+</div>
+<script src="lesson-engine.js"></script>
+<script>
+runLesson({
+  lessonId: "market-research-2-2",
+  courseUrl: "course-market-research.html",
+  tag: "UNIT 2 · PRACTICE",
+  title: "Competitive Intelligence with AI",
+  subtitle: "Practice using AI to quickly size up your competitors",
+  steps: [
+    {
+      type: "teach",
+      title: "Speed Up Competitor Research",
+      body: "AI can help you quickly summarize a competitor's website, pull out their pricing structure, list their main features, and compare tone/positioning — tasks that used to take hours of manual browsing. A smart prompt: \"Summarize this competitor's pricing page and list their main features in a table.\"",
+      examples: []
+    },
+    {
+      type: "mc",
+      question: "Which prompt would help you quickly get useful competitor intel from AI?",
+      hint: "Look for a specific, actionable request.",
+      options: [
+        { text: "\"Summarize this competitor's website and list their main features and pricing in a table.\"", correct: true },
+        { text: "\"Tell me about competitors.\"", correct: false },
+        { text: "\"Competitors, I guess?\"", correct: false },
+        { text: "\"Is my business good?\"", correct: false }
+      ],
+      correctMsg: "Yes! It's specific about what to extract and how to format it.",
+      wrongMsg: "The strongest prompt specifies exactly what to extract (features, pricing) and how to format it."
+    },
+    {
+      type: "mc",
+      question: "A founder wants to know how a competitor's TONE differs from theirs. What's a good way to use AI here?",
+      hint: "Think about comparing voice/style.",
+      options: [
+        { text: "Paste both websites' copy and ask AI to compare tone, formality, and target audience", correct: true },
+        { text: "Ignore tone completely since it never matters", correct: false },
+        { text: "Ask AI to guess without giving it any text at all", correct: false },
+        { text: "Only look at the competitor's logo colors", correct: false }
+      ],
+      correctMsg: "Correct! Giving AI the actual text from both sites lets it compare tone directly.",
+      wrongMsg: "Pasting both companies' copy and asking AI to compare tone and audience gives a useful, grounded comparison."
+    },
+    {
+      type: "mc",
+      question: "Why is AI-assisted competitive research still not a full substitute for real-world checks (like actually trying a competitor's product)?",
+      hint: "Think about firsthand experience.",
+      options: [
+        { text: "AI summarizes what's written online, but hands-on experience reveals things text alone might miss", correct: true },
+        { text: "AI can never read any competitor websites at all", correct: false },
+        { text: "Trying a competitor's product is illegal", correct: false },
+        { text: "There's no difference between reading about something and trying it", correct: false }
+      ],
+      correctMsg: "Exactly! Hands-on experience often reveals details that written content alone misses.",
+      wrongMsg: "AI summarizes written content, but hands-on experience with a product often reveals things text alone misses."
+    },
+    {
+      type: "mc",
+      question: "What's a smart way to use AI to track MULTIPLE competitors at once?",
+      hint: "Think about structured comparisons.",
+      options: [
+        { text: "Ask AI to build a comparison table across all competitors on the same set of criteria", correct: true },
+        { text: "Look at only one competitor and ignore all the others", correct: false },
+        { text: "Ask AI totally unrelated questions about the weather", correct: false },
+        { text: "Never write anything down or organize the findings", correct: false }
+      ],
+      correctMsg: "Right! A structured comparison table makes multiple competitors easy to evaluate side by side.",
+      wrongMsg: "Asking AI to build a structured comparison table makes tracking multiple competitors much easier."
+    }
+  ],
+  badges: [
+    { icon: "bulb", name: "Intel Starter", earned: true },
+    { icon: "star", name: "Quick Learner", earned: ({ correct }) => correct >= 2 },
+    { icon: "brain", name: "Competitor Smart", earned: ({ correct }) => correct >= 3 },
+    { icon: "perfect", name: "Perfect Score", earned: ({ score }) => score === 100 },
+    { icon: "heart", name: "All Hearts", earned: ({ hearts }) => hearts === 3 },
+    { icon: "trophy", name: "Intel Pro", earned: ({ score, hearts }) => score >= 80 && hearts >= 2 }
+  ]
+});
+</script>
+</body>
+</html>

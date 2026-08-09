@@ -5,7 +5,7 @@
 // Cache version — change this string when you want to force everyone
 // to clear their cache. With the network-first strategy below, updates
 // already show up immediately when the user has internet.
-const CACHE_NAME = "ai-innovators-2026-08-06c";
+const CACHE_NAME = "ai-innovators-2026-08-09a";
 
 // Core files to cache so the app works offline
 const CORE_FILES = [
@@ -163,7 +163,39 @@ const CORE_FILES = [
   "/lesson-pe-3-1-prompts-for-writing.html",
   "/lesson-pe-3-2-prompts-for-analysis.html",
   "/lesson-pe-3-3-prompts-for-coding.html",
-  "/lesson-pe-challenge.html"
+  "/lesson-pe-challenge.html",
+  // Market Research with AI (Level 5 Master)
+  "/lesson-mr-1-1-what-is-market-research.html",
+  "/lesson-mr-1-2-primary-vs-secondary-research.html",
+  "/lesson-mr-1-3-asking-the-right-questions.html",
+  "/lesson-mr-2-1-ai-for-surveys-analysis.html",
+  "/lesson-mr-2-2-competitive-intelligence-ai.html",
+  "/lesson-mr-2-3-finding-trends-in-data.html",
+  "/lesson-mr-3-1-building-customer-personas.html",
+  "/lesson-mr-3-2-spotting-opportunities.html",
+  "/lesson-mr-challenge.html",
+  // Pitching to Investors (Level 5 Master)
+  "/lesson-pi-1-1-types-of-investors.html",
+  "/lesson-pi-1-2-what-investors-look-for.html",
+  "/lesson-pi-1-3-valuation-101.html",
+  "/lesson-pi-2-1-pitch-deck-anatomy.html",
+  "/lesson-pi-2-2-telling-story-with-data.html",
+  "/lesson-pi-2-3-build-your-pitch-deck.html",
+  "/lesson-pi-3-1-delivery-and-confidence.html",
+  "/lesson-pi-3-2-qa-strategies.html",
+  "/lesson-pi-challenge.html",
+  // Building MVPs with AI (Level 5 Master)
+  "/lesson-mvp-1-1-what-is-an-mvp.html",
+  "/lesson-mvp-1-2-scoping-smallest-useful-thing.html",
+  "/lesson-mvp-1-3-mvp-examples-real-startups.html",
+  "/lesson-mvp-2-1-no-code-tools-with-ai.html",
+  "/lesson-mvp-2-2-ai-coding-assistants.html",
+  "/lesson-mvp-2-3-design-tools-with-ai.html",
+  "/lesson-mvp-3-1-project-setup.html",
+  "/lesson-mvp-3-2-build-the-frontend.html",
+  "/lesson-mvp-3-3-add-functionality.html",
+  "/lesson-mvp-3-4-test-and-iterate.html",
+  "/lesson-mvp-challenge.html"
 ];
 
 // Install: cache core files and activate immediately

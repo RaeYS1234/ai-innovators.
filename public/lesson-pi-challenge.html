@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Investor Pitch Showdown — AI Innovators</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="lesson-shared.css">
+</head>
+<body>
+<div class="app">
+  <div class="topbar" id="topbar" style="display:none;">
+    <button class="close-btn" id="closeBtn">×</button>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="hearts">
+      <svg class="heart-svg" viewBox="0 0 32 32"><path d="M16 28 C 6 20 2 14 2 10 C 2 6 5 3 9 3 C 12 3 14 5 16 8 C 18 5 20 3 23 3 C 27 3 30 6 30 10 C 30 14 26 20 16 28 Z" fill="#ec4899" stroke="#be185d" stroke-width="1.5"/></svg>
+      <span id="heartsCount">3</span>
+    </div>
+  </div>
+  <div class="screen active" id="screen-welcome">
+    <div class="lesson-tag" id="lesson-tag">FINAL CHALLENGE</div>
+    <div class="mascot" id="welcomeMascot"></div>
+    <h1 class="welcome-title" id="welcome-title"></h1>
+    <p class="welcome-subtitle" id="welcome-subtitle"></p>
+    <button class="btn go" id="startBtn">Start Challenge!</button>
+  </div>
+  <div class="screen" id="screen-lesson"></div>
+  <div class="screen" id="screen-complete">
+    <div class="mascot" id="completeMascot"></div>
+    <h1 class="complete-title">Pitch Champion!</h1>
+    <p class="complete-subtitle">You crushed the final challenge! Here's what you earned:</p>
+    <div class="stats-row">
+      <div class="stat-box"><div class="stat-label">XP Earned</div><div class="stat-value xp" id="finalXP">0</div></div>
+      <div class="stat-box"><div class="stat-label">Score</div><div class="stat-value score" id="finalScore">0%</div></div>
+      <div class="stat-box"><div class="stat-label">Hearts Left</div><div class="stat-value" style="color:#ef4444;" id="finalHearts">3</div></div>
+    </div>
+    <h3 style="margin: 28px 0 14px; color: #0c4a6e; font-weight: 900; font-family:'Nunito',sans-serif;">Badges You Earned:</h3>
+    <div class="badge-grid" id="badgeGrid"></div>
+    <button class="btn go" id="backToCourseBtn">Back to Course →</button>
+    <button class="btn ghost" style="margin-top:12px;" id="playAgainBtn">Play Again</button>
+  </div>
+  <div class="screen" id="screen-gameover">
+    <div class="mascot" id="gameoverMascot"></div>
+    <h1 class="complete-title" style="color:#b91c1c;">Out of Hearts!</h1>
+    <p class="complete-subtitle">Try again — every great pitch takes practice!</p>
+    <button class="btn danger" id="retryBtn">Try Again</button>
+  </div>
+</div>
+<div class="feedback" id="feedback">
+  <div class="feedback-inner">
+    <div><div class="feedback-text" id="feedbackText"></div><div class="feedback-explain" id="feedbackExplain"></div></div>
+    <button class="btn go" onclick="window._lessonNext()">Continue</button>
+  </div>
+</div>
+<script src="lesson-engine.js"></script>
+<script>
+runLesson({
+  lessonId: "pitching-investors-challenge",
+  courseUrl: "course-pitching-investors.html",
+  tag: "FINAL CHALLENGE",
+  title: "Investor Pitch Showdown",
+  subtitle: "Prove you've mastered investors, pitch decks, and confident delivery",
+  steps: [
+    {
+      type: "mc",
+      question: "How do angel investors typically differ from VC firms?",
+      hint: "Think about individuals vs firms.",
+      options: [
+        { text: "Angels are individuals investing their own money, often earlier and in smaller amounts than VC firms", correct: true },
+        { text: "There is no real difference between them", correct: false },
+        { text: "VCs always invest before any angel investor does", correct: false },
+        { text: "Angels only ever invest in food companies", correct: false }
+      ],
+      correctMsg: "Right! Angels are individuals, often investing earlier and smaller than VC firms.",
+      wrongMsg: "Angel investors are individuals investing their own money, typically earlier and in smaller amounts than VCs."
+    },
+    {
+      type: "mc",
+      question: "What are the core things investors typically look for in a pitch?",
+      hint: "Think problem, market, team, traction, plan.",
+      options: [
+        { text: "A real problem, big market, capable team, early traction, and a believable plan", correct: true },
+        { text: "Only the founder's favorite color", correct: false },
+        { text: "The exact number of office chairs owned", correct: false },
+        { text: "Nothing specific — investors decide completely at random", correct: false }
+      ],
+      correctMsg: "Correct! Investors generally check for a real problem, market size, team, traction, and a solid plan.",
+      wrongMsg: "Investors typically look for a real problem, a big enough market, a capable team, traction, and a believable plan."
+    },
+    {
+      type: "mc",
+      question: "If a startup's valuation goes UP, what happens to the equity investors get for the SAME investment?",
+      hint: "Think about the trade-off.",
+      options: [
+        { text: "Investors get LESS equity for that same amount of money", correct: true },
+        { text: "Investors get MORE equity for that same amount of money", correct: false },
+        { text: "Nothing changes about the equity at all", correct: false },
+        { text: "The founder automatically loses the entire company", correct: false }
+      ],
+      correctMsg: "Yes! A higher valuation means investors get less equity per dollar invested.",
+      wrongMsg: "A higher valuation means investors receive LESS equity for the same amount of money invested."
+    },
+    {
+      type: "mc",
+      question: "What is the classic order a 10-slide pitch deck often starts with?",
+      hint: "Think about establishing the 'why' first.",
+      options: [
+        { text: "Problem, then Solution, then Market size", correct: true },
+        { text: "Team, then Financials, then Problem", correct: false },
+        { text: "Closing/Vision, then Problem, then Solution", correct: false },
+        { text: "Competition, then Team, then Problem", correct: false }
+      ],
+      correctMsg: "Right! Most decks start with Problem, then Solution, then Market.",
+      wrongMsg: "The classic pitch deck order typically starts with Problem, then Solution, then Market size."
+    },
+    {
+      type: "mc",
+      question: "Why is \"$50K revenue in 3 months, growing 20%/month\" a stronger pitch statement than \"Revenue: $50K\"?",
+      hint: "Think about context and momentum.",
+      options: [
+        { text: "It adds context, timeframe, and growth trajectory, telling a fuller story", correct: true },
+        { text: "It's shorter and therefore automatically better", correct: false },
+        { text: "The two statements are exactly equally strong", correct: false },
+        { text: "It removes the need to mention any real numbers at all", correct: false }
+      ],
+      correctMsg: "Exactly! Context, timeframe, and growth trajectory turn a bare number into a compelling story.",
+      wrongMsg: "Adding context, timeframe, and growth trajectory turns a bare number into a much more compelling story."
+    },
+    {
+      type: "mc",
+      question: "What's a smart way to build genuine confidence before pitching?",
+      hint: "Think about preparation.",
+      options: [
+        { text: "Thorough preparation and lots of out-loud practice", correct: true },
+        { text: "Avoiding all practice so it feels more spontaneous", correct: false },
+        { text: "Memorizing slides word-for-word with zero eye contact", correct: false },
+        { text: "Hoping nerves disappear with no preparation at all", correct: false }
+      ],
+      correctMsg: "Correct! Real confidence comes from thorough preparation and practice.",
+      wrongMsg: "Genuine confidence comes from thorough preparation and lots of out-loud practice."
+    },
+    {
+      type: "mc",
+      question: "What's the best way to handle a tough investor question you don't know the answer to?",
+      hint: "Think about honesty.",
+      options: [
+        { text: "Honestly say \"I don't know, but I'll find out and follow up.\"", correct: true },
+        { text: "Make up a confident-sounding but false answer", correct: false },
+        { text: "Refuse to respond to the question at all", correct: false },
+        { text: "Get defensive and argue with the investor", correct: false }
+      ],
+      correctMsg: "Right! Honest, calm answers build more trust than bluffing or getting defensive.",
+      wrongMsg: "Honestly admitting you don't know (and offering to follow up) builds far more trust than bluffing."
+    }
+  ],
+  badges: [
+    { icon: "trophy", name: "Pitch Champion", earned: true },
+    { icon: "star", name: "Sharp Thinker", earned: ({ correct }) => correct >= 4 },
+    { icon: "brain", name: "Investor Smart", earned: ({ correct }) => correct >= 6 },
+    { icon: "perfect", name: "Perfect Score", earned: ({ score }) => score === 100 },
+    { icon: "heart", name: "All Hearts", earned: ({ hearts }) => hearts === 3 },
+    { icon: "crown", name: "Pitching Master", earned: ({ score, hearts }) => score >= 85 && hearts >= 2 }
+  ]
+});
+</script>
+</body>
+</html>

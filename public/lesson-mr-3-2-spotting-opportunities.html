@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Spotting Opportunities — AI Innovators</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="lesson-shared.css">
+</head>
+<body>
+<div class="app">
+  <div class="topbar" id="topbar" style="display:none;">
+    <button class="close-btn" id="closeBtn">×</button>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="hearts">
+      <svg class="heart-svg" viewBox="0 0 32 32"><path d="M16 28 C 6 20 2 14 2 10 C 2 6 5 3 9 3 C 12 3 14 5 16 8 C 18 5 20 3 23 3 C 27 3 30 6 30 10 C 30 14 26 20 16 28 Z" fill="#ec4899" stroke="#be185d" stroke-width="1.5"/></svg>
+      <span id="heartsCount">3</span>
+    </div>
+  </div>
+  <div class="screen active" id="screen-welcome">
+    <div class="lesson-tag" id="lesson-tag">LESSON</div>
+    <div class="mascot" id="welcomeMascot"></div>
+    <h1 class="welcome-title" id="welcome-title"></h1>
+    <p class="welcome-subtitle" id="welcome-subtitle"></p>
+    <button class="btn go" id="startBtn">Let's Go!</button>
+  </div>
+  <div class="screen" id="screen-lesson"></div>
+  <div class="screen" id="screen-complete">
+    <div class="mascot" id="completeMascot"></div>
+    <h1 class="complete-title">Lesson Complete!</h1>
+    <p class="complete-subtitle">Awesome work! Here's what you earned:</p>
+    <div class="stats-row">
+      <div class="stat-box"><div class="stat-label">XP Earned</div><div class="stat-value xp" id="finalXP">0</div></div>
+      <div class="stat-box"><div class="stat-label">Score</div><div class="stat-value score" id="finalScore">0%</div></div>
+      <div class="stat-box"><div class="stat-label">Hearts Left</div><div class="stat-value" style="color:#ef4444;" id="finalHearts">3</div></div>
+    </div>
+    <h3 style="margin: 28px 0 14px; color: #0c4a6e; font-weight: 900; font-family:'Nunito',sans-serif;">Badges You Earned:</h3>
+    <div class="badge-grid" id="badgeGrid"></div>
+    <button class="btn go" id="backToCourseBtn">Back to Course →</button>
+    <button class="btn ghost" style="margin-top:12px;" id="playAgainBtn">Play Again</button>
+  </div>
+  <div class="screen" id="screen-gameover">
+    <div class="mascot" id="gameoverMascot"></div>
+    <h1 class="complete-title" style="color:#b91c1c;">Out of Hearts!</h1>
+    <p class="complete-subtitle">Try again — you got this!</p>
+    <button class="btn danger" id="retryBtn">Try Again</button>
+  </div>
+</div>
+<div class="feedback" id="feedback">
+  <div class="feedback-inner">
+    <div><div class="feedback-text" id="feedbackText"></div><div class="feedback-explain" id="feedbackExplain"></div></div>
+    <button class="btn go" onclick="window._lessonNext()">Continue</button>
+  </div>
+</div>
+<script src="lesson-engine.js"></script>
+<script>
+const GAP_ICON = `<svg viewBox="0 0 64 64"><circle cx="32" cy="32" r="26" fill="#fef9c3" stroke="#ca8a04" stroke-width="2.5"/><path d="M20 32 L28 40 L44 22" stroke="#ca8a04" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+
+runLesson({
+  lessonId: "market-research-3-2",
+  courseUrl: "course-market-research.html",
+  tag: "UNIT 3 · LESSON 3.2",
+  title: "Spotting Opportunities",
+  subtitle: "Turning all your research into a clear business opportunity",
+  steps: [
+    {
+      type: "vocab",
+      word: "Market Gap",
+      pronounce: "say it: MAR-ket GAP",
+      definition: "A <b>market gap</b> is an unmet need — something customers want that no current option serves well.",
+      example: "If every meal-kit company ignores people with severe food allergies, that's a market gap an allergy-safe meal-kit brand could fill.",
+      icon: GAP_ICON
+    },
+    {
+      type: "teach",
+      title: "Where Opportunities Hide",
+      body: "After gathering research, look for patterns like: recurring complaints about existing options, a customer segment nobody is serving well, or a need people work around instead of a product solving it directly. These signals point to real market gaps — genuine opportunities worth exploring further.",
+      examples: ["Recurring complaints about existing products", "An underserved customer segment", "People awkwardly \"working around\" a missing solution"]
+    },
+    {
+      type: "mc",
+      question: "What is a \"market gap\"?",
+      hint: "Think about unmet needs.",
+      options: [
+        { text: "An unmet need that no current option serves well", correct: true },
+        { text: "A hole in a company's website design", correct: false },
+        { text: "The exact price of a product", correct: false },
+        { text: "A legal requirement for new businesses", correct: false }
+      ],
+      correctMsg: "Right! A market gap is an unmet need with no good current solution.",
+      wrongMsg: "A market gap is an unmet need — something customers want that no current option serves well."
+    },
+    {
+      type: "mc",
+      question: "Which research signal MOST strongly suggests a real market gap?",
+      hint: "Think about repeated frustration.",
+      options: [
+        { text: "Many people repeatedly complain about the same unsolved problem", correct: true },
+        { text: "One person mentioned something once, in passing", correct: false },
+        { text: "A competitor's logo is a color you don't like", correct: false },
+        { text: "Nobody has ever mentioned any problems at all", correct: false }
+      ],
+      correctMsg: "Correct! Repeated complaints about the same problem are a strong signal of a real gap.",
+      wrongMsg: "Many people repeatedly complaining about the same unsolved problem is a strong signal of a real market gap."
+    },
+    {
+      type: "mc",
+      question: "A founder notices people awkwardly using spreadsheets to track something no app does well. What does this suggest?",
+      hint: "Think about a workaround revealing a gap.",
+      options: [
+        { text: "A possible market gap — people are working around a missing solution", correct: true },
+        { text: "Nothing — spreadsheets are always the best possible solution", correct: false },
+        { text: "That there's zero opportunity here at all", correct: false },
+        { text: "That the founder should avoid this space entirely, forever", correct: false }
+      ],
+      correctMsg: "Exactly! A clunky workaround is a classic signal of an unmet need worth exploring.",
+      wrongMsg: "When people awkwardly work around a missing solution, that's a classic signal pointing to a real market gap."
+    }
+  ],
+  badges: [
+    { icon: "bulb", name: "Opportunity Starter", earned: true },
+    { icon: "star", name: "Quick Learner", earned: ({ correct }) => correct >= 2 },
+    { icon: "brain", name: "Gap Spotter Smart", earned: ({ correct }) => correct >= 3 },
+    { icon: "perfect", name: "Perfect Score", earned: ({ score }) => score === 100 },
+    { icon: "heart", name: "All Hearts", earned: ({ hearts }) => hearts === 3 },
+    { icon: "trophy", name: "Opportunity Pro", earned: ({ score, hearts }) => score >= 80 && hearts >= 2 }
+  ]
+});
+</script>
+</body>
+</html>

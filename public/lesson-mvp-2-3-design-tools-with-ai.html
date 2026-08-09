@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Design Tools With AI — AI Innovators</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="lesson-shared.css">
+</head>
+<body>
+<div class="app">
+  <div class="topbar" id="topbar" style="display:none;">
+    <button class="close-btn" id="closeBtn">×</button>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="hearts">
+      <svg class="heart-svg" viewBox="0 0 32 32"><path d="M16 28 C 6 20 2 14 2 10 C 2 6 5 3 9 3 C 12 3 14 5 16 8 C 18 5 20 3 23 3 C 27 3 30 6 30 10 C 30 14 26 20 16 28 Z" fill="#ec4899" stroke="#be185d" stroke-width="1.5"/></svg>
+      <span id="heartsCount">3</span>
+    </div>
+  </div>
+  <div class="screen active" id="screen-welcome">
+    <div class="lesson-tag" id="lesson-tag">LESSON</div>
+    <div class="mascot" id="welcomeMascot"></div>
+    <h1 class="welcome-title" id="welcome-title"></h1>
+    <p class="welcome-subtitle" id="welcome-subtitle"></p>
+    <button class="btn go" id="startBtn">Let's Go!</button>
+  </div>
+  <div class="screen" id="screen-lesson"></div>
+  <div class="screen" id="screen-complete">
+    <div class="mascot" id="completeMascot"></div>
+    <h1 class="complete-title">Lesson Complete!</h1>
+    <p class="complete-subtitle">Awesome work! Here's what you earned:</p>
+    <div class="stats-row">
+      <div class="stat-box"><div class="stat-label">XP Earned</div><div class="stat-value xp" id="finalXP">0</div></div>
+      <div class="stat-box"><div class="stat-label">Score</div><div class="stat-value score" id="finalScore">0%</div></div>
+      <div class="stat-box"><div class="stat-label">Hearts Left</div><div class="stat-value" style="color:#ef4444;" id="finalHearts">3</div></div>
+    </div>
+    <h3 style="margin: 28px 0 14px; color: #0c4a6e; font-weight: 900; font-family:'Nunito',sans-serif;">Badges You Earned:</h3>
+    <div class="badge-grid" id="badgeGrid"></div>
+    <button class="btn go" id="backToCourseBtn">Back to Course →</button>
+    <button class="btn ghost" style="margin-top:12px;" id="playAgainBtn">Play Again</button>
+  </div>
+  <div class="screen" id="screen-gameover">
+    <div class="mascot" id="gameoverMascot"></div>
+    <h1 class="complete-title" style="color:#b91c1c;">Out of Hearts!</h1>
+    <p class="complete-subtitle">Try again — you got this!</p>
+    <button class="btn danger" id="retryBtn">Try Again</button>
+  </div>
+</div>
+<div class="feedback" id="feedback">
+  <div class="feedback-inner">
+    <div><div class="feedback-text" id="feedbackText"></div><div class="feedback-explain" id="feedbackExplain"></div></div>
+    <button class="btn go" onclick="window._lessonNext()">Continue</button>
+  </div>
+</div>
+<script src="lesson-engine.js"></script>
+<script>
+const DESIGN_ICON = `<svg viewBox="0 0 64 64"><rect x="10" y="10" width="44" height="30" rx="3" fill="white" stroke="#db2777" stroke-width="2.5"/><circle cx="20" cy="20" r="4" fill="#f472b6"/><rect x="30" y="17" width="16" height="6" rx="2" fill="#fbcfe8"/><path d="M14 48 L24 38 L34 48 L44 38 L54 48" stroke="#db2777" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+
+runLesson({
+  lessonId: "build-mvps-2-3",
+  courseUrl: "course-build-mvps.html",
+  tag: "UNIT 2 · LESSON 2.3",
+  title: "Design Tools With AI",
+  subtitle: "Making your MVP look good without a design background",
+  steps: [
+    {
+      type: "teach",
+      title: "AI Design Tools Fill the Design Gap",
+      body: "Many founders aren't trained designers, but AI-powered design tools can generate logos, color palettes, layouts, and even full UI mockups from simple text descriptions. This doesn't replace great design thinking — it helps founders create a professional-looking MVP fast, so the focus can stay on testing the core idea rather than getting stuck on visuals.",
+      examples: ["AI can generate logos, palettes, and layouts from text prompts", "Helps non-designers create a professional look fast", "Keeps focus on testing the idea, not perfecting visuals"]
+    },
+    {
+      type: "mc",
+      question: "What's a MAIN benefit of AI-powered design tools for founders without a design background?",
+      hint: "Think about accessibility and speed.",
+      options: [
+        { text: "They let non-designers create a professional-looking MVP quickly", correct: true },
+        { text: "They guarantee the startup will become profitable", correct: false },
+        { text: "They eliminate the need to ever test with real users", correct: false },
+        { text: "They only work for professional graphic designers", correct: false }
+      ],
+      correctMsg: "Right! AI design tools help non-designers create a professional look quickly.",
+      wrongMsg: "AI-powered design tools let founders without design backgrounds create a professional-looking MVP quickly."
+    },
+    {
+      type: "mc",
+      question: "What can AI design tools generate from a simple text description?",
+      hint: "Think about visual assets.",
+      options: [
+        { text: "Logos, color palettes, layouts, and UI mockups", correct: true },
+        { text: "Legal contracts and tax forms", correct: false },
+        { text: "Physical manufacturing equipment", correct: false },
+        { text: "Nothing — AI design tools can't generate any visuals", correct: false }
+      ],
+      correctMsg: "Correct! AI design tools can generate logos, palettes, layouts, and mockups from text.",
+      wrongMsg: "AI design tools can generate logos, color palettes, layouts, and UI mockups from simple text descriptions."
+    },
+    {
+      type: "mc",
+      question: "Why is it valuable for early MVP building to spend LESS time getting stuck on visuals?",
+      hint: "Think about priorities for an early-stage MVP.",
+      options: [
+        { text: "The main goal of an MVP is testing the core idea, not perfecting the design", correct: true },
+        { text: "Visuals are illegal to include in any MVP", correct: false },
+        { text: "Design never matters at any stage of a business", correct: false },
+        { text: "Spending more time on visuals always improves an MVP", correct: false }
+      ],
+      correctMsg: "Exactly! An MVP's main job is testing the core idea, not achieving perfect visuals.",
+      wrongMsg: "Since an MVP's main goal is testing the core idea, spending less time perfecting visuals keeps focus where it matters."
+    }
+  ],
+  badges: [
+    { icon: "bulb", name: "Design Starter", earned: true },
+    { icon: "star", name: "Quick Learner", earned: ({ correct }) => correct >= 2 },
+    { icon: "brain", name: "Design Tools Smart", earned: ({ correct }) => correct >= 3 },
+    { icon: "perfect", name: "Perfect Score", earned: ({ score }) => score === 100 },
+    { icon: "heart", name: "All Hearts", earned: ({ hearts }) => hearts === 3 },
+    { icon: "trophy", name: "Design Tools Pro", earned: ({ score, hearts }) => score >= 80 && hearts >= 2 }
+  ]
+});
+</script>
+</body>
+</html>

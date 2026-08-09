@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Ship Your MVP — AI Innovators</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="lesson-shared.css">
+</head>
+<body>
+<div class="app">
+  <div class="topbar" id="topbar" style="display:none;">
+    <button class="close-btn" id="closeBtn">×</button>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="hearts">
+      <svg class="heart-svg" viewBox="0 0 32 32"><path d="M16 28 C 6 20 2 14 2 10 C 2 6 5 3 9 3 C 12 3 14 5 16 8 C 18 5 20 3 23 3 C 27 3 30 6 30 10 C 30 14 26 20 16 28 Z" fill="#ec4899" stroke="#be185d" stroke-width="1.5"/></svg>
+      <span id="heartsCount">3</span>
+    </div>
+  </div>
+  <div class="screen active" id="screen-welcome">
+    <div class="lesson-tag" id="lesson-tag">FINAL CHALLENGE</div>
+    <div class="mascot" id="welcomeMascot"></div>
+    <h1 class="welcome-title" id="welcome-title"></h1>
+    <p class="welcome-subtitle" id="welcome-subtitle"></p>
+    <button class="btn go" id="startBtn">Start Challenge!</button>
+  </div>
+  <div class="screen" id="screen-lesson"></div>
+  <div class="screen" id="screen-complete">
+    <div class="mascot" id="completeMascot"></div>
+    <h1 class="complete-title">MVP Shipped!</h1>
+    <p class="complete-subtitle">You crushed the final challenge! Here's what you earned:</p>
+    <div class="stats-row">
+      <div class="stat-box"><div class="stat-label">XP Earned</div><div class="stat-value xp" id="finalXP">0</div></div>
+      <div class="stat-box"><div class="stat-label">Score</div><div class="stat-value score" id="finalScore">0%</div></div>
+      <div class="stat-box"><div class="stat-label">Hearts Left</div><div class="stat-value" style="color:#ef4444;" id="finalHearts">3</div></div>
+    </div>
+    <h3 style="margin: 28px 0 14px; color: #0c4a6e; font-weight: 900; font-family:'Nunito',sans-serif;">Badges You Earned:</h3>
+    <div class="badge-grid" id="badgeGrid"></div>
+    <button class="btn go" id="backToCourseBtn">Back to Course →</button>
+    <button class="btn ghost" style="margin-top:12px;" id="playAgainBtn">Play Again</button>
+  </div>
+  <div class="screen" id="screen-gameover">
+    <div class="mascot" id="gameoverMascot"></div>
+    <h1 class="complete-title" style="color:#b91c1c;">Out of Hearts!</h1>
+    <p class="complete-subtitle">Try again — every great product ships through iteration!</p>
+    <button class="btn danger" id="retryBtn">Try Again</button>
+  </div>
+</div>
+<div class="feedback" id="feedback">
+  <div class="feedback-inner">
+    <div><div class="feedback-text" id="feedbackText"></div><div class="feedback-explain" id="feedbackExplain"></div></div>
+    <button class="btn go" onclick="window._lessonNext()">Continue</button>
+  </div>
+</div>
+<script src="lesson-engine.js"></script>
+<script>
+runLesson({
+  lessonId: "build-mvps-challenge",
+  courseUrl: "course-build-mvps.html",
+  tag: "FINAL CHALLENGE",
+  title: "Ship Your MVP",
+  subtitle: "Prove you've mastered the MVP mindset, AI-powered building blocks, and the build-test-iterate loop",
+  steps: [
+    {
+      type: "mc",
+      question: "What is an MVP?",
+      hint: "Think about the simplest testable version.",
+      options: [
+        { text: "The simplest version of a product that still lets you test your core idea", correct: true },
+        { text: "The most expensive, fully-featured version of a product", correct: false },
+        { text: "A product with zero users or feedback ever", correct: false },
+        { text: "The final, polished version released after years of work", correct: false }
+      ],
+      correctMsg: "Right! An MVP is the simplest version that still tests the core idea.",
+      wrongMsg: "An MVP is the simplest version of a product that still lets you test your core idea."
+    },
+    {
+      type: "mc",
+      question: "What's the key question for scoping an MVP down to essentials?",
+      hint: "Think about the ONE thing to prove.",
+      options: [
+        { text: "\"What's the ONE thing this MVP must prove?\"", correct: true },
+        { text: "\"How many features can I possibly cram in?\"", correct: false },
+        { text: "\"What color should everything be?\"", correct: false },
+        { text: "\"How can I make this as complicated as possible?\"", correct: false }
+      ],
+      correctMsg: "Correct! Scoping starts with identifying the ONE core thing to test.",
+      wrongMsg: "Good scoping starts by asking \"What's the ONE thing this MVP must prove?\""
+    },
+    {
+      type: "mc",
+      question: "What is a \"concierge MVP\"?",
+      hint: "Think about doing things by hand.",
+      options: [
+        { text: "When the founder manually does the work by hand instead of automating right away", correct: true },
+        { text: "A fully automated app with no human involvement at all", correct: false },
+        { text: "A legal document required before launching", correct: false },
+        { text: "A hotel service unrelated to startups", correct: false }
+      ],
+      correctMsg: "Right! A concierge MVP means doing the work manually before automating.",
+      wrongMsg: "A concierge MVP is when the founder manually does the work by hand, instead of automating right away."
+    },
+    {
+      type: "mc",
+      question: "How can AI features in no-code tools help founders build faster?",
+      hint: "Think about plain English instructions.",
+      options: [
+        { text: "You can describe what you want in plain English, and AI generates the layout or workflow", correct: true },
+        { text: "AI features remove the need to have any idea at all", correct: false },
+        { text: "They only work for professional software engineers", correct: false },
+        { text: "AI features make no-code tools slower to use", correct: false }
+      ],
+      correctMsg: "Correct! Describing your goal in plain English and letting AI generate the structure speeds things up.",
+      wrongMsg: "AI features let you describe your goal in plain English, and the tool generates the layout or workflow for you."
+    },
+    {
+      type: "mc",
+      question: "Why should you still REVIEW code an AI coding assistant generates?",
+      hint: "Think about mistakes.",
+      options: [
+        { text: "AI-generated code can still contain mistakes, so review ensures it does what's needed", correct: true },
+        { text: "AI-generated code is always 100% perfect with zero errors", correct: false },
+        { text: "Reviewing code is illegal in most places", correct: false },
+        { text: "There's no benefit to reviewing generated code", correct: false }
+      ],
+      correctMsg: "Right! AI can make mistakes, so reviewing ensures the code actually does what you need.",
+      wrongMsg: "AI-generated code can still contain mistakes, so reviewing it ensures it actually does what's needed."
+    },
+    {
+      type: "mc",
+      question: "For an early MVP, what should usually be prioritized FIRST — polish or working functionality?",
+      hint: "Think about testing the core action.",
+      options: [
+        { text: "Working functionality — making the core action actually work reliably", correct: true },
+        { text: "Perfect visual polish, before anything works at all", correct: false },
+        { text: "Neither matters at all for an MVP", correct: false },
+        { text: "Only the company logo design matters", correct: false }
+      ],
+      correctMsg: "Exactly! Working functionality should come before extensive visual polish.",
+      wrongMsg: "For an early MVP, working functionality matters more than extensive visual polish."
+    },
+    {
+      type: "mc",
+      question: "What's the ideal loop for improving an MVP after launch?",
+      hint: "Think about a repeating cycle.",
+      options: [
+        { text: "Build, test, learn, adjust — then repeat", correct: true },
+        { text: "Build once and never change anything again", correct: false },
+        { text: "Only build, with no testing or learning at all", correct: false },
+        { text: "Test without ever building or adjusting anything", correct: false }
+      ],
+      correctMsg: "Right! Build, test, learn, adjust — repeated — is the ideal improvement loop.",
+      wrongMsg: "The ideal loop is build, test, learn, adjust — then repeat the cycle again."
+    }
+  ],
+  badges: [
+    { icon: "trophy", name: "MVP Shipper", earned: true },
+    { icon: "star", name: "Sharp Thinker", earned: ({ correct }) => correct >= 4 },
+    { icon: "brain", name: "Builder Smart", earned: ({ correct }) => correct >= 6 },
+    { icon: "perfect", name: "Perfect Score", earned: ({ score }) => score === 100 },
+    { icon: "heart", name: "All Hearts", earned: ({ hearts }) => hearts === 3 },
+    { icon: "crown", name: "MVP Master", earned: ({ score, hearts }) => score >= 85 && hearts >= 2 }
+  ]
+});
+</script>
+</body>
+</html>
