@@ -189,8 +189,9 @@
     let total = 0;
     let selectedAnswer = null;
     let answered = false;
-    let matchSelected = null;
-    let matchAnswers = {};
+    let matchAnswers = {}; // dropIdx -> chipIdx
+    let pickedUp = null;   // { chipIdx, fromDrop } — the answer currently "in hand" (tap OR drag)
+    let dragInfo = null;   // active pointer-drag tracking
     let mathAnswer = null;
 
     const STEPS = config.steps || [];
@@ -242,7 +243,7 @@
     function renderStep() {
       if (currentStep >= STEPS.length) { finishLesson(); return; }
       updateProgress();
-      answered = false; selectedAnswer = null; matchSelected = null; matchAnswers = {}; mathAnswer = null;
+      answered = false; selectedAnswer = null; matchAnswers = {}; pickedUp = null; dragInfo = null; mathAnswer = null;
       const step = STEPS[currentStep];
       const c = document.getElementById("screen-lesson");
       c.innerHTML = "";
@@ -303,22 +304,23 @@
       c.innerHTML = `
         <div class="question-block">
           <div class="question-text">${s.question}</div>
-          <div class="question-hint">${s.hint || "Tap an answer, then tap a box."} Tap a filled box to undo.</div>
+          <div class="question-hint">${s.hint || "Drag an answer onto a box, or tap to place it."} Drag or tap a filled box to move it.</div>
           <div class="match-area">
             ${s.pairs.map((p, i) => `
               <div class="match-row">
                 <div class="match-prompt">${p.prompt}</div>
-                <div class="match-drop" id="drop-${i}" data-idx="${i}" onclick="window._lessonPlaceMatch(${i})">Tap an answer →</div>
+                <div class="match-drop" id="drop-${i}" data-idx="${i}">Tap or drag an answer →</div>
               </div>
             `).join("")}
           </div>
           <div class="match-bank">
             ${shuffle(s.pairs.map(p => p.answer)).map((a, ci) => `
-              <button class="match-chip" id="chip-${ci}" data-chip="${ci}" data-answer="${a}" onclick="window._lessonSelectMatch(${ci}, this)">${a}</button>
+              <button type="button" class="match-chip" id="chip-${ci}" data-chip="${ci}" data-answer="${a}">${a}</button>
             `).join("")}
           </div>
         </div>
         <div class="action-bar"><button class="btn go" id="checkBtn" disabled onclick="window._lessonCheckMatch()">Check</button></div>`;
+      wireMatchDragDrop(s, c);
     }
 
     function renderMath(s, c) {
@@ -366,46 +368,152 @@
       });
       showFeedback(isCorrect, isCorrect ? s.correctMsg : s.wrongMsg);
     };
-    window._lessonSelectMatch = function(chipIdx, el) {
-      if (answered || el.classList.contains("used")) return;
-      document.querySelectorAll(".match-chip").forEach(c => c.style.outline = "");
-      el.style.outline = "3px solid #0ea5e9";
-      matchSelected = chipIdx;
-    };
-    window._lessonPlaceMatch = function(dropIdx) {
+    // ---- Match drag & drop (also supports plain tap-to-place, and reordering once full) ----
+    function refreshMatchVisuals(s) {
+      s.pairs.forEach((p, i) => {
+        const drop = document.getElementById(`drop-${i}`);
+        if (!drop) return;
+        const chipIdx = matchAnswers[i];
+        if (chipIdx != null) {
+          const chip = document.getElementById(`chip-${chipIdx}`);
+          drop.textContent = chip ? chip.getAttribute("data-answer") : "";
+          drop.classList.add("has-item");
+        } else {
+          drop.textContent = "Tap or drag an answer →";
+          drop.classList.remove("has-item");
+        }
+        drop.classList.remove("drag-over");
+      });
+      const placedChipIdxs = new Set(Object.values(matchAnswers));
+      document.querySelectorAll(".match-chip").forEach(chip => {
+        const idx = parseInt(chip.getAttribute("data-chip"), 10);
+        const isHeld = pickedUp && pickedUp.chipIdx === idx;
+        chip.classList.toggle("used", placedChipIdxs.has(idx) && !isHeld);
+        chip.classList.toggle("selected", !!isHeld);
+      });
+      const checkBtn = document.getElementById("checkBtn");
+      if (checkBtn) checkBtn.disabled = Object.keys(matchAnswers).length !== s.pairs.length;
+    }
+
+    function beginPickup(source) {
+      if (source.kind === "bank") {
+        pickedUp = { chipIdx: source.chipIdx, fromDrop: null };
+      } else {
+        const chipIdx = matchAnswers[source.dropIdx];
+        if (chipIdx == null) return false;
+        pickedUp = { chipIdx, fromDrop: source.dropIdx };
+        delete matchAnswers[source.dropIdx];
+      }
+      refreshMatchVisuals(STEPS[currentStep]);
+      return true;
+    }
+    function cancelPickup() {
+      if (!pickedUp) return;
+      if (pickedUp.fromDrop != null) matchAnswers[pickedUp.fromDrop] = pickedUp.chipIdx;
+      pickedUp = null;
+      refreshMatchVisuals(STEPS[currentStep]);
+    }
+    function placePickup(targetDropIdx) {
+      if (!pickedUp) return;
+      const existing = matchAnswers[targetDropIdx];
+      // Swap: whatever was already in the target box goes back to where the picked-up chip came from.
+      if (existing != null && pickedUp.fromDrop != null) matchAnswers[pickedUp.fromDrop] = existing;
+      matchAnswers[targetDropIdx] = pickedUp.chipIdx;
+      pickedUp = null;
+      refreshMatchVisuals(STEPS[currentStep]);
+    }
+    function handleMatchTap(source) {
       if (answered) return;
-
-      // If tapping a filled slot with NO new chip selected, release the chip back to the bank.
-      // This lets kids change their answers even after all slots are filled.
-      if (matchSelected === null && matchAnswers[dropIdx] != null) {
-        const oldChip = document.getElementById(`chip-${matchAnswers[dropIdx]}`);
-        if (oldChip) oldChip.classList.remove("used");
-        delete matchAnswers[dropIdx];
-        const drop = document.getElementById(`drop-${dropIdx}`);
-        drop.textContent = "Tap an option →";
-        drop.classList.remove("has-item");
-        document.getElementById("checkBtn").disabled = true;
-        return;
+      if (source.kind === "bank") {
+        if (pickedUp && pickedUp.chipIdx === source.chipIdx && pickedUp.fromDrop === null) {
+          pickedUp = null; refreshMatchVisuals(STEPS[currentStep]); return;
+        }
+        if (pickedUp) cancelPickup();
+        pickedUp = { chipIdx: source.chipIdx, fromDrop: null };
+        refreshMatchVisuals(STEPS[currentStep]);
+      } else {
+        if (pickedUp) { placePickup(source.dropIdx); return; }
+        if (matchAnswers[source.dropIdx] != null) beginPickup(source);
       }
+    }
 
-      if (matchSelected === null) return;
+    function wireMatchDragDrop(s, c) {
+      const DRAG_THRESHOLD = 6;
+      c.addEventListener("pointerdown", onPointerDown);
 
-      // If this drop already had a chip, free that exact chip so it comes back.
-      if (matchAnswers[dropIdx] != null) {
-        const oldChip = document.getElementById(`chip-${matchAnswers[dropIdx]}`);
-        if (oldChip) oldChip.classList.remove("used");
+      function canDrag(source) {
+        if (source.kind === "bank") return true;
+        return matchAnswers[source.dropIdx] != null;
       }
-      const chip = document.getElementById(`chip-${matchSelected}`);
-      matchAnswers[dropIdx] = matchSelected;
-      const drop = document.getElementById(`drop-${dropIdx}`);
-      drop.textContent = chip.getAttribute("data-answer");
-      drop.classList.add("has-item");
-      // Only mark THIS chip used — duplicates with the same text stay available.
-      chip.classList.add("used");
-      chip.style.outline = "";
-      matchSelected = null;
-      if (Object.keys(matchAnswers).length === STEPS[currentStep].pairs.length) document.getElementById("checkBtn").disabled = false;
-    };
+      function onPointerDown(e) {
+        if (answered) return;
+        const chipEl = e.target.closest(".match-chip");
+        const dropEl = !chipEl ? e.target.closest(".match-drop") : null;
+        if (!chipEl && !dropEl) return;
+        let source;
+        if (chipEl) {
+          if (chipEl.classList.contains("used")) return;
+          source = { kind: "bank", chipIdx: parseInt(chipEl.getAttribute("data-chip"), 10) };
+        } else {
+          source = { kind: "drop", dropIdx: parseInt(dropEl.getAttribute("data-idx"), 10) };
+        }
+        dragInfo = { source, pointerId: e.pointerId, startX: e.clientX, startY: e.clientY, moved: false, ghost: null };
+        document.addEventListener("pointermove", onPointerMove);
+        document.addEventListener("pointerup", onPointerUp);
+        document.addEventListener("pointercancel", onPointerCancel);
+      }
+      function onPointerMove(e) {
+        if (!dragInfo || e.pointerId !== dragInfo.pointerId) return;
+        const dx = e.clientX - dragInfo.startX, dy = e.clientY - dragInfo.startY;
+        if (!dragInfo.moved) {
+          if (Math.abs(dx) < DRAG_THRESHOLD && Math.abs(dy) < DRAG_THRESHOLD) return;
+          if (!canDrag(dragInfo.source)) return; // nothing there to drag; resolves as a tap on release
+          dragInfo.moved = true;
+          beginPickup(dragInfo.source);
+          if (!pickedUp) { dragInfo.moved = false; return; }
+          const ghost = document.createElement("div");
+          ghost.className = "match-chip match-ghost";
+          const chip = document.getElementById(`chip-${pickedUp.chipIdx}`);
+          ghost.textContent = chip ? chip.getAttribute("data-answer") : "";
+          document.body.appendChild(ghost);
+          dragInfo.ghost = ghost;
+        }
+        e.preventDefault();
+        dragInfo.ghost.style.left = e.clientX + "px";
+        dragInfo.ghost.style.top = e.clientY + "px";
+        dragInfo.ghost.style.display = "none";
+        const under = document.elementFromPoint(e.clientX, e.clientY);
+        dragInfo.ghost.style.display = "";
+        document.querySelectorAll(".match-drop.drag-over").forEach(el => el.classList.remove("drag-over"));
+        const dropEl = under && under.closest(".match-drop");
+        if (dropEl) dropEl.classList.add("drag-over");
+      }
+      function endDrag(landedEl) {
+        if (!dragInfo) return;
+        document.removeEventListener("pointermove", onPointerMove);
+        document.removeEventListener("pointerup", onPointerUp);
+        document.removeEventListener("pointercancel", onPointerCancel);
+        if (dragInfo.ghost) dragInfo.ghost.remove();
+        document.querySelectorAll(".match-drop.drag-over").forEach(el => el.classList.remove("drag-over"));
+        if (dragInfo.moved) {
+          const dropEl = landedEl && landedEl.closest(".match-drop");
+          if (dropEl) placePickup(parseInt(dropEl.getAttribute("data-idx"), 10));
+          else cancelPickup();
+        } else {
+          handleMatchTap(dragInfo.source);
+        }
+        dragInfo = null;
+      }
+      function onPointerUp(e) {
+        if (!dragInfo || e.pointerId !== dragInfo.pointerId) return;
+        const under = dragInfo.moved ? document.elementFromPoint(e.clientX, e.clientY) : null;
+        endDrag(under);
+      }
+      function onPointerCancel(e) {
+        if (!dragInfo || e.pointerId !== dragInfo.pointerId) return;
+        endDrag(null);
+      }
+    }
     window._lessonCheckMatch = function() {
       if (answered) return;
       answered = true;
