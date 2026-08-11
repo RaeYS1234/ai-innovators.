@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>What is Cost? — AI Innovators</title>
+<title>What is Cost? | AI Innovators</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="lesson-shared.css">
@@ -43,7 +43,7 @@
   <div class="screen" id="screen-gameover">
     <div class="mascot" id="gameoverMascot"></div>
     <h1 class="complete-title" style="color:#b91c1c;">Out of Hearts!</h1>
-    <p class="complete-subtitle">Try again — you got this!</p>
+    <p class="complete-subtitle">Try again! You got this!</p>
     <button class="btn danger" id="retryBtn">Try Again</button>
   </div>
 </div>
@@ -87,7 +87,7 @@ runLesson({
         { text: "Money in your piggy bank", correct: false },
         { text: "A drawing you made", correct: false }
       ],
-      correctMsg: "Yes! Lemons and sugar are supplies you must buy — that's cost!",
+      correctMsg: "Yes! Lemons and sugar are supplies you must buy, that's cost!",
       wrongMsg: "Cost is the money you SPEND to run your business. Lemons + sugar are supplies = cost."
     },
     {
@@ -109,20 +109,24 @@ runLesson({
       hint: "What does each business need to BUY?",
       pairs: [
         { prompt: "🍪 Cookie Stand", answer: "Flour and sugar" },
-        { prompt: "💎 Bracelet Shop", answer: "Beads and string" },
-        { prompt: "🐶 Dog Walking", answer: "Leashes and treats" }
+        { prompt: "📿 Bracelet Shop", answer: "Beads and string" },
+        { prompt: "🐕 Dog Walking", answer: "Leashes and treats" }
       ],
       correctMsg: "Perfect! Every business needs supplies = cost.",
       wrongMsg: "Some matches were off. Think about what supplies each business needs."
     },
     {
-      type: "math",
-      question: "Add up the costs!",
-      story: "For your lemonade stand, you spent $3 on lemons, $2 on sugar, and $1 on cups. What's your total cost?",
-      equation: "$3 + $2 + $1 = ?",
-      answer: 6,
-      correctMsg: "Yes! $6 total cost.",
-      wrongMsg: "Add them: 3 + 2 + 1 = 6."
+      type: "mc",
+      question: "🛒 Smart business owners try to keep their costs LOW. Which choice keeps your costs down?",
+      hint: "Lower cost means less money going OUT.",
+      options: [
+        { text: "Buy your supplies when they're on sale", correct: true },
+        { text: "Buy the most expensive brand of everything", correct: false },
+        { text: "Waste half your ingredients", correct: false },
+        { text: "Buy way more than you need", correct: false }
+      ],
+      correctMsg: "Yes! Spending less on supplies = lower cost = more money you get to keep.",
+      wrongMsg: "Lower cost = less money OUT. Buying on sale is a smart way to spend less!"
     }
   ],
   badges: [

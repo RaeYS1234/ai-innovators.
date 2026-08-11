@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Unit 1 Quiz | AI Innovators</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="lesson-shared.css">
+</head>
+<body>
+<div class="app">
+  <div class="topbar" id="topbar" style="display:none;">
+    <button class="close-btn" id="closeBtn">×</button>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="hearts">
+      <svg class="heart-svg" viewBox="0 0 32 32"><path d="M16 28 C 6 20 2 14 2 10 C 2 6 5 3 9 3 C 12 3 14 5 16 8 C 18 5 20 3 23 3 C 27 3 30 6 30 10 C 30 14 26 20 16 28 Z" fill="#ec4899" stroke="#be185d" stroke-width="1.5"/></svg>
+      <span id="heartsCount">3</span>
+    </div>
+  </div>
+  <div class="screen active" id="screen-welcome">
+    <div class="lesson-tag" id="lesson-tag">LESSON</div>
+    <div class="mascot" id="welcomeMascot"></div>
+    <h1 class="welcome-title" id="welcome-title"></h1>
+    <p class="welcome-subtitle" id="welcome-subtitle"></p>
+    <button class="btn go" id="startBtn">Let's Go!</button>
+  </div>
+  <div class="screen" id="screen-lesson"></div>
+  <div class="screen" id="screen-complete">
+    <div class="mascot" id="completeMascot"></div>
+    <h1 class="complete-title">Lesson Complete!</h1>
+    <p class="complete-subtitle">Awesome work! Here's what you earned:</p>
+    <div class="stats-row">
+      <div class="stat-box"><div class="stat-label">XP Earned</div><div class="stat-value xp" id="finalXP">0</div></div>
+      <div class="stat-box"><div class="stat-label">Score</div><div class="stat-value score" id="finalScore">0%</div></div>
+      <div class="stat-box"><div class="stat-label">Hearts Left</div><div class="stat-value" style="color:#ef4444;" id="finalHearts">3</div></div>
+    </div>
+    <h3 style="margin: 28px 0 14px; color: #0c4a6e; font-weight: 900; font-family:'Nunito',sans-serif;">Badges You Earned:</h3>
+    <div class="badge-grid" id="badgeGrid"></div>
+    <button class="btn go" id="backToCourseBtn">Back to Course →</button>
+    <button class="btn ghost" style="margin-top:12px;" id="playAgainBtn">Play Again</button>
+  </div>
+  <div class="screen" id="screen-gameover">
+    <div class="mascot" id="gameoverMascot"></div>
+    <h1 class="complete-title" style="color:#b91c1c;">Out of Hearts!</h1>
+    <p class="complete-subtitle">Try again! You got this!</p>
+    <button class="btn danger" id="retryBtn">Try Again</button>
+  </div>
+</div>
+<div class="feedback" id="feedback">
+  <div class="feedback-inner">
+    <div><div class="feedback-text" id="feedbackText"></div><div class="feedback-explain" id="feedbackExplain"></div></div>
+    <button class="btn go" onclick="window._lessonNext()">Continue</button>
+  </div>
+</div>
+<script src="lesson-engine.js"></script>
+<script>
+runLesson({
+  lessonId: "financial-modeling-1-3",
+  courseUrl: "course-financial-modeling.html",
+  tag: "UNIT 1 CHECK",
+  title: "Unit 1 Quiz",
+  subtitle: "Prove you understand what a financial model is and how revenue forecasts work.",
+  steps: [
+    {
+      type: "mc",
+      question: "What does a financial model turn into a forecast?",
+      hint: "Think about what you feed into a model before it produces any numbers.",
+      options: [
+        { text: "Assumptions, inputs like growth rate and price, into projected numbers like revenue and cash", correct: true },
+        { text: "Random guesses with no inputs at all", correct: false },
+        { text: "Only historical tax filings", correct: false },
+        { text: "A company's logo and brand colors", correct: false }
+      ],
+      correctMsg: "Right! Assumptions in, forecast out, that's the whole engine of a model.",
+      wrongMsg: "A model's entire job is turning assumptions (growth rate, price, costs) into a forecast of revenue, profit, and cash. Skip the assumptions, and there's no real forecast, just a spreadsheet with no meaning behind the numbers."
+    },
+    {
+      type: "mc",
+      question: "Which statement shows a snapshot of what a company owns and owes at ONE moment in time?",
+      hint: "Not 'over time', think 'right now.'",
+      options: [
+        { text: "The Income Statement", correct: false },
+        { text: "The Balance Sheet", correct: true },
+        { text: "The Cash Flow Statement", correct: false },
+        { text: "The Pitch Deck", correct: false }
+      ],
+      correctMsg: "Correct! The Balance Sheet is the snapshot: assets vs. liabilities, at a single point in time.",
+      wrongMsg: "The Balance Sheet is the one-moment snapshot, assets (what you own) vs. liabilities (what you owe). The Income Statement covers a period of time instead, which is the mix-up most people make first."
+    },
+    {
+      type: "mc",
+      question: "Bottom-up forecasting builds a revenue number from:",
+      hint: "Think small, provable building blocks, not a giant market number.",
+      options: [
+        { text: "Realistic building blocks, like number of customers × price, not a slice of a huge market", correct: true },
+        { text: "Guessing 1% of the total global market", correct: false },
+        { text: "Whatever number sounds good in the pitch", correct: false },
+        { text: "The founder's personal savings account", correct: false }
+      ],
+      correctMsg: "Yes! Bottom-up starts from real, countable inputs and builds UP to a total.",
+      wrongMsg: "Bottom-up forecasting starts from real, provable building blocks, number of leads, conversion rate, price, and builds up to a total. Starting from a giant market size and guessing a slice is top-down, which investors trust far less because it skips the actual path to customers."
+    },
+    {
+      type: "mc",
+      question: "MRR stands for:",
+      hint: "It's about recurring revenue, measured monthly.",
+      options: [
+        { text: "Monthly Recurring Revenue", correct: true },
+        { text: "Maximum Revenue Rate", correct: false },
+        { text: "Market Reach Report", correct: false },
+        { text: "Manual Repayment Requirement", correct: false }
+      ],
+      correctMsg: "Right! MRR = Monthly Recurring Revenue, the predictable revenue a subscription business collects each month.",
+      wrongMsg: "MRR stands for Monthly Recurring Revenue, it's the predictable, repeating revenue a subscription business earns every month. Multiply MRR by 12 and you get ARR (Annual Recurring Revenue)."
+    },
+    {
+      type: "mc",
+      question: "A company has $8,000 MRR and grows 10% this month. What is next month's MRR?",
+      hint: "Multiply by 1.10.",
+      options: [
+        { text: "$8,080", correct: false },
+        { text: "$8,800", correct: true },
+        { text: "$9,000", correct: false },
+        { text: "$800", correct: false }
+      ],
+      correctMsg: "Yes! $8,000 × 1.10 = $8,800.",
+      wrongMsg: "To grow a number by 10%, multiply by 1.10 (100% + 10%). $8,000 × 1.10 = $8,800. Adding just $80 (1% instead of 10%) is the kind of decimal slip that throws off an entire year's forecast."
+    }
+  ],
+  badges: [
+    { icon: "starter", name: "Unit 1 Complete", earned: true },
+    { icon: "star", name: "Quiz Sharp", earned: ({ correct }) => correct >= 2 },
+    { icon: "brain", name: "Model Wise", earned: ({ correct }) => correct >= 4 },
+    { icon: "perfect", name: "Perfect Score", earned: ({ score }) => score === 100 },
+    { icon: "heart", name: "All Hearts", earned: ({ hearts }) => hearts === 3 },
+    { icon: "trophy", name: "Unit 1 Champion", earned: ({ score, hearts }) => score >= 80 && hearts >= 2 }
+  ]
+});
+</script>
+</body>
+</html>

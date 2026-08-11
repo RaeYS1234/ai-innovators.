@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Valuation Basics: SAFEs & Dilution | AI Innovators</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="lesson-shared.css">
+</head>
+<body>
+<div class="app">
+  <div class="topbar" id="topbar" style="display:none;">
+    <button class="close-btn" id="closeBtn">×</button>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="hearts">
+      <svg class="heart-svg" viewBox="0 0 32 32"><path d="M16 28 C 6 20 2 14 2 10 C 2 6 5 3 9 3 C 12 3 14 5 16 8 C 18 5 20 3 23 3 C 27 3 30 6 30 10 C 30 14 26 20 16 28 Z" fill="#ec4899" stroke="#be185d" stroke-width="1.5"/></svg>
+      <span id="heartsCount">3</span>
+    </div>
+  </div>
+  <div class="screen active" id="screen-welcome">
+    <div class="lesson-tag" id="lesson-tag">LESSON</div>
+    <div class="mascot" id="welcomeMascot"></div>
+    <h1 class="welcome-title" id="welcome-title"></h1>
+    <p class="welcome-subtitle" id="welcome-subtitle"></p>
+    <button class="btn go" id="startBtn">Let's Go!</button>
+  </div>
+  <div class="screen" id="screen-lesson"></div>
+  <div class="screen" id="screen-complete">
+    <div class="mascot" id="completeMascot"></div>
+    <h1 class="complete-title">Lesson Complete!</h1>
+    <p class="complete-subtitle">Awesome work! Here's what you earned:</p>
+    <div class="stats-row">
+      <div class="stat-box"><div class="stat-label">XP Earned</div><div class="stat-value xp" id="finalXP">0</div></div>
+      <div class="stat-box"><div class="stat-label">Score</div><div class="stat-value score" id="finalScore">0%</div></div>
+      <div class="stat-box"><div class="stat-label">Hearts Left</div><div class="stat-value" style="color:#ef4444;" id="finalHearts">3</div></div>
+    </div>
+    <h3 style="margin: 28px 0 14px; color: #0c4a6e; font-weight: 900; font-family:'Nunito',sans-serif;">Badges You Earned:</h3>
+    <div class="badge-grid" id="badgeGrid"></div>
+    <button class="btn go" id="backToCourseBtn">Back to Course →</button>
+    <button class="btn ghost" style="margin-top:12px;" id="playAgainBtn">Play Again</button>
+  </div>
+  <div class="screen" id="screen-gameover">
+    <div class="mascot" id="gameoverMascot"></div>
+    <h1 class="complete-title" style="color:#b91c1c;">Out of Hearts!</h1>
+    <p class="complete-subtitle">Try again! You got this!</p>
+    <button class="btn danger" id="retryBtn">Try Again</button>
+  </div>
+</div>
+<div class="feedback" id="feedback">
+  <div class="feedback-inner">
+    <div><div class="feedback-text" id="feedbackText"></div><div class="feedback-explain" id="feedbackExplain"></div></div>
+    <button class="btn go" onclick="window._lessonNext()">Continue</button>
+  </div>
+</div>
+<script src="lesson-engine.js"></script>
+<script>
+const SAFE_ICON = `<svg viewBox="0 0 64 64"><rect x="12" y="18" width="40" height="30" rx="3" fill="#fdf2f8" stroke="#831843" stroke-width="2.5"/><circle cx="32" cy="33" r="7" fill="#fbbf24" stroke="#d97706" stroke-width="2"/><rect x="29" y="33" width="6" height="8" fill="#d97706"/><path d="M20 18 L 20 12 C 20 8 24 6 32 6 C 40 6 44 8 44 12 L 44 18" fill="none" stroke="#831843" stroke-width="2.5"/></svg>`;
+
+runLesson({
+  lessonId: "pitching-investors-2-1",
+  courseUrl: "course-pitching-investors.html",
+  tag: "UNIT 2 · LESSON 2.1",
+  title: "Valuation Basics: SAFEs & Dilution",
+  subtitle: "The math behind SAFEs, valuation caps, discount rates, and how founders get diluted.",
+  steps: [
+    {
+      type: "vocab",
+      word: "SAFE",
+      pronounce: "say it: SAYF (Simple Agreement for Future Equity)",
+      definition: "A <b>SAFE</b> is a document, created by Y Combinator in 2013, where an investor gives a startup money now in exchange for the RIGHT to receive equity later, usually when the company raises its next priced round. It's not a loan (no interest, no maturity date) and it's not equity yet, it converts into equity later, based on the terms in the SAFE.",
+      example: "A seed investor puts in $150,000 via a SAFE. The startup doesn't set a price per share today, instead, the SAFE will convert into actual shares whenever the company later raises a priced round (like a Series A).",
+      icon: SAFE_ICON
+    },
+    {
+      type: "teach",
+      title: "Valuation Cap & Discount Rate",
+      body: "Two terms decide how favorably a SAFE converts. A <b>valuation cap</b> sets the MAXIMUM company valuation the SAFE investor's money converts at, even if the company's actual next round prices much higher, this early investor still converts as if the company were only worth the cap (this rewards them for taking early risk). A <b>discount rate</b> gives the SAFE investor a percentage off the price other investors pay in the next round (a common discount is 20%). When a SAFE has BOTH a cap and a discount, the investor converts using WHICHEVER gives them more shares for their money, the better deal for them.",
+      examples: ["Valuation cap = max valuation the SAFE converts at, protecting early investors from paying full price later", "Discount rate = % off the next round's price (often ~20%)", "If both exist, the investor gets whichever is more favorable to them"]
+    },
+    {
+      type: "teach",
+      title: "Dilution: Why Your % Ownership Shrinks",
+      body: "<b>Dilution</b> happens every time a company issues new shares to new investors, the total pie gets cut into more slices, so each existing slice (including the founder's) represents a smaller percentage, even though its DOLLAR value may still be going up. <b>Post-money valuation = pre-money valuation + the new money raised.</b> The new investor's ownership % = money invested ÷ post-money valuation. If a founder owns 100% before any round, and then sells 20% to seed investors, the founder now owns 80%. Raise again and sell another 20% of the (now larger) company, and the founder's stake shrinks again, multiplicatively, not just by subtracting percentages.",
+      examples: ["Post-money valuation = pre-money valuation + money raised", "New investor % = money invested ÷ post-money valuation", "Dilution compounds across rounds, it multiplies, it doesn't just subtract"]
+    },
+    {
+      type: "mc",
+      question: "A SAFE has a $4M valuation cap. The company later raises a priced round at a $10M valuation. What valuation does the SAFE actually convert at?",
+      hint: "The cap is a MAXIMUM the SAFE investor pays, it protects them from the higher price.",
+      options: [
+        { text: "$10M, the same as the new investors", correct: false },
+        { text: "$4M, the cap protects the earlier SAFE investor by letting them convert at the lower, capped valuation instead of the higher round price", correct: true },
+        { text: "$14M, adding both numbers together", correct: false },
+        { text: "$6M, the difference between the two numbers", correct: false }
+      ],
+      correctMsg: "Right! The valuation cap guarantees the SAFE investor converts at $4M, giving them more equity per dollar than the new Series investors get.",
+      wrongMsg: "The valuation cap is a MAXIMUM valuation for conversion purposes, it exists specifically to reward the earlier investor for taking risk before the company was proven. Even though the company later raised at $10M, the SAFE still converts as if the company were worth only $4M, meaning the earlier investor ends up with more shares per dollar invested than the new round's investors."
+    },
+    {
+      type: "mc",
+      question: "A company has a pre-money valuation of $9M and raises $3M in new investment. What is the post-money valuation, and what percentage of the company does the new investor own?",
+      hint: "Post-money = pre-money + new money. New investor % = new money ÷ post-money.",
+      options: [
+        { text: "Post-money = $12M; investor owns 25%", correct: true },
+        { text: "Post-money = $9M; investor owns 33%", correct: false },
+        { text: "Post-money = $6M; investor owns 50%", correct: false },
+        { text: "Post-money = $12M; investor owns 9%", correct: false }
+      ],
+      correctMsg: "Correct! $9M + $3M = $12M post-money. $3M ÷ $12M = 25% ownership for the new investor.",
+      wrongMsg: "Post-money valuation = pre-money + new money raised = $9M + $3M = $12M. The new investor's ownership % = money invested ÷ post-money valuation = $3M ÷ $12M = 25%. A common mistake is dividing by the PRE-money number instead of post-money, which overstates the investor's stake."
+    },
+    {
+      type: "mc",
+      question: "A founder owns 100% of their company. They sell 25% to seed investors, then later sell another 20% of the company at Series A. What percentage does the founder own after BOTH rounds?",
+      hint: "Dilution compounds, multiply the remaining percentages together, don't just subtract 25% and 20% from 100%.",
+      options: [
+        { text: "55%, from subtracting 25% and 20% directly from 100%", correct: false },
+        { text: "60%, from multiplying the founder's remaining share after each round: 75% × 80% = 60%", correct: true },
+        { text: "45%, an arbitrary guess", correct: false },
+        { text: "80%, using only the most recent round", correct: false }
+      ],
+      correctMsg: "Exactly! After selling 25%, the founder holds 75%. Selling another 20% of the company multiplies that remaining stake: 75% × 80% = 60%.",
+      wrongMsg: "Dilution compounds across rounds rather than simply subtracting. After the first round, the founder retains 75% (100% − 25%). Selling another 20% of the company in the next round means the founder retains 80% of whatever they had left: 75% × 80% = 60%. Simply subtracting 25% + 20% from 100% (getting 55%) understates the founder's true remaining ownership."
+    },
+    {
+      type: "mc",
+      question: "A $100,000 SAFE has a 20% discount rate and no valuation cap. The next priced round sells shares at $1.00 each. At what price per share does the SAFE investor's money convert, and roughly how many shares do they get?",
+      hint: "20% discount means they pay 80% of the round price. Shares = investment ÷ discounted price.",
+      options: [
+        { text: "$1.00/share, 100,000 shares, the discount doesn't change the price", correct: false },
+        { text: "$0.80/share, roughly 125,000 shares, the 20% discount lowers their effective price per share, so their money buys more shares", correct: true },
+        { text: "$1.20/share, roughly 83,000 shares", correct: false },
+        { text: "$0.20/share, 500,000 shares", correct: false }
+      ],
+      correctMsg: "Right! A 20% discount means the SAFE investor pays $1.00 × 0.80 = $0.80/share. $100,000 ÷ $0.80 = 125,000 shares, 25,000 more shares than a new investor paying full price would get for the same money.",
+      wrongMsg: "A 20% discount means the SAFE holder pays only 80% of the round's share price: $1.00 × 0.80 = $0.80/share. Dividing their $100,000 investment by that discounted price gives $100,000 ÷ $0.80 = 125,000 shares, more shares than the 100,000 a new investor would get paying full price for the same $100,000. This is the reward for investing earlier and taking on more risk."
+    },
+    {
+      type: "mc",
+      question: "Why might a savvy founder push back on giving an investor BOTH a very low valuation cap AND a large discount rate on the same SAFE?",
+      hint: "Think about what happens to the founder's ownership when the investor converts at the most favorable possible terms.",
+      options: [
+        { text: "It doesn't matter, caps and discounts never actually affect how much equity investors end up with", correct: false },
+        { text: "Stacking a low cap with a large discount maximizes the investor's share count at conversion, causing significantly more dilution to the founder and other shareholders than either term alone would", correct: true },
+        { text: "Because SAFEs with both terms are illegal", correct: false },
+        { text: "Because investors are legally required to choose only one term, never both", correct: false }
+      ],
+      correctMsg: "Exactly. A low cap paired with a big discount can compound in the investor's favor, smart founders negotiate these terms carefully because they directly determine future dilution.",
+      wrongMsg: "Caps and discounts directly change how many shares a SAFE investor receives at conversion, they are not just paperwork. An aggressively low valuation cap combined with a large discount rate can hand the investor an outsized share count relative to what they actually invested, causing much heavier dilution to the founder and other shareholders than a more balanced set of terms. This is exactly why experienced founders negotiate SAFE terms carefully instead of accepting whatever an investor first proposes."
+    }
+  ],
+  badges: [
+    { icon: "money", name: "Valuation Rookie", earned: true },
+    { icon: "star", name: "SAFE Solver", earned: ({ correct }) => correct >= 3 },
+    { icon: "brain", name: "Dilution Detective", earned: ({ correct }) => correct >= 4 },
+    { icon: "perfect", name: "Perfect Score", earned: ({ score }) => score === 100 },
+    { icon: "heart", name: "All Hearts", earned: ({ hearts }) => hearts === 3 },
+    { icon: "trophy", name: "Cap Table Master", earned: ({ score, hearts }) => score >= 80 && hearts >= 2 }
+  ]
+});
+</script>
+</body>
+</html>

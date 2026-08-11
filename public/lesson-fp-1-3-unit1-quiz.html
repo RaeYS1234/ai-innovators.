@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Unit 1 Check | AI Innovators</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="lesson-shared.css">
+</head>
+<body>
+<div class="app">
+  <div class="topbar" id="topbar" style="display:none;">
+    <button class="close-btn" id="closeBtn">×</button>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="hearts">
+      <svg class="heart-svg" viewBox="0 0 32 32"><path d="M16 28 C 6 20 2 14 2 10 C 2 6 5 3 9 3 C 12 3 14 5 16 8 C 18 5 20 3 23 3 C 27 3 30 6 30 10 C 30 14 26 20 16 28 Z" fill="#ec4899" stroke="#be185d" stroke-width="1.5"/></svg>
+      <span id="heartsCount">3</span>
+    </div>
+  </div>
+  <div class="screen active" id="screen-welcome">
+    <div class="lesson-tag" id="lesson-tag">LESSON</div>
+    <div class="mascot" id="welcomeMascot"></div>
+    <h1 class="welcome-title" id="welcome-title"></h1>
+    <p class="welcome-subtitle" id="welcome-subtitle"></p>
+    <button class="btn go" id="startBtn">Let's Go!</button>
+  </div>
+  <div class="screen" id="screen-lesson"></div>
+  <div class="screen" id="screen-complete">
+    <div class="mascot" id="completeMascot"></div>
+    <h1 class="complete-title">Lesson Complete!</h1>
+    <p class="complete-subtitle">Awesome work! Here's what you earned:</p>
+    <div class="stats-row">
+      <div class="stat-box"><div class="stat-label">XP Earned</div><div class="stat-value xp" id="finalXP">0</div></div>
+      <div class="stat-box"><div class="stat-label">Score</div><div class="stat-value score" id="finalScore">0%</div></div>
+      <div class="stat-box"><div class="stat-label">Hearts Left</div><div class="stat-value" style="color:#ef4444;" id="finalHearts">3</div></div>
+    </div>
+    <h3 style="margin: 28px 0 14px; color: #0c4a6e; font-weight: 900; font-family:'Nunito',sans-serif;">Badges You Earned:</h3>
+    <div class="badge-grid" id="badgeGrid"></div>
+    <button class="btn go" id="backToCourseBtn">Back to Course →</button>
+    <button class="btn ghost" style="margin-top:12px;" id="playAgainBtn">Play Again</button>
+  </div>
+  <div class="screen" id="screen-gameover">
+    <div class="mascot" id="gameoverMascot"></div>
+    <h1 class="complete-title" style="color:#b91c1c;">Out of Hearts!</h1>
+    <p class="complete-subtitle">Try again! You got this!</p>
+    <button class="btn danger" id="retryBtn">Try Again</button>
+  </div>
+</div>
+<div class="feedback" id="feedback">
+  <div class="feedback-inner">
+    <div><div class="feedback-text" id="feedbackText"></div><div class="feedback-explain" id="feedbackExplain"></div></div>
+    <button class="btn go" onclick="window._lessonNext()">Continue</button>
+  </div>
+</div>
+<script src="lesson-engine.js"></script>
+<script>
+runLesson({
+  lessonId: "first-pitch-1-3",
+  courseUrl: "course-first-pitch.html",
+  tag: "UNIT 1 CHECK",
+  title: "Unit 1 Quiz",
+  subtitle: "Prove you know the anatomy of a pitch and how to nail a problem statement.",
+  steps: [
+    {
+      type: "mc",
+      question: "Put these in the right pitch order: Solution, Ask, Problem, Traction, Market.",
+      hint: "What has to feel real before anyone cares about the fix?",
+      options: [
+        { text: "Problem, Solution, Market, Traction, Ask", correct: true },
+        { text: "Ask, Problem, Solution, Market, Traction", correct: false },
+        { text: "Solution, Problem, Ask, Market, Traction", correct: false },
+        { text: "Market, Traction, Ask, Problem, Solution", correct: false }
+      ],
+      correctMsg: "Right! Problem earns attention, Solution earns interest, Market earns scale, Traction earns trust, and the Ask earns a decision.",
+      wrongMsg: "The correct order is Problem, Solution, Market, Traction, Ask, each step earns the right to move to the next one."
+    },
+    {
+      type: "mc",
+      question: "What makes a problem statement 'sharp' instead of vague?",
+      hint: "Vague problems could apply to any business.",
+      options: [
+        { text: "It's short and rhymes", correct: false },
+        { text: "It names a specific person, a specific pain, and why it matters", correct: true },
+        { text: "It uses big, impressive-sounding words", correct: false },
+        { text: "It mentions a celebrity", correct: false }
+      ],
+      correctMsg: "Exactly! Specific person, specific pain, real consequence.",
+      wrongMsg: "A sharp problem statement names WHO struggles, WHAT they struggle with, and WHY it actually matters, not vague, impressive-sounding words."
+    },
+    {
+      type: "mc",
+      question: "What is a Unique Value Proposition (UVP)?",
+      hint: "It's about being the BETTER choice.",
+      options: [
+        { text: "The one sentence explaining why your solution beats the alternatives", correct: true },
+        { text: "Your company's logo colors", correct: false },
+        { text: "A list of every feature you could ever build", correct: false },
+        { text: "The date your company was founded", correct: false }
+      ],
+      correctMsg: "Right! A UVP explains why you're the better choice, not just a choice.",
+      wrongMsg: "A UVP is the one sentence explaining why your solution is a better pick than the other options, including doing nothing."
+    },
+    {
+      type: "mc",
+      question: "What does 'traction' prove to a listener?",
+      hint: "It's proof, not a promise.",
+      options: [
+        { text: "That you have a nice-looking website", correct: false },
+        { text: "That real people already want or use what you're offering", correct: true },
+        { text: "That your idea is original", correct: false },
+        { text: "That you spent a lot of money", correct: false }
+      ],
+      correctMsg: "Yes! Traction is real evidence, sales, users, or growth, not a hopeful guess.",
+      wrongMsg: "Traction proves real people already want or use your offering, through real sales, users, or growth, not a hopeful guess."
+    },
+    {
+      type: "mc",
+      question: "A pitch with 10 unrelated features and a vague problem statement will most likely:",
+      hint: "Think about what a confused listener does.",
+      options: [
+        { text: "Impress everyone with how much work went into it", correct: false },
+        { text: "Confuse the listener because the fix doesn't clearly map to a real pain", correct: true },
+        { text: "Automatically win, because more features means more value", correct: false },
+        { text: "Guarantee funding no matter what", correct: false }
+      ],
+      correctMsg: "Correct! Without a sharp problem and a matching solution, extra features just create confusion.",
+      wrongMsg: "A vague problem plus unrelated features confuses listeners, a tight problem-to-solution map is what makes a pitch feel obvious."
+    }
+  ],
+  badges: [
+    { icon: "starter", name: "Unit 1 Complete", earned: true },
+    { icon: "star", name: "Quiz Sharp", earned: ({ correct }) => correct >= 2 },
+    { icon: "brain", name: "Pitch Wise", earned: ({ correct }) => correct >= 4 },
+    { icon: "perfect", name: "Perfect Score", earned: ({ score }) => score === 100 },
+    { icon: "heart", name: "All Hearts", earned: ({ hearts }) => hearts === 3 },
+    { icon: "trophy", name: "Unit 1 Champion", earned: ({ score, hearts }) => score >= 80 && hearts >= 2 }
+  ]
+});
+</script>
+</body>
+</html>

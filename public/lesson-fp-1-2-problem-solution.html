@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Nail the Problem First | AI Innovators</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="lesson-shared.css">
+</head>
+<body>
+<div class="app">
+  <div class="topbar" id="topbar" style="display:none;">
+    <button class="close-btn" id="closeBtn">×</button>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="hearts">
+      <svg class="heart-svg" viewBox="0 0 32 32"><path d="M16 28 C 6 20 2 14 2 10 C 2 6 5 3 9 3 C 12 3 14 5 16 8 C 18 5 20 3 23 3 C 27 3 30 6 30 10 C 30 14 26 20 16 28 Z" fill="#ec4899" stroke="#be185d" stroke-width="1.5"/></svg>
+      <span id="heartsCount">3</span>
+    </div>
+  </div>
+  <div class="screen active" id="screen-welcome">
+    <div class="lesson-tag" id="lesson-tag">LESSON</div>
+    <div class="mascot" id="welcomeMascot"></div>
+    <h1 class="welcome-title" id="welcome-title"></h1>
+    <p class="welcome-subtitle" id="welcome-subtitle"></p>
+    <button class="btn go" id="startBtn">Let's Go!</button>
+  </div>
+  <div class="screen" id="screen-lesson"></div>
+  <div class="screen" id="screen-complete">
+    <div class="mascot" id="completeMascot"></div>
+    <h1 class="complete-title">Lesson Complete!</h1>
+    <p class="complete-subtitle">Awesome work! Here's what you earned:</p>
+    <div class="stats-row">
+      <div class="stat-box"><div class="stat-label">XP Earned</div><div class="stat-value xp" id="finalXP">0</div></div>
+      <div class="stat-box"><div class="stat-label">Score</div><div class="stat-value score" id="finalScore">0%</div></div>
+      <div class="stat-box"><div class="stat-label">Hearts Left</div><div class="stat-value" style="color:#ef4444;" id="finalHearts">3</div></div>
+    </div>
+    <h3 style="margin: 28px 0 14px; color: #0c4a6e; font-weight: 900; font-family:'Nunito',sans-serif;">Badges You Earned:</h3>
+    <div class="badge-grid" id="badgeGrid"></div>
+    <button class="btn go" id="backToCourseBtn">Back to Course →</button>
+    <button class="btn ghost" style="margin-top:12px;" id="playAgainBtn">Play Again</button>
+  </div>
+  <div class="screen" id="screen-gameover">
+    <div class="mascot" id="gameoverMascot"></div>
+    <h1 class="complete-title" style="color:#b91c1c;">Out of Hearts!</h1>
+    <p class="complete-subtitle">Try again! You got this!</p>
+    <button class="btn danger" id="retryBtn">Try Again</button>
+  </div>
+</div>
+<div class="feedback" id="feedback">
+  <div class="feedback-inner">
+    <div><div class="feedback-text" id="feedbackText"></div><div class="feedback-explain" id="feedbackExplain"></div></div>
+    <button class="btn go" onclick="window._lessonNext()">Continue</button>
+  </div>
+</div>
+<script src="lesson-engine.js"></script>
+<script>
+const UVP_ICON = `<svg viewBox="0 0 64 64"><circle cx="32" cy="24" r="16" fill="#fef3c7" stroke="#d97706" stroke-width="2.5"/><path d="M 24 24 L 30 30 L 42 16" stroke="#d97706" stroke-width="3.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M 20 48 C 20 40 25 36 32 36 C 39 36 44 40 44 48 Z" fill="#7c3aed" stroke="#4c1d95" stroke-width="2"/></svg>`;
+
+runLesson({
+  lessonId: "first-pitch-1-2",
+  courseUrl: "course-first-pitch.html",
+  tag: "UNIT 1 · LESSON 1.2",
+  title: "Nail the Problem First",
+  subtitle: "A vague problem gets a vague reaction. Here's how to make yours sharp, and your solution obvious.",
+  steps: [
+    {
+      type: "vocab",
+      word: "Unique Value Proposition (UVP)",
+      pronounce: "say it: YOO-neek VAL-yoo prop-oh-ZI-shun",
+      definition: "Your <b>unique value proposition</b> is the one sentence that explains why someone should pick YOUR solution over every other option, including doing nothing at all. It's not just what you do, it's why you're the <b>better</b> choice.",
+      example: "Airbnb's early pitch didn't just say 'we rent out rooms.' Their UVP was that travelers could stay in real homes for less money than a hotel, and hosts could earn extra cash from space they already had. That's a UVP, specific, and better than the alternative.",
+      icon: UVP_ICON
+    },
+    {
+      type: "teach",
+      title: "A Weak Problem Sounds Like This",
+      body: "'People need better ways to communicate.' Sounds true, but it's so broad it's meaningless, EVERY app in history could claim that. A weak problem statement is vague, isn't tied to a specific person, and doesn't explain what happens if it stays unsolved. If your problem could apply to literally any business, it's not sharp enough yet.",
+      examples: ["Too broad ('people need X')", "No specific person affected", "No real consequence shown", "Could describe any business"]
+    },
+    {
+      type: "teach",
+      title: "A Strong Problem Is Specific",
+      body: "A sharp problem statement names WHO struggles, WHAT they struggle with, and WHY it actually matters. 'Middle schoolers waste 20 minutes every morning deciding what to wear because their closet isn't organized by outfit' is specific enough that you can picture it happening. Once the problem is sharp, your solution should map to it directly, one clear fix per pain point, not ten features bolted together.",
+      examples: ["Names the specific person", "Names the specific pain", "Shows why it matters", "Solution maps directly to it"]
+    },
+    {
+      type: "mc",
+      question: "Which problem statement is SHARP enough for a real pitch?",
+      hint: "Look for the one naming a specific person and a specific pain.",
+      options: [
+        { text: "People need better technology.", correct: false },
+        { text: "Youth soccer coaches spend 2+ hours a week texting parents individually about schedule changes.", correct: true },
+        { text: "The world has too many problems.", correct: false },
+        { text: "Things could always be improved somehow.", correct: false }
+      ],
+      correctMsg: "Yes! It names a specific person (coaches), a specific pain (2+ hours texting), and why it matters.",
+      wrongMsg: "The coaches example is sharp because it names WHO (youth soccer coaches), WHAT (texting parents individually), and roughly how much it costs them (2+ hours a week)."
+    },
+    {
+      type: "mc",
+      question: "What is a Unique Value Proposition (UVP)?",
+      hint: "It's about being the BETTER choice, not just a choice.",
+      options: [
+        { text: "A random slogan with no real meaning", correct: false },
+        { text: "The one sentence explaining why your solution is the better pick over other options", correct: true },
+        { text: "The price of your product", correct: false },
+        { text: "Your company's mailing address", correct: false }
+      ],
+      correctMsg: "Correct! A UVP is the sentence that proves you're the better choice, not just a choice.",
+      wrongMsg: "A UVP is the one sentence explaining why someone should pick YOUR solution over other options, including doing nothing."
+    },
+    {
+      type: "mc",
+      question: "Which UVP is strongest for a dog-walking app?",
+      hint: "Look for the one comparing against a real alternative.",
+      options: [
+        { text: "We walk dogs.", correct: false },
+        { text: "Unlike hiring a random neighbor, every walker on our app is background-checked and GPS-tracked in real time.", correct: true },
+        { text: "Dogs are great pets.", correct: false },
+        { text: "We are a very good company.", correct: false }
+      ],
+      correctMsg: "Right! It names the alternative (a random neighbor) and explains exactly why this option is better (checked, tracked).",
+      wrongMsg: "The strongest UVP compares directly against a real alternative and explains the specific advantage, 'unlike hiring a random neighbor, every walker is background-checked and GPS-tracked.'"
+    },
+    {
+      type: "mc",
+      question: "Airbnb's early UVP worked for TWO different groups. Which pair is correct?",
+      hint: "Think about who pays and who gets paid.",
+      options: [
+        { text: "Only hotels benefited", correct: false },
+        { text: "Travelers got a cheaper stay in a real home; hosts earned extra cash from space they already had", correct: true },
+        { text: "Only travelers benefited, hosts got nothing", correct: false },
+        { text: "It was designed only for business travelers", correct: false }
+      ],
+      correctMsg: "Exactly! A strong UVP can solve real pain on both sides of a marketplace at once.",
+      wrongMsg: "Airbnb's UVP worked for two sides: travelers got a cheaper, more real stay, and hosts earned money from space they already owned."
+    },
+    {
+      type: "mc",
+      question: "Why should your SOLUTION map directly to your problem statement?",
+      hint: "Think about what happens when a pitch has 10 features but only 1 real problem.",
+      options: [
+        { text: "So the pitch sounds impressive with more features", correct: false },
+        { text: "So the listener can clearly see how your fix solves the exact pain you just described", correct: true },
+        { text: "Because more features always mean more money", correct: false },
+        { text: "It doesn't matter, problem and solution are unrelated", correct: false }
+      ],
+      correctMsg: "Yes! A tight problem-to-solution map is what makes a pitch feel obvious and easy to say yes to.",
+      wrongMsg: "The solution should map directly to the problem so the listener can clearly connect your fix to the exact pain you named, extra unrelated features just create confusion."
+    }
+  ],
+  badges: [
+    { icon: "starter", name: "Problem Solver", earned: true },
+    { icon: "bulb", name: "Sharp Thinker", earned: ({ correct }) => correct >= 2 },
+    { icon: "brain", name: "UVP Master", earned: ({ correct }) => correct >= 4 },
+    { icon: "perfect", name: "Perfect Score", earned: ({ score }) => score === 100 },
+    { icon: "heart", name: "All Hearts", earned: ({ hearts }) => hearts === 3 },
+    { icon: "trophy", name: "Founder-in-Training", earned: ({ score, hearts }) => score >= 80 && hearts >= 2 }
+  ]
+});
+</script>
+</body>
+</html>

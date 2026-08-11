@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>AI Innovators — Pricing</title>
+<meta name="description" content="Simple pricing for AI Innovators — try it free, upgrade for the full course library.">
+<link rel="icon" type="image/svg+xml" href="/app-icon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+  html { scroll-behavior: smooth; }
+  html, body {
+    font-family: "Fredoka", "Nunito", -apple-system, sans-serif;
+    background: #e0f2fe;
+    color: #0c1e3e;
+    overflow-x: hidden;
+    line-height: 1.5;
+  }
+  button, a, input { font-family: inherit; cursor: pointer; border: none; outline: none; text-decoration: none; }
+  button:focus-visible, a:focus-visible { outline: 3px solid #0ea5e9; outline-offset: 3px; border-radius: 8px; }
+  svg { display: block; }
+
+  /* ============ NAV ============ */
+  nav {
+    background: white;
+    padding: 14px 28px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 2px 10px rgba(14, 165, 233, 0.08);
+    position: sticky;
+    top: 0;
+    z-index: 50;
+  }
+  .logo { display: flex; align-items: center; gap: 12px; font-weight: 800; font-size: 20px; color: #0c1e3e; background: transparent; }
+  .logo-icon { width: 40px; height: 40px; background: #fef3c7; border-radius: 12px; display: flex; align-items: center; justify-content: center; }
+  .nav-links { display: flex; gap: 6px; align-items: center; }
+  .nav-links a { padding: 10px 16px; color: #475569; font-weight: 600; border-radius: 10px; transition: all 0.15s; font-size: 15px; }
+  .nav-links a:hover { background: #f0f9ff; color: #0ea5e9; }
+  .enroll-btn {
+    background: #0ea5e9 !important; color: white !important;
+    padding: 10px 20px; border-radius: 12px; font-weight: 800;
+    box-shadow: 0 3px 0 #0284c7; transition: all 0.1s;
+  }
+  .enroll-btn:active { transform: translateY(2px); box-shadow: 0 1px 0 #0284c7; }
+
+  /* ============ HERO ============ */
+  .hero { max-width: 780px; margin: 0 auto; padding: 56px 20px 20px; text-align: center; }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px; background: #fef3c7; color: #78350f;
+    padding: 8px 16px; border-radius: 999px; font-weight: 700; font-size: 14px; margin-bottom: 18px;
+    box-shadow: 0 3px 0 #fbbf24;
+  }
+  h1 { font-family: "Nunito", sans-serif; font-size: 40px; font-weight: 900; margin-bottom: 14px; letter-spacing: -0.5px; }
+  h1 .highlight { color: #0ea5e9; }
+  .hero p.lead { font-size: 18px; color: #475569; font-weight: 500; max-width: 560px; margin: 0 auto; }
+
+  /* ============ TOGGLE ============ */
+  .toggle-wrap { display: flex; align-items: center; justify-content: center; gap: 14px; margin: 32px auto 8px; }
+  .toggle-label { font-weight: 700; color: #64748b; font-size: 15px; }
+  .toggle-label.active { color: #0c1e3e; }
+  .switch { position: relative; width: 56px; height: 30px; background: #0ea5e9; border-radius: 999px; }
+  .switch::after {
+    content: ""; position: absolute; top: 3px; left: 3px; width: 24px; height: 24px;
+    background: white; border-radius: 50%; transition: transform 0.2s; box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+  }
+  .switch.yearly::after { transform: translateX(26px); }
+  .save-chip {
+    background: #dcfce7; color: #166534; font-size: 12px; font-weight: 800;
+    padding: 4px 10px; border-radius: 999px;
+  }
+
+  /* ============ PLANS ============ */
+  .plans {
+    max-width: 980px; margin: 36px auto 0; padding: 0 20px;
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; align-items: stretch;
+  }
+  .plan-card {
+    background: white; border-radius: 24px; padding: 28px 24px;
+    box-shadow: 0 4px 20px rgba(14,165,233,0.08); border: 2px solid transparent;
+    display: flex; flex-direction: column;
+  }
+  .plan-card.featured {
+    border-color: #0ea5e9; position: relative; transform: translateY(-8px);
+    box-shadow: 0 10px 30px rgba(14,165,233,0.2);
+  }
+  .featured-tag {
+    position: absolute; top: -14px; left: 50%; transform: translateX(-50%);
+    background: #fbbf24; color: #78350f; font-size: 12px; font-weight: 800;
+    padding: 5px 14px; border-radius: 999px; white-space: nowrap;
+    box-shadow: 0 3px 0 #d97706;
+  }
+  .plan-icon {
+    width: 52px; height: 52px; border-radius: 14px; display: flex; align-items: center;
+    justify-content: center; margin-bottom: 14px;
+  }
+  .plan-name { font-family: "Nunito", sans-serif; font-size: 20px; font-weight: 900; margin-bottom: 4px; }
+  .plan-desc { font-size: 14px; color: #64748b; font-weight: 500; margin-bottom: 18px; min-height: 40px; }
+  .plan-price { display: flex; align-items: baseline; gap: 4px; margin-bottom: 4px; }
+  .plan-price .amount { font-family: "Nunito", sans-serif; font-size: 36px; font-weight: 900; }
+  .plan-price .period { font-size: 14px; color: #64748b; font-weight: 600; }
+  .plan-subnote { font-size: 12px; color: #94a3b8; font-weight: 600; margin-bottom: 22px; min-height: 16px; }
+  .plan-cta {
+    display: block; text-align: center; padding: 13px; border-radius: 12px;
+    font-weight: 800; font-size: 15px; margin-bottom: 22px; transition: all 0.1s;
+  }
+  .plan-cta.primary { background: #0ea5e9; color: white; box-shadow: 0 3px 0 #0284c7; }
+  .plan-cta.primary:active { transform: translateY(2px); box-shadow: 0 1px 0 #0284c7; }
+  .plan-cta.secondary { background: #f0f9ff; color: #0ea5e9; box-shadow: 0 3px 0 #dbeafe; }
+  .plan-cta.secondary:active { transform: translateY(2px); box-shadow: 0 1px 0 #dbeafe; }
+  .plan-features { list-style: none; display: flex; flex-direction: column; gap: 11px; margin-top: auto; }
+  .plan-features li { display: flex; align-items: flex-start; gap: 10px; font-size: 14px; font-weight: 600; color: #334155; }
+  .plan-features li.dim { color: #cbd5e1; }
+  .feat-check { flex-shrink: 0; width: 20px; height: 20px; margin-top: 1px; color: #22c55e; }
+  .feat-check.dim { color: #e2e8f0; }
+
+  /* ============ COMPARE / FAQ ============ */
+  .section-title { text-align: center; font-family: "Nunito", sans-serif; font-size: 26px; font-weight: 900; margin: 64px 0 24px; }
+  .faq { max-width: 700px; margin: 0 auto; padding: 0 20px 60px; display: flex; flex-direction: column; gap: 12px; }
+  .faq-item { background: white; border-radius: 16px; padding: 18px 22px; box-shadow: 0 2px 10px rgba(14,165,233,0.06); }
+  .faq-q { font-weight: 800; font-size: 15px; margin-bottom: 6px; display: flex; gap: 10px; align-items: center; }
+  .faq-a { font-size: 14px; color: #64748b; font-weight: 500; line-height: 1.6; }
+
+  .draft-banner {
+    background: #fef3c7; color: #78350f; text-align: center; font-weight: 700; font-size: 13px;
+    padding: 10px 16px;
+  }
+
+  footer { text-align: center; padding: 30px 20px 40px; color: #94a3b8; font-size: 13px; }
+
+  @media (max-width: 860px) {
+    .plans { grid-template-columns: 1fr; max-width: 420px; }
+    .plan-card.featured { transform: none; }
+    h1 { font-size: 30px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="draft-banner">🚧 Draft preview — not linked anywhere on the live site yet, just here for you to look at</div>
+
+<svg width="0" height="0" style="position:absolute" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <symbol id="i-rocket" viewBox="0 0 32 32">
+      <path d="M16 2 C 11 7 8 13 8 18 L 8 24 L 12 22 L 12 26 L 16 24 L 20 26 L 20 22 L 24 24 L 24 18 C 24 13 21 7 16 2 Z" fill="#0ea5e9" stroke="#0284c7" stroke-width="1.5" stroke-linejoin="round"/>
+      <circle cx="16" cy="14" r="3" fill="#fbbf24" stroke="#d97706" stroke-width="1"/>
+      <path d="M10 22 L 6 28 L 12 26" fill="#fbbf24" stroke="#d97706" stroke-width="1" stroke-linejoin="round"/>
+      <path d="M22 22 L 26 28 L 20 26" fill="#fbbf24" stroke="#d97706" stroke-width="1" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="i-star" viewBox="0 0 32 32">
+      <path d="M16 3 L 20 12 L 30 13 L 22 20 L 25 30 L 16 24 L 7 30 L 10 20 L 2 13 L 12 12 Z" fill="#fbbf24" stroke="#d97706" stroke-width="1.5" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="i-check" viewBox="0 0 32 32">
+      <circle cx="16" cy="16" r="16" fill="currentColor" opacity="0.15"/>
+      <path d="M9 16 L 14 21 L 23 11" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+    </symbol>
+    <symbol id="i-crown" viewBox="0 0 32 32">
+      <path d="M4 12 L 9 18 L 12 10 L 16 16 L 20 10 L 23 18 L 28 12 L 26 24 L 6 24 Z" fill="#fbbf24" stroke="#d97706" stroke-width="1.5" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="i-heart" viewBox="0 0 32 32">
+      <path d="M16 28 C 6 20 2 14 2 10 C 2 6 5 3 9 3 C 12 3 14 5 16 8 C 18 5 20 3 23 3 C 27 3 30 6 30 10 C 30 14 26 20 16 28 Z" fill="#ec4899" stroke="#be185d" stroke-width="1.5" stroke-linejoin="round"/>
+    </symbol>
+  </defs>
+</svg>
+
+<nav>
+  <div class="logo">
+    <div class="logo-icon"><svg width="24" height="24"><use href="#i-rocket"/></svg></div>
+    <span>AI <span style="color:#fbbf24;">Innovators</span></span>
+  </div>
+  <div class="nav-links">
+    <a href="homepage-kidfriendly.html">Home</a>
+    <a href="enroll.html" class="enroll-btn">Enroll</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-badge"><svg width="16" height="16"><use href="#i-star"/></svg> Simple, fair pricing</div>
+  <h1>Learn to build, earn <span class="highlight">& save</span></h1>
+  <p class="lead">Start free. Upgrade any time to unlock every course, badge, and certificate — no long contracts, cancel whenever.</p>
+</section>
+
+<div class="toggle-wrap">
+  <span class="toggle-label active" id="labelMonthly">Monthly</span>
+  <button class="switch" id="billingSwitch" aria-label="Toggle yearly billing"></button>
+  <span class="toggle-label" id="labelYearly">Yearly</span>
+  <span class="save-chip">Save 38%</span>
+</div>
+
+<div class="plans">
+
+  <!-- FREE -->
+  <div class="plan-card">
+    <div class="plan-icon" style="background:#f0f9ff;"><svg width="28" height="28" style="color:#0ea5e9;"><use href="#i-rocket"/></svg></div>
+    <div class="plan-name">Free</div>
+    <div class="plan-desc">Try it out, no card needed</div>
+    <div class="plan-price"><span class="amount">$0</span></div>
+    <div class="plan-subnote">forever</div>
+    <a href="enroll.html" class="plan-cta secondary">Start Free</a>
+    <ul class="plan-features">
+      <li><svg class="feat-check" width="20" height="20"><use href="#i-check"/></svg> First unit of every course</li>
+      <li><svg class="feat-check" width="20" height="20"><use href="#i-check"/></svg> XP, streaks & profile</li>
+      <li class="dim"><svg class="feat-check dim" width="20" height="20"><use href="#i-check"/></svg> Unlimited hearts</li>
+      <li class="dim"><svg class="feat-check dim" width="20" height="20"><use href="#i-check"/></svg> Full course library</li>
+      <li class="dim"><svg class="feat-check dim" width="20" height="20"><use href="#i-check"/></svg> Certificates & badges</li>
+    </ul>
+  </div>
+
+  <!-- PREMIUM -->
+  <div class="plan-card featured">
+    <div class="featured-tag">⭐ Most popular</div>
+    <div class="plan-icon" style="background:#fef3c7;"><svg width="28" height="28" style="color:#d97706;"><use href="#i-crown"/></svg></div>
+    <div class="plan-name">Premium</div>
+    <div class="plan-desc">Everything unlocked, for one kid</div>
+    <div class="plan-price">
+      <span class="amount" id="premiumPrice">$7.99</span>
+      <span class="period" id="premiumPeriod">/ month</span>
+    </div>
+    <div class="plan-subnote" id="premiumSubnote">7-day free trial, cancel anytime</div>
+    <a href="enroll.html" class="plan-cta primary">Start Free Trial</a>
+    <ul class="plan-features">
+      <li><svg class="feat-check" width="20" height="20"><use href="#i-check"/></svg> Everything in Free</li>
+      <li><svg class="feat-check" width="20" height="20"><use href="#i-check"/></svg> All courses &amp; every unit</li>
+      <li><svg class="feat-check" width="20" height="20"><use href="#i-check"/></svg> Unlimited hearts — never game over</li>
+      <li><svg class="feat-check" width="20" height="20"><use href="#i-check"/></svg> Quizzes &amp; end-of-unit challenges</li>
+      <li><svg class="feat-check" width="20" height="20"><use href="#i-check"/></svg> Certificates &amp; achievement badges</li>
+      <li><svg class="feat-check" width="20" height="20"><use href="#i-check"/></svg> Full progress dashboard</li>
+      <li><svg class="feat-check" width="20" height="20"><use href="#i-check"/></svg> New courses as they launch</li>
+    </ul>
+  </div>
+
+  <!-- FAMILY -->
+  <div class="plan-card">
+    <div class="plan-icon" style="background:#fce7f3;"><svg width="28" height="28" style="color:#ec4899;"><use href="#i-heart"/></svg></div>
+    <div class="plan-name">Family</div>
+    <div class="plan-desc">Premium for up to 4 kids</div>
+    <div class="plan-price">
+      <span class="amount" id="familyPrice">$11.99</span>
+      <span class="period" id="familyPeriod">/ month</span>
+    </div>
+    <div class="plan-subnote" id="familySubnote">7-day free trial, cancel anytime</div>
+    <a href="enroll.html" class="plan-cta secondary">Start Free Trial</a>
+    <ul class="plan-features">
+      <li><svg class="feat-check" width="20" height="20"><use href="#i-check"/></svg> Everything in Premium</li>
+      <li><svg class="feat-check" width="20" height="20"><use href="#i-check"/></svg> Up to 4 kid profiles</li>
+      <li><svg class="feat-check" width="20" height="20"><use href="#i-check"/></svg> Separate progress per kid</li>
+      <li><svg class="feat-check" width="20" height="20"><use href="#i-check"/></svg> One shared parent login</li>
+    </ul>
+  </div>
+
+</div>
+
+<h2 class="section-title">Questions parents ask</h2>
+<div class="faq">
+  <div class="faq-item">
+    <div class="faq-q">💳 Do I need a credit card to try it?</div>
+    <div class="faq-a">Nope — the Free plan needs no card at all. The 7-day trial on Premium/Family will ask for one, but you won't be charged until the trial ends, and you can cancel anytime before that.</div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q">🔁 Can I switch between monthly and yearly?</div>
+    <div class="faq-a">Yes, anytime from your account settings. Switching to yearly locks in the discounted rate right away.</div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q">❌ What happens if I cancel?</div>
+    <div class="faq-a">Your kid keeps access until the end of the billing period, then drops back to the Free plan — no progress is lost.</div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q">🏫 Do you offer school or classroom pricing?</div>
+    <div class="faq-a">Coming soon! If you're a teacher interested in a classroom license, reach out and we'll set you up.</div>
+  </div>
+</div>
+
+<footer>
+  <p>© 2026 AI Innovators — Real business + AI lessons for kids.</p>
+</footer>
+
+<script>
+  const sw = document.getElementById('billingSwitch');
+  const labelM = document.getElementById('labelMonthly');
+  const labelY = document.getElementById('labelYearly');
+  const premiumPrice = document.getElementById('premiumPrice');
+  const premiumPeriod = document.getElementById('premiumPeriod');
+  const premiumSubnote = document.getElementById('premiumSubnote');
+  const familyPrice = document.getElementById('familyPrice');
+  const familyPeriod = document.getElementById('familyPeriod');
+  const familySubnote = document.getElementById('familySubnote');
+
+  let yearly = false;
+  sw.addEventListener('click', () => {
+    yearly = !yearly;
+    sw.classList.toggle('yearly', yearly);
+    labelM.classList.toggle('active', !yearly);
+    labelY.classList.toggle('active', yearly);
+
+    if (yearly) {
+      premiumPrice.textContent = '$59';
+      premiumPeriod.textContent = '/ year';
+      premiumSubnote.textContent = 'billed annually · 7-day free trial';
+      familyPrice.textContent = '$89';
+      familyPeriod.textContent = '/ year';
+      familySubnote.textContent = 'billed annually · 7-day free trial';
+    } else {
+      premiumPrice.textContent = '$7.99';
+      premiumPeriod.textContent = '/ month';
+      premiumSubnote.textContent = '7-day free trial, cancel anytime';
+      familyPrice.textContent = '$11.99';
+      familyPeriod.textContent = '/ month';
+      familySubnote.textContent = '7-day free trial, cancel anytime';
+    }
+  });
+</script>
+
+</body>
+</html>

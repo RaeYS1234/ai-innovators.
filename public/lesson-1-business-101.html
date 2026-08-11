@@ -801,7 +801,7 @@
   .nova-popup-close { background: transparent; border: none; color: #94a3b8; font-size: 20px; cursor: pointer; padding: 0; line-height: 1; }
   .nova-popup-close:hover { color: #0c4a6e; }
 
-  /* ============ MOBILE — PHONE (under 600px) ============ */
+  /* ============ MOBILE, PHONE (under 600px) ============ */
   @media (max-width: 600px) {
     /* Tighter app padding */
     .app { padding: 10px; }
@@ -994,7 +994,7 @@
 </div>
 
 <script>
-// ============ NOVA THE ASTRONAUT (mochi/sanrio style — SUPER cute) ============
+// ============ NOVA THE ASTRONAUT (mochi/sanrio style, SUPER cute) ============
 function novaSVG(mood) {
   // mood: "happy" | "cheer" | "sad"
   const eyes = mood === "sad"
@@ -1120,7 +1120,7 @@ const STEPS = [
       <line x1="40" y1="25" x2="40" y2="28" stroke="#15803d" stroke-width="1.5"/>
     </svg>`,
     title: "What is a Business?",
-    body: "A <b>business</b> is when someone makes or sells something that other people want to buy. Businesses are everywhere — your favorite store, the pizza place down the street, even a lemonade stand!",
+    body: "A <b>business</b> is when someone makes or sells something that other people want to buy. Businesses are everywhere, your favorite store, the pizza place down the street, even a lemonade stand!",
     examples: ["Pizza shop", "Clothing store", "Video game maker"]
   },
 
@@ -1361,7 +1361,7 @@ const STEPS = [
     type: "vocab",
     word: "Marketing",
     pronounce: "say it: MAR-kit-ing",
-    definition: "<b>Marketing</b> is how you tell people about your business. It's like saying \"Hey! Come check out my cool stuff!\" — through signs, social media, ads, or word of mouth.",
+    definition: "<b>Marketing</b> is how you tell people about your business. It's like saying \"Hey! Come check out my cool stuff!\", through signs, social media, ads, or word of mouth.",
     example: "Posting a video about your lemonade stand on TikTok = marketing!",
     emoji: `<svg viewBox="0 0 64 64" style="width:80px;height:80px;"><path d="M8 24 L 8 40 L 16 40 L 44 52 L 44 12 L 16 24 Z" fill="#fbbf24" stroke="#d97706" stroke-width="2.5" stroke-linejoin="round"/><path d="M44 20 C 50 22 54 26 54 32 C 54 38 50 42 44 44" fill="none" stroke="#d97706" stroke-width="3" stroke-linecap="round"/></svg>`
   },
@@ -1896,15 +1896,15 @@ function finishLesson() {
       user.completedLessons = user.completedLessons || [];
       const isFirstCompletion = !user.completedLessons.includes("business-101-1-1");
 
-      // XP — always award
+      // XP, always award
       user.xp = (user.xp || 0) + xp;
 
-      // Hearts — +1 for finishing perfectly (3 hearts), first time only
+      // Hearts, +1 for finishing perfectly (3 hearts), first time only
       if (isFirstCompletion && hearts === 3) {
         user.hearts = (user.hearts || 0) + 1;
       }
 
-      // Badges — count newly earned, first time only
+      // Badges, count newly earned, first time only
       if (isFirstCompletion) {
         const earned = document.querySelectorAll(".badge.earned").length;
         user.badges = (user.badges || 0) + earned;
@@ -1920,7 +1920,7 @@ function finishLesson() {
         }
       }
 
-      // Day Streak — bump if new day, reset if a day was skipped
+      // Day Streak, bump if new day, reset if a day was skipped
       const today = new Date().toDateString();
       if (user.lastActivityDate !== today) {
         if (user.lastActivityDate) {

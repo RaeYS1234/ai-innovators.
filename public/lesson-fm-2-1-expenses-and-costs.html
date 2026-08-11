@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Expenses & Cost Structure | AI Innovators</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="lesson-shared.css">
+</head>
+<body>
+<div class="app">
+  <div class="topbar" id="topbar" style="display:none;">
+    <button class="close-btn" id="closeBtn">×</button>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="hearts">
+      <svg class="heart-svg" viewBox="0 0 32 32"><path d="M16 28 C 6 20 2 14 2 10 C 2 6 5 3 9 3 C 12 3 14 5 16 8 C 18 5 20 3 23 3 C 27 3 30 6 30 10 C 30 14 26 20 16 28 Z" fill="#ec4899" stroke="#be185d" stroke-width="1.5"/></svg>
+      <span id="heartsCount">3</span>
+    </div>
+  </div>
+  <div class="screen active" id="screen-welcome">
+    <div class="lesson-tag" id="lesson-tag">LESSON</div>
+    <div class="mascot" id="welcomeMascot"></div>
+    <h1 class="welcome-title" id="welcome-title"></h1>
+    <p class="welcome-subtitle" id="welcome-subtitle"></p>
+    <button class="btn go" id="startBtn">Let's Go!</button>
+  </div>
+  <div class="screen" id="screen-lesson"></div>
+  <div class="screen" id="screen-complete">
+    <div class="mascot" id="completeMascot"></div>
+    <h1 class="complete-title">Lesson Complete!</h1>
+    <p class="complete-subtitle">Awesome work! Here's what you earned:</p>
+    <div class="stats-row">
+      <div class="stat-box"><div class="stat-label">XP Earned</div><div class="stat-value xp" id="finalXP">0</div></div>
+      <div class="stat-box"><div class="stat-label">Score</div><div class="stat-value score" id="finalScore">0%</div></div>
+      <div class="stat-box"><div class="stat-label">Hearts Left</div><div class="stat-value" style="color:#ef4444;" id="finalHearts">3</div></div>
+    </div>
+    <h3 style="margin: 28px 0 14px; color: #0c4a6e; font-weight: 900; font-family:'Nunito',sans-serif;">Badges You Earned:</h3>
+    <div class="badge-grid" id="badgeGrid"></div>
+    <button class="btn go" id="backToCourseBtn">Back to Course →</button>
+    <button class="btn ghost" style="margin-top:12px;" id="playAgainBtn">Play Again</button>
+  </div>
+  <div class="screen" id="screen-gameover">
+    <div class="mascot" id="gameoverMascot"></div>
+    <h1 class="complete-title" style="color:#b91c1c;">Out of Hearts!</h1>
+    <p class="complete-subtitle">Try again! You got this!</p>
+    <button class="btn danger" id="retryBtn">Try Again</button>
+  </div>
+</div>
+<div class="feedback" id="feedback">
+  <div class="feedback-inner">
+    <div><div class="feedback-text" id="feedbackText"></div><div class="feedback-explain" id="feedbackExplain"></div></div>
+    <button class="btn go" onclick="window._lessonNext()">Continue</button>
+  </div>
+</div>
+<script src="lesson-engine.js"></script>
+<script>
+const COGS_ICON = `<svg viewBox="0 0 64 64"><rect x="14" y="20" width="36" height="30" rx="2" fill="#f9a8d4" stroke="#be185d" stroke-width="2"/><rect x="14" y="20" width="36" height="8" fill="#ec4899" stroke="#be185d" stroke-width="2"/><circle cx="32" cy="16" r="6" fill="none" stroke="#831843" stroke-width="2.5"/><text x="32" y="42" font-size="14" fill="#831843" text-anchor="middle" font-weight="900" font-family="sans-serif">$</text></svg>`;
+
+runLesson({
+  lessonId: "financial-modeling-2-1",
+  courseUrl: "course-financial-modeling.html",
+  tag: "UNIT 2 · LESSON 2.1",
+  title: "Expenses & Cost Structure",
+  subtitle: "Fixed vs. variable costs, COGS, and OpEx, the other half of the model.",
+  steps: [
+    {
+      type: "vocab",
+      word: "COGS",
+      pronounce: "say it: C-O-G-S, or 'kogs'",
+      definition: "<b>COGS</b> (Cost of Goods Sold) is the direct cost of producing what you sell, materials, direct labor, packaging, shipping tied to the product itself. Revenue minus COGS = <b>gross profit</b>.",
+      example: "A candle company sells a candle for $20. The wax, wick, jar, and packaging cost $6. COGS = $6, so gross profit = $14 per candle, a 70% gross margin.",
+      icon: COGS_ICON
+    },
+    {
+      type: "teach",
+      title: "Fixed vs. Variable Costs",
+      body: "<b>Fixed costs</b> stay the same no matter how much you sell, rent, salaries, software subscriptions. <b>Variable costs</b> scale directly with volume, materials (COGS), payment processing fees, shipping. Knowing the split matters: it's exactly what break-even and scaling decisions are built on.",
+      examples: ["Fixed: rent, insurance, salaries", "Variable: materials, shipping, transaction fees", "Fixed costs don't change if you sell 10 or 10,000 units"]
+    },
+    {
+      type: "teach",
+      title: "COGS vs. OpEx",
+      body: "COGS is the direct cost of the product itself. <b>OpEx</b> (Operating Expenses) covers running the business beyond production, marketing, admin salaries, rent, software. The math flows: Revenue − COGS = <b>Gross Profit</b>. Gross Profit − OpEx = <b>Operating Profit</b>.",
+      examples: ["Revenue − COGS = Gross Profit", "Gross Profit − OpEx = Operating Profit", "Gross margin % = Gross Profit ÷ Revenue"]
+    },
+    {
+      type: "teach",
+      title: "Gross Margin Tells You the Business Model",
+      body: "Gross margin (Gross Profit ÷ Revenue) varies wildly by industry, and it tells you how much room a business has to invest in growth. Software companies often run 70-90% gross margins because there's no physical product to manufacture. Physical product businesses often run 30-50%, because materials and shipping eat into every sale.",
+      examples: ["Software: often 70-90% gross margin", "Physical products: often 30-50% gross margin", "Higher margin = more cash left to spend on growth"]
+    },
+    {
+      type: "mc",
+      question: "Which of these is COGS for a t-shirt company?",
+      hint: "Think: direct cost to make THIS specific product.",
+      options: [
+        { text: "Office rent", correct: false },
+        { text: "The cost of the blank shirt, ink, and printing labor", correct: true },
+        { text: "The founder's personal salary", correct: false },
+        { text: "Facebook ad spend", correct: false }
+      ],
+      correctMsg: "Right! COGS is the direct cost of producing the specific product being sold, the blank shirt, ink, and printing.",
+      wrongMsg: "COGS only includes costs directly tied to producing THIS product, the blank shirt, ink, and printing labor. Rent, salaries, and ad spend are real costs, but they're OpEx, not COGS. Mixing them up makes gross margin look wrong, which throws off every pricing decision built on top of it."
+    },
+    {
+      type: "mc",
+      question: "Which cost is FIXED, not variable?",
+      hint: "Fixed costs don't change when sales volume changes.",
+      options: [
+        { text: "Shipping cost per order", correct: false },
+        { text: "Monthly office rent", correct: true },
+        { text: "Materials cost per unit", correct: false },
+        { text: "Credit card processing fee per sale", correct: false }
+      ],
+      correctMsg: "Yes! Rent is fixed, it's the same bill whether you sell 1 unit or 10,000.",
+      wrongMsg: "Fixed costs stay the same regardless of how much you sell, rent is the classic example. Shipping, materials, and processing fees are all variable because they scale up or down with every sale. Treating a variable cost as fixed (or vice versa) makes your break-even math completely wrong."
+    },
+    {
+      type: "mc",
+      question: "A company has $100,000 in revenue and $40,000 in COGS. What is the gross margin percentage?",
+      hint: "Gross margin % = Gross Profit ÷ Revenue.",
+      options: [
+        { text: "40%", correct: false },
+        { text: "60%", correct: true },
+        { text: "140%", correct: false },
+        { text: "6%", correct: false }
+      ],
+      correctMsg: "Correct! Gross Profit = $100,000 − $40,000 = $60,000. Gross Margin = $60,000 ÷ $100,000 = 60%.",
+      wrongMsg: "Two steps: Gross Profit = Revenue − COGS = $100,000 − $40,000 = $60,000. Gross Margin % = Gross Profit ÷ Revenue = $60,000 ÷ $100,000 = 60%. A common mistake is reporting the COGS percentage (40%) instead of the margin, they're opposites."
+    },
+    {
+      type: "mc",
+      question: "A founder says: 'We don't need to track fixed vs. variable costs separately, all costs are basically the same.' What's the real business risk in that thinking?",
+      hint: "Think about what breaks when you can't tell which costs scale with sales.",
+      options: [
+        { text: "There's no real risk, all costs behave the same way", correct: false },
+        { text: "You can't predict how total costs change as you scale, so you risk underpricing or hiring too early", correct: true },
+        { text: "It only matters for the Balance Sheet, not decision-making", correct: false },
+        { text: "Investors never ask about cost structure", correct: false }
+      ],
+      correctMsg: "Exactly. Without the fixed/variable split, you can't forecast costs at higher volume, price your product accurately, or know when hiring is actually affordable.",
+      wrongMsg: "The fixed/variable split is what lets you predict costs at a different sales volume, without it, you can't set a break-even point, price confidently, or know if a new hire is truly affordable. Treating all costs the same is how founders accidentally underprice a product or run out of cash after over-hiring."
+    },
+    {
+      type: "mc",
+      question: "Company A (software) runs an 85% gross margin. Company B (physical product) runs a 35% gross margin. What does this generally mean for Company A?",
+      hint: "Think about how much of each revenue dollar is left over after COGS.",
+      options: [
+        { text: "Company A keeps more of each revenue dollar, giving it more room to invest in growth and marketing", correct: true },
+        { text: "Company A is automatically a better business in every way", correct: false },
+        { text: "Gross margin has no effect on how much a company can spend on growth", correct: false },
+        { text: "Company B's higher COGS means it earns more profit overall", correct: false }
+      ],
+      correctMsg: "Right! A higher gross margin means more of every dollar is left over after covering direct costs, cash that can fund marketing, R&D, or hiring.",
+      wrongMsg: "Gross margin measures how much of each revenue dollar survives past COGS. Company A keeps $0.85 of every dollar; Company B keeps only $0.35. That extra margin gives Company A far more room to spend on growth, though margin alone doesn't guarantee overall profit if OpEx is high too."
+    }
+  ],
+  badges: [
+    { icon: "target", name: "Cost Analyst", earned: true },
+    { icon: "star", name: "Margin Reader", earned: ({ correct }) => correct >= 3 },
+    { icon: "brain", name: "Cost Structure Pro", earned: ({ correct }) => correct >= 5 },
+    { icon: "perfect", name: "Perfect Score", earned: ({ score }) => score === 100 },
+    { icon: "heart", name: "All Hearts", earned: ({ hearts }) => hearts === 3 },
+    { icon: "trophy", name: "Unit Economics Expert", earned: ({ score, hearts }) => score >= 80 && hearts >= 2 }
+  ]
+});
+</script>
+</body>
+</html>

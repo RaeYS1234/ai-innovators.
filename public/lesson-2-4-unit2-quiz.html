@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Unit 2 Check — AI Innovators</title>
+<title>Unit 2 Check | AI Innovators</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="lesson-shared.css">
@@ -43,7 +43,7 @@
   <div class="screen" id="screen-gameover">
     <div class="mascot" id="gameoverMascot"></div>
     <h1 class="complete-title" style="color:#b91c1c;">Out of Hearts!</h1>
-    <p class="complete-subtitle">Try again — you got this!</p>
+    <p class="complete-subtitle">Try again! You got this!</p>
     <button class="btn danger" id="retryBtn">Try Again</button>
   </div>
 </div>
@@ -88,35 +88,43 @@ runLesson({
       wrongMsg: "Cost is the money you SPEND to run your business."
     },
     {
-      type: "math",
-      question: "Profit problem",
-      story: "Revenue: $15. Cost: $6. What's your profit?",
-      equation: "$15 − $6 = ?",
-      answer: 9,
-      correctMsg: "Yes! $9 profit.",
-      wrongMsg: "Profit = Revenue − Cost. 15 − 6 = 9."
-    },
-    {
-      type: "math",
-      question: "Bigger numbers!",
-      story: "Sold 20 cookies at $2 each. Spent $15 on ingredients. What's your profit?",
-      equation: "$40 − $15 = ?",
-      answer: 25,
-      correctMsg: "Awesome! $25 profit.",
-      wrongMsg: "Revenue is 20 × $2 = $40. Then $40 − $15 = $25."
+      type: "mc",
+      question: "💰 Profit is money a business gets to keep. What can it be used for?",
+      hint: "Think about what helps a business grow.",
+      options: [
+        { text: "Buying more supplies and growing the business", correct: true },
+        { text: "Nothing at all", correct: false },
+        { text: "Making the business smaller", correct: false },
+        { text: "Losing customers", correct: false }
+      ],
+      correctMsg: "Yes! Profit lets a business grow, more supplies, more stuff to sell, or savings for later.",
+      wrongMsg: "Profit is money you keep. Smart owners use it to GROW their business!"
     },
     {
       type: "mc",
-      question: "Your revenue was $10 and your cost was $12. What happened?",
-      hint: "Cost was BIGGER than revenue.",
+      question: "🍪 A cookie shop has TONS of customers but still loses money. How?",
+      hint: "Selling a lot doesn't help if you spend even more.",
       options: [
-        { text: "You made $22 profit", correct: false },
+        { text: "Its costs are higher than what it earns", correct: true },
+        { text: "It has too many customers", correct: false },
+        { text: "That's impossible", correct: false },
+        { text: "The cookies are too tasty", correct: false }
+      ],
+      correctMsg: "Right! If costs are HIGHER than revenue, you lose money, even with lots of sales.",
+      wrongMsg: "You can sell a lot and still lose money if your costs are bigger than your revenue."
+    },
+    {
+      type: "mc",
+      question: "Your costs were BIGGER than your revenue. What happened?",
+      hint: "You spent more than you earned.",
+      options: [
+        { text: "You made extra profit", correct: false },
         { text: "You broke even", correct: false },
-        { text: "You had a loss (lost $2)", correct: true },
+        { text: "You had a loss, you lost money", correct: true },
         { text: "Nothing changed", correct: false }
       ],
-      correctMsg: "Right! When costs > revenue, you have a LOSS.",
-      wrongMsg: "When you spend MORE than you earn, that's a LOSS. $12 − $10 = $2 loss."
+      correctMsg: "Right! When costs are bigger than revenue, you have a LOSS.",
+      wrongMsg: "Spending MORE than you earn = a LOSS. That's why keeping costs low matters!"
     },
     {
       type: "mc",
@@ -128,8 +136,8 @@ runLesson({
         { text: "Have many customers (but lose money)", correct: false },
         { text: "Be famous", correct: false }
       ],
-      correctMsg: "Yes! Profit is the goal — that's why businesses exist!",
-      wrongMsg: "The goal is PROFIT — money left over after you pay your costs."
+      correctMsg: "Yes! Profit is the goal, that's why businesses exist!",
+      wrongMsg: "The goal is PROFIT, money left over after you pay your costs."
     }
   ],
   badges: [

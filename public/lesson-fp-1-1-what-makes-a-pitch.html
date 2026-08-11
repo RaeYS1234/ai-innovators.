@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>What Makes a Great Pitch? | AI Innovators</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="lesson-shared.css">
+</head>
+<body>
+<div class="app">
+  <div class="topbar" id="topbar" style="display:none;">
+    <button class="close-btn" id="closeBtn">×</button>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="hearts">
+      <svg class="heart-svg" viewBox="0 0 32 32"><path d="M16 28 C 6 20 2 14 2 10 C 2 6 5 3 9 3 C 12 3 14 5 16 8 C 18 5 20 3 23 3 C 27 3 30 6 30 10 C 30 14 26 20 16 28 Z" fill="#ec4899" stroke="#be185d" stroke-width="1.5"/></svg>
+      <span id="heartsCount">3</span>
+    </div>
+  </div>
+  <div class="screen active" id="screen-welcome">
+    <div class="lesson-tag" id="lesson-tag">LESSON</div>
+    <div class="mascot" id="welcomeMascot"></div>
+    <h1 class="welcome-title" id="welcome-title"></h1>
+    <p class="welcome-subtitle" id="welcome-subtitle"></p>
+    <button class="btn go" id="startBtn">Let's Go!</button>
+  </div>
+  <div class="screen" id="screen-lesson"></div>
+  <div class="screen" id="screen-complete">
+    <div class="mascot" id="completeMascot"></div>
+    <h1 class="complete-title">Lesson Complete!</h1>
+    <p class="complete-subtitle">Awesome work! Here's what you earned:</p>
+    <div class="stats-row">
+      <div class="stat-box"><div class="stat-label">XP Earned</div><div class="stat-value xp" id="finalXP">0</div></div>
+      <div class="stat-box"><div class="stat-label">Score</div><div class="stat-value score" id="finalScore">0%</div></div>
+      <div class="stat-box"><div class="stat-label">Hearts Left</div><div class="stat-value" style="color:#ef4444;" id="finalHearts">3</div></div>
+    </div>
+    <h3 style="margin: 28px 0 14px; color: #0c4a6e; font-weight: 900; font-family:'Nunito',sans-serif;">Badges You Earned:</h3>
+    <div class="badge-grid" id="badgeGrid"></div>
+    <button class="btn go" id="backToCourseBtn">Back to Course →</button>
+    <button class="btn ghost" style="margin-top:12px;" id="playAgainBtn">Play Again</button>
+  </div>
+  <div class="screen" id="screen-gameover">
+    <div class="mascot" id="gameoverMascot"></div>
+    <h1 class="complete-title" style="color:#b91c1c;">Out of Hearts!</h1>
+    <p class="complete-subtitle">Try again! You got this!</p>
+    <button class="btn danger" id="retryBtn">Try Again</button>
+  </div>
+</div>
+<div class="feedback" id="feedback">
+  <div class="feedback-inner">
+    <div><div class="feedback-text" id="feedbackText"></div><div class="feedback-explain" id="feedbackExplain"></div></div>
+    <button class="btn go" onclick="window._lessonNext()">Continue</button>
+  </div>
+</div>
+<script src="lesson-engine.js"></script>
+<script>
+const PITCH_ICON = `<svg viewBox="0 0 64 64"><circle cx="32" cy="32" r="26" fill="#ede9fe" stroke="#7c3aed" stroke-width="2.5"/><circle cx="32" cy="32" r="17" fill="#ddd6fe" stroke="#7c3aed" stroke-width="2"/><circle cx="32" cy="32" r="8" fill="#7c3aed"/><path d="M 44 20 L 54 10 M 47 10 L 54 10 L 54 17" stroke="#4c1d95" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+
+runLesson({
+  lessonId: "first-pitch-1-1",
+  courseUrl: "course-first-pitch.html",
+  tag: "UNIT 1 · LESSON 1.1",
+  title: "What Makes a Great Pitch?",
+  subtitle: "The anatomy of a pitch that actually gets a yes, problem, solution, market, traction, ask.",
+  steps: [
+    {
+      type: "vocab",
+      word: "Pitch",
+      pronounce: "say it: PITCH",
+      definition: "A <b>pitch</b> is a short, focused presentation where you convince someone, an investor, a customer, a judge, to believe in your idea and take action in just a few minutes. Every strong pitch hits five targets in order: the <b>problem</b>, your <b>solution</b>, the <b>market</b>, your <b>traction</b>, and <b>the ask</b>.",
+      example: "Ryan Kaji started reviewing toys on YouTube at age 3. He never gave an investor pitch, but his channel, Ryan's World, proved something every founder needs to prove: that real people want what you're offering. That channel grew into a $50 million-plus licensing empire.",
+      icon: PITCH_ICON
+    },
+    {
+      type: "teach",
+      title: "The 5 Parts of Every Pitch",
+      body: "Strip away the slides and the nerves, and every winning pitch, from a school fundraiser to a Shark Tank deal, answers the same five questions in the same order: What's broken (<b>Problem</b>)? How do you fix it (<b>Solution</b>)? Who else has this problem, and how many of them are there (<b>Market</b>)? Do people already want it (<b>Traction</b>)? And what do you need from me right now (<b>The Ask</b>)? Skip a step and your listener gets confused. Nail all five and they're already nodding along before you finish.",
+      examples: ["Problem, what's broken", "Solution, your fix", "Market, who & how many", "Traction, proof it works", "The Ask, what you need"]
+    },
+    {
+      type: "teach",
+      title: "Why Order Matters",
+      body: "Founders who love their idea often want to lead with the solution, 'I built an app that...' But investors and judges don't care about a solution until they understand the problem is real and painful. That's why the problem always comes first: it earns the right to be heard. Only after someone agrees 'yeah, that IS annoying' will they actually listen to how you fix it.",
+      examples: ["Problem earns attention", "Solution earns interest", "Market earns scale", "Traction earns trust", "Ask earns a decision"]
+    },
+    {
+      type: "mc",
+      question: "Which part of a pitch should almost always come FIRST?",
+      hint: "What has to feel real before anyone cares about your fix?",
+      options: [
+        { text: "The Ask", correct: false },
+        { text: "The Problem", correct: true },
+        { text: "Your company logo", correct: false },
+        { text: "A joke to break the ice", correct: false }
+      ],
+      correctMsg: "Exactly! The problem comes first, it earns the right to be heard before you explain your fix.",
+      wrongMsg: "The Problem comes first. Until your listener believes the problem is real, they won't care about your solution."
+    },
+    {
+      type: "mc",
+      question: "What does the 'Market' part of a pitch actually explain?",
+      hint: "Think about size and audience, not the product itself.",
+      options: [
+        { text: "How the product looks", correct: false },
+        { text: "Who else has this problem, and roughly how many of them exist", correct: true },
+        { text: "What color the logo is", correct: false },
+        { text: "The founder's personal hobbies", correct: false }
+      ],
+      correctMsg: "Right! Market explains the size of the audience, not everyone loves a tiny market.",
+      wrongMsg: "The Market section explains who else shares this problem and how many people that is, your addressable audience."
+    },
+    {
+      type: "mc",
+      question: "What is 'traction' in a pitch?",
+      hint: "It's proof, not a promise.",
+      options: [
+        { text: "A guess about future sales", correct: false },
+        { text: "Real evidence people already want or use what you're offering, users, sales, growth", correct: true },
+        { text: "The number of slides in your deck", correct: false },
+        { text: "How loud you speak", correct: false }
+      ],
+      correctMsg: "Yes! Traction is proof, real users, real sales, real growth, not a hopeful guess.",
+      wrongMsg: "Traction means real evidence people already want your offering, like signups, sales, or repeat customers, not a hopeful guess about the future."
+    },
+    {
+      type: "mc",
+      question: "What is 'the ask' in a pitch?",
+      hint: "It's the one thing you want the listener to DO.",
+      options: [
+        { text: "A vague hope that something good happens", correct: false },
+        { text: "The specific thing you want from the listener right now, money, a sale, a yes", correct: true },
+        { text: "A thank-you at the very end", correct: false },
+        { text: "The name of your company", correct: false }
+      ],
+      correctMsg: "Correct! A strong ask is specific, a dollar amount, a purchase, a clear yes.",
+      wrongMsg: "The ask is the SPECIFIC thing you want from the listener, a dollar amount to invest, a sale to make, or a clear yes. Vague asks get vague answers."
+    },
+    {
+      type: "mc",
+      question: "Ryan Kaji's channel, Ryan's World, is a real example of what pitch concept?",
+      hint: "What did his huge audience of viewers prove, without him ever pitching an investor?",
+      options: [
+        { text: "A perfect slide deck design", correct: false },
+        { text: "Traction, real proof that a massive audience wanted what he made", correct: true },
+        { text: "A great logo", correct: false },
+        { text: "The ask", correct: false }
+      ],
+      correctMsg: "Yes! His audience and views WERE the traction, proof people wanted it, long before licensing deals came in.",
+      wrongMsg: "Ryan's World shows traction: millions of real viewers proved demand existed, that proof became the foundation for a $50M+ licensing empire."
+    }
+  ],
+  badges: [
+    { icon: "starter", name: "Pitch Starter", earned: true },
+    { icon: "bulb", name: "Idea Spotter", earned: ({ correct }) => correct >= 2 },
+    { icon: "brain", name: "Pitch Smart", earned: ({ correct }) => correct >= 4 },
+    { icon: "perfect", name: "Perfect Score", earned: ({ score }) => score === 100 },
+    { icon: "heart", name: "All Hearts", earned: ({ hearts }) => hearts === 3 },
+    { icon: "trophy", name: "Founder-in-Training", earned: ({ score, hearts }) => score >= 80 && hearts >= 2 }
+  ]
+});
+</script>
+</body>
+</html>

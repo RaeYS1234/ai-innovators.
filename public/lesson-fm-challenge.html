@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Financial Modeling Challenge | AI Innovators</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="lesson-shared.css">
+</head>
+<body>
+<div class="app">
+  <div class="topbar" id="topbar" style="display:none;">
+    <button class="close-btn" id="closeBtn">×</button>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="hearts">
+      <svg class="heart-svg" viewBox="0 0 32 32"><path d="M16 28 C 6 20 2 14 2 10 C 2 6 5 3 9 3 C 12 3 14 5 16 8 C 18 5 20 3 23 3 C 27 3 30 6 30 10 C 30 14 26 20 16 28 Z" fill="#ec4899" stroke="#be185d" stroke-width="1.5"/></svg>
+      <span id="heartsCount">3</span>
+    </div>
+  </div>
+  <div class="screen active" id="screen-welcome">
+    <div class="lesson-tag" id="lesson-tag">LESSON</div>
+    <div class="mascot" id="welcomeMascot"></div>
+    <h1 class="welcome-title" id="welcome-title"></h1>
+    <p class="welcome-subtitle" id="welcome-subtitle"></p>
+    <button class="btn go" id="startBtn">Let's Go!</button>
+  </div>
+  <div class="screen" id="screen-lesson"></div>
+  <div class="screen" id="screen-complete">
+    <div class="mascot" id="completeMascot"></div>
+    <h1 class="complete-title">Lesson Complete!</h1>
+    <p class="complete-subtitle">Awesome work! Here's what you earned:</p>
+    <div class="stats-row">
+      <div class="stat-box"><div class="stat-label">XP Earned</div><div class="stat-value xp" id="finalXP">0</div></div>
+      <div class="stat-box"><div class="stat-label">Score</div><div class="stat-value score" id="finalScore">0%</div></div>
+      <div class="stat-box"><div class="stat-label">Hearts Left</div><div class="stat-value" style="color:#ef4444;" id="finalHearts">3</div></div>
+    </div>
+    <h3 style="margin: 28px 0 14px; color: #0c4a6e; font-weight: 900; font-family:'Nunito',sans-serif;">Badges You Earned:</h3>
+    <div class="badge-grid" id="badgeGrid"></div>
+    <button class="btn go" id="backToCourseBtn">Back to Course →</button>
+    <button class="btn ghost" style="margin-top:12px;" id="playAgainBtn">Play Again</button>
+  </div>
+  <div class="screen" id="screen-gameover">
+    <div class="mascot" id="gameoverMascot"></div>
+    <h1 class="complete-title" style="color:#b91c1c;">Out of Hearts!</h1>
+    <p class="complete-subtitle">Try again! You got this!</p>
+    <button class="btn danger" id="retryBtn">Try Again</button>
+  </div>
+</div>
+<div class="feedback" id="feedback">
+  <div class="feedback-inner">
+    <div><div class="feedback-text" id="feedbackText"></div><div class="feedback-explain" id="feedbackExplain"></div></div>
+    <button class="btn go" onclick="window._lessonNext()">Continue</button>
+  </div>
+</div>
+<script src="lesson-engine.js"></script>
+<script>
+runLesson({
+  lessonId: "financial-modeling-challenge",
+  courseUrl: "course-financial-modeling.html",
+  tag: "FINAL CHALLENGE",
+  title: "Financial Modeling Challenge",
+  subtitle: "Real case studies, Airbnb, WeWork, Duolingo. Show you can think like a CFO.",
+  steps: [
+    {
+      type: "mc",
+      question: "Airbnb's early unit economics were attractive to investors mainly because:",
+      hint: "Think about who owns the asset (the home) and what that does to Airbnb's own COGS.",
+      options: [
+        { text: "Airbnb charged hosts nothing to list their homes", correct: false },
+        { text: "Hosts already owned the real estate, so Airbnb's variable costs per booking were low and gross margins stayed high, unlike a hotel chain that has to build and staff a building", correct: true },
+        { text: "Airbnb owned every property listed on the platform", correct: false },
+        { text: "Hotels and Airbnb have essentially identical cost structures", correct: false }
+      ],
+      correctMsg: "Exactly. Airbnb never had to buy real estate or hire hotel staff, it just took a cut of a transaction between two other parties, which kept its own COGS remarkably low and gross margins high.",
+      wrongMsg: "Airbnb's edge was that hosts already owned the asset (the home). Airbnb's own COGS per booking was mostly payment processing and support, nowhere near what a hotel spends building and staffing a property. That low variable cost per transaction is what made its gross margins so attractive to investors compared to traditional hospitality."
+    },
+    {
+      type: "mc",
+      question: "Why did WeWork's financial model become a widely cited cautionary tale?",
+      hint: "Think about the timing mismatch between what WeWork owed long-term and what it could actually count on collecting.",
+      options: [
+        { text: "It had no fixed costs at all", correct: false },
+        { text: "It locked in long-term fixed costs (leases) while its revenue depended on short-term, flexible tenant commitments, a dangerous mismatch when demand dropped", correct: true },
+        { text: "It only sold a physical product with extremely high COGS", correct: false },
+        { text: "Its break-even point was too low to matter", correct: false }
+      ],
+      correctMsg: "Right. WeWork signed decade-long leases (fixed costs it owed no matter what) but rented space out on short, flexible terms, so when demand dropped, the fixed obligations didn't go away, but the revenue did.",
+      wrongMsg: "WeWork's core problem was a structural mismatch: it signed long-term leases, creating large FIXED costs it was obligated to pay for years, while its tenants could leave on short notice, making its REVENUE unpredictable. When demand softened, WeWork was still on the hook for the leases with far less income to cover them, exactly the kind of fixed-cost/revenue mismatch a real financial model is supposed to catch."
+    },
+    {
+      type: "mc",
+      question: "Duolingo converts roughly 9% of its free monthly active users into paying subscribers. Why can a business still be highly profitable with such a low conversion rate?",
+      hint: "Think about how expensive it is to acquire each free user in the first place.",
+      options: [
+        { text: "Because 9% actually signals the product is failing", correct: false },
+        { text: "Because acquiring free users costs almost nothing (app stores, word of mouth), so even a small % of a massive free user base converts into large, high-margin subscription revenue", correct: true },
+        { text: "Because free users generate the same revenue as paid subscribers", correct: false },
+        { text: "Because paid subscribers cost more to acquire than free users", correct: false }
+      ],
+      correctMsg: "Yes! When the free tier acts as a nearly-free acquisition funnel, even a single-digit conversion rate across tens of millions of users adds up to hundreds of millions in high-margin subscription revenue.",
+      wrongMsg: "The key isn't the conversion rate itself, it's what it costs to get each free user in the door. Duolingo's free users mostly arrive through app stores and word of mouth at close to zero acquisition cost, so converting even a small slice of a huge free base into paying subscribers produces enormous, high-margin revenue. A low conversion rate is only a problem if acquiring the free users was expensive in the first place."
+    },
+    {
+      type: "mc",
+      question: "A startup spends $200 in marketing to acquire one customer (CAC) who generates $150 in total profit over their lifetime (LTV). What does this tell the founder?",
+      hint: "For a sustainable business, LTV needs to clear CAC by a healthy margin, not fall short of it.",
+      options: [
+        { text: "This is a perfectly healthy, sustainable ratio", correct: false },
+        { text: "They're losing money on every customer acquired, LTV must exceed CAC by a healthy multiple for the business to be sustainable", correct: true },
+        { text: "CAC and LTV don't need to be compared to each other", correct: false },
+        { text: "They should immediately double their marketing budget", correct: false }
+      ],
+      correctMsg: "Correct. Spending $200 to earn back only $150 means every new customer makes the business poorer, not richer, that's a broken model, not just a slow one.",
+      wrongMsg: "If it costs $200 to acquire a customer who only generates $150 in lifetime profit, the company loses $50 on every single customer, the more it 'grows,' the more money it loses. A healthy business typically wants LTV to be 3x CAC or more. If you miscalculate this relationship, you'll spend real marketing dollars acquiring customers who make the business worse off, not better."
+    },
+    {
+      type: "mc",
+      question: "A startup has $120,000 in the bank and is burning (spending more than it earns by) $15,000 per month. How many months of runway does it have?",
+      hint: "Runway = cash in the bank ÷ monthly burn rate.",
+      options: [
+        { text: "15 months", correct: false },
+        { text: "8 months", correct: true },
+        { text: "7 months", correct: false },
+        { text: "135 months", correct: false }
+      ],
+      correctMsg: "Right! $120,000 ÷ $15,000 = 8 months of runway before the company runs out of cash.",
+      wrongMsg: "Runway = cash in the bank ÷ monthly burn rate = $120,000 ÷ $15,000 = 8 months. Miscalculating runway is one of the most dangerous modeling mistakes a founder can make, it directly determines how long you have to hit milestones before you run out of money or need to raise more."
+    },
+    {
+      type: "mc",
+      question: "A DTC (direct-to-consumer) brand's break-even point is 50,000 units per year, but realistic year-1 demand is only 8,000 units. What should the founder do BEFORE scaling marketing spend?",
+      hint: "Scaling spend doesn't fix broken unit economics, it usually just loses money faster.",
+      options: [
+        { text: "Fix the underlying unit economics, raise price, cut costs, or both, before spending more on growth", correct: true },
+        { text: "Immediately increase the marketing budget to try to hit 50,000 units faster", correct: false },
+        { text: "Ignore the break-even number since the product is good", correct: false },
+        { text: "Take on more fixed costs to look bigger to investors", correct: false }
+      ],
+      correctMsg: "Exactly. Pouring marketing dollars into a model that can't reach break-even just accelerates the losses. Fix the price and cost structure first, then scale.",
+      wrongMsg: "When break-even is far above realistic demand, the problem is the model itself, the price and cost structure, not a lack of marketing spend. Scaling ad spend on broken unit economics doesn't fix the gap; it just burns cash faster while chasing a target you were never structurally able to hit. Fix the contribution margin first, THEN scale."
+    },
+    {
+      type: "mc",
+      question: "Across Airbnb, WeWork, and Duolingo, what's the common thread in why some of these models worked well and one famously didn't?",
+      hint: "Think about whether costs stayed aligned with predictable, matching revenue.",
+      options: [
+        { text: "It came down to how much total money each company raised from investors", correct: false },
+        { text: "Sustainable models keep costs aligned with predictable revenue; WeWork's failure came from locking in long-term fixed costs against short-term, uncertain revenue", correct: true },
+        { text: "It was simply a matter of which company was founded first", correct: false },
+        { text: "The number of employees each company had determined success", correct: false }
+      ],
+      correctMsg: "Yes, that's the throughline. Airbnb and Duolingo both kept variable costs low and revenue predictable relative to their cost base. WeWork broke that alignment by locking in fixed, long-term obligations against revenue it couldn't count on.",
+      wrongMsg: "The real pattern isn't about funding size, founding date, or headcount, it's whether costs stayed matched to predictable revenue. Airbnb kept variable costs low (hosts own the real estate) and Duolingo built a near-free acquisition funnel with predictable subscription revenue. WeWork broke the pattern by locking in massive long-term fixed costs (leases) against revenue that could vanish on short notice, exactly the mismatch a financial model is built to catch before it happens."
+    }
+  ],
+  badges: [
+    { icon: "trophy", name: "Challenge Complete", earned: true },
+    { icon: "star", name: "Sharp Analyst", earned: ({ correct }) => correct >= 3 },
+    { icon: "brain", name: "Finance Genius", earned: ({ correct }) => correct >= 5 },
+    { icon: "perfect", name: "Perfect Score", earned: ({ score }) => score === 100 },
+    { icon: "heart", name: "All Hearts", earned: ({ hearts }) => hearts === 3 },
+    { icon: "crown", name: "Financial Modeling Master", earned: ({ score, hearts }) => score >= 80 && hearts >= 2 }
+  ]
+});
+</script>
+</body>
+</html>

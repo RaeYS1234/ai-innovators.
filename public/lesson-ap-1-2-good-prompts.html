@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Writing Good Prompts — AI Innovators</title>
+<title>Writing Good Prompts | AI Innovators</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="lesson-shared.css">
@@ -43,7 +43,7 @@
   <div class="screen" id="screen-gameover">
     <div class="mascot" id="gameoverMascot"></div>
     <h1 class="complete-title" style="color:#b91c1c;">Out of Hearts!</h1>
-    <p class="complete-subtitle">Try again — even artists need practice!</p>
+    <p class="complete-subtitle">Try again! Even artists need practice!</p>
     <button class="btn danger" id="retryBtn">Try Again</button>
   </div>
 </div>
@@ -68,7 +68,7 @@ runLesson({
       type: "vocab",
       word: "Style",
       pronounce: "say it: STY-ul",
-      definition: "<b>Style</b> is the LOOK of a picture — like cartoon, realistic, or watercolor. Telling AI a style helps it draw exactly the vibe you want.",
+      definition: "<b>Style</b> is the LOOK of a picture, like cartoon, realistic, or watercolor. Telling AI a style helps it draw exactly the vibe you want.",
       example: "\"A lemonade stand poster\" is okay. \"A lemonade stand poster, cartoon style, bright colors\" is way better!",
       icon: STYLE_ICON
     },
@@ -94,7 +94,7 @@ runLesson({
         { text: "\"cute\"", correct: false },
         { text: "\"a picture\"", correct: false }
       ],
-      correctMsg: "Yes! Subject (dog), details (fluffy, brown, bow), and style (watercolor) — all three!",
+      correctMsg: "Yes! Subject (dog), details (fluffy, brown, bow), and style (watercolor), all three!",
       wrongMsg: "That prompt is missing pieces. A full prompt needs a subject, details, AND a style."
     },
     {
@@ -118,17 +118,17 @@ runLesson({
         { text: "It changes the LOOK of the whole picture", correct: true },
         { text: "It makes the picture bigger", correct: false },
         { text: "It deletes the subject", correct: false },
-        { text: "Nothing — style doesn't matter", correct: false }
+        { text: "Nothing, style doesn't matter", correct: false }
       ],
       correctMsg: "Right! The same subject can look totally different in cartoon vs. realistic vs. watercolor style.",
-      wrongMsg: "Style changes the whole LOOK of a picture — a cartoon dog and a realistic dog look very different!"
+      wrongMsg: "Style changes the whole LOOK of a picture, a cartoon dog and a realistic dog look very different!"
     },
     {
       type: "mc",
       question: "FINAL: Someone typed just \"cake.\" What's the BEST advice to help them?",
       hint: "What's missing from a one-word prompt?",
       options: [
-        { text: "Add details AND a style — like \"a chocolate cake with sprinkles, cartoon style\"", correct: true },
+        { text: "Add details AND a style, like \"a chocolate cake with sprinkles, cartoon style\"", correct: true },
         { text: "Type it again exactly the same", correct: false },
         { text: "Nothing, one word is perfect", correct: false },
         { text: "Just add more exclamation points", correct: false }

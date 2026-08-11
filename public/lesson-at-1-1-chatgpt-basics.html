@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>ChatGPT Basics — AI Innovators</title>
+<title>ChatGPT Basics | AI Innovators</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="lesson-shared.css">
@@ -43,7 +43,7 @@
   <div class="screen" id="screen-gameover">
     <div class="mascot" id="gameoverMascot"></div>
     <h1 class="complete-title" style="color:#b91c1c;">Out of Hearts!</h1>
-    <p class="complete-subtitle">Try again — you got this!</p>
+    <p class="complete-subtitle">Try again! You got this!</p>
     <button class="btn danger" id="retryBtn">Try Again</button>
   </div>
 </div>
@@ -75,13 +75,13 @@ runLesson({
     {
       type: "teach",
       title: "What is ChatGPT?",
-      body: "ChatGPT is an AI chatbot made by a company called OpenAI. You type a message (a prompt), and it writes back an answer instantly. It can write stories, explain ideas, brainstorm business names, fix your grammar, and way more. It doesn't know everything, and it isn't always right — but it's an awesome thinking partner!",
+      body: "ChatGPT is an AI chatbot made by a company called OpenAI. You type a message (a prompt), and it writes back an answer instantly. It can write stories, explain ideas, brainstorm business names, fix your grammar, and way more. It doesn't know everything, and it isn't always right, but it's an awesome thinking partner!",
       examples: ["Brainstorm ideas", "Write drafts", "Explain things", "Fix grammar"]
     },
     {
       type: "teach",
       title: "How to Write a Great Prompt",
-      body: "The magic trick to ChatGPT is being <b>specific</b>. Tell it who you are, what you want, and any details that matter. 'Write a name' gets a boring answer. 'Write 5 catchy names for a kids' slime business, ages 8-12' gets a GREAT answer. Try it — the more details, the better the results!",
+      body: "The magic trick to ChatGPT is being <b>specific</b>. Tell it who you are, what you want, and any details that matter. 'Write a name' gets a boring answer. 'Write 5 catchy names for a kids' slime business, ages 8-12' gets a GREAT answer. Try it, the more details, the better the results!",
       examples: ["Be specific", "Give details", "Ask for options", "Say who it's for"]
     },
     {
@@ -95,7 +95,7 @@ runLesson({
         { text: "A kind of robot", correct: false }
       ],
       correctMsg: "Yes! Your prompt tells the AI exactly what you need.",
-      wrongMsg: "A prompt is what YOU type — the question or instructions you give the AI. Its answer comes AFTER your prompt."
+      wrongMsg: "A prompt is what YOU type, the question or instructions you give the AI. Its answer comes AFTER your prompt."
     },
     {
       type: "mc",
@@ -103,12 +103,12 @@ runLesson({
       hint: "The best prompt gives lots of useful details.",
       options: [
         { text: "\"help me\"", correct: false },
-        { text: "\"Give me 5 fun, short names for a kids' lemonade stand — something catchy and easy to remember\"", correct: true },
+        { text: "\"Give me 5 fun, short names for a kids' lemonade stand, something catchy and easy to remember\"", correct: true },
         { text: "\"names\"", correct: false },
         { text: "\"business\"", correct: false }
       ],
       correctMsg: "Exactly! Specific + detailed prompts get way better answers.",
-      wrongMsg: "Vague prompts like 'help me' or single words confuse the AI. Be specific — say what you want, how many, and any details that matter."
+      wrongMsg: "Vague prompts like 'help me' or single words confuse the AI. Be specific, say what you want, how many, and any details that matter."
     },
     {
       type: "mc",
@@ -120,7 +120,7 @@ runLesson({
         { text: "Use the wrong answer anyway", correct: false },
         { text: "Yell at the computer", correct: false }
       ],
-      correctMsg: "Right! Trying again with a better prompt is called 'iterating' — it's how pros use AI.",
+      correctMsg: "Right! Trying again with a better prompt is called 'iterating', it's how pros use AI.",
       wrongMsg: "Don't give up! Add more details to your prompt and ask again. This is called 'iterating,' and it's how real AI users get great results."
     },
     {
@@ -128,10 +128,10 @@ runLesson({
       question: "True or False: ChatGPT is always 100% correct.",
       hint: "Even AI can make mistakes.",
       options: [
-        { text: "True — never check its answers", correct: false },
-        { text: "False — always double-check important facts", correct: true },
-        { text: "True — it can read minds", correct: false },
-        { text: "False — but only on Tuesdays", correct: false }
+        { text: "True, never check its answers", correct: false },
+        { text: "False, always double-check important facts", correct: true },
+        { text: "True, it can read minds", correct: false },
+        { text: "False, but only on Tuesdays", correct: false }
       ],
       correctMsg: "Right! AI can make mistakes, so smart users always double-check important facts.",
       wrongMsg: "AI CAN be wrong sometimes! Always double-check facts, especially for a school project or your business."

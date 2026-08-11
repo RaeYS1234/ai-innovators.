@@ -229,7 +229,7 @@
   <div class="screen" id="screen-gameover">
     <div class="mascot" id="gameoverMascot"></div>
     <h1 class="complete-title" style="color:#b91c1c;">Out of Hearts!</h1>
-    <p class="complete-subtitle">Every entrepreneur needs another shot — let's go again!</p>
+    <p class="complete-subtitle">Every entrepreneur needs another shot, let's go again!</p>
     <button class="btn danger" onclick="restartLesson()">Try Again</button>
   </div>
 
@@ -407,10 +407,10 @@ const STEPS = [
     icon: TEACH_ICONS.founder
   },
 
-  // 2. Teach: Anyone can be an entrepreneur — even kids!
+  // 2. Teach: Anyone can be an entrepreneur, even kids!
   {
     type: "teach-kids",
-    title: "Anyone Can Be an Entrepreneur — Even YOU!",
+    title: "Anyone Can Be an Entrepreneur, Even YOU!",
     intro: "Lots of famous entrepreneurs started their businesses as kids. Meet 3 of them:",
     icon: TEACH_ICONS.spark,
     kids: [
@@ -454,11 +454,11 @@ const STEPS = [
   {
     type: "teach-3things",
     title: "What Entrepreneurs Actually Do",
-    intro: "Every entrepreneur — whether they're 6 or 60 — does these 3 things:",
+    intro: "Every entrepreneur, whether they're 6 or 60, does these 3 things:",
     icon: TEACH_ICONS.thinking,
     points: [
       { num: "1", title: "Have ideas", desc: "They notice a problem and think of a way to fix it.", icon: TEACH_ICONS.ideas },
-      { num: "2", title: "Take chances", desc: "They try their idea — even though it might not work!", icon: TEACH_ICONS.brave },
+      { num: "2", title: "Take chances", desc: "They try their idea, even though it might not work!", icon: TEACH_ICONS.brave },
       { num: "3", title: "Help customers", desc: "They make something people actually want and need.", icon: TEACH_ICONS.helper }
     ]
   },
@@ -489,7 +489,7 @@ const STEPS = [
       { text: "A million followers", correct: false }
     ],
     correctMsg: "Yes! Every business starts with an idea. Money and customers come later!",
-    wrongMsg: "Money isn't first — IDEAS are! Mikaila started with $0. She just had a great idea."
+    wrongMsg: "Money isn't first, IDEAS are! Mikaila started with $0. She just had a great idea."
   },
 
   // 7. Final reflective question
@@ -745,7 +745,7 @@ function showFeedback(isCorrect, msg) {
   fb.classList.add("show");
   fb.classList.toggle("correct", isCorrect);
   fb.classList.toggle("wrong", !isCorrect);
-  document.getElementById("feedbackText").textContent = isCorrect ? "Nice work, founder!" : "Not quite — keep going!";
+  document.getElementById("feedbackText").textContent = isCorrect ? "Nice work, founder!" : "Not quite, keep going!";
   document.getElementById("feedbackExplain").textContent = msg;
   if (isCorrect) {
     correct++; xp += 10; confettiBurst();

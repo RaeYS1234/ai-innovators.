@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Course Challenge — AI Innovators</title>
+<title>Course Challenge | AI Innovators</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="lesson-shared.css">
@@ -43,7 +43,7 @@
   <div class="screen" id="screen-gameover">
     <div class="mascot" id="gameoverMascot"></div>
     <h1 class="complete-title" style="color:#b91c1c;">Out of Hearts!</h1>
-    <p class="complete-subtitle">The challenge is hard — that's why it's a CHALLENGE!</p>
+    <p class="complete-subtitle">The challenge is hard, that's why it's a CHALLENGE!</p>
     <button class="btn danger" id="retryBtn">Try Again</button>
   </div>
 </div>
@@ -94,7 +94,7 @@ runLesson({
         { text: "Free money", correct: false },
         { text: "Lost money", correct: false }
       ],
-      correctMsg: "Yes — revenue = money IN.",
+      correctMsg: "Yes, revenue = money IN.",
       wrongMsg: "Revenue is the money customers give you. That's IN."
     },
     {
@@ -106,26 +106,34 @@ runLesson({
         { text: "Free stuff", correct: false },
         { text: "A discount", correct: false }
       ],
-      correctMsg: "Yes — cost = money OUT.",
+      correctMsg: "Yes, cost = money OUT.",
       wrongMsg: "Cost is what you SPEND to run your business. That's OUT."
     },
     {
-      type: "math",
-      question: "Calculate the profit",
-      story: "Revenue: $25. Cost: $10. Profit?",
-      equation: "$25 − $10 = ?",
-      answer: 15,
-      correctMsg: "$15 profit!",
-      wrongMsg: "Profit = Revenue − Cost. 25 − 10 = 15."
+      type: "mc",
+      question: "💰 What is PROFIT?",
+      hint: "It's the money left after you pay your costs.",
+      options: [
+        { text: "The money a business keeps after paying its costs", correct: true },
+        { text: "The money you spend on supplies", correct: false },
+        { text: "Free money from nowhere", correct: false },
+        { text: "Money customers keep", correct: false }
+      ],
+      correctMsg: "Yes! Profit is what's LEFT after costs, the money the business gets to keep.",
+      wrongMsg: "Profit is the money left over after a business pays its costs. That's the goal!"
     },
     {
-      type: "math",
-      question: "Real-world profit",
-      story: "Sold 10 cookies at $3 each. Spent $12 on supplies. Profit?",
-      equation: "$30 − $12 = ?",
-      answer: 18,
-      correctMsg: "$18 profit!",
-      wrongMsg: "Revenue is 10 × $3 = $30. Profit = 30 − 12 = $18."
+      type: "mc",
+      question: "🍪 How can a business LOSE money even with lots of customers?",
+      hint: "Think about spending vs. earning.",
+      options: [
+        { text: "If it spends more than it earns", correct: true },
+        { text: "If it has too many customers", correct: false },
+        { text: "It can't, customers always mean profit", correct: false },
+        { text: "If the products are too good", correct: false }
+      ],
+      correctMsg: "Right! Spending MORE than you earn means a loss, even with lots of sales.",
+      wrongMsg: "A business loses money when its costs are higher than what it earns."
     },
     {
       type: "mc",
@@ -155,9 +163,9 @@ runLesson({
       type: "match",
       question: "Match each business to its customer!",
       pairs: [
-        { prompt: "Pet Store", answer: "Pet owners" },
-        { prompt: "Game Shop", answer: "Gamers" },
-        { prompt: "Bakery", answer: "Cake lovers" }
+        { prompt: "🐾 Pet Store", answer: "Pet owners" },
+        { prompt: "🎮 Game Shop", answer: "Gamers" },
+        { prompt: "🧁 Bakery", answer: "Cake lovers" }
       ],
       correctMsg: "Customer-matching champion!",
       wrongMsg: "Think who would walk into each store."
@@ -167,13 +175,13 @@ runLesson({
       question: "FINAL QUESTION: Could YOU start a real business right now?",
       hint: "Think about everything we learned!",
       options: [
-        { text: "YES — I have ideas, can take chances, and can help customers!", correct: true },
+        { text: "YES, I have ideas, can take chances, and can help customers!", correct: true },
         { text: "No, I'm too young", correct: false },
         { text: "No, I don't have money", correct: false },
         { text: "Only adults can", correct: false }
       ],
-      correctMsg: "YES YOU CAN! You just finished Business 101 — go start something amazing!",
-      wrongMsg: "Mikaila started at 4. Moziah at 9. Ryan at 4. Age and money don't matter — IDEAS do!"
+      correctMsg: "YES YOU CAN! You just finished Business 101, go start something amazing!",
+      wrongMsg: "Mikaila started at 4. Moziah at 9. Ryan at 4. Age and money don't matter, IDEAS do!"
     }
   ],
   badges: [

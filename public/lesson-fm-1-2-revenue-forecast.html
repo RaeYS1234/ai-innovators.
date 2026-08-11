@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Building a Revenue Forecast | AI Innovators</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="lesson-shared.css">
+</head>
+<body>
+<div class="app">
+  <div class="topbar" id="topbar" style="display:none;">
+    <button class="close-btn" id="closeBtn">×</button>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="hearts">
+      <svg class="heart-svg" viewBox="0 0 32 32"><path d="M16 28 C 6 20 2 14 2 10 C 2 6 5 3 9 3 C 12 3 14 5 16 8 C 18 5 20 3 23 3 C 27 3 30 6 30 10 C 30 14 26 20 16 28 Z" fill="#ec4899" stroke="#be185d" stroke-width="1.5"/></svg>
+      <span id="heartsCount">3</span>
+    </div>
+  </div>
+  <div class="screen active" id="screen-welcome">
+    <div class="lesson-tag" id="lesson-tag">LESSON</div>
+    <div class="mascot" id="welcomeMascot"></div>
+    <h1 class="welcome-title" id="welcome-title"></h1>
+    <p class="welcome-subtitle" id="welcome-subtitle"></p>
+    <button class="btn go" id="startBtn">Let's Go!</button>
+  </div>
+  <div class="screen" id="screen-lesson"></div>
+  <div class="screen" id="screen-complete">
+    <div class="mascot" id="completeMascot"></div>
+    <h1 class="complete-title">Lesson Complete!</h1>
+    <p class="complete-subtitle">Awesome work! Here's what you earned:</p>
+    <div class="stats-row">
+      <div class="stat-box"><div class="stat-label">XP Earned</div><div class="stat-value xp" id="finalXP">0</div></div>
+      <div class="stat-box"><div class="stat-label">Score</div><div class="stat-value score" id="finalScore">0%</div></div>
+      <div class="stat-box"><div class="stat-label">Hearts Left</div><div class="stat-value" style="color:#ef4444;" id="finalHearts">3</div></div>
+    </div>
+    <h3 style="margin: 28px 0 14px; color: #0c4a6e; font-weight: 900; font-family:'Nunito',sans-serif;">Badges You Earned:</h3>
+    <div class="badge-grid" id="badgeGrid"></div>
+    <button class="btn go" id="backToCourseBtn">Back to Course →</button>
+    <button class="btn ghost" style="margin-top:12px;" id="playAgainBtn">Play Again</button>
+  </div>
+  <div class="screen" id="screen-gameover">
+    <div class="mascot" id="gameoverMascot"></div>
+    <h1 class="complete-title" style="color:#b91c1c;">Out of Hearts!</h1>
+    <p class="complete-subtitle">Try again! You got this!</p>
+    <button class="btn danger" id="retryBtn">Try Again</button>
+  </div>
+</div>
+<div class="feedback" id="feedback">
+  <div class="feedback-inner">
+    <div><div class="feedback-text" id="feedbackText"></div><div class="feedback-explain" id="feedbackExplain"></div></div>
+    <button class="btn go" onclick="window._lessonNext()">Continue</button>
+  </div>
+</div>
+<script src="lesson-engine.js"></script>
+<script>
+const FORECAST_ICON = `<svg viewBox="0 0 64 64"><rect x="6" y="42" width="8" height="16" fill="#f9a8d4" stroke="#be185d" stroke-width="1.5"/><rect x="18" y="34" width="8" height="24" fill="#f472b6" stroke="#be185d" stroke-width="1.5"/><rect x="30" y="24" width="8" height="34" fill="#ec4899" stroke="#be185d" stroke-width="1.5"/><rect x="42" y="12" width="8" height="46" fill="#db2777" stroke="#831843" stroke-width="1.5"/><path d="M 8 40 L 20 30 L 32 20 L 46 8" stroke="#16a34a" stroke-width="2.5" fill="none" stroke-linecap="round"/><polygon points="46,8 40,10 44,16" fill="#16a34a"/></svg>`;
+
+runLesson({
+  lessonId: "financial-modeling-1-2",
+  courseUrl: "course-financial-modeling.html",
+  tag: "UNIT 1 · LESSON 1.2",
+  title: "Building a Revenue Forecast",
+  subtitle: "Bottom-up vs. top-down, and the math behind month-over-month growth.",
+  steps: [
+    {
+      type: "teach",
+      title: "Top-Down vs. Bottom-Up Forecasting",
+      body: "<b>Top-down</b> forecasting starts with a huge market size and guesses a slice: 'the pet industry is $260B, so we'll capture 1%.' It sounds impressive but shows no real path to those customers. <b>Bottom-up</b> forecasting builds revenue from realistic building blocks: number of leads × conversion rate × price. Investors trust bottom-up because every number traces back to something provable.",
+      examples: ["Top-down: '1% of a $10B market'", "Bottom-up: 200 leads × 10% conversion × $50", "Bottom-up shows a credible path to the number"]
+    },
+    {
+      type: "teach",
+      title: "Revenue Drivers",
+      body: "Revenue is built from drivers: number of customers, price, purchase frequency, and for subscriptions, churn. Subscription businesses track <b>MRR</b> (Monthly Recurring Revenue), the predictable revenue you collect every month, and <b>ARR</b> (Annual Recurring Revenue), which is simply MRR × 12.",
+      examples: ["MRR = number of subscribers × average price", "ARR = MRR × 12", "Churn = % of customers who cancel each month"]
+    },
+    {
+      type: "teach",
+      title: "Modeling Month-over-Month Growth",
+      body: "Growing revenue compounds, it doesn't just add the same amount each month, it multiplies. The formula: Month N = Starting Revenue × (1 + growth rate)^N. A small difference in growth rate creates a HUGE gap over a year, which is why founders obsess over even a few percentage points of MoM growth.",
+      examples: ["Month 1: $10,000", "Month 2: $10,000 × 1.15 = $11,500", "Growth compounds, small % differences add up fast"]
+    },
+    {
+      type: "mc",
+      question: "A company has $10,000 MRR and grows 15% this month. What is next month's MRR?",
+      hint: "Multiply MRR by 1.15 (100% + 15% growth).",
+      options: [
+        { text: "$10,150", correct: false },
+        { text: "$11,500", correct: true },
+        { text: "$15,000", correct: false },
+        { text: "$11,000", correct: false }
+      ],
+      correctMsg: "Right! $10,000 × 1.15 = $11,500.",
+      wrongMsg: "To grow a number by 15%, multiply by 1.15 (not add 15, and not multiply by 0.15). $10,000 × 1.15 = $11,500. Mixing this up is one of the most common modeling errors, it can make a forecast wildly wrong."
+    },
+    {
+      type: "mc",
+      question: "Same company: $10,000 MRR growing 15% every month. What is the MRR after 2 full months of growth?",
+      hint: "Apply the 15% growth twice, compounding on the new total each time.",
+      options: [
+        { text: "$11,500", correct: false },
+        { text: "$13,225", correct: true },
+        { text: "$13,000", correct: false },
+        { text: "$20,000", correct: false }
+      ],
+      correctMsg: "Exactly! Month 1: $10,000 × 1.15 = $11,500. Month 2: $11,500 × 1.15 = $13,225. That's compounding.",
+      wrongMsg: "This is compounding, not simple addition. Month 1: $10,000 × 1.15 = $11,500. Month 2: apply growth again to the NEW total: $11,500 × 1.15 = $13,225. If you just added 15% twice ($10,000 × 1.30), you'd underestimate, compounding always outpaces simple addition."
+    },
+    {
+      type: "mc",
+      question: "A founder pitches revenue as '1% of the $50B pet industry.' What kind of forecast is this, and why do investors distrust it?",
+      hint: "Think about whether the number traces back to a real, provable path to customers.",
+      options: [
+        { text: "Bottom-up, it's built from real customer counts", correct: false },
+        { text: "Top-down, it shows no credible path for how those specific customers will actually be acquired", correct: true },
+        { text: "It's not a forecast at all, just a description", correct: false },
+        { text: "Top-down forecasts are always more accurate than bottom-up", correct: false }
+      ],
+      correctMsg: "Correct! 'X% of a huge market' is the classic top-down trap, it skips the real question of exactly how you'll win those customers.",
+      wrongMsg: "This is a textbook top-down forecast, it starts from a massive market size and guesses a slice, with no explanation of the actual channel, sales process, or customer count behind that 1%. Investors distrust it because nothing in it is provable; a bottom-up forecast (leads × conversion × price) shows real, checkable math instead."
+    },
+    {
+      type: "mc",
+      question: "A SaaS company has 200 subscribers paying $25/month each. What is their ARR?",
+      hint: "First find MRR (subscribers × price), then multiply by 12.",
+      options: [
+        { text: "$5,000", correct: false },
+        { text: "$25,000", correct: false },
+        { text: "$60,000", correct: true },
+        { text: "$600", correct: false }
+      ],
+      correctMsg: "Yes! MRR = 200 × $25 = $5,000. ARR = $5,000 × 12 = $60,000.",
+      wrongMsg: "Two steps: MRR = subscribers × price = 200 × $25 = $5,000. ARR = MRR × 12 = $5,000 × 12 = $60,000. Reporting $5,000 as 'ARR' (instead of MRR) is a common mistake that makes a business look 12x smaller than it should to investors."
+    },
+    {
+      type: "mc",
+      question: "A subscription business has 500 customers this month. It loses 25 to cancellations and gains 40 new customers. What is the churn RATE this month?",
+      hint: "Churn rate = customers lost ÷ customers you started the month with.",
+      options: [
+        { text: "8% (40 new ÷ 500 starting customers)", correct: false },
+        { text: "5% (25 canceled ÷ 500 starting customers)", correct: true },
+        { text: "3% (net gain of 15 ÷ 500 starting customers)", correct: false },
+        { text: "25% (the 25 who canceled)", correct: false }
+      ],
+      correctMsg: "Right! Churn only counts customers LOST, not new signups: 25 ÷ 500 = 5%.",
+      wrongMsg: "Churn measures customers LOST as a % of who you started with, it ignores new signups entirely. 25 canceled ÷ 500 starting = 5% churn. Mixing in new customers (net growth) hides how leaky the business actually is, a company can look like it's growing while quietly losing a dangerous % of customers every month."
+    }
+  ],
+  badges: [
+    { icon: "money", name: "Revenue Modeler", earned: true },
+    { icon: "star", name: "Growth Analyst", earned: ({ correct }) => correct >= 3 },
+    { icon: "brain", name: "Forecasting Pro", earned: ({ correct }) => correct >= 5 },
+    { icon: "perfect", name: "Perfect Score", earned: ({ score }) => score === 100 },
+    { icon: "heart", name: "All Hearts", earned: ({ hearts }) => hearts === 3 },
+    { icon: "trophy", name: "MRR Master", earned: ({ score, hearts }) => score >= 80 && hearts >= 2 }
+  ]
+});
+</script>
+</body>
+</html>

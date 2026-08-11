@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Starting a Business 101 — AI Innovators</title>
+<title>Starting a Business 101 | AI Innovators</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
@@ -507,7 +507,7 @@
     <a href="/#k5">K-5</a>
     <a href="/#middle">6-8</a>
     <a href="/#high">9-12</a>
-    <a href="/enroll" class="enroll-btn">Enroll</a>
+    <a href="enroll.html" class="enroll-btn">Enroll</a>
   </div>
 </nav>
 
@@ -846,11 +846,11 @@ if (user && enrollBtn) {
   enrollBtn.textContent = "Hi, " + (user.name || "friend") + "!";
 }
 
-// ============ Guests can't access course pages — send them to enroll ============
+// ============ Guests can't access course pages, send them to enroll ============
 if (!user) {
   // Save where they wanted to go so we can return them after signup
   try { localStorage.setItem("aii_redirect_after_signup", window.location.pathname); } catch(e) {}
-  window.location.href = "/enroll";
+  window.location.href = "enroll.html";
 } else {
   // Logged in - check progress and unlock the first lesson
   const completedLessons = user.completedLessons || [];

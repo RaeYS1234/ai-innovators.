@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>The Pitch Deck | AI Innovators</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="lesson-shared.css">
+</head>
+<body>
+<div class="app">
+  <div class="topbar" id="topbar" style="display:none;">
+    <button class="close-btn" id="closeBtn">×</button>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="hearts">
+      <svg class="heart-svg" viewBox="0 0 32 32"><path d="M16 28 C 6 20 2 14 2 10 C 2 6 5 3 9 3 C 12 3 14 5 16 8 C 18 5 20 3 23 3 C 27 3 30 6 30 10 C 30 14 26 20 16 28 Z" fill="#ec4899" stroke="#be185d" stroke-width="1.5"/></svg>
+      <span id="heartsCount">3</span>
+    </div>
+  </div>
+  <div class="screen active" id="screen-welcome">
+    <div class="lesson-tag" id="lesson-tag">LESSON</div>
+    <div class="mascot" id="welcomeMascot"></div>
+    <h1 class="welcome-title" id="welcome-title"></h1>
+    <p class="welcome-subtitle" id="welcome-subtitle"></p>
+    <button class="btn go" id="startBtn">Let's Go!</button>
+  </div>
+  <div class="screen" id="screen-lesson"></div>
+  <div class="screen" id="screen-complete">
+    <div class="mascot" id="completeMascot"></div>
+    <h1 class="complete-title">Lesson Complete!</h1>
+    <p class="complete-subtitle">Awesome work! Here's what you earned:</p>
+    <div class="stats-row">
+      <div class="stat-box"><div class="stat-label">XP Earned</div><div class="stat-value xp" id="finalXP">0</div></div>
+      <div class="stat-box"><div class="stat-label">Score</div><div class="stat-value score" id="finalScore">0%</div></div>
+      <div class="stat-box"><div class="stat-label">Hearts Left</div><div class="stat-value" style="color:#ef4444;" id="finalHearts">3</div></div>
+    </div>
+    <h3 style="margin: 28px 0 14px; color: #0c4a6e; font-weight: 900; font-family:'Nunito',sans-serif;">Badges You Earned:</h3>
+    <div class="badge-grid" id="badgeGrid"></div>
+    <button class="btn go" id="backToCourseBtn">Back to Course →</button>
+    <button class="btn ghost" style="margin-top:12px;" id="playAgainBtn">Play Again</button>
+  </div>
+  <div class="screen" id="screen-gameover">
+    <div class="mascot" id="gameoverMascot"></div>
+    <h1 class="complete-title" style="color:#b91c1c;">Out of Hearts!</h1>
+    <p class="complete-subtitle">Try again! You got this!</p>
+    <button class="btn danger" id="retryBtn">Try Again</button>
+  </div>
+</div>
+<div class="feedback" id="feedback">
+  <div class="feedback-inner">
+    <div><div class="feedback-text" id="feedbackText"></div><div class="feedback-explain" id="feedbackExplain"></div></div>
+    <button class="btn go" onclick="window._lessonNext()">Continue</button>
+  </div>
+</div>
+<script src="lesson-engine.js"></script>
+<script>
+const DECK_ICON = `<svg viewBox="0 0 64 64"><rect x="10" y="10" width="36" height="26" rx="2" fill="white" stroke="#831843" stroke-width="2.5"/><rect x="16" y="16" width="24" height="3" fill="#f472b6"/><rect x="16" y="22" width="16" height="3" fill="#94a3b8"/><rect x="14" y="18" width="36" height="26" rx="2" fill="#fdf2f8" stroke="#be185d" stroke-width="2.5"/><rect x="20" y="24" width="24" height="3" fill="#be185d"/><rect x="20" y="30" width="16" height="3" fill="#f472b6"/></svg>`;
+
+runLesson({
+  lessonId: "pitching-investors-1-2",
+  courseUrl: "course-pitching-investors.html",
+  tag: "UNIT 1 · LESSON 1.2",
+  title: "The Pitch Deck",
+  subtitle: "The Sequoia / Y Combinator structure investors expect to see, slide by slide.",
+  steps: [
+    {
+      type: "teach",
+      title: "Why a Standard Structure Wins",
+      body: "Investors read dozens of decks a week. A deck built on the structure VCs already expect, popularized by Sequoia Capital's own pitch deck template and refined by Y Combinator, lets them find what they need fast instead of hunting for it. The goal isn't to look 'different for the sake of different', it's to tell a clear, compelling story: <b>here's a real problem, here's why we're the ones who solve it, and here's why now is the moment.</b> Roughly 10-12 slides is the sweet spot: enough to cover the fundamentals, short enough to respect the investor's time.",
+      examples: ["Investors skim fast, clarity beats cleverness", "10-12 slides is the standard range", "The deck's job: earn a follow-up meeting, not close the deal"]
+    },
+    {
+      type: "teach",
+      title: "The Slide-by-Slide Structure",
+      body: "<b>1. Company Purpose</b>, one sentence: what you do and for whom. <b>2. Problem</b>, the pain, made real and specific. <b>3. Solution</b>, how you solve it, simply. <b>4. Why Now</b>, what changed in the world that makes this the right moment (new tech, new behavior, new regulation). <b>5. Market Size</b>, how big this could realistically become (TAM/SAM/SOM). <b>6. Competition</b>, who else is in this space and your honest edge. <b>7. Product</b>, what you've actually built, with a demo or screenshots. <b>8. Business Model</b>, how you make money. <b>9. Team</b>, why THIS team can win. <b>10. Financials / Traction</b>, real numbers: revenue, growth rate, key metrics. <b>11. Vision</b>, where this goes in 5-10 years. <b>12. The Ask</b>, how much you're raising and what it unlocks.",
+      examples: ["Problem → Solution → Why Now → Market → Competition", "Product → Business Model → Team → Traction", "Vision → The Ask (amount + use of funds)"]
+    },
+    {
+      type: "teach",
+      title: "Why 'Why Now' Is Often the Most Underrated Slide",
+      body: "Founders often skip or rush the <b>Why Now</b> slide, but experienced investors say it's one of the most important. A good idea that was pitched five years too early usually fails, not because the idea was wrong, but because the world wasn't ready (the technology was too immature, or the market behavior hadn't shifted yet). 'Why Now' proves you understand TIMING, not just the idea itself, that's exactly what separates a founder with real market insight from one who just has a nice idea.",
+      examples: ["Great ideas can fail from bad timing, not bad execution", "'Why Now' shows you understand market timing, not just the idea", "Timing signals: new tech maturity, shifted behavior, new regulation"]
+    },
+    {
+      type: "mc",
+      question: "What is the primary JOB of a pitch deck?",
+      hint: "Think about what actually happens right after a good deck, is the deal closed on the spot?",
+      options: [
+        { text: "To close the entire investment deal by itself, with no further conversation needed", correct: false },
+        { text: "To earn a follow-up meeting by telling a clear, compelling story fast, not to close the deal on its own", correct: true },
+        { text: "To list every possible detail about the company so nothing is ever asked about again", correct: false },
+        { text: "To impress investors with complex design and animation, not clarity", correct: false }
+      ],
+      correctMsg: "Right. A great deck's real job is to earn the NEXT conversation, the actual deal gets built through follow-up meetings and diligence.",
+      wrongMsg: "A pitch deck's job isn't to close a deal in one shot, investors almost never invest off a deck alone. Its real job is to communicate the opportunity clearly and fast enough to earn a follow-up meeting. Overloading it with every detail, or prioritizing flashy design over clarity, usually works against that goal."
+    },
+    {
+      type: "mc",
+      question: "Which slide explains what changed in the world that makes THIS the right moment for your company to exist?",
+      hint: "It's not 'Problem' and it's not 'Market Size', it's about timing.",
+      options: [
+        { text: "Why Now", correct: true },
+        { text: "Team", correct: false },
+        { text: "Business Model", correct: false },
+        { text: "Competition", correct: false }
+      ],
+      correctMsg: "Correct! 'Why Now' is specifically about timing, proving the world just became ready for your solution.",
+      wrongMsg: "'Why Now' is the slide dedicated to timing, explaining what recently changed (new technology, shifted user behavior, new regulation) that makes this the right moment. Skipping it is one of the most common mistakes founders make, because a good idea pitched at the wrong time often fails anyway."
+    },
+    {
+      type: "mc",
+      question: "A founder's Team slide only lists job titles with no context. What's missing?",
+      hint: "Investors aren't just checking a list of roles, they're evaluating whether THIS team specifically can win.",
+      options: [
+        { text: "Nothing, job titles are all investors ever look for on a Team slide", correct: false },
+        { text: "The specific reason THIS team is uniquely positioned to win, relevant experience, domain expertise, or past success that builds credibility", correct: true },
+        { text: "A photo of the office building", correct: false },
+        { text: "The team's personal social media follower counts", correct: false }
+      ],
+      correctMsg: "Exactly. Investors bet on people as much as ideas, the Team slide needs to answer 'why THESE founders,' not just 'who works here.'",
+      wrongMsg: "Job titles alone don't answer the real question investors are asking: why is THIS specific team positioned to win at THIS specific problem? Relevant domain expertise, past founder experience, or a track record of execution is what actually builds credibility, a title with no context does almost nothing."
+    },
+    {
+      type: "mc",
+      question: "Where does 'The Ask' belong in a well-structured pitch deck, and what should it include?",
+      hint: "Think about what needs to happen BEFORE an investor understands what the money is for.",
+      options: [
+        { text: "First, before the problem is even explained", correct: false },
+        { text: "Near the end, after the story is told, stating how much you're raising and specifically what it will be used for", correct: true },
+        { text: "It should never be included in a deck at all", correct: false },
+        { text: "Anywhere at random, order doesn't matter", correct: false }
+      ],
+      correctMsg: "Right. 'The Ask' lands near the end because it only makes sense once the investor understands the opportunity, then the amount and its purpose (hiring, product, growth) close the story.",
+      wrongMsg: "The Ask belongs near the end of the deck, after the problem, solution, market, and team have built the case, because an investor can only judge whether an amount makes sense once they understand what it's actually funding. A strong Ask slide states a specific number and a specific use of funds (e.g., 'hire 2 engineers, launch in 3 new markets'), not a vague amount."
+    },
+    {
+      type: "mc",
+      question: "Two decks pitch nearly identical products. Deck A has a strong, clear Why Now slide backed by a real shift in the market. Deck B skips it entirely. All else equal, what does deck A likely communicate better to an experienced investor?",
+      hint: "Think about what separates 'good idea' from 'good idea investors can actually trust the timing of.'",
+      options: [
+        { text: "Nothing, Why Now rarely matters to sophisticated investors", correct: false },
+        { text: "That the founder understands market timing, not just the idea, reducing the risk that this is a good idea pitched too early or too late", correct: true },
+        { text: "That Deck A's founders are better at graphic design", correct: false },
+        { text: "That Deck A's company is automatically worth more money", correct: false }
+      ],
+      correctMsg: "Exactly. A strong Why Now slide signals real market insight, which is a meaningfully different (and more fundable) signal than just having a promising idea.",
+      wrongMsg: "A strong Why Now slide isn't about design, it's a signal of judgment. It tells an experienced investor the founder understands market timing well enough to explain why THIS moment, specifically, is different from five years ago or five years from now. Skipping it leaves a real open question: does this founder actually understand why the idea might work now versus any other time?"
+    }
+  ],
+  badges: [
+    { icon: "starter", name: "Deck Builder", earned: true },
+    { icon: "star", name: "Structure Sharp", earned: ({ correct }) => correct >= 3 },
+    { icon: "brain", name: "Story Strategist", earned: ({ correct }) => correct >= 4 },
+    { icon: "perfect", name: "Perfect Score", earned: ({ score }) => score === 100 },
+    { icon: "heart", name: "All Hearts", earned: ({ hearts }) => hearts === 3 },
+    { icon: "trophy", name: "Sequoia-Style Founder", earned: ({ score, hearts }) => score >= 80 && hearts >= 2 }
+  ]
+});
+</script>
+</body>
+</html>

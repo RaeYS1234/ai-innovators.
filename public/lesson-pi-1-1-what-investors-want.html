@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>What Investors Actually Want | AI Innovators</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="lesson-shared.css">
+</head>
+<body>
+<div class="app">
+  <div class="topbar" id="topbar" style="display:none;">
+    <button class="close-btn" id="closeBtn">×</button>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="hearts">
+      <svg class="heart-svg" viewBox="0 0 32 32"><path d="M16 28 C 6 20 2 14 2 10 C 2 6 5 3 9 3 C 12 3 14 5 16 8 C 18 5 20 3 23 3 C 27 3 30 6 30 10 C 30 14 26 20 16 28 Z" fill="#ec4899" stroke="#be185d" stroke-width="1.5"/></svg>
+      <span id="heartsCount">3</span>
+    </div>
+  </div>
+  <div class="screen active" id="screen-welcome">
+    <div class="lesson-tag" id="lesson-tag">LESSON</div>
+    <div class="mascot" id="welcomeMascot"></div>
+    <h1 class="welcome-title" id="welcome-title"></h1>
+    <p class="welcome-subtitle" id="welcome-subtitle"></p>
+    <button class="btn go" id="startBtn">Let's Go!</button>
+  </div>
+  <div class="screen" id="screen-lesson"></div>
+  <div class="screen" id="screen-complete">
+    <div class="mascot" id="completeMascot"></div>
+    <h1 class="complete-title">Lesson Complete!</h1>
+    <p class="complete-subtitle">Awesome work! Here's what you earned:</p>
+    <div class="stats-row">
+      <div class="stat-box"><div class="stat-label">XP Earned</div><div class="stat-value xp" id="finalXP">0</div></div>
+      <div class="stat-box"><div class="stat-label">Score</div><div class="stat-value score" id="finalScore">0%</div></div>
+      <div class="stat-box"><div class="stat-label">Hearts Left</div><div class="stat-value" style="color:#ef4444;" id="finalHearts">3</div></div>
+    </div>
+    <h3 style="margin: 28px 0 14px; color: #0c4a6e; font-weight: 900; font-family:'Nunito',sans-serif;">Badges You Earned:</h3>
+    <div class="badge-grid" id="badgeGrid"></div>
+    <button class="btn go" id="backToCourseBtn">Back to Course →</button>
+    <button class="btn ghost" style="margin-top:12px;" id="playAgainBtn">Play Again</button>
+  </div>
+  <div class="screen" id="screen-gameover">
+    <div class="mascot" id="gameoverMascot"></div>
+    <h1 class="complete-title" style="color:#b91c1c;">Out of Hearts!</h1>
+    <p class="complete-subtitle">Try again! You got this!</p>
+    <button class="btn danger" id="retryBtn">Try Again</button>
+  </div>
+</div>
+<div class="feedback" id="feedback">
+  <div class="feedback-inner">
+    <div><div class="feedback-text" id="feedbackText"></div><div class="feedback-explain" id="feedbackExplain"></div></div>
+    <button class="btn go" onclick="window._lessonNext()">Continue</button>
+  </div>
+</div>
+<script src="lesson-engine.js"></script>
+<script>
+const POWERLAW_ICON = `<svg viewBox="0 0 64 64"><line x1="8" y1="56" x2="56" y2="56" stroke="#831843" stroke-width="2.5"/><line x1="8" y1="56" x2="8" y2="8" stroke="#831843" stroke-width="2.5"/><rect x="12" y="50" width="6" height="6" fill="#94a3b8"/><rect x="20" y="46" width="6" height="10" fill="#94a3b8"/><rect x="28" y="38" width="6" height="18" fill="#94a3b8"/><rect x="36" y="10" width="6" height="46" fill="#22c55e" stroke="#15803d" stroke-width="1.5"/><circle cx="39" cy="10" r="4" fill="#fbbf24" stroke="#d97706" stroke-width="1.5"/></svg>`;
+
+runLesson({
+  lessonId: "pitching-investors-1-1",
+  courseUrl: "course-pitching-investors.html",
+  tag: "UNIT 1 · LESSON 1.1",
+  title: "What Investors Actually Want",
+  subtitle: "The return math and portfolio logic behind every VC's yes or no.",
+  steps: [
+    {
+      type: "vocab",
+      word: "Power Law",
+      pronounce: "say it: POW-er law",
+      definition: "In venture capital, the <b>power law</b> means returns are wildly unequal, most startups in a fund return little or nothing, while a tiny handful of huge winners generate almost all of the fund's total profit. It's not a bell curve; it's a hockey stick.",
+      example: "A VC fund might invest in 25 startups. 15 fail completely, 8 return their money back or a small multiple, and just 1 or 2 breakout winners (like an early Airbnb or Uber) account for 80%+ of the fund's total returns.",
+      icon: POWERLAW_ICON
+    },
+    {
+      type: "teach",
+      title: "Why VCs Need 10x+ Returns",
+      body: "Venture capital funds raise money from <b>LPs</b> (Limited Partners, pension funds, university endowments, wealthy individuals). LPs expect VC funds to significantly beat the stock market to justify the risk and the fees. A typical fund needs to return roughly 3x the money LPs put in, net of fees, over its ~10-year life. Because most startups fail or return nothing, the few winners in the portfolio have to be enormous, often returning 10x, 50x, even 100x the original check, to cover all the losers AND hit that 3x fund target.",
+      examples: ["LPs = the investors who fund VC funds (pensions, endowments)", "Fund target: return ~3x the total fund to LPs", "Because most bets fail, winners must return 10x-100x+"]
+    },
+    {
+      type: "teach",
+      title: "Portfolio Construction & Check Size by Stage",
+      body: "VCs don't bet on one company, they build a <b>portfolio</b> on purpose, knowing most bets will lose. Check size scales with stage and risk: <b>pre-seed</b> checks are often in the low hundreds of thousands (highest risk, earliest idea stage); <b>seed</b> checks typically range from roughly $1M-$4M once there's a product and early traction; <b>Series A</b> checks usually start around $5M+ once there's proven product-market fit and repeatable revenue. Because early-stage risk is so high, a VC firm needs enough portfolio companies that the power-law winners can carry the whole fund, this is exactly why a single 'no' from one investor rarely means your idea is bad. It might just not fit their portfolio math that month.",
+      examples: ["Pre-seed: idea stage, smallest, highest-risk checks", "Seed: early traction, roughly $1M-$4M checks", "Series A: proven traction, $5M+ checks"]
+    },
+    {
+      type: "mc",
+      question: "Why do VCs need their winning investments to return 10x or more?",
+      hint: "Think about what happens to all the OTHER investments in the same fund.",
+      options: [
+        { text: "Because most other investments in the fund fail or return little, so the few winners have to cover those losses AND hit the fund's overall return target", correct: true },
+        { text: "Because VCs are simply greedy and want more money than anyone else", correct: false },
+        { text: "Because every single startup a VC funds is expected to succeed", correct: false },
+        { text: "Because 10x is a random number with no real reason behind it", correct: false }
+      ],
+      correctMsg: "Exactly. The power law means most bets lose, so the few winners have to be huge to make the whole fund's math work for its LPs.",
+      wrongMsg: "VCs aren't expecting every company to succeed, most fail. Because of that, the handful of winners in a fund's portfolio have to return 10x or more just to cover all the losses from failed bets AND still hit the fund's overall return target for its LPs. This is why VCs actively look for businesses with a real shot at being huge, not just safe and steady."
+    },
+    {
+      type: "mc",
+      question: "What does 'LP' stand for in venture capital, and what do they want?",
+      hint: "LPs are the ones who actually put money INTO the VC fund.",
+      options: [
+        { text: "Limited Partner, the investors (pensions, endowments) who fund the VC fund and expect strong returns to justify the risk", correct: true },
+        { text: "Lead Product, the main product a startup is building", correct: false },
+        { text: "Late Payment, a penalty fee startups pay investors", correct: false },
+        { text: "Local Partner, a VC's assistant based in the same city", correct: false }
+      ],
+      correctMsg: "Right. LPs are the source of a VC fund's money, and their return expectations are exactly why VCs chase big, power-law outcomes instead of safe, modest ones.",
+      wrongMsg: "LP stands for Limited Partner, the pensions, endowments, and wealthy individuals whose money actually fills a VC fund. Because LPs are taking on real risk by investing in a risky asset class, they expect returns that beat safer options like the stock market, which is the root reason VCs need power-law-sized wins."
+    },
+    {
+      type: "mc",
+      question: "A VC fund invests in 20 startups. Which outcome best matches how the power law usually plays out?",
+      hint: "Think 'most fail, a couple carry the whole fund', not an even spread.",
+      options: [
+        { text: "All 20 return roughly the same modest 2x profit", correct: false },
+        { text: "Most of the 20 fail or return little, while just 1-2 breakout winners generate the large majority of the fund's total returns", correct: true },
+        { text: "Exactly half succeed hugely and half fail, a perfect 50/50 split", correct: false },
+        { text: "None of them matter, only the fund's marketing matters", correct: false }
+      ],
+      correctMsg: "Yes! That lopsided, hockey-stick outcome, a few huge winners carrying dozens of losers, is the power law in action.",
+      wrongMsg: "The power law is NOT an even spread of moderate outcomes, it's extremely lopsided. In a real portfolio, most companies fail or barely return capital, while a small number of outsized winners (often just 1 or 2 out of 20+) generate almost all of the fund's actual profit. This is why VCs are hunting for outlier potential, not steady, predictable businesses."
+    },
+    {
+      type: "mc",
+      question: "A founder is raising a Series A. Based on typical check sizes, what should they realistically expect?",
+      hint: "Series A comes after proven traction, so checks are bigger than seed or pre-seed.",
+      options: [
+        { text: "A check in the low hundreds of thousands, similar to pre-seed", correct: false },
+        { text: "A check typically starting around $5M or more, since Series A requires proven product-market fit and repeatable revenue", correct: true },
+        { text: "No check at all, Series A rounds don't involve VCs", correct: false },
+        { text: "A check exactly equal to whatever the founder personally saved", correct: false }
+      ],
+      correctMsg: "Correct. Series A checks are larger because they come with a higher bar: real, repeatable traction, not just an idea.",
+      wrongMsg: "Series A checks are typically $5M or more because, by this stage, a startup is expected to already show proven product-market fit and repeatable revenue, not just a promising idea. Pre-seed and seed checks are smaller precisely because they're funding much earlier, riskier, less-proven stages."
+    },
+    {
+      type: "mc",
+      question: "A founder gets rejected by a VC who says 'great team, but this doesn't fit what we're looking for right now.' What's the most accurate way to interpret that?",
+      hint: "Think about portfolio construction, a VC's decision isn't only about your company in isolation.",
+      options: [
+        { text: "It definitely means the business idea is fundamentally bad and should be abandoned", correct: false },
+        { text: "It can genuinely mean the deal doesn't fit that fund's specific portfolio strategy, check size, or stage, not necessarily a verdict on the business itself", correct: true },
+        { text: "It means the founder should never pitch that VC again under any circumstances", correct: false },
+        { text: "It has nothing to do with the VC's fund size or portfolio construction at all", correct: false }
+      ],
+      correctMsg: "Exactly right. VCs build portfolios deliberately around their fund's size, stage focus, and return math, a 'no' is often about fit, not a verdict on your business.",
+      wrongMsg: "Because VCs construct portfolios deliberately, around fund size, stage focus, check size, and how many power-law-sized winners they need, a single rejection often reflects fit with THAT fund's strategy, not a final judgment on the business. Founders who've been through fundraising know: you pitch dozens of investors because the math means most will pass, even on companies that go on to become huge successes."
+    }
+  ],
+  badges: [
+    { icon: "money", name: "Return Math Rookie", earned: true },
+    { icon: "star", name: "Sharp Analyst", earned: ({ correct }) => correct >= 3 },
+    { icon: "brain", name: "Power Law Thinker", earned: ({ correct }) => correct >= 4 },
+    { icon: "perfect", name: "Perfect Score", earned: ({ score }) => score === 100 },
+    { icon: "heart", name: "All Hearts", earned: ({ hearts }) => hearts === 3 },
+    { icon: "trophy", name: "VC Mindset Master", earned: ({ score, hearts }) => score >= 80 && hearts >= 2 }
+  ]
+});
+</script>
+</body>
+</html>

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Calculate Profit — AI Innovators</title>
+<title>Calculate Profit | AI Innovators</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="lesson-shared.css">
@@ -43,7 +43,7 @@
   <div class="screen" id="screen-gameover">
     <div class="mascot" id="gameoverMascot"></div>
     <h1 class="complete-title" style="color:#b91c1c;">Out of Hearts!</h1>
-    <p class="complete-subtitle">Math gets easier with practice — try again!</p>
+    <p class="complete-subtitle">Math gets easier with practice, try again!</p>
     <button class="btn danger" id="retryBtn">Try Again</button>
   </div>
 </div>
@@ -78,40 +78,56 @@ runLesson({
       examples: ["Revenue $20 − Cost $10 = $10 profit!", "Revenue $5 − Cost $8 = -$3 loss 😬"]
     },
     {
-      type: "math",
-      question: "Easy one!",
-      story: "Revenue: $10. Cost: $3. What's your profit?",
-      equation: "$10 − $3 = ?",
-      answer: 7,
-      correctMsg: "Yes! $7 profit.",
-      wrongMsg: "10 − 3 = 7."
+      type: "mc",
+      question: "💰 You made a profit! What can a smart business owner DO with that money?",
+      hint: "Profit is money you get to keep. What helps your business?",
+      options: [
+        { text: "Buy more supplies and grow the business", correct: true },
+        { text: "Throw it in the trash", correct: false },
+        { text: "Nothing, profit is useless", correct: false },
+        { text: "Give it all back to customers", correct: false }
+      ],
+      correctMsg: "Yes! Profit lets you grow, buy more supplies, make more stuff, or save it for later.",
+      wrongMsg: "Profit is money you keep! Smart owners use it to GROW their business."
     },
     {
-      type: "math",
-      question: "Lemonade stand profit",
-      story: "You sold 10 cups at $2 each (revenue = $20). You spent $5 on lemons and sugar (cost = $5). Profit?",
-      equation: "$20 − $5 = ?",
-      answer: 15,
-      correctMsg: "Awesome! $15 profit.",
-      wrongMsg: "20 − 5 = 15."
+      type: "mc",
+      question: "🍋 A lemonade stand sold TONS of cups, but bought super fancy cups that cost more than it earned. What happened?",
+      hint: "If you spend more than you make, there's no money left.",
+      options: [
+        { text: "It lost money, no profit", correct: true },
+        { text: "It made huge profit", correct: false },
+        { text: "It got rich", correct: false },
+        { text: "Nothing, selling a lot always means profit", correct: false }
+      ],
+      correctMsg: "Exactly! Selling a lot doesn't help if your costs are even higher. That's how people LOSE money.",
+      wrongMsg: "Even with lots of sales, spending MORE than you earn means a loss. Costs matter!"
     },
     {
-      type: "math",
-      question: "Cookie shop profit",
-      story: "Sold 12 cookies at $3 each (revenue = $36). Spent $14 on ingredients. Profit?",
-      equation: "$36 − $14 = ?",
-      answer: 22,
-      correctMsg: "Great! $22 profit.",
-      wrongMsg: "36 − 14 = 22."
+      type: "mc",
+      question: "📈 Two cookie shops both made $36 in revenue. Which one keeps MORE profit?",
+      hint: "Profit is what's left after costs. Lower cost = more left over.",
+      options: [
+        { text: "The shop that spent $10 on ingredients", correct: true },
+        { text: "The shop that spent $20 on ingredients", correct: false },
+        { text: "They keep the same profit", correct: false },
+        { text: "You can't tell", correct: false }
+      ],
+      correctMsg: "Right! Same revenue, but lower cost = MORE profit. That's why smart owners keep costs low!",
+      wrongMsg: "Both earned $36, but spending LESS leaves more profit. Lower cost wins!"
     },
     {
-      type: "math",
-      question: "Bracelet boss",
-      story: "You sold 8 bracelets at $5 each (revenue = $40). You spent $12 on beads. Profit?",
-      equation: "$40 − $12 = ?",
-      answer: 28,
-      correctMsg: "Yes! $28 profit. You're a profit pro!",
-      wrongMsg: "40 − 12 = 28."
+      type: "mc",
+      question: "💎 Why do people start businesses and try to make a profit?",
+      hint: "Profit is the reward for running a good business.",
+      options: [
+        { text: "Profit is money they earn and keep for their work", correct: true },
+        { text: "To lose as much money as possible", correct: false },
+        { text: "Because profit isn't important", correct: false },
+        { text: "To give all their money away", correct: false }
+      ],
+      correctMsg: "Right! Profit is the reward, money you earn and keep. It's the goal of every business!",
+      wrongMsg: "Profit is the money a business earns and keeps. It's the whole reason to run one!"
     },
     {
       type: "mc",
@@ -129,7 +145,7 @@ runLesson({
   ],
   badges: [
     { icon: "money", name: "Profit Pioneer", earned: true },
-    { icon: "star", name: "Math Star", earned: ({ correct }) => correct >= 2 },
+    { icon: "star", name: "Money Star", earned: ({ correct }) => correct >= 2 },
     { icon: "brain", name: "Profit Pro", earned: ({ correct }) => correct >= 4 },
     { icon: "perfect", name: "Perfect Score", earned: ({ score }) => score === 100 },
     { icon: "heart", name: "All Hearts", earned: ({ hearts }) => hearts === 3 },

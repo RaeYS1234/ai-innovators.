@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Why Market Research Matters | AI Innovators</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="lesson-shared.css">
+</head>
+<body>
+<div class="app">
+  <div class="topbar" id="topbar" style="display:none;">
+    <button class="close-btn" id="closeBtn">×</button>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="hearts">
+      <svg class="heart-svg" viewBox="0 0 32 32"><path d="M16 28 C 6 20 2 14 2 10 C 2 6 5 3 9 3 C 12 3 14 5 16 8 C 18 5 20 3 23 3 C 27 3 30 6 30 10 C 30 14 26 20 16 28 Z" fill="#ec4899" stroke="#be185d" stroke-width="1.5"/></svg>
+      <span id="heartsCount">3</span>
+    </div>
+  </div>
+  <div class="screen active" id="screen-welcome">
+    <div class="lesson-tag" id="lesson-tag">LESSON</div>
+    <div class="mascot" id="welcomeMascot"></div>
+    <h1 class="welcome-title" id="welcome-title"></h1>
+    <p class="welcome-subtitle" id="welcome-subtitle"></p>
+    <button class="btn go" id="startBtn">Let's Go!</button>
+  </div>
+  <div class="screen" id="screen-lesson"></div>
+  <div class="screen" id="screen-complete">
+    <div class="mascot" id="completeMascot"></div>
+    <h1 class="complete-title">Lesson Complete!</h1>
+    <p class="complete-subtitle">Awesome work! Here's what you earned:</p>
+    <div class="stats-row">
+      <div class="stat-box"><div class="stat-label">XP Earned</div><div class="stat-value xp" id="finalXP">0</div></div>
+      <div class="stat-box"><div class="stat-label">Score</div><div class="stat-value score" id="finalScore">0%</div></div>
+      <div class="stat-box"><div class="stat-label">Hearts Left</div><div class="stat-value" style="color:#ef4444;" id="finalHearts">3</div></div>
+    </div>
+    <h3 style="margin: 28px 0 14px; color: #0c4a6e; font-weight: 900; font-family:'Nunito',sans-serif;">Badges You Earned:</h3>
+    <div class="badge-grid" id="badgeGrid"></div>
+    <button class="btn go" id="backToCourseBtn">Back to Course →</button>
+    <button class="btn ghost" style="margin-top:12px;" id="playAgainBtn">Play Again</button>
+  </div>
+  <div class="screen" id="screen-gameover">
+    <div class="mascot" id="gameoverMascot"></div>
+    <h1 class="complete-title" style="color:#b91c1c;">Out of Hearts!</h1>
+    <p class="complete-subtitle">Try again! You got this!</p>
+    <button class="btn danger" id="retryBtn">Try Again</button>
+  </div>
+</div>
+<div class="feedback" id="feedback">
+  <div class="feedback-inner">
+    <div><div class="feedback-text" id="feedbackText"></div><div class="feedback-explain" id="feedbackExplain"></div></div>
+    <button class="btn go" onclick="window._lessonNext()">Continue</button>
+  </div>
+</div>
+<script src="lesson-engine.js"></script>
+<script>
+const RESEARCH_ICON = `<svg viewBox="0 0 64 64"><circle cx="26" cy="26" r="16" fill="none" stroke="#7c3aed" stroke-width="4"/><line x1="37" y1="37" x2="54" y2="54" stroke="#7c3aed" stroke-width="5" stroke-linecap="round"/><path d="M18 26 L24 32 L34 20" stroke="#a78bfa" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+
+runLesson({
+  lessonId: "market-research-1-1",
+  courseUrl: "course-market-research.html",
+  tag: "UNIT 1 · LESSON 1.1",
+  title: "Why Market Research Matters",
+  subtitle: "How understanding your market before you build saves time, money, and heartbreak",
+  steps: [
+    {
+      type: "vocab",
+      word: "Market Research",
+      pronounce: "say it: MAR-ket REE-surch",
+      definition: "<b>Market research</b> is the process of gathering information about customers, competitors, and industry trends before making business decisions.",
+      example: "Before launching a new snack brand, a founder surveys 100 potential customers to see if they'd actually buy it, that's market research.",
+      icon: RESEARCH_ICON
+    },
+    {
+      type: "teach",
+      title: "Build the Right Thing, Not Just A Thing",
+      body: "Many startups fail not because they built something poorly, but because they built something nobody actually wanted. Market research reduces this risk by testing assumptions BEFORE investing months of time and money. It answers questions like: Does this problem really exist? How big is the potential market? What are competitors already doing?",
+      examples: ["Confirms real demand before you build", "Reveals how big the opportunity actually is", "Shows what competitors are already doing"]
+    },
+    {
+      type: "mc",
+      question: "What is \"market research\"?",
+      hint: "Think about gathering information before deciding.",
+      options: [
+        { text: "Gathering information about customers, competitors, and trends before making decisions", correct: true },
+        { text: "Randomly guessing what customers might want", correct: false },
+        { text: "A legal requirement to start any business", correct: false },
+        { text: "Only something huge companies need to do", correct: false }
+      ],
+      correctMsg: "Right! Market research is gathering real information before deciding.",
+      wrongMsg: "Market research is the process of gathering info about customers, competitors, and trends before deciding."
+    },
+    {
+      type: "mc",
+      question: "What's a MAIN reason startups fail, that market research helps prevent?",
+      hint: "Think about building something nobody wants.",
+      options: [
+        { text: "Building something nobody actually wanted or needed", correct: true },
+        { text: "Having too many happy customers", correct: false },
+        { text: "Spending too little time on the idea", correct: false },
+        { text: "Doing too much research before launching", correct: false }
+      ],
+      correctMsg: "Correct! Building something without real demand is a top reason startups fail.",
+      wrongMsg: "A major failure reason is building something nobody actually wanted, research helps catch this early."
+    },
+    {
+      type: "mc",
+      question: "A founder skips research and spends 6 months building an app, only to find nobody wants it. What could have helped?",
+      hint: "Think about testing before building.",
+      options: [
+        { text: "Doing market research first to test real demand before investing months of work", correct: true },
+        { text: "Building the app even faster next time", correct: false },
+        { text: "Never talking to any potential customers, ever", correct: false },
+        { text: "Making the app more complicated", correct: false }
+      ],
+      correctMsg: "Exactly! Testing demand first would have saved months of wasted effort.",
+      wrongMsg: "Doing market research first tests real demand, potentially saving months of wasted building time."
+    }
+  ],
+  badges: [
+    { icon: "bulb", name: "Research Starter", earned: true },
+    { icon: "star", name: "Quick Learner", earned: ({ correct }) => correct >= 2 },
+    { icon: "brain", name: "Market Smart", earned: ({ correct }) => correct >= 3 },
+    { icon: "perfect", name: "Perfect Score", earned: ({ score }) => score === 100 },
+    { icon: "heart", name: "All Hearts", earned: ({ hearts }) => hearts === 3 },
+    { icon: "trophy", name: "Research Pro", earned: ({ score, hearts }) => score >= 80 && hearts >= 2 }
+  ]
+});
+</script>
+</body>
+</html>

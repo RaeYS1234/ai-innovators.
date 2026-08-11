@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>What Is a Financial Model? | AI Innovators</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="lesson-shared.css">
+</head>
+<body>
+<div class="app">
+  <div class="topbar" id="topbar" style="display:none;">
+    <button class="close-btn" id="closeBtn">×</button>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="hearts">
+      <svg class="heart-svg" viewBox="0 0 32 32"><path d="M16 28 C 6 20 2 14 2 10 C 2 6 5 3 9 3 C 12 3 14 5 16 8 C 18 5 20 3 23 3 C 27 3 30 6 30 10 C 30 14 26 20 16 28 Z" fill="#ec4899" stroke="#be185d" stroke-width="1.5"/></svg>
+      <span id="heartsCount">3</span>
+    </div>
+  </div>
+  <div class="screen active" id="screen-welcome">
+    <div class="lesson-tag" id="lesson-tag">LESSON</div>
+    <div class="mascot" id="welcomeMascot"></div>
+    <h1 class="welcome-title" id="welcome-title"></h1>
+    <p class="welcome-subtitle" id="welcome-subtitle"></p>
+    <button class="btn go" id="startBtn">Let's Go!</button>
+  </div>
+  <div class="screen" id="screen-lesson"></div>
+  <div class="screen" id="screen-complete">
+    <div class="mascot" id="completeMascot"></div>
+    <h1 class="complete-title">Lesson Complete!</h1>
+    <p class="complete-subtitle">Awesome work! Here's what you earned:</p>
+    <div class="stats-row">
+      <div class="stat-box"><div class="stat-label">XP Earned</div><div class="stat-value xp" id="finalXP">0</div></div>
+      <div class="stat-box"><div class="stat-label">Score</div><div class="stat-value score" id="finalScore">0%</div></div>
+      <div class="stat-box"><div class="stat-label">Hearts Left</div><div class="stat-value" style="color:#ef4444;" id="finalHearts">3</div></div>
+    </div>
+    <h3 style="margin: 28px 0 14px; color: #0c4a6e; font-weight: 900; font-family:'Nunito',sans-serif;">Badges You Earned:</h3>
+    <div class="badge-grid" id="badgeGrid"></div>
+    <button class="btn go" id="backToCourseBtn">Back to Course →</button>
+    <button class="btn ghost" style="margin-top:12px;" id="playAgainBtn">Play Again</button>
+  </div>
+  <div class="screen" id="screen-gameover">
+    <div class="mascot" id="gameoverMascot"></div>
+    <h1 class="complete-title" style="color:#b91c1c;">Out of Hearts!</h1>
+    <p class="complete-subtitle">Try again! You got this!</p>
+    <button class="btn danger" id="retryBtn">Try Again</button>
+  </div>
+</div>
+<div class="feedback" id="feedback">
+  <div class="feedback-inner">
+    <div><div class="feedback-text" id="feedbackText"></div><div class="feedback-explain" id="feedbackExplain"></div></div>
+    <button class="btn go" onclick="window._lessonNext()">Continue</button>
+  </div>
+</div>
+<script src="lesson-engine.js"></script>
+<script>
+const MODEL_ICON = `<svg viewBox="0 0 64 64"><rect x="8" y="8" width="48" height="48" rx="4" fill="#fce7f3" stroke="#be185d" stroke-width="2.5"/><line x1="8" y1="22" x2="56" y2="22" stroke="#be185d" stroke-width="2"/><line x1="24" y1="22" x2="24" y2="56" stroke="#f9a8d4" stroke-width="1.5"/><line x1="40" y1="22" x2="40" y2="56" stroke="#f9a8d4" stroke-width="1.5"/><line x1="8" y1="34" x2="56" y2="34" stroke="#f9a8d4" stroke-width="1.5"/><line x1="8" y1="46" x2="56" y2="46" stroke="#f9a8d4" stroke-width="1.5"/><path d="M 28 50 L 33 42 L 38 46 L 47 32" stroke="#16a34a" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+
+runLesson({
+  lessonId: "financial-modeling-1-1",
+  courseUrl: "course-financial-modeling.html",
+  tag: "UNIT 1 · LESSON 1.1",
+  title: "What Is a Financial Model?",
+  subtitle: "The spreadsheet that turns your business idea into provable numbers.",
+  steps: [
+    {
+      type: "vocab",
+      word: "Financial Model",
+      pronounce: "say it: fy-NAN-shul MOD-el",
+      definition: "A <b>financial model</b> is a spreadsheet that turns your assumptions about a business, pricing, growth rate, costs, into forecasted numbers: revenue, profit, cash in the bank, and when you might run out of money.",
+      example: "A founder assumes 15% month-over-month growth and $8 average order value. The model turns those two assumptions into a full 12-month forecast of revenue and cash, before a single sale actually happens.",
+      icon: MODEL_ICON
+    },
+    {
+      type: "teach",
+      title: "Why Founders Build Models",
+      body: "A model isn't paperwork, it's a decision-making tool. It answers questions like: can I afford to hire someone? How much runway do I have before I need more funding? What happens if sales are 20% lower than hoped? Investors also use your model to stress-test whether your plan is realistic before they write a check.",
+      examples: ["Can I afford to hire this quarter?", "How many months of cash do I have left?", "What if growth is slower than I hope?"]
+    },
+    {
+      type: "teach",
+      title: "The Three Financial Statements",
+      body: "Every serious model connects three statements. The <b>Income Statement</b> (P&amp;L) shows profit over a period, revenue minus expenses. The <b>Balance Sheet</b> is a snapshot at one moment: what you own (assets) vs. what you owe (liabilities), plus what's left over (equity). The <b>Cash Flow Statement</b> tracks actual cash moving in and out, because profit and cash are NOT the same thing.",
+      examples: ["Income Statement: profit over time", "Balance Sheet: assets vs. debts, one moment", "Cash Flow: real cash actually in the bank"]
+    },
+    {
+      type: "teach",
+      title: "Assumptions Drive Everything",
+      body: "A model has two parts: <b>assumptions</b> (inputs you estimate, growth rate, price, churn) and <b>formulas</b> (the math that turns inputs into outputs). Change one assumption, and the whole forecast updates. That's why serious founders build <b>best case, base case, and worst case</b> scenarios, a model is only as trustworthy as the assumptions feeding it.",
+      examples: ["Assumptions = inputs you estimate", "Formulas = math that calculates outputs", "Garbage assumptions in = garbage forecast out"]
+    },
+    {
+      type: "mc",
+      question: "What is the PRIMARY purpose of a financial model for a founder?",
+      hint: "Think about what problem it solves for decision-making.",
+      options: [
+        { text: "To turn assumptions into a forecast so decisions are based on math instead of guesswork", correct: true },
+        { text: "To make the pitch deck look longer", correct: false },
+        { text: "To replace the need for a business plan entirely", correct: false },
+        { text: "To calculate exactly how much tax is owed this year", correct: false }
+      ],
+      correctMsg: "Exactly. A model exists to replace guessing with a testable forecast you can actually plan and hire against.",
+      wrongMsg: "A model's real job is turning your assumptions (growth rate, price, costs) into a forecast, so decisions like hiring or spending are backed by math, not gut feeling. If your assumptions are wrong, hiring or spending too early can burn through cash you can't get back."
+    },
+    {
+      type: "mc",
+      question: "Which financial statement shows whether a company was PROFITABLE over a period, like a quarter?",
+      hint: "Think 'profit over time,' not 'snapshot.'",
+      options: [
+        { text: "The Balance Sheet", correct: false },
+        { text: "The Income Statement (P&L)", correct: true },
+        { text: "The Cap Table", correct: false },
+        { text: "The Employee Handbook", correct: false }
+      ],
+      correctMsg: "Right! The Income Statement (Profit & Loss) shows revenue minus expenses over a stretch of time.",
+      wrongMsg: "The Income Statement (P&L) is the one that shows profit over a period of time, revenue minus expenses. Confusing it with the Balance Sheet (a single-moment snapshot) is a common early mistake that leads founders to mis-time when they think they're actually profitable."
+    },
+    {
+      type: "mc",
+      question: "A company's income statement shows $50,000 profit for the quarter, but the bank account only has $5,000 in it. What's the most likely explanation?",
+      hint: "Think about the difference between EARNING revenue and COLLECTING cash.",
+      options: [
+        { text: "The income statement must be wrong", correct: false },
+        { text: "Customers have been billed but haven't paid yet, revenue was earned, but the cash hasn't arrived", correct: true },
+        { text: "Profit and cash are always identical numbers", correct: false },
+        { text: "They must have spent their profit on the balance sheet", correct: false }
+      ],
+      correctMsg: "Yes! This is the single most important gap in finance: profit ≠ cash. Unpaid customer invoices (accounts receivable) can make a 'profitable' company run out of money.",
+      wrongMsg: "Profit and cash are NOT the same thing, this gap is why companies that look profitable on paper can still run out of money. If revenue is recognized when a sale happens but the customer hasn't actually paid yet, your income statement looks great while your bank account stays empty. This is exactly why the Cash Flow Statement exists."
+    },
+    {
+      type: "mc",
+      question: "In a financial model, what's the real difference between an 'assumption' and a 'formula'?",
+      hint: "One is something you estimate; the other is math that runs on what you estimated.",
+      options: [
+        { text: "An assumption is an estimated input you choose (like growth rate); a formula calculates outputs from those inputs", correct: true },
+        { text: "There's no real difference, they're the same thing", correct: false },
+        { text: "A formula is always more accurate than an assumption", correct: false },
+        { text: "Assumptions only matter for the Balance Sheet", correct: false }
+      ],
+      correctMsg: "Correct! Assumptions are your best estimates going in; formulas are the math that turns those estimates into a forecast.",
+      wrongMsg: "Assumptions (growth rate, price, churn) are estimates YOU choose, they can be wrong. Formulas are just the math that processes those assumptions. If you treat a formula's output as more 'true' than the assumption feeding it, you'll trust a forecast built on a shaky guess."
+    },
+    {
+      type: "mc",
+      question: "Why do serious financial models include 'best case, base case, and worst case' scenarios instead of just one number?",
+      hint: "Think about how confident anyone can really be in a single estimate of the future.",
+      options: [
+        { text: "To make the spreadsheet look more impressive to investors", correct: false },
+        { text: "Because assumptions are uncertain, and scenario planning shows how sensitive the business is to being wrong", correct: true },
+        { text: "Because investors legally require exactly three scenarios", correct: false },
+        { text: "Because showing only one number is against accounting rules", correct: false }
+      ],
+      correctMsg: "Exactly, this is called sensitivity analysis. It shows how much the forecast changes if your growth rate or costs come in different than expected.",
+      wrongMsg: "No assumption about the future is ever certain. Scenario planning (best/base/worst case) exists so a founder can see how sensitive the whole business is if growth is slower, costs are higher, or churn is worse than hoped, and plan cash needs accordingly instead of getting blindsided."
+    }
+  ],
+  badges: [
+    { icon: "bulb", name: "Model Builder", earned: true },
+    { icon: "star", name: "Sharp Analyst", earned: ({ correct }) => correct >= 3 },
+    { icon: "brain", name: "3-Statement Pro", earned: ({ correct }) => correct >= 5 },
+    { icon: "perfect", name: "Perfect Score", earned: ({ score }) => score === 100 },
+    { icon: "heart", name: "All Hearts", earned: ({ hearts }) => hearts === 3 },
+    { icon: "trophy", name: "Future CFO", earned: ({ score, hearts }) => score >= 80 && hearts >= 2 }
+  ]
+});
+</script>
+</body>
+</html>

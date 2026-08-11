@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Unit 1 Quiz | AI Innovators</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="lesson-shared.css">
+</head>
+<body>
+<div class="app">
+  <div class="topbar" id="topbar" style="display:none;">
+    <button class="close-btn" id="closeBtn">×</button>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="hearts">
+      <svg class="heart-svg" viewBox="0 0 32 32"><path d="M16 28 C 6 20 2 14 2 10 C 2 6 5 3 9 3 C 12 3 14 5 16 8 C 18 5 20 3 23 3 C 27 3 30 6 30 10 C 30 14 26 20 16 28 Z" fill="#ec4899" stroke="#be185d" stroke-width="1.5"/></svg>
+      <span id="heartsCount">3</span>
+    </div>
+  </div>
+  <div class="screen active" id="screen-welcome">
+    <div class="lesson-tag" id="lesson-tag">LESSON</div>
+    <div class="mascot" id="welcomeMascot"></div>
+    <h1 class="welcome-title" id="welcome-title"></h1>
+    <p class="welcome-subtitle" id="welcome-subtitle"></p>
+    <button class="btn go" id="startBtn">Let's Go!</button>
+  </div>
+  <div class="screen" id="screen-lesson"></div>
+  <div class="screen" id="screen-complete">
+    <div class="mascot" id="completeMascot"></div>
+    <h1 class="complete-title">Lesson Complete!</h1>
+    <p class="complete-subtitle">Awesome work! Here's what you earned:</p>
+    <div class="stats-row">
+      <div class="stat-box"><div class="stat-label">XP Earned</div><div class="stat-value xp" id="finalXP">0</div></div>
+      <div class="stat-box"><div class="stat-label">Score</div><div class="stat-value score" id="finalScore">0%</div></div>
+      <div class="stat-box"><div class="stat-label">Hearts Left</div><div class="stat-value" style="color:#ef4444;" id="finalHearts">3</div></div>
+    </div>
+    <h3 style="margin: 28px 0 14px; color: #0c4a6e; font-weight: 900; font-family:'Nunito',sans-serif;">Badges You Earned:</h3>
+    <div class="badge-grid" id="badgeGrid"></div>
+    <button class="btn go" id="backToCourseBtn">Back to Course →</button>
+    <button class="btn ghost" style="margin-top:12px;" id="playAgainBtn">Play Again</button>
+  </div>
+  <div class="screen" id="screen-gameover">
+    <div class="mascot" id="gameoverMascot"></div>
+    <h1 class="complete-title" style="color:#b91c1c;">Out of Hearts!</h1>
+    <p class="complete-subtitle">Try again! You got this!</p>
+    <button class="btn danger" id="retryBtn">Try Again</button>
+  </div>
+</div>
+<div class="feedback" id="feedback">
+  <div class="feedback-inner">
+    <div><div class="feedback-text" id="feedbackText"></div><div class="feedback-explain" id="feedbackExplain"></div></div>
+    <button class="btn go" onclick="window._lessonNext()">Continue</button>
+  </div>
+</div>
+<script src="lesson-engine.js"></script>
+<script>
+runLesson({
+  lessonId: "pitching-investors-1-3",
+  courseUrl: "course-pitching-investors.html",
+  tag: "UNIT 1 CHECK",
+  title: "Unit 1 Quiz",
+  subtitle: "Prove you understand VC return math and the anatomy of a real pitch deck.",
+  steps: [
+    {
+      type: "mc",
+      question: "Why do VC funds need a small number of huge, outlier wins instead of many modest ones?",
+      hint: "Think about what happens to most of the investments in a typical fund.",
+      options: [
+        { text: "Because most bets in a portfolio fail or return little, so a few massive winners must cover those losses and still hit the fund's overall return target", correct: true },
+        { text: "Because VCs don't actually care about returns at all", correct: false },
+        { text: "Because every startup in a fund is guaranteed to succeed", correct: false },
+        { text: "Because modest, steady returns are illegal for VC funds to accept", correct: false }
+      ],
+      correctMsg: "Right, that's the power law in action.",
+      wrongMsg: "The power law means most fund investments fail or underperform, so the few real winners have to be enormous to cover those losses and still deliver the fund's overall target return to LPs."
+    },
+    {
+      type: "mc",
+      question: "Who are 'LPs' and why does their expectation matter to how VCs invest?",
+      hint: "They're the source of the fund's money in the first place.",
+      options: [
+        { text: "Limited Partners, the investors who fund the VC's fund and expect returns that justify the risk, which is why VCs chase big outcomes", correct: true },
+        { text: "Legal Providers, the lawyers who write term sheets", correct: false },
+        { text: "Local Prospects, nearby startups a VC might invest in", correct: false },
+        { text: "Late Payers, founders who are behind on repaying investors", correct: false }
+      ],
+      correctMsg: "Correct! LPs are the ultimate source of a VC fund's capital and return pressure.",
+      wrongMsg: "LP = Limited Partner, the pensions, endowments, and individuals who put money into a VC fund. Because they expect strong returns for taking on VC-level risk, VCs are pushed to seek out huge, power-law-sized winners instead of safe, modest ones."
+    },
+    {
+      type: "mc",
+      question: "Roughly how does check size typically change from pre-seed to Series A?",
+      hint: "Risk goes down and proof of traction goes up as a company matures, what happens to check size?",
+      options: [
+        { text: "It increases, pre-seed checks are the smallest (highest risk, earliest stage), and Series A checks are much larger once there's proven traction", correct: true },
+        { text: "It stays exactly the same across every stage", correct: false },
+        { text: "It decreases as a company matures and de-risks", correct: false },
+        { text: "Check size has no relationship to stage at all", correct: false }
+      ],
+      correctMsg: "Right! Check size grows with stage because risk drops and proof of traction increases.",
+      wrongMsg: "Check size generally increases from pre-seed (smallest, riskiest, idea-stage) through seed to Series A (larger, since there's proven product-market fit and repeatable revenue by then). Later-stage investors are paying for de-risked, proven traction, that's worth a bigger check."
+    },
+    {
+      type: "mc",
+      question: "What is the main purpose of the 'Why Now' slide in a pitch deck?",
+      hint: "It's about timing, not the problem or the product itself.",
+      options: [
+        { text: "To explain what recently changed in the world that makes THIS the right moment for the solution to work", correct: true },
+        { text: "To list every competitor in exhaustive detail", correct: false },
+        { text: "To show off the founding team's personal hobbies", correct: false },
+        { text: "To state the company's mailing address", correct: false }
+      ],
+      correctMsg: "Yes! 'Why Now' proves the founder understands market timing, not just the idea.",
+      wrongMsg: "The 'Why Now' slide exists to explain the timing: what changed recently (new technology, shifted behavior, new regulation) that makes this the right moment, not five years too early or too late. Skipping it is a common and costly mistake."
+    },
+    {
+      type: "mc",
+      question: "A pitch deck is well-structured but the founder treats it as the entire fundraising process. What's the mistake?",
+      hint: "Think about what a deck is actually FOR versus what happens after it.",
+      options: [
+        { text: "A deck's real job is to earn a follow-up meeting, the actual deal gets built through further conversations, questions, and diligence, not the deck alone", correct: true },
+        { text: "There's no mistake, a great deck alone always closes the round", correct: false },
+        { text: "The mistake is that decks should never be shown to investors at all", correct: false },
+        { text: "The mistake is that decks should only ever be sent, never presented live", correct: false }
+      ],
+      correctMsg: "Exactly. The deck opens the door, the real fundraising happens in the meetings, questions, and diligence that follow.",
+      wrongMsg: "A pitch deck's job is to communicate the opportunity clearly enough to earn a follow-up conversation, it is rarely, if ever, the whole fundraising process by itself. Investors typically want live discussion, questions answered, and diligence before committing real money."
+    }
+  ],
+  badges: [
+    { icon: "starter", name: "Unit 1 Complete", earned: true },
+    { icon: "star", name: "Quiz Sharp", earned: ({ correct }) => correct >= 3 },
+    { icon: "brain", name: "Fundraising Fluent", earned: ({ correct }) => correct >= 4 },
+    { icon: "perfect", name: "Perfect Score", earned: ({ score }) => score === 100 },
+    { icon: "heart", name: "All Hearts", earned: ({ hearts }) => hearts === 3 },
+    { icon: "trophy", name: "Unit 1 Champion", earned: ({ score, hearts }) => score >= 80 && hearts >= 2 }
+  ]
+});
+</script>
+</body>
+</html>

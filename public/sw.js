@@ -5,7 +5,7 @@
 // Cache version — change this string when you want to force everyone
 // to clear their cache. With the network-first strategy below, updates
 // already show up immediately when the user has internet.
-const CACHE_NAME = "ai-innovators-2026-08-09a";
+const CACHE_NAME = "ai-innovators-2026-08-11a";
 
 // Core files to cache so the app works offline
 const CORE_FILES = [
@@ -175,14 +175,11 @@ const CORE_FILES = [
   "/lesson-mr-3-2-spotting-opportunities.html",
   "/lesson-mr-challenge.html",
   // Pitching to Investors (Level 5 Master)
-  "/lesson-pi-1-1-types-of-investors.html",
-  "/lesson-pi-1-2-what-investors-look-for.html",
-  "/lesson-pi-1-3-valuation-101.html",
-  "/lesson-pi-2-1-pitch-deck-anatomy.html",
-  "/lesson-pi-2-2-telling-story-with-data.html",
-  "/lesson-pi-2-3-build-your-pitch-deck.html",
-  "/lesson-pi-3-1-delivery-and-confidence.html",
-  "/lesson-pi-3-2-qa-strategies.html",
+  "/lesson-pi-1-1-what-investors-want.html",
+  "/lesson-pi-1-2-the-pitch-deck.html",
+  "/lesson-pi-1-3-unit1-quiz.html",
+  "/lesson-pi-2-1-valuation-basics.html",
+  "/lesson-pi-2-2-handling-questions.html",
   "/lesson-pi-challenge.html",
   // Building MVPs with AI (Level 5 Master)
   "/lesson-mvp-1-1-what-is-an-mvp.html",

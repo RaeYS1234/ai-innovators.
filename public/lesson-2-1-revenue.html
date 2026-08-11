@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>What is Revenue? — AI Innovators</title>
+<title>What is Revenue? | AI Innovators</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="lesson-shared.css">
@@ -43,7 +43,7 @@
   <div class="screen" id="screen-gameover">
     <div class="mascot" id="gameoverMascot"></div>
     <h1 class="complete-title" style="color:#b91c1c;">Out of Hearts!</h1>
-    <p class="complete-subtitle">Don't give up — every entrepreneur tries again!</p>
+    <p class="complete-subtitle">Don't give up, every entrepreneur tries again!</p>
     <button class="btn danger" id="retryBtn">Try Again</button>
   </div>
 </div>
@@ -61,7 +61,7 @@ runLesson({
   lessonId: "business-101-2-1",
   tag: "UNIT 2 · LESSON 2.1",
   title: "What is Revenue?",
-  subtitle: "Let's learn how businesses earn money — the simple way!",
+  subtitle: "Let's learn how businesses earn money, the simple way!",
   steps: [
     {
       type: "vocab",
@@ -79,34 +79,42 @@ runLesson({
     },
     {
       type: "mc",
-      question: "Sara sold 4 bracelets for $5 each. What's her revenue?",
-      hint: "Revenue = how many you sold × price per item.",
+      question: "💡 You want MORE revenue for your bracelet shop. What's a smart way to get it?",
+      hint: "Revenue goes up when more money comes IN.",
       options: [
-        { text: "$5", correct: false },
-        { text: "$9", correct: false },
-        { text: "$20", correct: true },
-        { text: "$25", correct: false }
+        { text: "Sell to more customers", correct: true },
+        { text: "Hide your shop so it's a secret", correct: false },
+        { text: "Give everything away for free", correct: false },
+        { text: "Stop making bracelets", correct: false }
       ],
-      correctMsg: "Yes! 4 bracelets × $5 = $20 revenue.",
-      wrongMsg: "Multiply: 4 × $5 = $20. That's her revenue!"
+      correctMsg: "Yes! More customers buying = more money IN = more revenue.",
+      wrongMsg: "Revenue is money IN. To get more, you need MORE people buying from you!"
     },
     {
-      type: "math",
-      question: "Quick math!",
-      story: "You sell 6 cupcakes at $3 each. What's your revenue?",
-      equation: "6 × $3 = ?",
-      answer: 18,
-      correctMsg: "Perfect! $18 revenue.",
-      wrongMsg: "6 × 3 = 18."
+      type: "mc",
+      question: "🧁 A bakery sold out of every cupcake today. What happened to its revenue?",
+      hint: "Selling more means more money comes in.",
+      options: [
+        { text: "Revenue went UP, lots of money came in", correct: true },
+        { text: "Revenue went DOWN", correct: false },
+        { text: "Revenue disappeared", correct: false },
+        { text: "Nothing changed", correct: false }
+      ],
+      correctMsg: "Right! Selling out means lots of customers paid, revenue went UP!",
+      wrongMsg: "When you sell a LOT, more money comes in, so revenue goes UP."
     },
     {
-      type: "math",
-      question: "Try a bigger one!",
-      story: "Your lemonade stand sells 12 cups at $2 each. What's the revenue?",
-      equation: "12 × $2 = ?",
-      answer: 24,
-      correctMsg: "Awesome! $24 revenue.",
-      wrongMsg: "12 × 2 = 24."
+      type: "mc",
+      question: "🍋 Two lemonade stands sell cups at $2 each. Which one makes MORE revenue?",
+      hint: "More cups sold = more money in.",
+      options: [
+        { text: "Stand A: sold 12 cups", correct: true },
+        { text: "Stand B: sold 5 cups", correct: false },
+        { text: "They make the same", correct: false },
+        { text: "You can't tell", correct: false }
+      ],
+      correctMsg: "Yes! Selling MORE at the same price = more revenue. That's the big idea!",
+      wrongMsg: "Same price, but Stand A sold more cups, so it earns more revenue!"
     },
     {
       type: "mc",
@@ -124,7 +132,7 @@ runLesson({
   ],
   badges: [
     { icon: "money", name: "Money Mover", earned: true },
-    { icon: "star", name: "Math Whiz", earned: ({ correct }) => correct >= 2 },
+    { icon: "star", name: "Money Whiz", earned: ({ correct }) => correct >= 2 },
     { icon: "brain", name: "Revenue Pro", earned: ({ correct }) => correct >= 3 },
     { icon: "perfect", name: "Perfect Score", earned: ({ score }) => score === 100 },
     { icon: "heart", name: "All Hearts", earned: ({ hearts }) => hearts === 3 },

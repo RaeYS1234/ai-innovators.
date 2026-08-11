@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Specificity & Context — AI Innovators</title>
+<title>Specificity & Context | AI Innovators</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="lesson-shared.css">
@@ -43,7 +43,7 @@
   <div class="screen" id="screen-gameover">
     <div class="mascot" id="gameoverMascot"></div>
     <h1 class="complete-title" style="color:#b91c1c;">Out of Hearts!</h1>
-    <p class="complete-subtitle">Try again — be more specific!</p>
+    <p class="complete-subtitle">Try again! Be more specific!</p>
     <button class="btn danger" id="retryBtn">Try Again</button>
   </div>
 </div>
@@ -65,7 +65,7 @@ runLesson({
     {
       type: "teach",
       title: "Vague In, Vague Out",
-      body: "The single biggest lever you have as a prompt writer is specificity. Instead of \"write a story,\" try \"write a 200-word sci-fi story about a robot who learns to paint, for a 10-year-old audience.\" The more specific details you provide — audience, length, topic, tone — the more the AI's prediction narrows in on exactly what you want.",
+      body: "The single biggest lever you have as a prompt writer is specificity. Instead of \"write a story,\" try \"write a 200-word sci-fi story about a robot who learns to paint, for a 10-year-old audience.\" The more specific details you provide, audience, length, topic, tone, the more the AI's prediction narrows in on exactly what you want.",
       examples: []
     },
     {
@@ -87,22 +87,22 @@ runLesson({
       hint: "Think about what business, audience, or budget.",
       options: [
         { text: "Context like what the business is, who the audience is, and any budget or constraints", correct: true },
-        { text: "Nothing — this prompt is already perfect", correct: false },
+        { text: "Nothing, this prompt is already perfect", correct: false },
         { text: "It needs to be written in all capital letters", correct: false },
         { text: "It needs to be exactly one word long", correct: false }
       ],
       correctMsg: "Correct! Adding context about the business, audience, and constraints sharpens the result.",
-      wrongMsg: "This prompt is missing context — what the business is, who it's for, and any limits — which weakens the result."
+      wrongMsg: "This prompt is missing context, what the business is, who it's for, and any limits, which weakens the result."
     },
     {
       type: "mc",
       question: "Someone rewrites \"write about dogs\" into \"write a 3-paragraph article comparing the energy levels of Border Collies vs Bulldogs for new dog owners.\" What did they improve?",
       hint: "Think about how much clearer the goal became.",
       options: [
-        { text: "They added specific topic, structure, and audience — giving the AI a much clearer target", correct: true },
+        { text: "They added specific topic, structure, and audience, giving the AI a much clearer target", correct: true },
         { text: "They made the prompt confusing and harder to understand", correct: false },
         { text: "They removed all useful information", correct: false },
-        { text: "Nothing changed — both prompts are equally vague", correct: false }
+        { text: "Nothing changed, both prompts are equally vague", correct: false }
       ],
       correctMsg: "Exactly! Specific topic, structure, and audience make prompts far more effective.",
       wrongMsg: "Adding a specific topic, structure, and target audience gives the AI a much clearer goal to aim for."
@@ -118,7 +118,7 @@ runLesson({
         { text: "It's technically impossible for a prompt to be too long", correct: false }
       ],
       correctMsg: "Right! Relevant specificity helps, but irrelevant clutter can bury the real goal.",
-      wrongMsg: "Irrelevant details can bury the actual goal in noise — specificity should stay relevant, not just long."
+      wrongMsg: "Irrelevant details can bury the actual goal in noise, specificity should stay relevant, not just long."
     }
   ],
   badges: [

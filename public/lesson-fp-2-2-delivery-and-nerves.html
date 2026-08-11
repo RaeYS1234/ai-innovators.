@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Delivery & Nerves | AI Innovators</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="lesson-shared.css">
+</head>
+<body>
+<div class="app">
+  <div class="topbar" id="topbar" style="display:none;">
+    <button class="close-btn" id="closeBtn">×</button>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="hearts">
+      <svg class="heart-svg" viewBox="0 0 32 32"><path d="M16 28 C 6 20 2 14 2 10 C 2 6 5 3 9 3 C 12 3 14 5 16 8 C 18 5 20 3 23 3 C 27 3 30 6 30 10 C 30 14 26 20 16 28 Z" fill="#ec4899" stroke="#be185d" stroke-width="1.5"/></svg>
+      <span id="heartsCount">3</span>
+    </div>
+  </div>
+  <div class="screen active" id="screen-welcome">
+    <div class="lesson-tag" id="lesson-tag">LESSON</div>
+    <div class="mascot" id="welcomeMascot"></div>
+    <h1 class="welcome-title" id="welcome-title"></h1>
+    <p class="welcome-subtitle" id="welcome-subtitle"></p>
+    <button class="btn go" id="startBtn">Let's Go!</button>
+  </div>
+  <div class="screen" id="screen-lesson"></div>
+  <div class="screen" id="screen-complete">
+    <div class="mascot" id="completeMascot"></div>
+    <h1 class="complete-title">Lesson Complete!</h1>
+    <p class="complete-subtitle">Awesome work! Here's what you earned:</p>
+    <div class="stats-row">
+      <div class="stat-box"><div class="stat-label">XP Earned</div><div class="stat-value xp" id="finalXP">0</div></div>
+      <div class="stat-box"><div class="stat-label">Score</div><div class="stat-value score" id="finalScore">0%</div></div>
+      <div class="stat-box"><div class="stat-label">Hearts Left</div><div class="stat-value" style="color:#ef4444;" id="finalHearts">3</div></div>
+    </div>
+    <h3 style="margin: 28px 0 14px; color: #0c4a6e; font-weight: 900; font-family:'Nunito',sans-serif;">Badges You Earned:</h3>
+    <div class="badge-grid" id="badgeGrid"></div>
+    <button class="btn go" id="backToCourseBtn">Back to Course →</button>
+    <button class="btn ghost" style="margin-top:12px;" id="playAgainBtn">Play Again</button>
+  </div>
+  <div class="screen" id="screen-gameover">
+    <div class="mascot" id="gameoverMascot"></div>
+    <h1 class="complete-title" style="color:#b91c1c;">Out of Hearts!</h1>
+    <p class="complete-subtitle">Try again! You got this!</p>
+    <button class="btn danger" id="retryBtn">Try Again</button>
+  </div>
+</div>
+<div class="feedback" id="feedback">
+  <div class="feedback-inner">
+    <div><div class="feedback-text" id="feedbackText"></div><div class="feedback-explain" id="feedbackExplain"></div></div>
+    <button class="btn go" onclick="window._lessonNext()">Continue</button>
+  </div>
+</div>
+<script src="lesson-engine.js"></script>
+<script>
+const MIC_ICON = `<svg viewBox="0 0 64 64"><rect x="24" y="8" width="16" height="28" rx="8" fill="#7c3aed" stroke="#4c1d95" stroke-width="2.5"/><path d="M 16 28 C 16 40 24 46 32 46 C 40 46 48 40 48 28" stroke="#4c1d95" stroke-width="3" fill="none" stroke-linecap="round"/><line x1="32" y1="46" x2="32" y2="56" stroke="#4c1d95" stroke-width="3" stroke-linecap="round"/><line x1="22" y1="56" x2="42" y2="56" stroke="#4c1d95" stroke-width="3" stroke-linecap="round"/></svg>`;
+
+runLesson({
+  lessonId: "first-pitch-2-2",
+  courseUrl: "course-first-pitch.html",
+  tag: "UNIT 2 · LESSON 2.2",
+  title: "Delivery & Nerves",
+  subtitle: "A great deck can still flop with a shaky delivery. Here's how real founders handle the room, and the nerves.",
+  steps: [
+    {
+      type: "vocab",
+      word: "Delivery",
+      pronounce: "say it: dih-LIV-uh-ree",
+      definition: "<b>Delivery</b> is HOW you present your pitch, your pace, eye contact, tone, and body language, as opposed to WHAT your slides say. Investors and judges often remember delivery more than content: confident delivery can save an average idea, and shaky delivery can sink a great one.",
+      example: "On Shark Tank, founders who know their numbers cold, without glancing at notes, consistently earn more trust from the Sharks than founders with fancier slides but shaky answers.",
+      icon: MIC_ICON
+    },
+    {
+      type: "teach",
+      title: "Before You Walk In",
+      body: "Nerves are normal, even experienced founders get them. The fix isn't to eliminate nerves, it's to prepare so well that your body has less to be nervous ABOUT. Know your numbers cold: your market size, your traction, your ask, without needing notes. Practice out loud, not just in your head, saying it silently feels smoother than saying it out loud actually is. And do a slow, deep breath right before you start; it lowers your heart rate and steadies your voice.",
+      examples: ["Know your numbers without notes", "Practice OUT LOUD, many times", "Slow breath before you start", "Prepare, don't just hope"]
+    },
+    {
+      type: "teach",
+      title: "During the Pitch",
+      body: "Slow down, nervous speakers rush, and rushing makes you harder to follow AND sound less confident. Make eye contact around the room, not just at one friendly face. If you don't know an answer during Q&A, it's better to say 'that's a great question, here's what I do know...' than to guess and get caught in a wrong answer. Confidence isn't about knowing everything, it's about handling not-knowing gracefully.",
+      examples: ["Slow your pace on purpose", "Eye contact across the room", "Handle unknowns honestly", "Confidence ≠ knowing everything"]
+    },
+    {
+      type: "mc",
+      question: "What is 'delivery' in a pitch?",
+      hint: "It's the HOW, not the WHAT.",
+      options: [
+        { text: "The slides themselves", correct: false },
+        { text: "How you present, your pace, eye contact, tone, and body language", correct: true },
+        { text: "The price of your product", correct: false },
+        { text: "How many slides you have", correct: false }
+      ],
+      correctMsg: "Right! Delivery is HOW you present, separate from what the slides say.",
+      wrongMsg: "Delivery is HOW you present your pitch, pace, eye contact, tone, body language, as opposed to what the slides themselves say."
+    },
+    {
+      type: "mc",
+      question: "What's the best way to prepare for nerves BEFORE a pitch?",
+      hint: "The goal isn't zero nerves, it's less to be nervous about.",
+      options: [
+        { text: "Avoid practicing so you sound 'natural'", correct: false },
+        { text: "Practice out loud repeatedly and know your key numbers without notes", correct: true },
+        { text: "Memorize a script word-for-word and never deviate", correct: false },
+        { text: "Skip preparation, nerves happen no matter what", correct: false }
+      ],
+      correctMsg: "Yes! Real preparation, practicing out loud and knowing your numbers cold, genuinely reduces nerves.",
+      wrongMsg: "Practicing out loud (not just in your head) and knowing your key numbers without notes is the real fix, preparation reduces what your body has to be nervous about."
+    },
+    {
+      type: "mc",
+      question: "Why does saying your pitch OUT LOUD matter more than rehearsing it silently in your head?",
+      hint: "Think about what feels different once words actually leave your mouth.",
+      options: [
+        { text: "It doesn't matter, silent practice is identical", correct: false },
+        { text: "Saying it out loud reveals awkward phrasing and timing that silent rehearsal hides", correct: true },
+        { text: "It's louder, so it's automatically better", correct: false },
+        { text: "It makes the pitch shorter", correct: false }
+      ],
+      correctMsg: "Correct! Out-loud practice exposes rough spots, awkward wording, pacing issues, that silent rehearsal never catches.",
+      wrongMsg: "Out-loud practice reveals real problems, awkward phrasing, rushed pacing, that feel fine in your head but don't actually work when spoken."
+    },
+    {
+      type: "mc",
+      question: "During Q&A, you get asked a question you don't know the answer to. What's the BEST move?",
+      hint: "Guessing and getting caught is worse than honesty.",
+      options: [
+        { text: "Make up a confident-sounding answer even if it's wrong", correct: false },
+        { text: "Say it's a great question, share what you DO know, and be honest about the gap", correct: true },
+        { text: "Ignore the question completely", correct: false },
+        { text: "Get defensive and argue with the questioner", correct: false }
+      ],
+      correctMsg: "Right! Handling an unknown honestly builds MORE trust than a guessed answer that turns out wrong.",
+      wrongMsg: "The best move is honesty: acknowledge the question, share what you do know, and admit the gap, confidence means handling not-knowing gracefully, not faking it."
+    },
+    {
+      type: "mc",
+      question: "Why do Shark Tank founders who know their numbers cold usually earn more trust than founders with fancier slides but shaky answers?",
+      hint: "Which one actually proves you understand your own business?",
+      options: [
+        { text: "Fancy slides always matter more than substance", correct: false },
+        { text: "Knowing your numbers cold proves you deeply understand your own business, which slides alone can't fake", correct: true },
+        { text: "Sharks don't care about numbers at all", correct: false },
+        { text: "It's random which founders get more trust", correct: false }
+      ],
+      correctMsg: "Yes! Command of your numbers is proof of real understanding, no slide design can substitute for that.",
+      wrongMsg: "Knowing your numbers without notes proves genuine command of your business, that kind of trust can't be faked with a nicer-looking slide deck."
+    }
+  ],
+  badges: [
+    { icon: "starter", name: "Delivery Ready", earned: true },
+    { icon: "bulb", name: "Calm & Clear", earned: ({ correct }) => correct >= 2 },
+    { icon: "brain", name: "Stage Smart", earned: ({ correct }) => correct >= 4 },
+    { icon: "perfect", name: "Perfect Score", earned: ({ score }) => score === 100 },
+    { icon: "heart", name: "All Hearts", earned: ({ hearts }) => hearts === 3 },
+    { icon: "trophy", name: "Founder-in-Training", earned: ({ score, hearts }) => score >= 80 && hearts >= 2 }
+  ]
+});
+</script>
+</body>
+</html>

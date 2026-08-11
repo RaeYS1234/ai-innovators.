@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Investor Pitch Showdown — AI Innovators</title>
+<title>Pitching to Investors Challenge | AI Innovators</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="lesson-shared.css">
@@ -19,17 +19,17 @@
     </div>
   </div>
   <div class="screen active" id="screen-welcome">
-    <div class="lesson-tag" id="lesson-tag">FINAL CHALLENGE</div>
+    <div class="lesson-tag" id="lesson-tag">LESSON</div>
     <div class="mascot" id="welcomeMascot"></div>
     <h1 class="welcome-title" id="welcome-title"></h1>
     <p class="welcome-subtitle" id="welcome-subtitle"></p>
-    <button class="btn go" id="startBtn">Start Challenge!</button>
+    <button class="btn go" id="startBtn">Let's Go!</button>
   </div>
   <div class="screen" id="screen-lesson"></div>
   <div class="screen" id="screen-complete">
     <div class="mascot" id="completeMascot"></div>
-    <h1 class="complete-title">Pitch Champion!</h1>
-    <p class="complete-subtitle">You crushed the final challenge! Here's what you earned:</p>
+    <h1 class="complete-title">Lesson Complete!</h1>
+    <p class="complete-subtitle">Awesome work! Here's what you earned:</p>
     <div class="stats-row">
       <div class="stat-box"><div class="stat-label">XP Earned</div><div class="stat-value xp" id="finalXP">0</div></div>
       <div class="stat-box"><div class="stat-label">Score</div><div class="stat-value score" id="finalScore">0%</div></div>
@@ -43,7 +43,7 @@
   <div class="screen" id="screen-gameover">
     <div class="mascot" id="gameoverMascot"></div>
     <h1 class="complete-title" style="color:#b91c1c;">Out of Hearts!</h1>
-    <p class="complete-subtitle">Try again — every great pitch takes practice!</p>
+    <p class="complete-subtitle">Try again! You got this!</p>
     <button class="btn danger" id="retryBtn">Try Again</button>
   </div>
 </div>
@@ -59,108 +59,108 @@ runLesson({
   lessonId: "pitching-investors-challenge",
   courseUrl: "course-pitching-investors.html",
   tag: "FINAL CHALLENGE",
-  title: "Investor Pitch Showdown",
-  subtitle: "Prove you've mastered investors, pitch decks, and confident delivery",
+  title: "Pitching to Investors Challenge",
+  subtitle: "Real case studies, Airbnb, Snapchat, and real term sheet math. Show you can think like a founder who's raised money.",
   steps: [
     {
       type: "mc",
-      question: "How do angel investors typically differ from VC firms?",
-      hint: "Think about individuals vs firms.",
+      question: "In 2009, Airbnb was three founders selling cereal boxes and renting air mattresses, with almost no traction. Y Combinator invested $20,000, and shortly after, Sequoia Capital invested roughly $600,000 in a seed round. Why would sophisticated investors bet real money on a company that looked this unproven?",
+      hint: "Think about power-law thinking, investors aren't betting on certainty, they're betting on huge asymmetric upside.",
       options: [
-        { text: "Angels are individuals investing their own money, often earlier and in smaller amounts than VC firms", correct: true },
-        { text: "There is no real difference between them", correct: false },
-        { text: "VCs always invest before any angel investor does", correct: false },
-        { text: "Angels only ever invest in food companies", correct: false }
+        { text: "Because Airbnb already had millions of users and guaranteed profits", correct: false },
+        { text: "Because early-stage VCs aren't betting on certainty, they're betting on founders and a market opportunity big enough that even a small chance of a massive outcome is worth the risk, exactly how power-law portfolio math works", correct: true },
+        { text: "Because Sequoia was legally required to invest in every YC company", correct: false },
+        { text: "Because the founders paid Sequoia to invest", correct: false }
       ],
-      correctMsg: "Right! Angels are individuals, often investing earlier and smaller than VC firms.",
-      wrongMsg: "Angel investors are individuals investing their own money, typically earlier and in smaller amounts than VCs."
+      correctMsg: "Exactly. Early-stage investing is a bet on founders and a potentially massive market, not a bet on current traction, Airbnb went on to be one of the biggest power-law outcomes in venture history.",
+      wrongMsg: "Airbnb had almost no traction in 2009, three founders, air mattresses, and a scrappy cereal-box fundraising stunt. Sequoia's ~$600K bet reflected classic power-law thinking: at the earliest stage, investors are betting on the FOUNDERS and the SIZE of the opportunity, not on proof the business already works. A small check into a company with a real shot at becoming enormous can outperform dozens of 'safer' bets that never break out."
     },
     {
       type: "mc",
-      question: "What are the core things investors typically look for in a pitch?",
-      hint: "Think problem, market, team, traction, plan.",
+      question: "In 2013, Facebook offered to buy Snapchat for $3 billion in cash. Snapchat's founders turned it down. Assuming they believed in the company's long-term trajectory, what does this decision illustrate about founder-investor dynamics?",
+      hint: "Think about the tradeoff between a guaranteed, certain outcome now versus a much larger, uncertain outcome later.",
       options: [
-        { text: "A real problem, big market, capable team, early traction, and a believable plan", correct: true },
-        { text: "Only the founder's favorite color", correct: false },
-        { text: "The exact number of office chairs owned", correct: false },
-        { text: "Nothing specific — investors decide completely at random", correct: false }
+        { text: "Founders should always take the largest offer on the table immediately, no matter what", correct: false },
+        { text: "Founders sometimes bet on their own long-term vision over a guaranteed, certain payout, a high-conviction, high-risk decision that can pay off enormously or turn out to be a costly mistake, but reflects real founder conviction", correct: true },
+        { text: "It proves acquisition offers are always fake and never worth considering", correct: false },
+        { text: "It shows that $3 billion was an insultingly low number with no real value", correct: false }
       ],
-      correctMsg: "Correct! Investors generally check for a real problem, market size, team, traction, and a solid plan.",
-      wrongMsg: "Investors typically look for a real problem, a big enough market, a capable team, traction, and a believable plan."
+      correctMsg: "Right. Rejecting a guaranteed $3B for a shot at a bigger independent future is exactly the kind of high-conviction, asymmetric bet founders (and the investors who back them) sometimes make.",
+      wrongMsg: "Turning down a guaranteed $3 billion cash offer is a genuinely risky move, it could have gone badly. But it illustrates a real dynamic in founder decision-making: sometimes founders (like investors) choose to bet on a much larger, uncertain future over a smaller, guaranteed one. This isn't a universal 'always say no' lesson, it's a reminder that founders, like VCs, sometimes deliberately choose asymmetric upside over certainty, at real risk."
     },
     {
       type: "mc",
-      question: "If a startup's valuation goes UP, what happens to the equity investors get for the SAME investment?",
-      hint: "Think about the trade-off.",
+      question: "A term sheet: an investor puts in $5M for a stake that would be 10% of the company if converted to common shares, with a 1x non-participating liquidation preference. The company is later sold for $20M. The investor takes whichever is GREATER, their preference, or their as-converted share. How much does the investor receive?",
+      hint: "Compare the $5M preference to what 10% of $20M would be, then take the larger number.",
       options: [
-        { text: "Investors get LESS equity for that same amount of money", correct: true },
-        { text: "Investors get MORE equity for that same amount of money", correct: false },
-        { text: "Nothing changes about the equity at all", correct: false },
-        { text: "The founder automatically loses the entire company", correct: false }
+        { text: "$2M, their 10% as-converted share of the $20M sale", correct: false },
+        { text: "$5M, because their 10% as-converted share ($2M) is LESS than their $5M liquidation preference, so they take the preference instead", correct: true },
+        { text: "$20M, the entire sale price", correct: false },
+        { text: "$7M, adding the preference and the as-converted share together", correct: false }
       ],
-      correctMsg: "Yes! A higher valuation means investors get less equity per dollar invested.",
-      wrongMsg: "A higher valuation means investors receive LESS equity for the same amount of money invested."
+      correctMsg: "Correct! 10% of $20M is only $2M, which is less than their $5M preference, so the investor takes the $5M preference, the greater of the two options.",
+      wrongMsg: "First calculate their as-converted share: 10% of $20M = $2M. Compare that to their $5M liquidation preference. Since $2M is LESS than $5M, the investor takes the $5M preference instead of converting to common. This is exactly why liquidation preferences matter most in modest exits, they guarantee the investor gets at least their preference amount, even when their percentage ownership alone would've been worth less."
     },
     {
       type: "mc",
-      question: "What is the classic order a 10-slide pitch deck often starts with?",
-      hint: "Think about establishing the 'why' first.",
+      question: "A founder owns 100% of their company. They sell 20% at a seed round, then sell 15% of the company at Series A. What percentage does the founder own after both rounds?",
+      hint: "Multiply the remaining percentages after each round, dilution compounds.",
       options: [
-        { text: "Problem, then Solution, then Market size", correct: true },
-        { text: "Team, then Financials, then Problem", correct: false },
-        { text: "Closing/Vision, then Problem, then Solution", correct: false },
-        { text: "Competition, then Team, then Problem", correct: false }
+        { text: "65%, from subtracting 20% and 15% from 100%", correct: false },
+        { text: "68%, from multiplying remaining stakes: 80% × 85% = 68%", correct: true },
+        { text: "80%, counting only the most recent round", correct: false },
+        { text: "35%, an unrelated guess", correct: false }
       ],
-      correctMsg: "Right! Most decks start with Problem, then Solution, then Market.",
-      wrongMsg: "The classic pitch deck order typically starts with Problem, then Solution, then Market size."
+      correctMsg: "Right! After the seed round, the founder holds 80%. Selling 15% of the company at Series A leaves them with 85% of that 80%: 80% × 85% = 68%.",
+      wrongMsg: "Dilution compounds, it multiplies remaining ownership, it doesn't simply subtract percentages. After the seed round (selling 20%), the founder holds 80%. After Series A (selling another 15% of the now-larger company), the founder retains 85% of that 80% stake: 80% × 85% = 68%. Subtracting 20% and 15% directly from 100% (getting 65%) understates the founder's true remaining ownership."
     },
     {
       type: "mc",
-      question: "Why is \"$50K revenue in 3 months, growing 20%/month\" a stronger pitch statement than \"Revenue: $50K\"?",
-      hint: "Think about context and momentum.",
+      question: "A SAFE has BOTH a $6M valuation cap and a 15% discount rate. The next priced round happens at a $15M valuation, at $1.00 per share. Which term will the SAFE actually convert under?",
+      hint: "The investor gets whichever term produces the LOWER effective valuation (and therefore more shares) for their money.",
       options: [
-        { text: "It adds context, timeframe, and growth trajectory, telling a fuller story", correct: true },
-        { text: "It's shorter and therefore automatically better", correct: false },
-        { text: "The two statements are exactly equally strong", correct: false },
-        { text: "It removes the need to mention any real numbers at all", correct: false }
+        { text: "The 15% discount, since discounts are always used over caps", correct: false },
+        { text: "The $6M cap, it produces a far lower effective valuation than the discount would (15% off a $15M round is still $12.75M, well above the $6M cap), so the cap is more favorable to the investor and is what they'll use", correct: true },
+        { text: "Neither, SAFEs cannot have both a cap and a discount at the same time", correct: false },
+        { text: "The full $15M round price, ignoring both the cap and the discount", correct: false }
       ],
-      correctMsg: "Exactly! Context, timeframe, and growth trajectory turn a bare number into a compelling story.",
-      wrongMsg: "Adding context, timeframe, and growth trajectory turns a bare number into a much more compelling story."
+      correctMsg: "Exactly. The cap wins here because $6M is dramatically lower than the discount-adjusted $12.75M, the SAFE investor always converts under whichever term is more favorable to them.",
+      wrongMsg: "When a SAFE has both a cap and a discount, the investor converts using whichever produces the lower effective valuation (more shares for their money). A 15% discount off a $15M round still values the company at $12.75M for conversion purposes, nowhere close to as favorable as the $6M cap. Since $6M is dramatically lower than $12.75M, the cap is the term that actually gets used here."
     },
     {
       type: "mc",
-      question: "What's a smart way to build genuine confidence before pitching?",
-      hint: "Think about preparation.",
+      question: "An early investor owns 8% of a company after the seed round and has pro rata rights. The company raises a Series A that would otherwise dilute them down to 6%. What does exercising their pro rata rights let them do?",
+      hint: "Pro rata rights are about participating further, not blocking the round.",
       options: [
-        { text: "Thorough preparation and lots of out-loud practice", correct: true },
-        { text: "Avoiding all practice so it feels more spontaneous", correct: false },
-        { text: "Memorizing slides word-for-word with zero eye contact", correct: false },
-        { text: "Hoping nerves disappear with no preparation at all", correct: false }
+        { text: "Block the Series A round entirely until their terms are met", correct: false },
+        { text: "Invest additional money into the Series A round specifically to buy back toward their original ownership percentage instead of being diluted down to 6%", correct: true },
+        { text: "Automatically receive free extra shares with no additional investment", correct: false },
+        { text: "Force the founder to buy back their shares at a premium", correct: false }
       ],
-      correctMsg: "Correct! Real confidence comes from thorough preparation and practice.",
-      wrongMsg: "Genuine confidence comes from thorough preparation and lots of out-loud practice."
+      correctMsg: "Right. Pro rata rights let the investor put in more money at the new round's price to maintain closer to their prior ownership percentage, they have to pay for it, but they get the option to.",
+      wrongMsg: "Pro rata rights give an existing investor the OPTION to invest additional money in a new round, specifically to avoid being diluted as much as they otherwise would be. It doesn't give them free shares or the power to block the round, it simply lets them pay to maintain more of their original ownership percentage as the company raises more capital."
     },
     {
       type: "mc",
-      question: "What's the best way to handle a tough investor question you don't know the answer to?",
-      hint: "Think about honesty.",
+      question: "Sequoia's early bet on Airbnb, Snapchat's founders rejecting a guaranteed $3B offer, and the advice to never rush a term sheet decision all share a common thread. What is it?",
+      hint: "Think about certainty versus uncertain, asymmetric upside, on both sides of the table.",
       options: [
-        { text: "Honestly say \"I don't know, but I'll find out and follow up.\"", correct: true },
-        { text: "Make up a confident-sounding but false answer", correct: false },
-        { text: "Refuse to respond to the question at all", correct: false },
-        { text: "Get defensive and argue with the investor", correct: false }
+        { text: "They all show that bigger, faster decisions are always better in venture capital", correct: false },
+        { text: "High-stakes venture outcomes are shaped by deliberate, conviction-driven decisions that weigh guaranteed near-term certainty against larger, uncertain long-term upside, for investors backing early founders, for founders weighing a buyout, and for founders being pressured to sign fast", correct: true },
+        { text: "They prove that Facebook, Sequoia, and YC always made the correct decision in every case", correct: false },
+        { text: "They show that venture capital outcomes are entirely random and unrelated to decision-making", correct: false }
       ],
-      correctMsg: "Right! Honest, calm answers build more trust than bluffing or getting defensive.",
-      wrongMsg: "Honestly admitting you don't know (and offering to follow up) builds far more trust than bluffing."
+      correctMsg: "Exactly right. Whether it's a VC funding an unproven idea, a founder weighing a buyout, or a founder resisting pressure on a term sheet, the throughline is the same: deliberate, conviction-driven decisions about certainty versus asymmetric upside, not speed, and not guaranteed outcomes.",
+      wrongMsg: "The common thread isn't speed or certainty, it's the deliberate weighing of guaranteed near-term outcomes against larger, uncertain long-term upside. Sequoia bet early capital on unproven founders because the potential upside was worth the risk. Snapchat's founders turned down a certain $3B for a shot at a bigger independent future. And founders who refuse to rush a term sheet decision are protecting their ability to make that same kind of deliberate, high-stakes call clearly, not under artificial pressure. Fundraising, at every stage, comes down to conviction under uncertainty."
     }
   ],
   badges: [
-    { icon: "trophy", name: "Pitch Champion", earned: true },
-    { icon: "star", name: "Sharp Thinker", earned: ({ correct }) => correct >= 4 },
-    { icon: "brain", name: "Investor Smart", earned: ({ correct }) => correct >= 6 },
+    { icon: "trophy", name: "Challenge Complete", earned: true },
+    { icon: "star", name: "Sharp Founder", earned: ({ correct }) => correct >= 4 },
+    { icon: "brain", name: "Term Sheet Genius", earned: ({ correct }) => correct >= 6 },
     { icon: "perfect", name: "Perfect Score", earned: ({ score }) => score === 100 },
     { icon: "heart", name: "All Hearts", earned: ({ hearts }) => hearts === 3 },
-    { icon: "crown", name: "Pitching Master", earned: ({ score, hearts }) => score >= 85 && hearts >= 2 }
+    { icon: "crown", name: "Pitching to Investors Master", earned: ({ score, hearts }) => score >= 80 && hearts >= 2 }
   ]
 });
 </script>

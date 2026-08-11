@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Handling Tough Questions & Negotiating Terms | AI Innovators</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="lesson-shared.css">
+</head>
+<body>
+<div class="app">
+  <div class="topbar" id="topbar" style="display:none;">
+    <button class="close-btn" id="closeBtn">×</button>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="hearts">
+      <svg class="heart-svg" viewBox="0 0 32 32"><path d="M16 28 C 6 20 2 14 2 10 C 2 6 5 3 9 3 C 12 3 14 5 16 8 C 18 5 20 3 23 3 C 27 3 30 6 30 10 C 30 14 26 20 16 28 Z" fill="#ec4899" stroke="#be185d" stroke-width="1.5"/></svg>
+      <span id="heartsCount">3</span>
+    </div>
+  </div>
+  <div class="screen active" id="screen-welcome">
+    <div class="lesson-tag" id="lesson-tag">LESSON</div>
+    <div class="mascot" id="welcomeMascot"></div>
+    <h1 class="welcome-title" id="welcome-title"></h1>
+    <p class="welcome-subtitle" id="welcome-subtitle"></p>
+    <button class="btn go" id="startBtn">Let's Go!</button>
+  </div>
+  <div class="screen" id="screen-lesson"></div>
+  <div class="screen" id="screen-complete">
+    <div class="mascot" id="completeMascot"></div>
+    <h1 class="complete-title">Lesson Complete!</h1>
+    <p class="complete-subtitle">Awesome work! Here's what you earned:</p>
+    <div class="stats-row">
+      <div class="stat-box"><div class="stat-label">XP Earned</div><div class="stat-value xp" id="finalXP">0</div></div>
+      <div class="stat-box"><div class="stat-label">Score</div><div class="stat-value score" id="finalScore">0%</div></div>
+      <div class="stat-box"><div class="stat-label">Hearts Left</div><div class="stat-value" style="color:#ef4444;" id="finalHearts">3</div></div>
+    </div>
+    <h3 style="margin: 28px 0 14px; color: #0c4a6e; font-weight: 900; font-family:'Nunito',sans-serif;">Badges You Earned:</h3>
+    <div class="badge-grid" id="badgeGrid"></div>
+    <button class="btn go" id="backToCourseBtn">Back to Course →</button>
+    <button class="btn ghost" style="margin-top:12px;" id="playAgainBtn">Play Again</button>
+  </div>
+  <div class="screen" id="screen-gameover">
+    <div class="mascot" id="gameoverMascot"></div>
+    <h1 class="complete-title" style="color:#b91c1c;">Out of Hearts!</h1>
+    <p class="complete-subtitle">Try again! You got this!</p>
+    <button class="btn danger" id="retryBtn">Try Again</button>
+  </div>
+</div>
+<div class="feedback" id="feedback">
+  <div class="feedback-inner">
+    <div><div class="feedback-text" id="feedbackText"></div><div class="feedback-explain" id="feedbackExplain"></div></div>
+    <button class="btn go" onclick="window._lessonNext()">Continue</button>
+  </div>
+</div>
+<script src="lesson-engine.js"></script>
+<script>
+const NEGOTIATE_ICON = `<svg viewBox="0 0 64 64"><rect x="6" y="40" width="52" height="6" rx="2" fill="#831843"/><rect x="16" y="20" width="8" height="22" fill="#f472b6" stroke="#be185d" stroke-width="1.5"/><rect x="28" y="12" width="8" height="30" fill="#fbbf24" stroke="#d97706" stroke-width="1.5"/><rect x="40" y="26" width="8" height="16" fill="#38bdf8" stroke="#0284c7" stroke-width="1.5"/></svg>`;
+
+runLesson({
+  lessonId: "pitching-investors-2-2",
+  courseUrl: "course-pitching-investors.html",
+  tag: "UNIT 2 · LESSON 2.2",
+  title: "Handling Tough Questions & Negotiating Terms",
+  subtitle: "What VCs really push on, and how to negotiate a term sheet without getting steamrolled.",
+  steps: [
+    {
+      type: "teach",
+      title: "The Questions VCs Actually Ask",
+      body: "Beyond the deck, investors probe the parts founders often gloss over. <b>'Who's your competition, really?'</b>, never say 'we have no competitors'; it signals you haven't done the research (even indirect competitors, like doing something the old-fashioned way, count). <b>'What are your unit economics?'</b>, know your CAC (cost to acquire a customer) and LTV (lifetime value) cold. <b>'What's your burn rate and runway?'</b>, how much cash you spend monthly and how many months until you run out. <b>'Why will YOU win?'</b>, your unfair advantage: domain expertise, a unique network, or something competitors can't easily copy. Founders who dodge these questions, instead of answering directly, even when the honest answer reveals a weakness, lose credibility fast; investors expect founders to know their own numbers better than anyone in the room.",
+      examples: ["Never claim 'no competitors', name them and explain your edge", "Know CAC, LTV, burn rate, and runway cold, without hesitation", "Answer directly, even when the honest answer is a weakness, dodging costs more credibility than the weak spot itself"]
+    },
+    {
+      type: "teach",
+      title: "Term Sheet Basics: What You're Actually Negotiating",
+      body: "A <b>term sheet</b> is a non-binding document outlining the proposed terms of an investment before the full legal paperwork. Key terms worth understanding cold: a <b>board seat</b> gives an investor a formal vote in major company decisions going forward. <b>Pro rata rights</b> let an investor put MORE money into future rounds to maintain their ownership percentage as the company grows. A <b>liquidation preference</b> determines who gets paid first (and how much) if the company is ever sold or shut down, investors are typically paid back before common shareholders (including founders) see anything. None of these terms are inherently bad, but each one shifts control or economics away from the founder, so understanding exactly what you're agreeing to matters as much as the valuation number itself.",
+      examples: ["Board seat = a formal vote in company decisions", "Pro rata rights = investor can invest more later to avoid dilution", "Liquidation preference = who gets paid first if the company is sold or fails"]
+    },
+    {
+      type: "teach",
+      title: "Never Decide Same-Day",
+      body: "One of the most repeated pieces of hard-won founder wisdom: <b>never let a VC pressure you into signing or deciding the same day a term sheet arrives.</b> A term sheet with an artificial 24-48 hour deadline is a common negotiating tactic, designed to stop a founder from getting a second opinion, comparing offers, or having a lawyer review the terms. A serious investor who's genuinely excited about a company will give a founder reasonable time to think it through, real urgency and manufactured urgency feel very different once you've been through it once. Always get a second term sheet if you can, always have a startup lawyer review the terms, and always sleep on it.",
+      examples: ["Artificial deadlines are a pressure tactic, not a real signal of investor quality", "Get a lawyer to review every term sheet before signing", "A confident, well-prepared founder can and should ask for more time"]
+    },
+    {
+      type: "mc",
+      question: "A founder is asked 'who's your competition?' and confidently answers 'we have no competitors.' Why does this usually hurt them?",
+      hint: "Think about what an experienced investor assumes when they hear that specific answer.",
+      options: [
+        { text: "It signals the founder hasn't done real research, almost every market has direct or indirect competition, even if it's just 'the old way of doing things'", correct: true },
+        { text: "It's always the correct and most impressive answer to give", correct: false },
+        { text: "Investors never ask about competition, so the answer doesn't matter", correct: false },
+        { text: "It proves the market is too small to matter", correct: false }
+      ],
+      correctMsg: "Exactly. Experienced investors read 'no competitors' as a red flag for shallow market research, not as a strength.",
+      wrongMsg: "'We have no competitors' almost always reads as a lack of research to an experienced investor, nearly every market has SOME form of competition, even indirect ones like manual processes, spreadsheets, or a totally different tool solving the same underlying problem. The stronger answer names real competitors and clearly explains the specific edge that lets you win anyway."
+    },
+    {
+      type: "mc",
+      question: "What does a 'liquidation preference' actually determine?",
+      hint: "Think about what happens specifically if the company is sold or shuts down.",
+      options: [
+        { text: "Who gets paid first, and how much, if the company is ever sold or shut down, typically investors before common shareholders like founders", correct: true },
+        { text: "How much salary the founder is allowed to pay themselves", correct: false },
+        { text: "The company's marketing budget for the next year", correct: false },
+        { text: "How many votes founders get on the board", correct: false }
+      ],
+      correctMsg: "Right. Liquidation preference is specifically about payout order and amount in a sale or shutdown scenario, it can matter enormously in a modest exit.",
+      wrongMsg: "A liquidation preference sets the order (and often the amount) investors are paid back before common shareholders, including founders, see any proceeds if the company is sold or shut down. In a modest exit, an aggressive liquidation preference can mean investors get most or all of the money while founders get very little, even though the company technically 'sold.'"
+    },
+    {
+      type: "mc",
+      question: "What do 'pro rata rights' allow an investor to do?",
+      hint: "Think about what happens to an early investor's ownership % as new rounds bring in new money, and how they can protect against it.",
+      options: [
+        { text: "Invest additional money in future rounds specifically to maintain their existing ownership percentage as the company grows", correct: true },
+        { text: "Automatically fire the founder if performance targets are missed", correct: false },
+        { text: "Take a board seat with zero negotiation required", correct: false },
+        { text: "Block the company from ever raising another round", correct: false }
+      ],
+      correctMsg: "Correct! Pro rata rights are specifically about the investor's ability to keep up their ownership stake by investing more as the company raises future rounds.",
+      wrongMsg: "Pro rata rights let an existing investor put in additional money in future rounds so their ownership percentage doesn't shrink (get diluted) as much as it otherwise would when the company raises more capital. It's a right to participate further, not a right to control hiring, firing, or future fundraising decisions."
+    },
+    {
+      type: "mc",
+      question: "A VC sends a term sheet with a 48-hour deadline to sign, saying the offer expires after that. What's the most experienced-founder response?",
+      hint: "Think about the difference between real urgency and a pressure tactic, and what protects the founder either way.",
+      options: [
+        { text: "Sign immediately without review, since VC deadlines are always genuine and non-negotiable", correct: false },
+        { text: "Recognize this as a common pressure tactic, push back on the artificial deadline, get a lawyer to review the terms, and take the time needed to decide clearly", correct: true },
+        { text: "Ignore the term sheet completely and never respond", correct: false },
+        { text: "Publicly criticize the VC on social media instead of responding directly", correct: false }
+      ],
+      correctMsg: "Exactly. Artificial urgency is a known tactic, experienced founders push back, get legal review, and protect their ability to make a clear-headed decision.",
+      wrongMsg: "A tight, artificial deadline on a term sheet is a well-known pressure tactic meant to prevent a founder from getting a second opinion, comparing other offers, or having a lawyer review the terms. A genuinely excited, serious investor will typically allow reasonable time. Ignoring the offer or reacting publicly both burn the relationship unnecessarily, the better move is professional pushback plus real legal review."
+    },
+    {
+      type: "mc",
+      question: "Why might a founder be cautious about giving up a board seat too early or too easily?",
+      hint: "Think about what a board seat actually grants beyond just 'advice.'",
+      options: [
+        { text: "A board seat gives an investor a formal, ongoing vote in major company decisions, not just advice, which shifts real control, not just money, to the investor", correct: true },
+        { text: "Board seats have no real effect on company decisions at all", correct: false },
+        { text: "Because board seats are illegal for early-stage companies to grant", correct: false },
+        { text: "Because board members are required to work in the office every day", correct: false }
+      ],
+      correctMsg: "Right. A board seat is a real, ongoing decision-making role, not a symbolic gesture, so it's worth negotiating carefully, not granting reflexively.",
+      wrongMsg: "A board seat isn't just a title, it grants a formal, recurring vote on major company decisions (hiring executives, raising future rounds, even firing the CEO in extreme cases). That's meaningfully different from an investor simply giving informal advice. Founders who understand this negotiate board composition carefully instead of giving up seats casually just to close a round faster."
+    }
+  ],
+  badges: [
+    { icon: "starter", name: "Q&A Ready", earned: true },
+    { icon: "star", name: "Sharp Negotiator", earned: ({ correct }) => correct >= 3 },
+    { icon: "brain", name: "Term Sheet Fluent", earned: ({ correct }) => correct >= 4 },
+    { icon: "perfect", name: "Perfect Score", earned: ({ score }) => score === 100 },
+    { icon: "heart", name: "All Hearts", earned: ({ hearts }) => hearts === 3 },
+    { icon: "trophy", name: "Boardroom Ready", earned: ({ score, hearts }) => score >= 80 && hearts >= 2 }
+  ]
+});
+</script>
+</body>
+</html>
