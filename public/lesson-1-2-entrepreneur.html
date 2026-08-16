@@ -566,7 +566,7 @@ function renderStep() {
 function renderVocab(s, c) {
   c.innerHTML = `
     <div class="vocab-card">
-      <div class="vocab-badge">VOCAB</div>
+      <div class="vocab-badge">NEW WORD!</div>
       <div class="teach-icon">${s.icon}</div>
       <div class="vocab-word">${s.word}</div>
       <div class="vocab-pronounce">${s.pronounce}</div>
@@ -876,7 +876,7 @@ function showFeedback(isCorrect, msg) {
   fb.classList.add("show");
   fb.classList.toggle("correct", isCorrect);
   fb.classList.toggle("wrong", !isCorrect);
-  document.getElementById("feedbackText").textContent = isCorrect ? "Nice work, founder!" : "Not quite, keep going!";
+  document.getElementById("feedbackText").textContent = isCorrect ? "Nice work, founder!" : "Not quite. Keep going!";
   document.getElementById("feedbackExplain").textContent = msg;
   if (isCorrect) {
     correct++; xp += 10; confettiBurst();
@@ -930,14 +930,45 @@ function finishLesson() {
   // Save progress to user account
   try {
     if (isLoggedIn()) {
-      const user = JSON.parse(localStorage.getItem("aii_user"));
-      user.xp = (user.xp || 0) + xp;
+      const user = JSON.parse(localStorage.getItem("aii_user")) || {};
       user.completedLessons = user.completedLessons || [];
-      if (!user.completedLessons.includes("business-101-1-2")) {
-        user.completedLessons.push("business-101-1-2");
+      const isFirstCompletion = !user.completedLessons.includes("business-101-1-2");
+
+      // XP, always award
+      user.xp = (user.xp || 0) + xp;
+
+      // Hearts, +1 for finishing perfectly (3 hearts), first time only
+      if (isFirstCompletion && hearts === 3) {
+        user.hearts = (user.hearts || 0) + 1;
       }
-      const earnedBadgeCount = document.querySelectorAll(".badge.earned").length;
-      user.badges = (user.badges || 0) + earnedBadgeCount;
+
+      // Badges, count newly earned, first time only (no farming on replay)
+      if (isFirstCompletion) {
+        const earnedBadgeCount = document.querySelectorAll(".badge.earned").length;
+        user.badges = (user.badges || 0) + earnedBadgeCount;
+        user.completedLessons.push("business-101-1-2");
+
+        // 20% chance to earn a Streak Extender (shield that saves your streak if you miss a day)
+        if (Math.random() < 0.2) {
+          user.streakExtenders = (user.streakExtenders || 0) + 1;
+          user.recentExtenderEarned = true;
+        }
+      }
+
+      // Day Streak, bump if new day, reset if a day was skipped
+      const today = new Date().toDateString();
+      if (user.lastActivityDate !== today) {
+        if (user.lastActivityDate) {
+          const lastDate = new Date(user.lastActivityDate);
+          const todayDate = new Date(today);
+          const dayDiff = Math.round((todayDate - lastDate) / 86400000);
+          user.streak = (dayDiff === 1) ? (user.streak || 0) + 1 : 1;
+        } else {
+          user.streak = 1;
+        }
+        user.lastActivityDate = today;
+      }
+
       localStorage.setItem("aii_user", JSON.stringify(user));
     }
   } catch(e) {}

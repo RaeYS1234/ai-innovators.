@@ -257,7 +257,7 @@
     function renderVocab(s, c) {
       c.innerHTML = `
         <div class="vocab-card">
-          <div class="vocab-badge">VOCAB</div>
+          <div class="vocab-badge">NEW WORD!</div>
           ${s.icon ? `<div class="teach-icon">${s.icon}</div>` : ""}
           <div class="vocab-word">${s.word}</div>
           ${s.pronounce ? `<div class="vocab-pronounce">${s.pronounce}</div>` : ""}
