@@ -2,10 +2,49 @@
 // Auto-updating: always grabs the freshest files when online,
 // falls back to cache when offline.
 
+// ---- Push notifications (Firebase Cloud Messaging) ----
+// Handles notifications that arrive while the app/site isn't open.
+// (Notifications while the app IS open are handled in notifications.js.)
+importScripts("https://www.gstatic.com/firebasejs/12.15.0/firebase-app-compat.js");
+importScripts("https://www.gstatic.com/firebasejs/12.15.0/firebase-messaging-compat.js");
+
+firebase.initializeApp({
+  apiKey: "AIzaSyDj-0TOvaENVWvUgP-MIJpy0xxYGzzxymg",
+  authDomain: "ai-innovators-6fc07.firebaseapp.com",
+  projectId: "ai-innovators-6fc07",
+  storageBucket: "ai-innovators-6fc07.firebasestorage.app",
+  messagingSenderId: "316596960929",
+  appId: "1:316596960929:web:152759a44e57e25462fae0"
+});
+
+const messaging = firebase.messaging();
+messaging.onBackgroundMessage((payload) => {
+  const title = (payload.notification && payload.notification.title) || "AI Innovators";
+  const options = {
+    body: (payload.notification && payload.notification.body) || "",
+    icon: "/app-icon-192.svg",
+    badge: "/app-icon-192.svg"
+  };
+  self.registration.showNotification(title, options);
+});
+
+// Tapping a notification focuses an existing tab, or opens a new one
+self.addEventListener("notificationclick", (event) => {
+  event.notification.close();
+  event.waitUntil(
+    self.clients.matchAll({ type: "window", includeUncontrolled: true }).then((clientList) => {
+      for (const client of clientList) {
+        if (client.url.includes(self.location.origin) && "focus" in client) return client.focus();
+      }
+      if (self.clients.openWindow) return self.clients.openWindow("/homepage-kidfriendly.html");
+    })
+  );
+});
+
 // Cache version — change this string when you want to force everyone
 // to clear their cache. With the network-first strategy below, updates
 // already show up immediately when the user has internet.
-const CACHE_NAME = "ai-innovators-2026-08-11a";
+const CACHE_NAME = "ai-innovators-2026-08-11b";
 
 // Core files to cache so the app works offline
 const CORE_FILES = [
@@ -20,6 +59,7 @@ const CORE_FILES = [
   "/app-icon-maskable.svg",
   "/lesson-shared.css",
   "/lesson-engine.js",
+  "/notifications.js",
   "/sound.js",
   "/course-shared.css",
   "/course-engine.js",

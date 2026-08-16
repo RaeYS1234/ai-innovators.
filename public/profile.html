@@ -190,6 +190,25 @@
   .signout-btn:hover { transform: translateY(-1px); box-shadow: 0 5px 0 #b91c1c; }
   .signout-btn:active { transform: translateY(2px); box-shadow: 0 2px 0 #b91c1c; }
 
+  /* Notifications */
+  .notify-section { margin-top: 20px; padding: 20px; background: #eff6ff; border-radius: 20px; border: 2px solid #bfdbfe; text-align: center; }
+  .notify-section p { font-size: 14px; color: #1e3a8a; margin-bottom: 12px; }
+  .notify-btn {
+    background: #0ea5e9;
+    color: white;
+    padding: 14px 32px;
+    border-radius: 14px;
+    font-weight: 800;
+    font-size: 16px;
+    box-shadow: 0 4px 0 #0284c7;
+    transition: all 0.1s;
+  }
+  .notify-btn:hover { transform: translateY(-1px); box-shadow: 0 5px 0 #0284c7; }
+  .notify-btn:active { transform: translateY(2px); box-shadow: 0 2px 0 #0284c7; }
+  .notify-btn.on { background: #22c55e; box-shadow: 0 4px 0 #15803d; }
+  .notify-btn.on:hover { box-shadow: 0 5px 0 #15803d; }
+  .notify-btn.on:active { box-shadow: 0 2px 0 #15803d; }
+
   /* Saved toast */
   .toast {
     position: fixed;
@@ -284,6 +303,12 @@
   <!-- Avatar picker -->
   <div class="section-title">Choose Your Avatar</div>
   <div class="avatar-grid" id="avatarGrid"></div>
+
+  <!-- Notifications -->
+  <div class="notify-section">
+    <p id="notifyText">Turn on notifications to hear about new courses and updates!</p>
+    <button class="notify-btn" id="notifyBtn" onclick="handleNotifyClick()">Enable Notifications</button>
+  </div>
 
   <!-- Sign out -->
   <div class="signout-section">
@@ -507,6 +532,51 @@ function showToast(msg) {
   window._toastTimer = setTimeout(() => t.classList.remove("show"), 1800);
 }
 
+// ============ NOTIFICATIONS ============
+async function refreshNotifyButton() {
+  const btn = document.getElementById("notifyBtn");
+  const text = document.getElementById("notifyText");
+  if (!btn || !window.aiiNotificationStatus) return;
+  const status = await window.aiiNotificationStatus();
+  if (status === "unsupported") {
+    btn.textContent = "Not supported on this device";
+    btn.disabled = true;
+    text.textContent = "Notifications aren't supported in this browser yet.";
+  } else if (status === "on") {
+    btn.textContent = "Notifications On ✓";
+    btn.classList.add("on");
+    text.textContent = "You'll get a heads-up whenever there's a new course or update!";
+  } else {
+    btn.textContent = "Enable Notifications";
+    btn.classList.remove("on");
+    text.textContent = "Turn on notifications to hear about new courses and updates!";
+  }
+}
+
+async function handleNotifyClick() {
+  const btn = document.getElementById("notifyBtn");
+  if (btn.classList.contains("on")) {
+    if (!confirm("Turn off notifications?")) return;
+    if (window.aiiDisableNotifications) await window.aiiDisableNotifications();
+    await refreshNotifyButton();
+    showToast("Notifications turned off");
+    return;
+  }
+  btn.disabled = true;
+  const originalText = btn.textContent;
+  btn.textContent = "Turning on...";
+  let ok = false;
+  if (window.aiiEnableNotifications) ok = await window.aiiEnableNotifications();
+  btn.disabled = false;
+  await refreshNotifyButton();
+  if (ok) showToast("Notifications on!");
+  else if (btn.textContent === "Turning on...") btn.textContent = originalText;
+}
+
+// notifications.js loads as a module, which may run after this script —
+// give it a moment then check the real status.
+setTimeout(refreshNotifyButton, 400);
+
 // ============ SIGN OUT ============
 async function handleSignOut() {
   if (!confirm("Sign out, " + (user.name || "friend") + "?\n\n(Your XP, badges, and streak stay safe on this device.)")) return;
@@ -552,6 +622,9 @@ if (user) {
   const auth = getAuth(app);
   window.firebaseSignOutFromProfile = async () => signOut(auth);
 </script>
+
+<!-- Push notifications -->
+<script type="module" src="notifications.js"></script>
 
 </body>
 </html>
