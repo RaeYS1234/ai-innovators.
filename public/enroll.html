@@ -4,6 +4,15 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>AI Innovators — Sign Up Free!</title>
+
+<!-- Social share preview -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="AI Innovators — Sign Up Free!">
+<meta property="og:description" content="Join AI Innovators and learn real business + AI skills through games, badges, and streaks.">
+<meta property="og:image" content="https://raeys1234.github.io/ai-innovators./cover.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://raeys1234.github.io/ai-innovators./cover.png">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
@@ -485,7 +494,7 @@
     <div id="pendingProgressBanner" style="display:none;" class="pending-banner">
       <div class="pending-icon"><svg width="20" height="20" style="color:white;"><use href="#i-trophy"/></svg></div>
       <div>
-        <div>You earned <span id="pendingXP">0</span> XP and <span id="pendingBadges">0</span> badges!</div>
+        <div>You earned <span id="pendingXP">0</span> XP!</div>
         <div style="font-size:11px;font-weight:500;margin-top:2px;">Sign up to save them!</div>
       </div>
     </div>
@@ -563,7 +572,7 @@
     <div id="rewardsRestored" style="display:none; max-width: 400px; margin: 0 auto 20px;" class="pending-banner">
       <div class="pending-icon"><svg width="20" height="20" style="color:white;"><use href="#i-check"/></svg></div>
       <div>
-        <div>Saved your <span id="restoredXP">0</span> XP and <span id="restoredBadges">0</span> badges!</div>
+        <div>Saved your <span id="restoredXP">0</span> XP!</div>
       </div>
     </div>
     <button class="submit-btn" style="max-width:300px;" onclick="goHome()">🚀 Continue to My Courses</button>
@@ -660,9 +669,6 @@ try {
     if (pendingProgress.xp > 0) {
       document.getElementById("pendingProgressBanner").style.display = "flex";
       document.getElementById("pendingXP").textContent = pendingProgress.xp;
-      // Try to count badges from another store, fallback to score-based estimate
-      const badgeCount = pendingProgress.badges || Math.floor((pendingProgress.score || 0) / 20);
-      document.getElementById("pendingBadges").textContent = badgeCount;
     }
   }
 } catch(e) {}
@@ -713,7 +719,8 @@ function handleSubmit(e) {
     xp: pendingProgress ? pendingProgress.xp : 0,
     streak: 0,
     hearts: 0,
-    badges: pendingProgress ? Math.floor((pendingProgress.score || 0) / 20) : 0,
+    badges: 0,
+    earnedBadgeIds: [],
     lastActivityDate: null,
     completedLessons: pendingProgress ? [pendingProgress.lesson] : []
   };
@@ -764,21 +771,31 @@ async function signInWithGoogle() {
     try { existingUser = JSON.parse(localStorage.getItem("aii_user") || "null"); } catch(e) {}
     const isReturning = existingUser && existingUser.email === fbUser.email;
 
-    // Build user object in our standard format
-    const user = {
-      name: fbUser.displayName || "friend",
-      email: fbUser.email,
-      photoURL: fbUser.photoURL || null,
-      firebaseUid: fbUser.uid,
-      signedUpAt: isReturning ? existingUser.signedUpAt : Date.now(),
-      // Keep existing stats if returning user; otherwise fresh start
-      xp: isReturning ? existingUser.xp : (pendingProgress ? pendingProgress.xp : 0),
-      streak: isReturning ? existingUser.streak : 0,
-      hearts: isReturning ? existingUser.hearts : 0,
-      badges: isReturning ? existingUser.badges : (pendingProgress ? Math.floor((pendingProgress.score || 0) / 20) : 0),
-      lastActivityDate: isReturning ? existingUser.lastActivityDate : null,
-      completedLessons: isReturning ? existingUser.completedLessons : (pendingProgress ? [pendingProgress.lesson] : [])
-    };
+    // Build user object in our standard format.
+    // Returning users: keep EVERYTHING they already had (badges, streaks, nickname, avatar,
+    // all the achievement-tracking fields) and only refresh their Google identity info.
+    // New users: fresh start.
+    const user = isReturning
+      ? {
+          ...existingUser,
+          email: fbUser.email,
+          photoURL: fbUser.photoURL || existingUser.photoURL || null,
+          firebaseUid: fbUser.uid
+        }
+      : {
+          name: fbUser.displayName || "friend",
+          email: fbUser.email,
+          photoURL: fbUser.photoURL || null,
+          firebaseUid: fbUser.uid,
+          signedUpAt: Date.now(),
+          xp: pendingProgress ? pendingProgress.xp : 0,
+          streak: 0,
+          hearts: 0,
+          badges: 0,
+          earnedBadgeIds: [],
+          lastActivityDate: null,
+          completedLessons: pendingProgress ? [pendingProgress.lesson] : []
+        };
 
     try {
       localStorage.setItem("aii_user", JSON.stringify(user));

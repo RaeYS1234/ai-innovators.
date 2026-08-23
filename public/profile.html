@@ -210,6 +210,19 @@
   .notify-btn.on:active { box-shadow: 0 2px 0 #15803d; }
 
   /* Backup & Restore */
+  .badges-cta-section { margin-top: 20px; padding: 20px; background: #fffbeb; border-radius: 20px; border: 2px solid #fde68a; text-align: center; }
+  .badges-cta-section p { font-size: 14px; color: #78350f; margin-bottom: 12px; }
+  .badges-cta-btn {
+    background: #fbbf24;
+    color: #78350f;
+    padding: 14px 32px;
+    border-radius: 14px;
+    font-weight: 800;
+    font-size: 16px;
+    box-shadow: 0 4px 0 #d97706;
+    transition: all 0.1s;
+  }
+  .badges-cta-btn:active { transform: translateY(3px); box-shadow: 0 1px 0 #d97706; }
   .backup-section { margin-top: 20px; padding: 20px; background: #f0fdf4; border-radius: 20px; border: 2px solid #bbf7d0; text-align: center; }
   .backup-section p { font-size: 14px; color: #14532d; margin-bottom: 12px; }
   .backup-actions { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
@@ -312,7 +325,7 @@
       <div class="stat-number" id="statHearts">0</div>
       <div class="stat-label">Perfect Runs</div>
     </div>
-    <div class="stat-card">
+    <div class="stat-card" onclick="window.location.href='badges.html'" style="cursor:pointer;">
       <div class="stat-icon-wrap badge"><svg width="28" height="28" viewBox="0 0 32 32"><path d="M10 4 L 22 4 L 22 14 C 22 18 19 21 16 21 C 13 21 10 18 10 14 Z" fill="#fbbf24" stroke="#d97706" stroke-width="1.5" stroke-linejoin="round"/><path d="M10 6 L 5 6 L 5 10 C 5 12 7 14 10 14" fill="none" stroke="#d97706" stroke-width="1.5"/><path d="M22 6 L 27 6 L 27 10 C 27 12 25 14 22 14" fill="none" stroke="#d97706" stroke-width="1.5"/><rect x="13" y="21" width="6" height="4" fill="#d97706"/><rect x="9" y="25" width="14" height="3" rx="1" fill="#92400e"/></svg></div>
       <div class="stat-number" id="statBadges">0</div>
       <div class="stat-label">Badges</div>
@@ -327,6 +340,12 @@
       <div class="stat-number" id="statExtenders">0</div>
       <div class="stat-label">Streak Shields</div>
     </div>
+  </div>
+
+  <!-- Badges -->
+  <div class="badges-cta-section">
+    <p>See every badge you've earned — and every one still waiting to be unlocked!</p>
+    <button class="badges-cta-btn" onclick="window.location.href='badges.html'">View My Badges</button>
   </div>
 
   <!-- Avatar picker -->

@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>My Badges — AI Innovators</title>
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="icon" href="/favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+<script src="badges.js" defer></script>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+  html { scroll-behavior: smooth; }
+  html, body {
+    font-family: "Fredoka", "Nunito", -apple-system, sans-serif;
+    background: linear-gradient(135deg, #e0f2fe 0%, #f0f9ff 50%, #ffffff 100%);
+    color: #0c1e3e;
+    min-height: 100vh;
+    overflow-x: hidden;
+    -webkit-text-size-adjust: 100%;
+    -webkit-font-smoothing: antialiased;
+  }
+  body { padding-top: env(safe-area-inset-top); padding-bottom: env(safe-area-inset-bottom); }
+  button, a { font-family: inherit; cursor: pointer; border: none; outline: none; text-decoration: none; touch-action: manipulation; -webkit-user-select: none; user-select: none; }
+  button:focus-visible, a:focus-visible { outline: 3px solid #0ea5e9; outline-offset: 3px; border-radius: 8px; }
+  svg { display: block; }
+
+  nav {
+    background: white;
+    padding: 14px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 2px 10px rgba(14, 165, 233, 0.08);
+    position: sticky; top: 0; z-index: 50;
+  }
+  .back-btn { display: flex; align-items: center; gap: 8px; color: #0ea5e9; font-weight: 700; font-size: 15px; padding: 8px 12px; border-radius: 10px; background: transparent; }
+  .back-btn:hover { background: #e0f2fe; }
+  .nav-title { font-family: "Nunito", sans-serif; font-weight: 900; font-size: 18px; color: #0c1e3e; }
+  .nav-spacer { width: 60px; }
+
+  .container { max-width: 680px; margin: 0 auto; padding: 24px 20px 48px; }
+
+  .progress-card {
+    background: white;
+    border-radius: 24px;
+    padding: 26px 24px;
+    box-shadow: 0 6px 0 #fde68a, 0 12px 30px rgba(217, 119, 6, 0.12);
+    border: 3px solid #fde68a;
+    text-align: center;
+    margin-bottom: 28px;
+  }
+  .progress-number { font-family: "Nunito", sans-serif; font-size: 40px; font-weight: 900; color: #78350f; }
+  .progress-label { font-size: 14px; color: #92400e; font-weight: 700; margin-top: 2px; }
+  .progress-bar-track { height: 12px; background: #fef3c7; border-radius: 8px; margin-top: 14px; overflow: hidden; }
+  .progress-bar-fill { height: 100%; background: linear-gradient(90deg, #fbbf24, #f59e0b); border-radius: 8px; transition: width 0.6s ease; }
+
+  .category-title {
+    font-family: "Nunito", sans-serif;
+    font-size: 18px;
+    font-weight: 900;
+    color: #0c4a6e;
+    margin: 28px 0 12px;
+    padding: 0 4px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .category-count { font-size: 13px; font-weight: 700; color: #64748b; background: #f1f5f9; padding: 3px 10px; border-radius: 100px; }
+
+  .badge-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  @media (min-width: 480px) { .badge-grid { grid-template-columns: repeat(3, 1fr); } }
+
+  .badge-card {
+    background: white;
+    border: 2px solid #e2e8f0;
+    border-radius: 18px;
+    padding: 16px 12px;
+    text-align: center;
+    position: relative;
+  }
+  .badge-card.earned {
+    background: linear-gradient(135deg, #fef3c7, #fde68a);
+    border-color: #fbbf24;
+    box-shadow: 0 4px 0 #d97706;
+  }
+  .badge-card.locked { opacity: 0.55; }
+  .badge-card.locked .badge-icon-svg { filter: grayscale(1); }
+  .badge-icon-svg { width: 52px; height: 52px; margin: 0 auto 8px; }
+  .badge-card-name { font-family: "Nunito", sans-serif; font-weight: 900; font-size: 14px; color: #78350f; margin-bottom: 4px; }
+  .badge-card.locked .badge-card-name { color: #475569; }
+  .badge-card-desc { font-size: 11.5px; color: #92400e; font-weight: 600; line-height: 1.35; }
+  .badge-card.locked .badge-card-desc { color: #64748b; }
+  .lock-pill {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: #f1f5f9;
+    border-radius: 100px;
+    width: 22px;
+    height: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .empty-hint { text-align: center; color: #64748b; font-size: 14px; margin: 40px 0; }
+</style>
+</head>
+<body>
+
+<nav>
+  <button class="back-btn" onclick="window.location.href='profile.html'" aria-label="Back to profile">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+    Profile
+  </button>
+  <div class="nav-title">My Badges</div>
+  <div class="nav-spacer"></div>
+</nav>
+
+<div class="container">
+
+  <div class="progress-card">
+    <div class="progress-number" id="progressCount">0 / 0</div>
+    <div class="progress-label">Badges Earned</div>
+    <div class="progress-bar-track"><div class="progress-bar-fill" id="progressBar" style="width:0%;"></div></div>
+  </div>
+
+  <div id="badgeSections"></div>
+
+</div>
+
+<script>
+// ============ LOAD USER ============
+let user = null;
+try {
+  const raw = localStorage.getItem("aii_user");
+  if (raw) user = JSON.parse(raw);
+} catch(e) {}
+
+if (!user) {
+  window.location.href = "enroll.html";
+}
+
+function render() {
+  if (!window.AII_BADGES || !window.AII_BADGE_ICONS) {
+    // badges.js hasn't loaded yet — try again shortly
+    setTimeout(render, 100);
+    return;
+  }
+
+  const earned = user.earnedBadgeIds || [];
+  const total = window.AII_BADGES.length;
+  document.getElementById("progressCount").textContent = earned.length + " / " + total;
+  document.getElementById("progressBar").style.width = Math.round((earned.length / total) * 100) + "%";
+
+  // Group badges by category, preserving registry order
+  const categories = [];
+  window.AII_BADGES.forEach(b => {
+    let cat = categories.find(c => c.name === b.category);
+    if (!cat) { cat = { name: b.category, badges: [] }; categories.push(cat); }
+    cat.badges.push(b);
+  });
+
+  const html = categories.map(cat => {
+    const earnedInCat = cat.badges.filter(b => earned.includes(b.id)).length;
+    const cards = cat.badges.map(b => {
+      const isEarned = earned.includes(b.id);
+      const icon = window.AII_BADGE_ICONS[b.icon] || "";
+      return `
+        <div class="badge-card ${isEarned ? "earned" : "locked"}">
+          ${!isEarned ? `<div class="lock-pill"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></div>` : ""}
+          <div class="badge-icon-svg">${icon}</div>
+          <div class="badge-card-name">${b.name}</div>
+          <div class="badge-card-desc">${b.desc}</div>
+        </div>`;
+    }).join("");
+    return `
+      <div class="category-title">${cat.name} <span class="category-count">${earnedInCat}/${cat.badges.length}</span></div>
+      <div class="badge-grid">${cards}</div>`;
+  }).join("");
+
+  document.getElementById("badgeSections").innerHTML = html;
+}
+
+render();
+</script>
+
+</body>
+</html>

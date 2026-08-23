@@ -10,6 +10,15 @@
   }
 })();
 
+// Auto-load the badge registry so every lesson can check/award real achievement badges
+(function() {
+  if (!window.AII_BADGES && !document.querySelector('script[src*="badges.js"]')) {
+    var b = document.createElement("script");
+    b.src = "badges.js";
+    document.head.appendChild(b);
+  }
+})();
+
 (function() {
   // ---- Nova Mascot SVG ----
   function novaSVG(mood) {
@@ -580,39 +589,14 @@
       // PERFECT banner overlay
       if (isPerfect) showPerfectBanner();
 
-      // Render badges
-      const badges = (config.badges || [
-        { icon: DEFAULT_BADGES.starter, name: "Lesson Complete", earned: true },
-        { icon: DEFAULT_BADGES.star, name: "XP Earner", earned: xp > 0 },
-        { icon: DEFAULT_BADGES.perfect, name: "Perfect Score", earned: score === 100 },
-        { icon: DEFAULT_BADGES.heart, name: "All Hearts", earned: hearts === 3 },
-        { icon: DEFAULT_BADGES.crown, name: "Top Scholar", earned: score >= 80 && hearts >= 2 },
-        { icon: DEFAULT_BADGES.trophy, name: "Achievement", earned: score >= 60 }
-      ]).map(b => {
-        // Resolve any string icons (like "money") to default icons
-        if (typeof b.icon === "string" && DEFAULT_BADGES[b.icon]) {
-          return { ...b, icon: DEFAULT_BADGES[b.icon] };
-        }
-        return b;
-      });
-      // Evaluate `earned` if it's a function
-      const evaluated = badges.map(b => ({
-        ...b,
-        earned: typeof b.earned === "function" ? b.earned({ correct, total, score, hearts, xp }) : b.earned
-      }));
-      const earnedBadgeCount = evaluated.filter(b => b.earned).length;
-      document.getElementById("badgeGrid").innerHTML = evaluated.map(b => `
-        <div class="badge ${b.earned ? "earned" : "locked"}">
-          <div class="badge-icon-svg">${b.icon}</div>
-          <div class="badge-name">${b.name}</div>
-        </div>`).join("");
-
-      // Save progress — updates XP, streak, hearts, badges
+      // Save progress — updates XP, streak, hearts, and checks real achievement badges
+      let newlyEarnedBadges = [];
       try {
         if (isLoggedIn() && lessonId) {
           const user = JSON.parse(localStorage.getItem("aii_user")) || {};
           user.completedLessons = user.completedLessons || [];
           const isFirstCompletion = !user.completedLessons.includes(lessonId);
+          const isPerfect = score === 100 && hearts === 3;
 
           // XP — always award (so retakes still feel rewarding)
           user.xp = (user.xp || 0) + xp;
@@ -620,18 +604,6 @@
           // Hearts — +1 for finishing a lesson with all 3 hearts (first time only)
           if (isFirstCompletion && hearts === 3) {
             user.hearts = (user.hearts || 0) + 1;
-          }
-
-          // Badges — total earned across all lessons (first completion only, no farming)
-          if (isFirstCompletion) {
-            user.badges = (user.badges || 0) + earnedBadgeCount;
-            user.completedLessons.push(lessonId);
-
-            // 20% chance to earn a Streak Extender (a shield that saves your streak if you miss a day)
-            if (Math.random() < 0.2) {
-              user.streakExtenders = (user.streakExtenders || 0) + 1;
-              user.recentExtenderEarned = true; // homepage will show a nice toast
-            }
           }
 
           // Day Streak — increment if it's a new day, reset if a day was skipped
@@ -647,10 +619,84 @@
             }
             user.lastActivityDate = today;
           }
+          user.bestStreak = Math.max(user.bestStreak || 0, user.streak || 0);
+
+          if (isFirstCompletion) {
+            user.completedLessons.push(lessonId);
+
+            // Track which course(s) this kid has touched, for the All-Rounder badge
+            const courseId = window.AII_courseIdFromLessonId ? window.AII_courseIdFromLessonId(lessonId) : null;
+            if (courseId) {
+              user.coursesStarted = user.coursesStarted || [];
+              if (!user.coursesStarted.includes(courseId)) user.coursesStarted.push(courseId);
+
+              // Finishing a course's final challenge = that course is complete
+              if (/-challenge$/.test(lessonId)) {
+                user.completedCourses = user.completedCourses || [];
+                if (!user.completedCourses.includes(courseId)) user.completedCourses.push(courseId);
+
+                // Check if that completes an entire level (every course in it now done)
+                if (window.AII_LEVELS) {
+                  user.completedLevels = user.completedLevels || [];
+                  Object.keys(window.AII_LEVELS).forEach(levelNum => {
+                    const courses = window.AII_LEVELS[levelNum];
+                    const allDone = courses.every(c => user.completedCourses.includes(c));
+                    if (allDone && !user.completedLevels.includes(levelNum)) {
+                      user.completedLevels.push(levelNum);
+                    }
+                  });
+                }
+              }
+            }
+
+            // Night Owl / Early Bird — based on the hour this lesson was finished
+            const hour = new Date().getHours();
+            if (hour >= 22) user.nightLessons = (user.nightLessons || 0) + 1;
+            if (hour < 8) user.earlyLessons = (user.earlyLessons || 0) + 1;
+
+            // Perfect scores + heart streak (resets if a lesson finishes with a lost heart)
+            if (isPerfect) user.perfectScores = (user.perfectScores || 0) + 1;
+            user.heartStreak = hearts === 3 ? (user.heartStreak || 0) + 1 : 0;
+
+            // 20% chance to earn a Streak Extender (a shield that saves your streak if you miss a day)
+            if (Math.random() < 0.2) {
+              user.streakExtenders = (user.streakExtenders || 0) + 1;
+              user.recentExtenderEarned = true; // homepage will show a nice toast
+            }
+          }
+
+          // Check the real badge registry for anything newly unlocked
+          if (window.AII_checkNewlyEarned) {
+            newlyEarnedBadges = window.AII_checkNewlyEarned(user);
+            if (newlyEarnedBadges.length) {
+              user.earnedBadgeIds = (user.earnedBadgeIds || []).concat(newlyEarnedBadges);
+            }
+          }
+          user.badges = (user.earnedBadgeIds || []).length;
 
           localStorage.setItem("aii_user", JSON.stringify(user));
         }
       } catch(e) {}
+
+      // Show newly unlocked badges (most lessons won't have any — that's the point!)
+      const trophyHeading = document.getElementById("badgeGrid") ? document.getElementById("badgeGrid").previousElementSibling : null;
+      if (newlyEarnedBadges.length && window.AII_BADGES && window.AII_BADGE_ICONS) {
+        if (trophyHeading) { trophyHeading.textContent = "New Badge Unlocked!"; trophyHeading.style.display = ""; }
+        document.getElementById("badgeGrid").style.display = "";
+        document.getElementById("badgeGrid").innerHTML = newlyEarnedBadges.map(id => {
+          const b = window.AII_BADGES.find(x => x.id === id);
+          if (!b) return "";
+          return `<div class="badge earned">
+            <div class="badge-icon-svg">${window.AII_BADGE_ICONS[b.icon] || ""}</div>
+            <div class="badge-name">${b.name}</div>
+          </div>`;
+        }).join("");
+        if (window.AIISound) setTimeout(() => window.AIISound.perfect && window.AIISound.perfect(), 400);
+      } else {
+        if (trophyHeading) trophyHeading.style.display = "none";
+        const grid = document.getElementById("badgeGrid");
+        if (grid) grid.style.display = "none";
+      }
 
       if (score >= 80) bigConfetti();
     }
