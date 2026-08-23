@@ -44,7 +44,7 @@ self.addEventListener("notificationclick", (event) => {
 // Cache version — change this string when you want to force everyone
 // to clear their cache. With the network-first strategy below, updates
 // already show up immediately when the user has internet.
-const CACHE_NAME = "ai-innovators-2026-08-23a";
+const CACHE_NAME = "ai-innovators-2026-08-23b";
 
 // Core files to cache so the app works offline
 const CORE_FILES = [
@@ -57,6 +57,8 @@ const CORE_FILES = [
   "/app-icon-192.svg",
   "/app-icon-512.svg",
   "/app-icon-maskable.svg",
+  "/apple-touch-icon.png",
+  "/favicon.ico",
   "/lesson-shared.css",
   "/lesson-engine.js",
   "/notifications.js",

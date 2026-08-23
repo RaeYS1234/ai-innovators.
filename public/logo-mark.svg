@@ -1,8 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
-  <!-- Full bleed background for maskable (OS applies its own mask/rounding) -->
-  <rect width="512" height="512" fill="#ffffff"/>
-  <!-- Mark centered and scaled down into the safe zone -->
-  <g transform="translate(151,111) scale(0.78)" stroke-linecap="round" stroke-linejoin="round">
+  <g transform="translate(126,76)" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Bulb / rocket nose outline -->
     <path d="M130,4
              C182,4 216,52 216,110
              C216,158 196,196 168,220
@@ -11,25 +9,31 @@
              C44,52 78,4 130,4 Z"
           fill="none" stroke="#ca8a04" stroke-width="14"/>
 
+    <!-- Circuit / brain lines inside bulb -->
     <g stroke="#0d9488" stroke-width="10">
       <line x1="130" y1="220" x2="95" y2="120"/>
       <line x1="130" y1="220" x2="130" y2="92"/>
       <line x1="130" y1="220" x2="163" y2="128"/>
     </g>
-    <circle cx="95" cy="120" r="12" fill="#ffffff" stroke="#0d9488" stroke-width="10"/>
-    <circle cx="130" cy="92" r="12" fill="#ffffff" stroke="#0d9488" stroke-width="10"/>
-    <circle cx="163" cy="128" r="12" fill="#ffffff" stroke="#0d9488" stroke-width="10"/>
+    <circle cx="95" cy="120" r="12" fill="none" stroke="#0d9488" stroke-width="10"/>
+    <circle cx="130" cy="92" r="12" fill="none" stroke="#0d9488" stroke-width="10"/>
+    <circle cx="163" cy="128" r="12" fill="none" stroke="#0d9488" stroke-width="10"/>
 
+    <!-- Fins -->
     <path d="M92,214 L28,268 L60,282 L92,242 Z" fill="#ca8a04"/>
     <path d="M168,214 L232,268 L200,282 L168,242 Z" fill="#ca8a04"/>
+
+    <!-- Rocket base cone -->
     <path d="M92,238 L168,238 L130,308 Z" fill="#ca8a04"/>
 
+    <!-- Thruster lines -->
     <g stroke="#ca8a04" stroke-width="13" stroke-linecap="round">
       <line x1="118" y1="330" x2="100" y2="358"/>
       <line x1="98" y1="335" x2="76" y2="360"/>
       <line x1="78" y1="340" x2="52" y2="362"/>
     </g>
 
+    <!-- Sparkle -->
     <path d="M256,60 L262,80 L282,86 L262,92 L256,112 L250,92 L230,86 L250,80 Z" fill="#ca8a04"/>
   </g>
 </svg>
