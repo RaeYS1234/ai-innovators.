@@ -22,7 +22,7 @@ const firebaseConfig = {
 };
 
 // TODO (Rae): paste your Web Push VAPID key here — see the setup checklist.
-const VAPID_KEY = "PASTE_YOUR_VAPID_KEY_HERE";
+const VAPID_KEY = "BPmFF-V5wG7fYqcC-s9DAtxxrhyEATE_MgOC-mFia2HckYTROvNZFZ3Ov27usnjKvtiiRuzvNpj0RmPIDhFc9PM";
 
 const app = getApps().length ? getApp() : initializeApp(firebaseConfig);
 const auth = getAuth(app);
