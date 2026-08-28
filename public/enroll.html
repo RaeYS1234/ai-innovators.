@@ -551,10 +551,6 @@
         Continue with Google
       </button>
 
-      <div class="restore-link-wrap">
-        <button type="button" class="restore-link" onclick="openRestoreModal()">Used AI Innovators before? Restore with a backup code</button>
-      </div>
-
       <p class="terms">
         By signing up, you agree to our <a href="#">Terms</a> and <a href="#">Privacy Policy</a>.
       </p>
@@ -576,19 +572,6 @@
       </div>
     </div>
     <button class="submit-btn" style="max-width:300px;" onclick="goHome()">🚀 Continue to My Courses</button>
-  </div>
-</div>
-
-<!-- Restore backup code modal -->
-<div class="modal-overlay" id="restoreModal">
-  <div class="modal-box">
-    <h3>Restore a Backup Code</h3>
-    <p>Paste the backup code from your other device below.</p>
-    <textarea class="modal-textarea" id="restoreInput" placeholder="Paste your AII1-... code here"></textarea>
-    <div class="modal-btn-row">
-      <button class="modal-btn primary" onclick="submitRestore()">Restore</button>
-      <button class="modal-btn secondary" onclick="closeRestoreModal()">Cancel</button>
-    </div>
   </div>
 </div>
 
@@ -769,17 +752,27 @@ async function signInWithGoogle() {
     // Check if this Google account has already signed up on this device
     let existingUser = null;
     try { existingUser = JSON.parse(localStorage.getItem("aii_user") || "null"); } catch(e) {}
-    const isReturning = existingUser && existingUser.email === fbUser.email;
+    const isReturningLocal = existingUser && existingUser.email === fbUser.email;
+
+    // Check the cloud too — this is what makes cross-device sync work. If this
+    // Google account has progress saved from ANY device, that's the most
+    // up-to-date copy and takes priority over what's on this device.
+    let cloudUser = null;
+    try {
+      if (window.aiiSyncPull) cloudUser = await window.aiiSyncPull(fbUser.uid);
+    } catch(e) {}
+
+    const base = cloudUser || (isReturningLocal ? existingUser : null);
 
     // Build user object in our standard format.
-    // Returning users: keep EVERYTHING they already had (badges, streaks, nickname, avatar,
-    // all the achievement-tracking fields) and only refresh their Google identity info.
-    // New users: fresh start.
-    const user = isReturning
+    // Returning users (cloud or same-device): keep EVERYTHING they already had
+    // (badges, streaks, nickname, avatar, all the achievement-tracking fields)
+    // and only refresh their Google identity info. New users: fresh start.
+    const user = base
       ? {
-          ...existingUser,
+          ...base,
           email: fbUser.email,
-          photoURL: fbUser.photoURL || existingUser.photoURL || null,
+          photoURL: fbUser.photoURL || base.photoURL || null,
           firebaseUid: fbUser.uid
         }
       : {
@@ -816,27 +809,6 @@ function goHome() {
   window.location.href = "/";
 }
 
-// ============ RESTORE FROM BACKUP CODE ============
-function openRestoreModal() {
-  document.getElementById("restoreInput").value = "";
-  document.getElementById("restoreModal").classList.add("show");
-}
-function closeRestoreModal() {
-  document.getElementById("restoreModal").classList.remove("show");
-}
-function submitRestore() {
-  const code = document.getElementById("restoreInput").value;
-  if (!code.trim()) return;
-  const result = window.aiiRestoreBackupCode
-    ? window.aiiRestoreBackupCode(code)
-    : { ok: false, error: "Restore isn't available right now." };
-  if (!result.ok) { alert(result.error); return; }
-  localStorage.removeItem("aii_pending_progress");
-  localStorage.removeItem("aii_guest_progress");
-  closeRestoreModal();
-  showSuccessScreen(result.user);
-}
-
 // Confetti
 function confettiBurst() {
   const colors = ["#0ea5e9", "#38bdf8", "#fbbf24", "#22c55e", "#f0abfc"];
@@ -865,8 +837,7 @@ function confettiBurst() {
 }
 </script>
 
-<!-- Backup & restore (no Firebase needed) -->
-<script src="backup.js"></script>
+<script src="sync.js"></script>
 
 <!-- ============ FIREBASE: Google Sign-In ============ -->
 <script type="module">

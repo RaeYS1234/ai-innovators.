@@ -19,6 +19,15 @@
   }
 })();
 
+// Auto-load cross-device sync so progress saved here reaches the cloud too
+(function() {
+  if (!window.aiiSyncPush && !document.querySelector('script[src*="sync.js"]')) {
+    var y = document.createElement("script");
+    y.src = "sync.js";
+    document.head.appendChild(y);
+  }
+})();
+
 (function() {
   // ---- Nova Mascot SVG ----
   function novaSVG(mood) {
