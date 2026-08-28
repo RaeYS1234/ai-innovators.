@@ -1,0 +1,13 @@
+{
+  "name": "ai-innovators-notify-tool",
+  "version": "1.0.0",
+  "description": "Send a push notification announcement to everyone using AI Innovators.",
+  "private": true,
+  "main": "send-announcement.js",
+  "scripts": {
+    "send": "node send-announcement.js"
+  },
+  "dependencies": {
+    "firebase-admin": "^12.6.0"
+  }
+}
