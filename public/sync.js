@@ -74,13 +74,29 @@
     }
   };
 
+  // Keep the local multi-account directory (used by quick email/password
+  // login on enroll.html) up to date with live progress, not just a
+  // snapshot from signup — otherwise logging back in would roll a kid's
+  // progress back to whatever it was the moment they first signed up.
+  function mirrorToLocalAccounts(user) {
+    if (!user || !user.email) return;
+    try {
+      const accounts = JSON.parse(localStorage.getItem("aii_accounts") || "{}");
+      accounts[user.email.toLowerCase()] = user;
+      localStorage.setItem("aii_accounts", JSON.stringify(accounts));
+    } catch (e) {}
+  }
+
   // Auto-push whenever aii_user changes, from ANY page, without needing
   // every file that saves progress to remember to call sync itself.
   if (!localStorage.__aiiSyncPatched) {
     const realSetItem = localStorage.setItem.bind(localStorage);
     localStorage.setItem = function (key, value) {
       realSetItem(key, value);
-      if (key === "aii_user") window.aiiSyncPush();
+      if (key === "aii_user") {
+        window.aiiSyncPush();
+        try { mirrorToLocalAccounts(JSON.parse(value)); } catch (e) {}
+      }
     };
     try { localStorage.__aiiSyncPatched = "1"; } catch (e) {}
   }

@@ -563,8 +563,8 @@
 <div class="container" id="successContainer" style="display:none;">
   <div class="success-screen show" style="grid-column: 1 / -1; text-align:center;">
     <div class="nova-box" id="successMascot" style="margin: 0 auto 20px;"></div>
-    <h2>Welcome to AI Innovators! 🎉</h2>
-    <p>Your account is ready, <span id="welcomeName">friend</span>! Let's keep learning!</p>
+    <h2 id="successTitle">Welcome to AI Innovators! 🎉</h2>
+    <p id="successSub">Your account is ready, <span id="welcomeName">friend</span>! Let's keep learning!</p>
     <div id="rewardsRestored" style="display:none; max-width: 400px; margin: 0 auto 20px;" class="pending-banner">
       <div class="pending-icon"><svg width="20" height="20" style="color:white;"><use href="#i-check"/></svg></div>
       <div>
@@ -765,7 +765,14 @@ function handleSubmit(e) {
 function showSuccessScreen(user) {
   document.getElementById("mainContainer").style.display = "none";
   document.getElementById("successContainer").style.display = "grid";
-  document.getElementById("welcomeName").textContent = user.name;
+
+  if (currentMode === "login") {
+    document.getElementById("successTitle").textContent = "Welcome back! 🎉";
+    document.getElementById("successSub").innerHTML = 'Good to see you again, <span id="welcomeName">' + (user.name || "friend") + '</span>! Let\'s keep learning!';
+  } else {
+    document.getElementById("successTitle").textContent = "Welcome to AI Innovators! 🎉";
+    document.getElementById("successSub").innerHTML = 'Your account is ready, <span id="welcomeName">' + (user.name || "friend") + '</span>! Let\'s keep learning!';
+  }
 
   if (pendingProgress && pendingProgress.xp > 0) {
     document.getElementById("rewardsRestored").style.display = "flex";
