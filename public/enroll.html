@@ -692,16 +692,42 @@ function handleSubmit(e) {
     if (password.length < 6) { alert("Password needs at least 6 characters."); return; }
   }
 
+  // Quick-signup accounts (no real backend) are remembered per-device in a
+  // small local directory, keyed by lowercased email, so more than one
+  // person can sign up on the same device without erasing each other.
+  function getLocalAccounts() {
+    try { return JSON.parse(localStorage.getItem("aii_accounts") || "{}"); } catch(e) { return {}; }
+  }
+  function saveLocalAccount(u) {
+    try {
+      const accounts = getLocalAccounts();
+      accounts[u.email.toLowerCase()] = u;
+      localStorage.setItem("aii_accounts", JSON.stringify(accounts));
+    } catch(e) {}
+  }
+
   if (currentMode === "login") {
     // This quick login only works on the SAME device (no real backend to check
     // email/password against). Look for a matching local account instead of
     // silently creating a blank one.
-    let existingUser = null;
-    try { existingUser = JSON.parse(localStorage.getItem("aii_user") || "null"); } catch(e) {}
+    const accounts = getLocalAccounts();
+    let match = accounts[email.toLowerCase()];
 
-    if (existingUser && existingUser.email && existingUser.email.toLowerCase() === email.toLowerCase()) {
-      // Found a matching account on this device — log back into it as-is.
-      showSuccessScreen(existingUser);
+    // Fall back to whatever's currently active, in case it predates the
+    // multi-account directory and was never migrated into it.
+    if (!match) {
+      try {
+        const current = JSON.parse(localStorage.getItem("aii_user") || "null");
+        if (current && current.email && current.email.toLowerCase() === email.toLowerCase()) match = current;
+      } catch(e) {}
+    }
+
+    if (match) {
+      try {
+        localStorage.setItem("aii_user", JSON.stringify(match));
+        saveLocalAccount(match);
+      } catch(e) {}
+      showSuccessScreen(match);
       return;
     }
 
@@ -727,6 +753,7 @@ function handleSubmit(e) {
 
   try {
     localStorage.setItem("aii_user", JSON.stringify(user));
+    saveLocalAccount(user);
     // Clear pending progress (now saved to user)
     localStorage.removeItem("aii_pending_progress");
     localStorage.removeItem("aii_guest_progress");
