@@ -692,6 +692,23 @@ function handleSubmit(e) {
     if (password.length < 6) { alert("Password needs at least 6 characters."); return; }
   }
 
+  if (currentMode === "login") {
+    // This quick login only works on the SAME device (no real backend to check
+    // email/password against). Look for a matching local account instead of
+    // silently creating a blank one.
+    let existingUser = null;
+    try { existingUser = JSON.parse(localStorage.getItem("aii_user") || "null"); } catch(e) {}
+
+    if (existingUser && existingUser.email && existingUser.email.toLowerCase() === email.toLowerCase()) {
+      // Found a matching account on this device — log back into it as-is.
+      showSuccessScreen(existingUser);
+      return;
+    }
+
+    alert("We couldn't find an account with that email on this device. Quick sign-in only works on the same device you signed up on — use \"Continue with Google\" instead for an account that works across all your devices, or switch to Sign Up to create a new one.");
+    return;
+  }
+
   // ⚠️ DEMO ONLY: this saves to localStorage in your browser.
   // For a real app, send these to your backend (Firebase, Supabase, etc.)
   const user = {
