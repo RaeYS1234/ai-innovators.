@@ -796,28 +796,51 @@ function showSuccessScreen(user) {
 }
 
 async function signInWithGoogle() {
-  await signInWithSocialProvider("firebaseSignInWithGoogle", "Google");
-}
-
-async function signInWithApple() {
-  await signInWithSocialProvider("firebaseSignInWithApple", "Apple");
-}
-
-async function signInWithSocialProvider(fnName, providerLabel) {
   // Wait for Firebase module to load
-  if (!window[fnName]) {
-    // Try waiting a moment, the script tag might still be loading
+  if (!window.firebaseSignInWithGoogle) {
     await new Promise(r => setTimeout(r, 500));
-    if (!window[fnName]) {
+    if (!window.firebaseSignInWithGoogle) {
       alert("Sign in is still loading. Give it a sec and try again!");
       return;
     }
   }
-
   try {
-    const fbUser = await window[fnName]();
+    const fbUser = await window.firebaseSignInWithGoogle();
     if (!fbUser) return; // popup was closed
+    await finishSocialSignIn(fbUser, "Google");
+  } catch (err) {
+    // Closing the popup is not an error — be silent
+    if (err && (err.code === "auth/popup-closed-by-user" || err.code === "auth/cancelled-popup-request")) return;
+    console.error("Google sign-in error:", err);
+    alert("Hmm, sign in didn't work. Try again?\n\nError: " + (err && err.message ? err.message : err));
+  }
+}
 
+async function signInWithApple() {
+  // Apple sign-in uses a full-page redirect instead of a popup — Safari's
+  // own OS-level Apple ID sheet doesn't reliably hand control back to a
+  // popup window, which shows up as a confusing "sign up not completed"
+  // error. A redirect avoids that: the page navigates to appleid.apple.com
+  // and back, and we pick up the result in checkAppleRedirectResult() below.
+  if (!window.firebaseSignInWithApple) {
+    await new Promise(r => setTimeout(r, 500));
+    if (!window.firebaseSignInWithApple) {
+      alert("Sign in is still loading. Give it a sec and try again!");
+      return;
+    }
+  }
+  try {
+    await window.firebaseSignInWithApple(); // navigates away; page reloads after
+  } catch (err) {
+    console.error("Apple sign-in error:", err);
+    alert("Hmm, sign in didn't work. Try again?\n\nError: " + (err && err.message ? err.message : err));
+  }
+}
+
+// Shared finishing logic for both Google (popup) and Apple (redirect) sign-in.
+async function finishSocialSignIn(fbUser, providerLabel) {
+  if (!fbUser) return;
+  try {
     // Check if this account has already signed up on this device
     let existingUser = null;
     try { existingUser = JSON.parse(localStorage.getItem("aii_user") || "null"); } catch(e) {}
@@ -869,12 +892,26 @@ async function signInWithSocialProvider(fnName, providerLabel) {
 
     showSuccessScreen(user);
   } catch (err) {
-    // Closing the popup is not an error — be silent
-    if (err && (err.code === "auth/popup-closed-by-user" || err.code === "auth/cancelled-popup-request")) return;
     console.error(providerLabel + " sign-in error:", err);
     alert("Hmm, sign in didn't work. Try again?\n\nError: " + (err && err.message ? err.message : err));
   }
 }
+
+// On page load, check whether we just came BACK from an Apple redirect
+// sign-in (see signInWithApple above) and finish the flow if so.
+(async function checkAppleRedirectResult() {
+  for (let i = 0; i < 10 && !window.firebaseGetAppleRedirectResult; i++) {
+    await new Promise(r => setTimeout(r, 200));
+  }
+  if (!window.firebaseGetAppleRedirectResult) return;
+  try {
+    const fbUser = await window.firebaseGetAppleRedirectResult();
+    if (fbUser) await finishSocialSignIn(fbUser, "Apple");
+  } catch (err) {
+    console.error("Apple redirect result error:", err);
+    if (err && err.message) alert("Hmm, sign in didn't work. Try again?\n\nError: " + err.message);
+  }
+})();
 
 function goHome() {
   window.location.href = "/";
@@ -913,7 +950,7 @@ function confettiBurst() {
 <!-- ============ FIREBASE: Google Sign-In ============ -->
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
-  import { getAuth, GoogleAuthProvider, OAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-auth.js";
+  import { getAuth, GoogleAuthProvider, OAuthProvider, signInWithPopup, signInWithRedirect, getRedirectResult } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-auth.js";
 
   const firebaseConfig = {
     apiKey: "AIzaSyDj-0TOvaENVWvUgP-MIJpy0xxYGzzxymg",
@@ -944,9 +981,16 @@ function confettiBurst() {
     return result.user;
   };
 
+  // Apple uses a redirect instead of a popup (see signInWithApple() below in
+  // the non-module script for why) — this kicks off the redirect...
   window.firebaseSignInWithApple = async function() {
-    const result = await signInWithPopup(auth, appleProvider);
-    return result.user;
+    await signInWithRedirect(auth, appleProvider);
+  };
+
+  // ...and this picks up the result once the page reloads after the redirect.
+  window.firebaseGetAppleRedirectResult = async function() {
+    const result = await getRedirectResult(auth);
+    return result ? result.user : null;
   };
 </script>
 
