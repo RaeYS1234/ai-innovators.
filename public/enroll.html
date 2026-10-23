@@ -720,6 +720,50 @@ function handleSubmit(e) {
     } catch(e) {}
   }
 
+  // Real email + password accounts (Firebase), so the same login works on
+  // every device — including Apple's App Review test devices.
+  if (window.firebaseEmailSignIn && window.firebaseEmailSignUp) {
+    const btn = document.getElementById("submitBtn");
+    if (btn) btn.disabled = true;
+    (async () => {
+      try {
+        if (currentMode === "login") {
+          let fbUser;
+          try {
+            fbUser = await window.firebaseEmailSignIn(email, password);
+          } catch (err) {
+            // Older accounts were only saved on this device; still let them in here.
+            const legacy = getLocalAccounts()[email.toLowerCase()];
+            if (legacy && (err.code === "auth/invalid-credential" || err.code === "auth/user-not-found")) {
+              localStorage.setItem("aii_user", JSON.stringify(legacy));
+              showSuccessScreen(legacy);
+              return;
+            }
+            throw err;
+          }
+          await finishSocialSignIn(fbUser, "Email");
+        } else {
+          const fbUser = await window.firebaseEmailSignUp(email, password, name);
+          await finishSocialSignIn(fbUser, "Email");
+          try {
+            const u = JSON.parse(localStorage.getItem("aii_user") || "null");
+            if (u) {
+              u.name = name;
+              u.grade = selectedGrade;
+              localStorage.setItem("aii_user", JSON.stringify(u));
+              saveLocalAccount(u);
+            }
+          } catch (e) {}
+        }
+      } catch (err) {
+        alert(friendlyAuthError(err));
+      } finally {
+        if (btn) btn.disabled = false;
+      }
+    })();
+    return;
+  }
+
   if (currentMode === "login") {
     // This quick login only works on the SAME device (no real backend to check
     // email/password against). Look for a matching local account instead of
@@ -745,7 +789,7 @@ function handleSubmit(e) {
       return;
     }
 
-    alert("We couldn't find an account with that email on this device. Quick sign-in only works on the same device you signed up on — use \"Continue with Google\" instead for an account that works across all your devices, or switch to Sign Up to create a new one.");
+    alert("We couldn't find an account with that email on this device. Quick sign-in only works on the same device you signed up on — or switch to Sign Up to create a new one.");
     return;
   }
 
@@ -774,6 +818,17 @@ function handleSubmit(e) {
   } catch(e) {}
 
   showSuccessScreen(user);
+}
+
+function friendlyAuthError(err) {
+  const code = err && err.code;
+  if (code === "auth/email-already-in-use") return "There's already an account with that email. Tap \"Log In\" at the top instead.";
+  if (code === "auth/invalid-credential" || code === "auth/wrong-password" || code === "auth/user-not-found") return "That email or password doesn't match. Check them and try again, or tap \"Sign Up\" to make a new account.";
+  if (code === "auth/invalid-email") return "That email doesn't look right. Check it and try again.";
+  if (code === "auth/weak-password") return "Password needs at least 6 characters.";
+  if (code === "auth/network-request-failed") return "No internet connection. Check your Wi-Fi and try again.";
+  if (code === "auth/too-many-requests") return "Too many tries. Wait a minute and try again.";
+  return "Hmm, that didn't work. Try again?\n\n" + (err && err.message ? err.message : err);
 }
 
 function showSuccessScreen(user) {
@@ -954,7 +1009,7 @@ function confettiBurst() {
 <!-- ============ FIREBASE: Google Sign-In ============ -->
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
-  import { getAuth, GoogleAuthProvider, OAuthProvider, signInWithPopup, signInWithRedirect, getRedirectResult } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-auth.js";
+  import { getAuth, GoogleAuthProvider, OAuthProvider, signInWithPopup, signInWithRedirect, getRedirectResult, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-auth.js";
 
   const firebaseConfig = {
     apiKey: "AIzaSyDj-0TOvaENVWvUgP-MIJpy0xxYGzzxymg",
@@ -978,6 +1033,17 @@ function confettiBurst() {
   const appleProvider = new OAuthProvider("apple.com");
   appleProvider.addScope("email");
   appleProvider.addScope("name");
+
+  // Email + password accounts that work on every device
+  window.firebaseEmailSignUp = async function(email, password, name) {
+    const cred = await createUserWithEmailAndPassword(auth, email, password);
+    if (name) { try { await updateProfile(cred.user, { displayName: name }); } catch (e) {} }
+    return cred.user;
+  };
+  window.firebaseEmailSignIn = async function(email, password) {
+    const cred = await signInWithEmailAndPassword(auth, email, password);
+    return cred.user;
+  };
 
   // Expose to the non-module script that handles the button clicks
   window.firebaseSignInWithGoogle = async function() {
