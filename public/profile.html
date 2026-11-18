@@ -190,6 +190,15 @@
   .signout-btn:hover { transform: translateY(-1px); box-shadow: 0 5px 0 #b91c1c; }
   .signout-btn:active { transform: translateY(2px); box-shadow: 0 2px 0 #b91c1c; }
 
+  /* Delete account */
+  .delete-section { margin-top: 16px; padding: 20px; background: #fff; border-radius: 20px; border: 2px solid #fecaca; text-align: center; }
+  .delete-section p { font-size: 14px; color: #7f1d1d; margin-bottom: 12px; }
+  .delete-link-btn { background: none; color: #b91c1c; font-weight: 800; font-size: 15px; text-decoration: underline; padding: 6px 10px; }
+  .delete-input { width: 100%; border: 2px solid #fecaca; border-radius: 12px; padding: 12px; font-size: 15px; margin-bottom: 12px; box-sizing: border-box; }
+  .delete-confirm-btn { background: #ef4444; color: #fff; padding: 12px 22px; border-radius: 12px; font-weight: 800; }
+  .delete-confirm-btn:disabled { opacity: 0.5; }
+  .delete-cancel-btn { background: #e2e8f0; color: #0f172a; padding: 12px 22px; border-radius: 12px; font-weight: 800; }
+
   /* Notifications */
   .notify-section { margin-top: 20px; padding: 20px; background: #eff6ff; border-radius: 20px; border: 2px solid #bfdbfe; text-align: center; }
   .notify-section p { font-size: 14px; color: #1e3a8a; margin-bottom: 12px; }
@@ -347,6 +356,25 @@
     <button class="signout-btn" onclick="handleSignOut()">Sign Out</button>
   </div>
 
+  <!-- Delete account (App Store guideline 5.1.1(v)) -->
+  <div class="delete-section">
+    <p>Want to remove your account and all your progress for good?</p>
+    <button class="delete-link-btn" onclick="openDeleteModal()">Delete My Account</button>
+  </div>
+
+</div>
+
+<div class="modal-overlay" id="deleteModal">
+  <div class="modal-box">
+    <h3>Delete your account?</h3>
+    <p>This permanently deletes your account, XP, badges, streak and all lesson progress. It can't be undone.</p>
+    <input class="delete-input" id="deletePassword" type="password" placeholder="Your password" autocomplete="current-password" style="display:none">
+    <input class="delete-input" id="deleteConfirmText" type="text" placeholder="Type DELETE to confirm" autocapitalize="characters" oninput="updateDeleteBtn()">
+    <div class="modal-btn-row">
+      <button class="delete-cancel-btn" onclick="closeModal('deleteModal')">Cancel</button>
+      <button class="delete-confirm-btn" id="deleteConfirmBtn" onclick="handleDeleteAccount()" disabled>Delete Forever</button>
+    </div>
+  </div>
 </div>
 
 <div class="toast" id="toast">Saved!</div>
@@ -629,6 +657,62 @@ async function handleSignOut() {
   window.location.href = "/";
 }
 
+// ============ DELETE ACCOUNT ============
+function openDeleteModal() {
+  document.getElementById("deleteConfirmText").value = "";
+  const pw = document.getElementById("deletePassword");
+  pw.value = "";
+  // Email/password accounts need their password to confirm it's really them
+  const isEmailAccount = !!(user && user.firebaseUid && !user.photoURL);
+  pw.style.display = isEmailAccount ? "block" : "none";
+  updateDeleteBtn();
+  document.getElementById("deleteModal").classList.add("show");
+}
+
+function updateDeleteBtn() {
+  const ok = document.getElementById("deleteConfirmText").value.trim().toUpperCase() === "DELETE";
+  document.getElementById("deleteConfirmBtn").disabled = !ok;
+}
+
+function clearAllLocalData() {
+  try {
+    const email = user && user.email ? user.email.toLowerCase() : null;
+    const accounts = JSON.parse(localStorage.getItem("aii_accounts") || "{}");
+    if (email) delete accounts[email];
+    localStorage.setItem("aii_accounts", JSON.stringify(accounts));
+    Object.keys(localStorage).forEach(k => {
+      if (k === "aii_accounts") return;
+      if (k.startsWith("aii_") || k.startsWith("lastSeen_")) localStorage.removeItem(k);
+    });
+  } catch (e) {}
+}
+
+async function handleDeleteAccount() {
+  const btn = document.getElementById("deleteConfirmBtn");
+  btn.disabled = true;
+  btn.textContent = "Deleting...";
+  try {
+    if (user && user.firebaseUid) {
+      if (!window.firebaseDeleteAccount) throw new Error("Still loading. Wait a second and try again.");
+      const pw = document.getElementById("deletePassword").value;
+      await window.firebaseDeleteAccount(user.firebaseUid, pw);
+    }
+    clearAllLocalData();
+    closeModal("deleteModal");
+    alert("Your account and all your data have been deleted.");
+    window.location.href = "/";
+  } catch (err) {
+    const code = err && err.code;
+    let msg = "Hmm, that didn't work. Try again?\n\n" + (err && err.message ? err.message : err);
+    if (code === "auth/invalid-credential" || code === "auth/wrong-password") msg = "That password isn't right. Try again.";
+    if (code === "auth/missing-password") msg = "Please type your password to confirm.";
+    if (code === "auth/network-request-failed") msg = "No internet connection. Check your Wi-Fi and try again.";
+    alert(msg);
+    btn.textContent = "Delete Forever";
+    updateDeleteBtn();
+  }
+}
+
 function goHome() { window.location.href = "/"; }
 
 // ============ INITIAL RENDER ============
@@ -644,8 +728,9 @@ if (user) {
 
 <!-- Firebase sign-out helper (so the picker shows next time too) -->
 <script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
-  import { getAuth, signOut } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-auth.js";
+  import { initializeApp, getApps, getApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
+  import { getAuth, signOut, deleteUser, reauthenticateWithCredential, reauthenticateWithPopup, EmailAuthProvider, GoogleAuthProvider, OAuthProvider } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-auth.js";
+  import { getFirestore, doc, deleteDoc } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore.js";
   const firebaseConfig = {
     apiKey: "AIzaSyDj-0TOvaENVWvUgP-MIJpy0xxYGzzxymg",
     authDomain: "ai-innovators-6fc07.firebaseapp.com",
@@ -654,9 +739,37 @@ if (user) {
     messagingSenderId: "316596960929",
     appId: "1:316596960929:web:152759a44e57e25462fae0"
   };
-  const app = initializeApp(firebaseConfig);
+  const app = getApps().length ? getApp() : initializeApp(firebaseConfig);
   const auth = getAuth(app);
   window.firebaseSignOutFromProfile = async () => signOut(auth);
+
+  // Permanently delete the signed-in account: cloud progress + login.
+  window.firebaseDeleteAccount = async (uid, password) => {
+    await auth.authStateReady();
+    const fbUser = auth.currentUser;
+    if (!fbUser) {
+      // Not signed in to Firebase on this device: nothing in the cloud to reach.
+      return;
+    }
+    const providerId = (fbUser.providerData[0] || {}).providerId;
+    // Re-confirm identity first (Firebase requires a recent sign-in to delete).
+    if (providerId === "password") {
+      const cred = EmailAuthProvider.credential(fbUser.email, password || "");
+      await reauthenticateWithCredential(fbUser, cred);
+    }
+    try { await deleteDoc(doc(getFirestore(app), "users", fbUser.uid)); } catch (e) { console.warn("[delete] cloud data:", e); }
+    try {
+      await deleteUser(fbUser);
+    } catch (e) {
+      if (e.code === "auth/requires-recent-login" && providerId !== "password") {
+        const provider = providerId === "apple.com" ? new OAuthProvider("apple.com") : new GoogleAuthProvider();
+        await reauthenticateWithPopup(fbUser, provider);
+        await deleteUser(fbUser);
+      } else {
+        throw e;
+      }
+    }
+  };
 </script>
 
 <script src="sync.js"></script>
